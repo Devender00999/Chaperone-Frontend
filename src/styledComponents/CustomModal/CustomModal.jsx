@@ -1,23 +1,19 @@
 import React from "react";
-import {
-  ModalContainer,
-  ModalClose,
-  ModalOverlay,
-  ModalBody,
-} from "./CustomModal.styles";
+import * as Modal from "./CustomModal.styles";
 
-const StyedModal = ({ showModal, setShowModal, Component }) => {
+const StyledModal = ({ showModal, setShowModal, Component }) => {
   return (
-    <ModalOverlay style={{ display: showModal ? "flex" : "none" }}>
-      <ModalContainer>
-        <ModalClose
+    <Modal.ModalOverlay style={{ display: showModal ? "flex" : "none" }}>
+      <Modal.ModalContainer>
+        <Modal.ModalClose
+          draggable={false}
           onClick={() => setShowModal(!showModal)}
           src="images/cancel.png"
         />
-        <ModalBody>{<Component />}</ModalBody>
-      </ModalContainer>
-    </ModalOverlay>
+        <Modal.ModalBody>{<Component />}</Modal.ModalBody>
+      </Modal.ModalContainer>
+    </Modal.ModalOverlay>
   );
 };
 
-export default StyedModal;
+export default StyledModal;

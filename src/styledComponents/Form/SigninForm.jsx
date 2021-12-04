@@ -1,27 +1,20 @@
 import React from "react";
-import {
-  FormContainer,
-  FormHeading,
-  FormLink,
-  FormText,
-  Input,
-  FormButton,
-} from "./Form.styles";
+import * as Form from "./Form.styles";
 
 const SignInForm = () => {
   return (
-    <FormContainer action="" method="">
-      <FormHeading>Sign In</FormHeading>
-      <FormText>
-        New User? <FormLink href="">Create an Account</FormLink>
-      </FormText>
-      <Input type="email" placeholder="Email*" required />
-      <Input type="password" placeholder="Password*" required />
-      <FormLink href="" style={{ alignSelf: "flex-end" }}>
-        Forget Password
-      </FormLink>
-      <FormButton type="submit">Sign In</FormButton>
-    </FormContainer>
+    <Form.FormContainer action="" method="">
+      <Form.FormHeading>Sign In</Form.FormHeading>
+      <Form.FormText>
+        New User? <Form.FormLink href="">Create an Account</Form.FormLink>
+      </Form.FormText>
+      <Form.Input type="email" placeholder="Email*" required />
+      <Form.Input type="password" placeholder="Password*" required />
+      <Form.FormLink href="" style={{ alignSelf: "flex-end" }}>
+        Forget Password?
+      </Form.FormLink>
+      <Form.FormButton type="submit">Sign In</Form.FormButton>
+    </Form.FormContainer>
   );
 };
 
