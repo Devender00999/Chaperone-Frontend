@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { StyledButtons } from "../../components/common/Button.styles";
-import StyedModal from "../CustomModal/CustomModal";
+import StyledModal from "../CustomModal/CustomModal";
 
 import SignInForm from "../Form/SigninForm";
+import SignUpForm from "../Form/SignUpForm";
 import {
   ButtonSection,
   Desc,
@@ -38,14 +39,16 @@ const Header = () => {
           relevant to their college degree.
         </Desc>
         <ButtonSection>
-          <StyledButtons>Create a new account</StyledButtons>
+          <StyledButtons onClick={(e) => handleClick(e, SignUpForm)}>
+            Create a new account
+          </StyledButtons>
           <StyledButtons>Sign in with Google</StyledButtons>
           <StyledButtons onClick={(e) => handleClick(e, SignInForm)}>
             Sign in with Email
           </StyledButtons>
         </ButtonSection>
       </LoginSection>
-      <StyedModal
+      <StyledModal
         showModal={showModal}
         setShowModal={setShowModal}
         Component={componentForm.content}
