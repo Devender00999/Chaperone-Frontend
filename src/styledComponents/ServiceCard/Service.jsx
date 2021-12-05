@@ -1,10 +1,23 @@
 import React from "react";
-import { CardContainer } from "./Service.styles";
+import {
+  ServiceContainer,
+  ServiceDesc,
+  ServiceIcon,
+  ServiceLink,
+  ServiceTitle,
+} from "./Service.styles";
 
-const Service = () => {
-  return <CardContainer>
-      
-  </CardContainer>;
+const Service = ({ service }) => {
+  return (
+    <ServiceContainer>
+      <ServiceIcon className="gradient-border" src={service.icon} />
+      <ServiceTitle>{service.title}</ServiceTitle>
+      <ServiceDesc>{service.desc}</ServiceDesc>
+      <ServiceLink href={service.link}>
+        <img src="/images/common/arrow.png" alt="Arrow" />
+      </ServiceLink>
+    </ServiceContainer>
+  );
 };
 
 export default Service;

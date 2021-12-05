@@ -9,6 +9,14 @@ export const ServicesContainer = styled.div`
   padding: 3rem 0;
 `;
 
+export const ServicesCards = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 4rem;
+  column-gap: 4rem;
+`;
+
 export const ServicesHeading = styled.h1`
   font-family: Poppins;
   font-size: 1.8rem;
@@ -24,11 +32,47 @@ export const ServicesHeading = styled.h1`
   margin-bottom: 2.5rem;
 `;
 
-export const CardContainer = styled.div`
-  width: 250px;
-  height: 250px;
+export const ServiceContainer = styled.div`
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  justify-content: space-evenly;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.8);
 `;
 
-// export
+export const ServiceIcon = styled.img`
+  width: 50px;
+  height: 50px;
+  margin-bottom: 1rem;
+`;
+
+export const ServiceTitle = styled.h2`
+  font-family: Poppins;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #515151;
+  padding-bottom: 1rem;
+`;
+
+export const ServiceDesc = styled.p`
+  font-family: Poppins;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0px;
+  text-align: left;
+`;
+
+export const ServiceLink = styled.a`
+  text-decoration: none;
+  align-self: flex-end;
+  margin-top: 1rem;
+`;
