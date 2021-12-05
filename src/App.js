@@ -1,11 +1,10 @@
 import React from "react";
-
-import Header from "./styledComponents/Header/Header";
+import Home from "./pages/Home";
 
 const App = () => {
   return (
     <div className="App" style={{ transition: "all ease-in 100ms" }}>
-      <Header />
+      <Home />
     </div>
   );
 };
