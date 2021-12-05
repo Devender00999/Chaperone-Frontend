@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Form from "./Form.styles";
 
 const SignUpForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <Form.FormContainer action="" method="">
       <Form.FormHeading>Create an account</Form.FormHeading>
@@ -16,12 +18,17 @@ const SignUpForm = () => {
         placeholder="Mobile Number*"
         required
       />
-      <Form.Input
-        name="password"
-        type="password"
-        placeholder="Password*"
-        required
-      />
+      <Form.FormPasswordContainer>
+        <Form.FormShowPassword
+          src="/images/show-password.svg"
+          onClick={() => setShowPassword(!showPassword)}
+        />
+        <Form.Input
+          type={showPassword ? "text" : "password"}
+          placeholder="Password*"
+          required
+        />
+      </Form.FormPasswordContainer>
       <Form.FormLink href="" style={{ alignSelf: "flex-end" }}>
         Forget Password?
       </Form.FormLink>
