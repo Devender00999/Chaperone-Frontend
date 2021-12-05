@@ -1,11 +1,12 @@
 import React from "react";
+import { Route, Routes } from "react-router";
 import Home from "./pages/Home";
 
 const App = () => {
   return (
-    <div className="App" style={{ transition: "all ease-in 100ms" }}>
-      <Home />
-    </div>
+    <Routes>
+      <Route path="/" exact element={<Home />} />
+    </Routes>
   );
 };
 
