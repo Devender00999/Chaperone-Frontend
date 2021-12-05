@@ -44,4 +44,26 @@ const FormButton = styled.button`
   border-radius: 5px;
   margin-top: 20px;
 `;
-export { FormContainer, Input, FormHeading, FormLink, FormText, FormButton };
+
+const FormPasswordContainer = styled.div`
+  position: relative;
+`;
+
+const FormShowPassword = styled.img`
+  width: 22px;
+  position: absolute;
+  right: 15px;
+  top: 24px;
+  margin: auto;
+  cursor: pointer;
+`;
+export {
+  FormPasswordContainer,
+  FormContainer,
+  FormShowPassword,
+  Input,
+  FormHeading,
+  FormLink,
+  FormText,
+  FormButton,
+};
