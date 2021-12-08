@@ -1,14 +1,25 @@
 import styled from "styled-components";
 
-const FormContainer = styled.form`
+export const FormContainer = styled.form`
   display: flex;
   padding: 15px 40px;
   flex-direction: column;
   font-family: "Mulish", sans-serif;
 `;
 
-const Input = styled.input`
-  padding: 10px 15px;
+export const Icon = styled.img`
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  opacity: 0.5;
+  transform: translateY(-10%);
+  margin: auto;
+`;
+
+export const Input = styled.input`
+  padding: 10px 20px 10px 40px;
   margin-top: 15px;
   font-size: 16px;
   width: 500px;
@@ -19,25 +30,25 @@ const Input = styled.input`
   outline: none;
 `;
 
-const FormHeading = styled.h2`
+export const FormHeading = styled.h2`
   margin: 10px 0;
 `;
-const FormText = styled.p`
+export const FormText = styled.p`
   margin-bottom: 8px;
 `;
-const FormLink = styled.a`
+export const FormLink = styled.a`
   color: #ff6600;
   text-decoration: none;
   margin: 5px;
 `;
 
-const FormButton = styled.button`
+export const FormButton = styled.button`
   width: 150px;
   padding: 10px 0;
   align-self: center;
   font-size: 16px;
   background: #ff6600;
-  font-weight: bolder;
+  font-weight: normal;
   cursor: pointer;
   color: white;
   border: none;
@@ -45,25 +56,16 @@ const FormButton = styled.button`
   margin-top: 20px;
 `;
 
-const FormPasswordContainer = styled.div`
+export const FormInputContainer = styled.div`
   position: relative;
 `;
 
-const FormShowPassword = styled.img`
+export const FormShowPassword = styled.img`
   width: 22px;
   position: absolute;
-  right: 15px;
-  top: 24px;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-15%);
   margin: auto;
   cursor: pointer;
 `;
-export {
-  FormPasswordContainer,
-  FormContainer,
-  FormShowPassword,
-  Input,
-  FormHeading,
-  FormLink,
-  FormText,
-  FormButton,
-};

@@ -16,13 +16,13 @@ const Footer = () => {
       </FooterText>
       <FooterLogo src="/images/logo/logo.svg" alt="site-logo" />
       <FooterSocialContainer>
-        <a href="">
+        <a href="/">
           <FooterSocial src="/images/footer/facebook.svg" />
         </a>
-        <a href="">
+        <a href="/">
           <FooterSocial src="/images/footer/instagram.svg" />
         </a>
-        <a href="">
+        <a href="/">
           <FooterSocial src="/images/footer/linkedin.svg" />
         </a>
       </FooterSocialContainer>
