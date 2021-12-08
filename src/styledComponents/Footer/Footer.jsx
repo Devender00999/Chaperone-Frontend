@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   FooterContainer,
   FooterHeading,
@@ -9,8 +9,6 @@ import {
 } from "./Footer.styles";
 
 const Footer = () => {
-  const [showPassword, setShowPassword] = useState(false);
-
   return (
     <FooterContainer>
       <FooterText>
