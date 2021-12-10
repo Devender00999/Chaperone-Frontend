@@ -42,7 +42,9 @@ const Header = () => {
           <StyledButtons onClick={(e) => handleClick(e, SignUpForm)}>
             Create a new account
           </StyledButtons>
-          <StyledButtons>Sign in with Google</StyledButtons>
+          <StyledButtons onClick={() => (window.location = "/home")}>
+            Sign in with Google
+          </StyledButtons>
           <StyledButtons onClick={(e) => handleClick(e, SignInForm)}>
             Sign in with Email
           </StyledButtons>
