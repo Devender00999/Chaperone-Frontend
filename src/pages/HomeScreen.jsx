@@ -18,11 +18,50 @@ const HomeScreen = (props) => {
     { value: "Interest", selected: false },
     { value: "Interest", selected: false },
   ];
+  const sideData = [
+    {
+      title: "Home",
+      link: "/",
+      icon: "/images/common/home.svg",
+      selected: true,
+    },
+    {
+      title: "Admission",
+      link: "/admin/blogs",
+      icon: "/images/sidebar/blogs.svg",
+      selected: false,
+    },
+    {
+      title: "Roadmap",
+      link: "/admin/blogs",
+      icon: "/images/sidebar/blogs.svg",
+      selected: false,
+    },
+    {
+      title: "Career Aware",
+      link: "/admin/career-aware",
+      icon: "/images/sidebar/careeraware.svg",
+      selected: false,
+    },
+    {
+      title: "Find PG",
+      link: "/admin/find-pg",
+      icon: "/images/sidebar/findpg.svg",
+      selected: false,
+    },
+    {
+      title: "Easy Buy",
+      link: "/admin/easy-buy",
+      icon: "/images/sidebar/easybuy.svg",
+      selected: false,
+    },
+  ];
+
   return (
     <StyledContainer id="container">
       <Navbar />
       <StyledMain className="main">
-        <SideBar title="Dashboard"></SideBar>
+        <SideBar sideData={sideData} title="Home"></SideBar>
         <Content>
           <MainContent direction="column">
             <Tags tags={tags} />
