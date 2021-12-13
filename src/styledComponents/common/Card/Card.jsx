@@ -1,14 +1,16 @@
 import React from "react";
-import { NavUser, NavUserImage, NavUserName } from "../../Navbar/Navbar.styles";
-// import User from "../User/User";
+// import { User, UserImage, UserName } from "../../Navbar/Navbar.styles";
+import User from "../User/User";
+import { UserDetails, UserProps } from "../User/User.styles";
 import {
   CardContainer,
   CardData,
   CardDesc,
   CardHeading,
   CardImage,
-  UserDetails,
 } from "./Card.styles";
+import ShareIcon from "@mui/icons-material/Share";
+import Like from "../Like";
 
 const Card = (props) => {
   return (
@@ -22,10 +24,18 @@ const Card = (props) => {
           confusing! We are here to give you full guidance...
         </CardDesc>
         <UserDetails>
-          <NavUser>
-            <NavUserImage src="/images/navbar/defaultuser.svg" />
-            <NavUserName>Devender Kumar</NavUserName>
-          </NavUser>{" "}
+          <User
+            className="secondary-color"
+            image="/images/common/user-2.svg"
+            name="Deepak Kumar"
+          />
+          <UserProps>
+            <Like className="cursor-pointer" />
+            <ShareIcon
+              className="cursor-pointer"
+              style={{ marginLeft: "1rem" }}
+            />
+          </UserProps>
         </UserDetails>
       </CardData>
     </CardContainer>

@@ -13,3 +13,11 @@
     #ff6600 97.72%
   );
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.secondary-color {
+  color: #ff6600;
+}

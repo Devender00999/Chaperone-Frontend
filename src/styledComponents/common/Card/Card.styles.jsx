@@ -34,7 +34,3 @@ export const CardDesc = styled.p`
   text-align: left;
   color: #666666;
 `;
-
-export const UserDetails = styled.div`
-  display: flex;
-`;

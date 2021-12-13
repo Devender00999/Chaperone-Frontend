@@ -4,11 +4,10 @@ import {
   NavbarSearchContainer,
   NavLogo,
   NavNotification,
-  NavUser,
-  NavUserImage,
-  NavUserName,
+  UserDetails,
 } from "./Navbar.styles";
 import NavbarSearh from "./Search";
+import User from "../common/User/User";
 const Navbar = () => {
   return (
     <NavbarContainer>
@@ -16,11 +15,11 @@ const Navbar = () => {
       <NavbarSearchContainer>
         <NavbarSearh style={{ width: "75%" }} />
       </NavbarSearchContainer>
-      <NavUser>
+      <UserDetails name="Deepak Kumar" image="/images/navbar/defaultuser.svg" />
+      <UserDetails>
         <NavNotification src="/images/navbar/notifications.svg" />
-        <NavUserImage src="/images/navbar/defaultuser.svg" />
-        <NavUserName>Devender Kumar</NavUserName>
-      </NavUser>
+        <User name="Deepak Kumar" image="/images/navbar/defaultuser.svg" />
+      </UserDetails>
     </NavbarContainer>
   );
 };

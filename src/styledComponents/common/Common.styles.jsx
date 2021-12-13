@@ -9,7 +9,6 @@ export const StyledContainer = styled.div`
 export const StyledMain = styled.div`
   display: flex;
   height: calc(100vh - 65px);
-  overflow: auto;
   max-width: 1200px;
   margin: 0 auto;
 `;
@@ -17,7 +16,6 @@ export const StyledMain = styled.div`
 export const Content = styled.div`
   padding: 1.25rem 1.25rem 0;
   height: calc(100vh - 95px);
-  overflow: auto;
   display: flex;
   width: 100%;
   border-left: 1px solid #f2f2f2;
@@ -27,6 +25,7 @@ export const MainContent = styled.div`
   display: flex;
   flex: ${(props) => props.flex};
   flex-direction: ${(props) => props.direction};
+  overflow: auto;
 `;
 export const LSideBarContainer = styled.div`
   display: flex;

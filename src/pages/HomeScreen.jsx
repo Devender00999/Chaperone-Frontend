@@ -67,6 +67,12 @@ const HomeScreen = (props) => {
           <MainContent direction="column" flex={3}>
             <Tags tags={tags} />
             <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
           </MainContent>
           <RightSideBar />
         </Content>

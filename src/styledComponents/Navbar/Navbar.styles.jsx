@@ -52,20 +52,20 @@ export const NavbarSearchInputContainer = styled.div`
   display: flex;
   align-items: center;
 `;
-export const NavUser = styled.div`
+export const UserDetails = styled.div`
   display: flex;
   align-items: center;
   flex: 1;
 `;
 
-export const NavUserImage = styled.img`
+export const UserImage = styled.img`
   width: 25px;
   height: 25px;
   margin-right: 10px;
   border-radius: 30px;
 `;
 
-export const NavUserName = styled.p`
+export const UserName = styled.p`
   font-family: "poppins";
   font-size: 16px;
   margin: 0;

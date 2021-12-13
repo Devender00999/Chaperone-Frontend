@@ -1,12 +1,33 @@
 import styled from "styled-components";
 
-export const UserContainer = styled.div``;
+export const UserDetails = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+export const UserContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const User = styled.div``;
 
 export const UserImage = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  border-radius: 30px;
 `;
 
 export const UserName = styled.p`
-    User
+  font-family: "poppins";
+  font-size: 16px;
+  margin: 0;
 `;
+
+export const UserProps = styled.div`
+  display: flex;
+`;
+
+export const Like = styled.i``;
