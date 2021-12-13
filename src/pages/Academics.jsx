@@ -1,5 +1,4 @@
 import React from "react";
-import Card from "../styledComponents/BlogsCard/BlogsCard";
 import {
   Content,
   MainContent,
