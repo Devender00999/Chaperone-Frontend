@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 export const SideBarItem = styled(Link)`
   padding: 10px 15px;
-  width: 170px;
+  width: 175px;
   margin-bottom: 5px;
   text-decoration: none;
   display: flex;
@@ -15,8 +15,8 @@ export const SideBarItem = styled(Link)`
 `;
 
 export const SideBarItemIcon = styled.img`
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   margin-right: 15px;
 `;
 export const SideBarItemText = styled.p`
