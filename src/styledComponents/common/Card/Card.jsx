@@ -21,13 +21,13 @@ const Card = (props) => {
           should you learn? And for each, there are a ton of courses. Super
           confusing! We are here to give you full guidance...
         </CardDesc>
+        <UserDetails>
+          <NavUser>
+            <NavUserImage src="/images/navbar/defaultuser.svg" />
+            <NavUserName>Devender Kumar</NavUserName>
+          </NavUser>{" "}
+        </UserDetails>
       </CardData>
-      <UserDetails>
-        <NavUser>
-          <NavUserImage src="/images/navbar/defaultuser.svg" />
-          <NavUserName>Devender Kumar</NavUserName>
-        </NavUser>{" "}
-      </UserDetails>
     </CardContainer>
   );
 };

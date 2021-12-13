@@ -10,7 +10,8 @@ export const StyledMain = styled.div`
   display: flex;
   height: calc(100vh - 65px);
   overflow: auto;
-  margin: 0 45px;
+  max-width: 1200px;
+  margin: 0 auto;
 `;
 
 export const Content = styled.div`

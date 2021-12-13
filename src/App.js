@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router";
 import Home from "./pages/Home";
 import HomeScreen from "./pages/HomeScreen";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   return (

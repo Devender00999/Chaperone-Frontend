@@ -20,16 +20,16 @@ export const SideBarItemIcon = styled.img`
   margin-right: 15px;
 `;
 export const SideBarItemText = styled.p`
-  font-family: "Poppins";
+  font-family: "Poppins" !important;
   font-size: 16px;
   margin: 0;
   color: ${(props) => (props.selected ? "#000" : "#797979")};
-  font-family: "poppins";
   line-height: 1.2;
 `;
 
 export const SideBarHeading = styled.p`
   color: #ff6600;
+  font-family: "Poppins";
   width: 100%;
   margin-bottom: 5px;
 `;
@@ -43,6 +43,7 @@ export const SideBarList = styled.ul`
 export const SideBarListItem = styled.li`
   margin-bottom: 5px;
   color: #666666;
+  font-family: "Poppins";
   font-size: 13px;
   width: 100%;
 `;

@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 
 export const TagContainer = styled.div`
   display: flex;
+  margin: 0 2rem;
 `;
 
 export const Tag = styled.button`

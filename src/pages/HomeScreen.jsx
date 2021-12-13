@@ -9,6 +9,7 @@ import {
 import Navbar from "../styledComponents/Navbar/Navbar";
 import SideBar from "../styledComponents/SidePanel/SideBar";
 import Tags from "../styledComponents/Tags/Tags";
+import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
 
 const HomeScreen = (props) => {
   const tags = [
@@ -63,10 +64,11 @@ const HomeScreen = (props) => {
       <StyledMain className="main">
         <SideBar sideData={sideData} title="Home"></SideBar>
         <Content>
-          <MainContent direction="column">
+          <MainContent direction="column" flex={3}>
             <Tags tags={tags} />
             <Card />
           </MainContent>
+          <RightSideBar />
         </Content>
       </StyledMain>
     </StyledContainer>
