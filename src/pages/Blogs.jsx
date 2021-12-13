@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "../styledComponents/common/Card/Card";
+import BlogsCard from "../styledComponents/BlogsCard/BlogsCard";
 import {
   Content,
   MainContent,
@@ -18,7 +18,7 @@ const Blogs = (props) => {
         <SideBar sideData={props.sideData} title="Write a blog"></SideBar>
         <Content>
           <MainContent direction="column" flex={3}>
-            <Card />
+            <BlogsCard />
           </MainContent>
           <RightSideBar />
         </Content>
