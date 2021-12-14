@@ -11,6 +11,14 @@ import SideBar from "../styledComponents/SidePanel/SideBar";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
 
 const Blogs = (props) => {
+  const blogs = [
+    {
+      image: "/images/blogs/Image.svg",
+      heading: "Complete Roadmap to Web Development 2021",
+      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
+    },
+  ];
+
   return (
     <StyledContainer id="container">
       <Navbar />
@@ -18,7 +26,9 @@ const Blogs = (props) => {
         <SideBar sideData={props.sideData} title="Write a blog"></SideBar>
         <Content>
           <MainContent direction="column" flex={3}>
-            <BlogsCard />
+            {blogs.map((blog) => (
+              <BlogsCard {...blog} />
+            ))}
           </MainContent>
           <RightSideBar />
         </Content>
