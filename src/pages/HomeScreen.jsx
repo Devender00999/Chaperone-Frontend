@@ -11,6 +11,8 @@ import SideBar from "../styledComponents/SidePanel/SideBar";
 import Tags from "../styledComponents/Tags/Tags";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
 import CareerCard from "../styledComponents/CareerCard/CareerCard";
+import ProjectCard from "../styledComponents/ProjectCard/ProjectCard";
+import Carousel from "../components/Carousel/Carousel";
 
 const HomeScreen = (props) => {
   const tags = [
@@ -41,6 +43,12 @@ const HomeScreen = (props) => {
               <BlogsCard {...blog} />
             ))}
             <CareerCard />
+            <ProjectCard
+              image="/images/projects/Image.svg"
+              heading="OurApp - a social media web app in NodeJS"
+              desc="Build this full stack application where you will get to learn about building modern, fast and scalable server-side web applications with NodeJS, databases like MongoDB and more."
+            />
+            <Carousel />
           </MainContent>
           <RightSideBar />
         </Content>

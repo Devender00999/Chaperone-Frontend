@@ -26,6 +26,7 @@ export const UserName = styled.p`
 
 export const UserProps = styled.div`
   display: flex;
+  column-gap: 1rem;
 `;
 
 export const Like = styled.i``;
