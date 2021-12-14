@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FormButton } from "../../components/common/Button.styles";
+import { PrimaryButton } from "../../components/common/Button.styles";
 import * as Form from "./Form.styles";
 import FormInput from "./FormInput";
 
@@ -68,7 +68,7 @@ const SignUpForm = () => {
       <Form.FormLink href="" style={{ alignSelf: "flex-end" }}>
         Forget Password?
       </Form.FormLink>
-      <FormButton type="submit">Create Account</FormButton>
+      <PrimaryButton type="submit">Create Account</PrimaryButton>
     </Form.FormContainer>
   );
 };

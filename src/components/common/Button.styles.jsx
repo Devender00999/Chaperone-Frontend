@@ -18,6 +18,20 @@ export const StyledButtons = styled.button`
   margin: 10px 0;
 `;
 
+export const PrimaryButton = styled.button`
+  width: 150px;
+  padding: 10px 0;
+  align-self: center;
+  font-size: 16px;
+  background: #ff6600;
+  font-weight: normal;
+  cursor: pointer;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-top: 20px;
+`;
+
 export const SecondaryButton = styled(Link)`
   font-size: 14px;
   width: max-content;
@@ -33,18 +47,4 @@ export const SecondaryButton = styled(Link)`
   &:hover {
     color: #ff6600;
   }
-`;
-
-export const FormButton = styled.button`
-  width: 150px;
-  padding: 10px 0;
-  align-self: center;
-  font-size: 16px;
-  background: #ff6600;
-  font-weight: normal;
-  cursor: pointer;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  margin-top: 20px;
 `;

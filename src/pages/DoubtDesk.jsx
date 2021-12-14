@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "../styledComponents/common/Card/Card";
+import BlogsCard from "../styledComponents/BlogsCard/BlogsCard";
 import {
   Content,
   MainContent,
@@ -11,6 +11,13 @@ import SideBar from "../styledComponents/SidePanel/SideBar";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
 
 const DoubtDesk = (props) => {
+  const blogs = [
+    {
+      image: "/images/blogs/Image.svg",
+      heading: "Complete Roadmap to Web Development 2021",
+      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
+    },
+  ];
   return (
     <StyledContainer id="container">
       <Navbar />
@@ -18,7 +25,9 @@ const DoubtDesk = (props) => {
         <SideBar sideData={props.sideData} title="Doubt Desk"></SideBar>
         <Content>
           <MainContent direction="column" flex={3}>
-            <Card />
+            {blogs.map((blog) => (
+              <BlogsCard {...blog} />
+            ))}
           </MainContent>
           <RightSideBar />
         </Content>

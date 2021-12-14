@@ -29,7 +29,7 @@ export const MainContent = styled.div`
 `;
 export const LSideBarContainer = styled.div`
   display: flex;
-  height: calc(100vh - 90px);
+  height: 100%;
   padding: 20px 0px;
   align-items: center;
   flex: 0.8;

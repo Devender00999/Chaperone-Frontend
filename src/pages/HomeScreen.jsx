@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "../styledComponents/common/Card/Card";
+import BlogsCard from "../styledComponents/BlogsCard/BlogsCard";
 import {
   Content,
   MainContent,
@@ -10,7 +10,7 @@ import Navbar from "../styledComponents/Navbar/Navbar";
 import SideBar from "../styledComponents/SidePanel/SideBar";
 import Tags from "../styledComponents/Tags/Tags";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
-import { SecondaryButton } from "../components/common/Button.styles";
+import { PrimaryButton } from "../components/common/Button.styles";
 
 const HomeScreen = (props) => {
   const tags = [
@@ -21,6 +21,29 @@ const HomeScreen = (props) => {
     { value: "Interest", selected: false },
   ];
 
+  const blogs = [
+    {
+      image: "/images/blogs/Image.svg",
+      heading: "Complete Roadmap to Web Development 2021",
+      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
+    },
+    {
+      image: "/images/blogs/Image.svg",
+      heading: "Complete Roadmap to Web Development 2021",
+      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
+    },
+    {
+      image: "/images/blogs/Image.svg",
+      heading: "Complete Roadmap to Web Development 2021",
+      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
+    },
+    {
+      image: "/images/blogs/Image.svg",
+      heading: "Complete Roadmap to Web Development 2021",
+      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
+    },
+  ];
+
   return (
     <StyledContainer id="container">
       <Navbar />
@@ -29,15 +52,10 @@ const HomeScreen = (props) => {
         <Content>
           <MainContent direction="column" flex={3}>
             <Tags tags={tags} />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <SecondaryButton to="">View Project</SecondaryButton>
-            <SecondaryButton to="">Github Link</SecondaryButton>
+            {blogs.map((blog) => (
+              <BlogsCard {...blog} />
+            ))}
+            <PrimaryButton>View PG Details</PrimaryButton>
           </MainContent>
           <RightSideBar />
         </Content>

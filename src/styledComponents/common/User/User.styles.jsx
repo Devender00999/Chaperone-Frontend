@@ -11,8 +11,6 @@ export const UserContainer = styled.div`
   align-items: center;
 `;
 
-export const User = styled.div``;
-
 export const UserImage = styled.img`
   width: 25px;
   height: 25px;

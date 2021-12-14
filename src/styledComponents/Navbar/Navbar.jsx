@@ -15,7 +15,6 @@ const Navbar = () => {
       <NavbarSearchContainer>
         <NavbarSearh style={{ width: "75%" }} />
       </NavbarSearchContainer>
-      <UserDetails name="Deepak Kumar" image="/images/navbar/defaultuser.svg" />
       <UserDetails>
         <NavNotification src="/images/navbar/notifications.svg" />
         <User name="Deepak Kumar" image="/images/navbar/defaultuser.svg" />

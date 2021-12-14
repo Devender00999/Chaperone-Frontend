@@ -1,28 +1,24 @@
 import React from "react";
 // import { User, UserImage, UserName } from "../../Navbar/Navbar.styles";
-import User from "../User/User";
-import { UserDetails, UserProps } from "../User/User.styles";
 import {
   CardContainer,
   CardData,
   CardDesc,
   CardHeading,
   CardImage,
-} from "./Card.styles";
+} from "../common/Card/Card.styles";
 import ShareIcon from "@mui/icons-material/Share";
-import Like from "../Like";
+import Like from "../common/Like";
+import User from "../common/User/User";
+import { UserDetails, UserProps } from "../common/User/User.styles";
 
-const Card = (props) => {
+const BlogsCard = (props) => {
   return (
     <CardContainer>
-      <CardImage image={"/images/blogs/Image.svg"} />
+      <CardImage image={props.image} />
       <CardData>
-        <CardHeading>Complete Roadmap to Web Development 2021</CardHeading>
-        <CardDesc>
-          Today there are so many languages and tools and frameworks. Which one
-          should you learn? And for each, there are a ton of courses. Super
-          confusing! We are here to give you full guidance...
-        </CardDesc>
+        <CardHeading>{props.heading}</CardHeading>
+        <CardDesc>{props.desc}</CardDesc>
         <UserDetails>
           <User
             className="secondary-color"
@@ -42,4 +38,4 @@ const Card = (props) => {
   );
 };
 
-export default Card;
+export default BlogsCard;
