@@ -33,15 +33,12 @@ export const PrimaryButton = styled.button`
 `;
 
 export const SecondaryButton = styled(Link)`
-  font-size: 14px;
-  width: max-content;
-  margin: 10px 0;
+  font-size: 0.875rem;
   text-decoration: none;
   color: #ff6600;
   font-family: poppins;
-  width: 150px;
   text-align: center;
-  padding: 8px 20px;
+  padding: 0.5rem 1rem;
   border-radius: 2px;
   border: 1px solid #cacaca;
   &:hover {
