@@ -10,7 +10,7 @@ import Navbar from "../styledComponents/Navbar/Navbar";
 import SideBar from "../styledComponents/SidePanel/SideBar";
 import Tags from "../styledComponents/Tags/Tags";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
-import { PrimaryButton } from "../components/common/Button.styles";
+import CareerCard from "../styledComponents/CareerCard/CareerCard";
 
 const HomeScreen = (props) => {
   const tags = [
@@ -22,21 +22,6 @@ const HomeScreen = (props) => {
   ];
 
   const blogs = [
-    {
-      image: "/images/blogs/Image.svg",
-      heading: "Complete Roadmap to Web Development 2021",
-      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
-    },
-    {
-      image: "/images/blogs/Image.svg",
-      heading: "Complete Roadmap to Web Development 2021",
-      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
-    },
-    {
-      image: "/images/blogs/Image.svg",
-      heading: "Complete Roadmap to Web Development 2021",
-      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
-    },
     {
       image: "/images/blogs/Image.svg",
       heading: "Complete Roadmap to Web Development 2021",
@@ -55,7 +40,7 @@ const HomeScreen = (props) => {
             {blogs.map((blog) => (
               <BlogsCard {...blog} />
             ))}
-            <PrimaryButton>View PG Details</PrimaryButton>
+            <CareerCard />
           </MainContent>
           <RightSideBar />
         </Content>
