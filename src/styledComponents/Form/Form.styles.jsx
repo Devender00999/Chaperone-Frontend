@@ -42,20 +42,6 @@ export const FormLink = styled.a`
   margin: 5px;
 `;
 
-export const FormButton = styled.button`
-  width: 150px;
-  padding: 10px 0;
-  align-self: center;
-  font-size: 16px;
-  background: #ff6600;
-  font-weight: normal;
-  cursor: pointer;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  margin-top: 20px;
-`;
-
 export const FormInputContainer = styled.div`
   position: relative;
 `;

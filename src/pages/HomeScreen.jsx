@@ -10,6 +10,7 @@ import Navbar from "../styledComponents/Navbar/Navbar";
 import SideBar from "../styledComponents/SidePanel/SideBar";
 import Tags from "../styledComponents/Tags/Tags";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
+import { SecondaryButton } from "../components/common/Button.styles";
 
 const HomeScreen = (props) => {
   const tags = [
@@ -35,6 +36,8 @@ const HomeScreen = (props) => {
             <Card />
             <Card />
             <Card />
+            <SecondaryButton to="">View Project</SecondaryButton>
+            <SecondaryButton to="">Github Link</SecondaryButton>
           </MainContent>
           <RightSideBar />
         </Content>

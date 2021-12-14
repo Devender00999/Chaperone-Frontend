@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as Form from "./Form.styles";
 import FormInput from "./FormInput";
-
+import { FormButton } from "../../components/common/Button.styles";
 const SignInForm = () => {
   const [user, setUser] = useState({
     email: "",
@@ -46,7 +46,7 @@ const SignInForm = () => {
       <Form.FormLink href="" style={{ alignSelf: "flex-end" }}>
         Forget Password?
       </Form.FormLink>
-      <Form.FormButton type="submit">Sign In</Form.FormButton>
+      <FormButton type="submit">Sign In</FormButton>
     </Form.FormContainer>
   );
 };
