@@ -10,6 +10,7 @@ import Navbar from "../styledComponents/Navbar/Navbar";
 import SideBar from "../styledComponents/SidePanel/SideBar";
 import Tags from "../styledComponents/Tags/Tags";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
+import CareerCard from "../styledComponents/CareerCard/CareerCard";
 import ProjectCard from "../styledComponents/ProjectCard/ProjectCard";
 import PGCard from "../styledComponents/PGCard/PGCard";
 
@@ -56,6 +57,7 @@ const HomeScreen = (props) => {
             {blogs.map((blog) => (
               <BlogsCard {...blog} />
             ))}
+            <CareerCard />
             <ProjectCard
               image="/images/projects/Image.svg"
               heading="OurApp - a social media web app in NodeJS"
