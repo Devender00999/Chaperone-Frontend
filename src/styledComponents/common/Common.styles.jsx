@@ -26,6 +26,7 @@ export const MainContent = styled.div`
   flex: ${(props) => props.flex};
   flex-direction: ${(props) => props.direction};
   overflow: auto;
+  padding: 0 2rem;
 `;
 export const LSideBarContainer = styled.div`
   display: flex;
