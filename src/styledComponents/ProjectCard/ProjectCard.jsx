@@ -6,10 +6,10 @@ import {
   CardHeading,
   CardImage,
 } from "../common/Card/Card.styles";
+import { SecondaryButton } from "../common/Common.styles";
 
 import User from "../common/User/User";
 import { UserDetails, UserProps } from "../common/User/User.styles";
-import { SecondaryButton } from "../../components/common/Button.styles";
 
 const ProjectCard = (props) => {
   console.log(props);

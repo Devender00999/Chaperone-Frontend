@@ -32,7 +32,7 @@ const images = [
   },
 ];
 
-const Carousel = () => {
+const Carousel = (props) => {
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = images.length;
@@ -70,7 +70,7 @@ const Carousel = () => {
               <Box
                 component="img"
                 sx={{
-                  height: 200,
+                  height: props.height ? props.height : 200,
                   display: "block",
                   // maxWidth: 400,
                   overflow: "hidden",

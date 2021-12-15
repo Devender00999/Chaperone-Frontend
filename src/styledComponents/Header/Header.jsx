@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyledButtons } from "../../components/common/Button.styles";
+import { StyledButtons } from "../common/Common.styles";
 import StyledModal from "../CustomModal/CustomModal";
 
 import SignInForm from "../Form/SigninForm";
