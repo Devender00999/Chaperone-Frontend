@@ -46,6 +46,32 @@ const HomeScreen = (props) => {
     },
   ];
 
+  const careerData = [
+    {
+      title: "Web Development",
+      companyName: "bon ton",
+      type: "Work from home",
+      companyLogo: "/images/career-card/bonton.svg",
+      startDate: "Immediately",
+      duration: "3 Months",
+      amount: 2000,
+      lastDate: "23 Nov' 21",
+      features: ["Internship", "Part time allowed"],
+      link: "https://google.com",
+    },
+    {
+      title: "Web Development",
+      companyName: "bon ton",
+      type: "Work from home",
+      companyLogo: "/images/career-card/bonton.svg",
+      startDate: "Immediately",
+      duration: "3 Months",
+      amount: 2000,
+      lastDate: "23 Nov' 21",
+      features: ["Internship", "Part time allowed"],
+      link: "https://google.com",
+    },
+  ];
   return (
     <StyledContainer id="container">
       <Navbar />
@@ -57,7 +83,9 @@ const HomeScreen = (props) => {
             {blogs.map((blog) => (
               <BlogsCard {...blog} />
             ))}
-            <CareerCard />
+            {careerData.map((data) => (
+              <CareerCard data={data} />
+            ))}
             <ProjectCard
               image="/images/projects/Image.svg"
               heading="OurApp - a social media web app in NodeJS"

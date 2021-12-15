@@ -1,47 +1,48 @@
 import React from "react";
 import * as Card from "./CareerCard.styles";
 
-const CareerCard = () => {
+const CareerCard = ({ data }) => {
   return (
     <Card.CareerCardContainer>
       <Card.CareerHeader>
         <Card.CareerTitleContainer>
-          <Card.CareerTitle>Web Development</Card.CareerTitle>
-          <Card.CareerCompany>bon ton</Card.CareerCompany>
+          <Card.CareerTitle>{data.title}</Card.CareerTitle>
+          <Card.CareerCompany>{data.companyName}</Card.CareerCompany>
           <Card.CareerTypeContainer>
             <Card.CareerTypeImage
-              src="/images/career-card/home.svg"
+              src={"/images/career-card/home.svg"}
               alt="home"
             />
-            <Card.CareerTypeText>Work From Home</Card.CareerTypeText>
+            <Card.CareerTypeText>{data.type}</Card.CareerTypeText>
           </Card.CareerTypeContainer>
         </Card.CareerTitleContainer>
-        <Card.CareerLogo src="/images/career-card/bonton.svg" />
+        <Card.CareerLogo src={data.companyLogo} />
       </Card.CareerHeader>
       <Card.CareerTable>
         <Card.CareerTableRow>
           <Card.CareerTableData>START DATE</Card.CareerTableData>
-          <Card.CareerTableData>Immediately</Card.CareerTableData>
+          <Card.CareerTableData>{data.startDate}</Card.CareerTableData>
         </Card.CareerTableRow>
         <Card.CareerTableRow>
           <Card.CareerTableData>DURATION</Card.CareerTableData>
-          <Card.CareerTableData>3 Months</Card.CareerTableData>
+          <Card.CareerTableData>{data.duration}</Card.CareerTableData>
         </Card.CareerTableRow>
         <Card.CareerTableRow>
           <Card.CareerTableData>STIPEND</Card.CareerTableData>
-          <Card.CareerTableData>$2000/month</Card.CareerTableData>
+          <Card.CareerTableData>{data.amount + "/month"}</Card.CareerTableData>
         </Card.CareerTableRow>
         <Card.CareerTableRow>
           <Card.CareerTableData>APPLY BY</Card.CareerTableData>
-          <Card.CareerTableData>23 Nov' 21</Card.CareerTableData>
+          <Card.CareerTableData>{data.lastDate}</Card.CareerTableData>
         </Card.CareerTableRow>
       </Card.CareerTable>
       <Card.CareerCardFooter>
         <Card.CareerFeatureContainer>
-          <Card.CareerCardFeature>Internship</Card.CareerCardFeature>
-          <Card.CareerCardFeature>Part time allowed</Card.CareerCardFeature>
+          {data.features.map((feature) => (
+            <Card.CareerCardFeature>{feature}</Card.CareerCardFeature>
+          ))}
         </Card.CareerFeatureContainer>
-        <Card.CareerCardLink>View Details</Card.CareerCardLink>
+        <Card.CareerCardLink href={data.link}>View Details</Card.CareerCardLink>
       </Card.CareerCardFooter>
     </Card.CareerCardContainer>
   );
