@@ -16,23 +16,20 @@ export const CardImage = styled.div`
 `;
 
 export const CardData = styled.div`
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 1rem;
+
+  display: flex;
+  flex-direction: column;
 `;
 
 export const CardHeading = styled.h3`
   font-family: Poppins;
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 400;
-  line-height: 27px;
-  letter-spacing: 0px;
-  text-align: left;
 `;
 
 export const CardDesc = styled.p`
   font-family: Poppins;
-  font-size: 16px;
-  line-height: 23px;
-  letter-spacing: 0px;
-  text-align: left;
+  font-size: 0.875rem;
   color: #666666;
 `;

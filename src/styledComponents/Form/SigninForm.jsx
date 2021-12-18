@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { PrimaryButton } from "../common/Common.styles";
 import * as Form from "./Form.styles";
 import FormInput from "./FormInput";
-import { PrimaryButton } from "../../components/common/Button.styles";
 const SignInForm = () => {
   const [user, setUser] = useState({
     email: "",
