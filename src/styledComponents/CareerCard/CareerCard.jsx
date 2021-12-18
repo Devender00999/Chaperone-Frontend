@@ -42,7 +42,10 @@ const CareerCard = ({ data }) => {
             <Card.CareerCardFeature>{feature}</Card.CareerCardFeature>
           ))}
         </Card.CareerFeatureContainer>
-        <Card.CareerCardLink href={data.link}>View Details</Card.CareerCardLink>
+        <Card.CareerCardLink href={data.link}>
+          View Details
+          <Card.CareerCardLinkImg src="/images/common/arrow.svg" />{" "}
+        </Card.CareerCardLink>
       </Card.CareerCardFooter>
     </Card.CareerCardContainer>
   );

@@ -96,9 +96,18 @@ export const CareerCardFeature = styled.p`
 export const CareerCardLink = styled.a`
   color: #ff6600;
   font-size: 0.875rem;
-  flex: 0.6;
+  text-decoration: none;
+  flex: 0.8;
   &:hover {
     color: #ff6600;
   }
+  &:first-child {
+    width: 200px;
+    height: 200px;
+  }
   cursor: pointer;
+`;
+export const CareerCardLinkImg = styled.img`
+  width: 20px;
+  margin-left: 5px;
 `;
