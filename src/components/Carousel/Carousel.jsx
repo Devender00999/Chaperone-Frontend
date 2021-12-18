@@ -52,7 +52,6 @@ const Carousel = (props) => {
                   height: props.height ? props.height : 200,
                   display: "block",
                   overflow: "hidden",
-                  width: "100%",
                 }}
                 src={image}
                 alt={index}
@@ -68,6 +67,7 @@ const Carousel = (props) => {
           right: "1rem",
           borderRadius: "0.25rem",
           overflow: "hidden",
+          border: "1px solid #D2D5D8",
         }}
       >
         <Button
@@ -75,7 +75,9 @@ const Carousel = (props) => {
           onClick={handleBack}
           disabled={activeStep === 0}
           sx={buttonStyle}
-          style={{ borderRight: "1px solid #D2D5D8" }}
+          style={{
+            borderRight: "1px solid #D2D5D8",
+          }}
         >
           {theme.direction === "rtl" ? (
             <KeyboardArrowRight />
