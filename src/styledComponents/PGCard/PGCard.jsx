@@ -18,7 +18,6 @@ import SchoolIcon from "@mui/icons-material/School";
 import TrainIcon from "@mui/icons-material/Train";
 
 const PGCard = (props) => {
-  console.log("pgcard", props.data);
   return (
     <CardContainer>
       <CardImage style={{ height: "250px" }}>
