@@ -22,3 +22,8 @@
 .secondary-color {
   color: #ff6600;
 }
+
+body {
+  overflow-y: overlay;
+  scrollbar-width: none;
+}
