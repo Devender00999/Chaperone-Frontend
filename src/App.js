@@ -15,7 +15,7 @@ const sideData = [
   {
     title: "Home",
     link: "/home",
-    icon: "/images/common/home.svg",
+    icon: "/images/sidebar/home.svg",
     selected: true,
   },
   {

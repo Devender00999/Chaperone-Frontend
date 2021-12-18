@@ -16,7 +16,10 @@ const SideBar = (props) => {
             selected={props.title === item.title}
             to={item.link}
           >
-            <SideBarItemIcon src={item.icon} />
+            <SideBarItemIcon
+              src={item.icon}
+              style={{ opacity: props.title === item.title ? 1 : 0.5 }}
+            />
             <SideBarItemText selected={props.title === item.title}>
               {item.title}
             </SideBarItemText>
