@@ -13,6 +13,7 @@ import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
 import CareerCard from "../styledComponents/CareerCard/CareerCard";
 import ProjectCard from "../styledComponents/ProjectCard/ProjectCard";
 import PGCard from "../styledComponents/PGCard/PGCard";
+import EasyBuyCard from "../styledComponents/EasyBuyCard/EasyBuyCard";
 
 const HomeScreen = (props) => {
   const tags = [
@@ -76,12 +77,7 @@ const HomeScreen = (props) => {
   const pgData = [
     {
       name: "Stanza Living Boston House",
-      images: [
-        "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60",
-        "https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60",
-        "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
-        "https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60",
-      ],
+      images: ["/images/pg-finder/pg img.png"],
       address:
         "D 264 Subhash Nagar, Pandav Nagar Complex, near Subhash Nagar Metro Station, Delhi 110099",
       price: "18000",
@@ -90,6 +86,16 @@ const HomeScreen = (props) => {
       distFromMetro: "500m from GTBIT",
       link: "/",
       for: "girls",
+    },
+  ];
+
+  const easyBuyData = [
+    {
+      name: "Engg. Drawing Board",
+      about:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis suscipit felis ac elit lacinia semper. Vestibulum vulputate lorem elementum vulputate consectetur.",
+      images: ["/images/easy-buy/img.svg"],
+      price: "250",
     },
   ];
   return (
@@ -114,6 +120,12 @@ const HomeScreen = (props) => {
             {pgData.map((pg, id) => (
               <PGCard key={id} data={pg} />
             ))}
+
+            {easyBuyData.map((item, id) => (
+              <EasyBuyCard key={id} data={item} />
+            ))}
+
+            {/* <EasyBuyCard /> */}
           </MainContent>
           <RightSideBar />
         </Content>

@@ -29,11 +29,10 @@ const PGCard = (props) => {
           <Price>₹ {props.data.price}</Price>
         </PGContainer>
         <PGContainer>
-          <DescText style={{ width: "70%" }}>
-            D 264 Subhash Nagar, Pandav Nagar Complex, near Subhash Nagar Metro
-            Station, Delhi 110092
-          </DescText>
-          <PGMapLink to="https://maps.google.com">View on map</PGMapLink>
+          <DescText style={{ width: "70%" }}>{props.data.address}</DescText>
+          <PGMapLink to={props.data.location} style={{ flex: "unset" }}>
+            View on map <img src="/images/common/arrow.svg" alt="Arrow" />
+          </PGMapLink>
         </PGContainer>
         <PGContainer style={{ justifyContent: "flex-start" }}>
           <PGFeature>
@@ -44,7 +43,7 @@ const PGCard = (props) => {
                 marginRight: "0.5rem",
               }}
             />
-            500m from GTBIT
+            {props.data.distFromCollege}
           </PGFeature>
 
           <PGFeature>
@@ -55,7 +54,7 @@ const PGCard = (props) => {
                 marginRight: "0.5rem",
               }}
             />
-            800m from Subhash Nagar Metro Station
+            {props.data.distFromMetro}
           </PGFeature>
         </PGContainer>
         <PrimaryButton style={{ alignSelf: "flex-end" }}>

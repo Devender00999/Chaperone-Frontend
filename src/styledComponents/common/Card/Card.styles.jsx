@@ -9,7 +9,6 @@ export const CardContainer = styled.div`
 `;
 
 export const CardImage = styled.div`
-  width: 100%;
   height: 200px;
   background-image: url(${(props) => props.image});
   background-size: cover;

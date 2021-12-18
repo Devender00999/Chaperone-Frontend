@@ -8,6 +8,7 @@ export const PGContainer = styled.div`
 
 export const PGMapLink = styled(Link)`
   color: #ff6600;
+  text-decoration: none;
   font-size: 0.875rem;
   text-align: right;
   flex: 0.6;
