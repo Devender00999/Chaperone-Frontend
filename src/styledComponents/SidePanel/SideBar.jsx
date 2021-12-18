@@ -9,9 +9,13 @@ import {
 const SideBar = (props) => {
   return (
     <LSideBarContainer>
-      {props.sideData.map((item) => {
+      {props.sideData.map((item, id) => {
         return (
-          <SideBarItem selected={props.title === item.title} to={item.link}>
+          <SideBarItem
+            key={id}
+            selected={props.title === item.title}
+            to={item.link}
+          >
             <SideBarItemIcon src={item.icon} />
             <SideBarItemText selected={props.title === item.title}>
               {item.title}

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export const StyledContainer = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ export const StyledContainer = styled.div`
 export const StyledMain = styled.div`
   display: flex;
   height: calc(100vh - 65px);
-  max-width: 1200px;
+  width: 1200px;
   margin: 0 auto;
 `;
 

@@ -1,5 +1,4 @@
 import React from "react";
-import BlogsCard from "../styledComponents/BlogsCard/BlogsCard";
 import {
   Content,
   MainContent,
@@ -12,14 +11,6 @@ import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
 import BlogPage from "../styledComponents/BlogPage/BlogPage";
 
 const Blogs = (props) => {
-  const blogs = [
-    {
-      image: "/images/blogs/Image.svg",
-      heading: "Complete Roadmap to Web Development 2021",
-      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
-    },
-  ];
-
   return (
     <StyledContainer id="container">
       <Navbar />
