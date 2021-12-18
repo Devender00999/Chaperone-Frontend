@@ -6,8 +6,10 @@ export const BlogPageContainer = styled.div`
   margin: 1rem 0;
 `;
 
-export const BlogPageImage = styled.img`
+export const BlogPageImage = styled.div`
+  background: url(${(props) => props.src});
   width: 100%;
+  height: 250px;
 `;
 export const BlogContent = styled.div`
   margin: 20px;

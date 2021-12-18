@@ -16,7 +16,7 @@ const RightSideBar = () => {
       <SideBarHeading>Your Recents</SideBarHeading>
       <SideBarList>
         {sideBarHeading.content.map((item, id) => (
-          <SideBarListItem key={id}>
+          <SideBarListItem key={id} to="">
             {item.substring(0, 27) + (+item.length > 27 ? "..." : "")}
           </SideBarListItem>
         ))}

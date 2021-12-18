@@ -40,12 +40,17 @@ export const SideBarList = styled.ul`
   list-style-type: none;
 `;
 
-export const SideBarListItem = styled.li`
+export const SideBarListItem = styled(Link)`
   margin-bottom: 5px;
+  display: block;
   color: #666666;
+  text-decoration: none;
   font-family: "Poppins";
   font-size: 13px;
   width: 100%;
+  &:hover {
+    color: #666666;
+  }
 `;
 
 // Right Sidebar
