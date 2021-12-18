@@ -52,6 +52,8 @@ const Carousel = (props) => {
                   height: props.height ? props.height : 200,
                   display: "block",
                   overflow: "hidden",
+                  objectFit: "cover",
+                  width: "100%",
                 }}
                 src={image}
                 alt={index}
