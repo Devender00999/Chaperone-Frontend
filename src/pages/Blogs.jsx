@@ -9,6 +9,7 @@ import {
 import Navbar from "../styledComponents/Navbar/Navbar";
 import SideBar from "../styledComponents/SidePanel/SideBar";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
+import BlogPage from "../styledComponents/BlogPage/BlogPage";
 
 const Blogs = (props) => {
   const blogs = [
@@ -26,9 +27,7 @@ const Blogs = (props) => {
         <SideBar sideData={props.sideData} title="Write a blog"></SideBar>
         <Content>
           <MainContent direction="column" flex={3}>
-            {blogs.map((blog) => (
-              <BlogsCard {...blog} />
-            ))}
+            <BlogPage />
           </MainContent>
           <RightSideBar />
         </Content>

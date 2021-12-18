@@ -4,7 +4,7 @@ export const CareerCardContainer = styled.div`
   display: flex;
   padding: 1.875rem 2.5rem;
   flex-direction: column;
-  margin: 1rem 2rem;
+  margin: 1rem 0;
   border: 1px solid #cacaca;
   border-radius: 2px;
 `;
@@ -96,9 +96,18 @@ export const CareerCardFeature = styled.p`
 export const CareerCardLink = styled.a`
   color: #ff6600;
   font-size: 0.875rem;
-  flex: 0.6;
+  text-decoration: none;
+  flex: 0.8;
   &:hover {
     color: #ff6600;
   }
+  &:first-child {
+    width: 200px;
+    height: 200px;
+  }
   cursor: pointer;
+`;
+export const CareerCardLinkImg = styled.img`
+  width: 20px;
+  margin-left: 5px;
 `;
