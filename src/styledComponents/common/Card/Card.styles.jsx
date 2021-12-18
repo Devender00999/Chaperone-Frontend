@@ -5,6 +5,7 @@ export const CardContainer = styled.div`
   border: 1px solid rgba(102, 102, 102, 0.6);
   box-sizing: border-box;
   border-radius: 2px;
+  position: relative;
 `;
 
 export const CardImage = styled.div`

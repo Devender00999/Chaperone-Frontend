@@ -12,7 +12,6 @@ import User from "../common/User/User";
 import { UserDetails, UserProps } from "../common/User/User.styles";
 
 const ProjectCard = (props) => {
-  console.log(props);
   return (
     <CardContainer>
       <CardImage image={props.image} />

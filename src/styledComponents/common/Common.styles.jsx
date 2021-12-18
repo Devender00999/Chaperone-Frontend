@@ -9,24 +9,24 @@ export const StyledContainer = styled.div`
 
 export const StyledMain = styled.div`
   display: flex;
-  height: calc(100vh - 65px);
-  width: 1200px;
+  height: 100%;
+  max-width: 1200px;
   margin: 0 auto;
 `;
 
 export const Content = styled.div`
   padding: 1.25rem 1.25rem 0;
-  height: calc(100vh - 95px);
   display: flex;
   width: 100%;
   border-left: 1px solid #f2f2f2;
   flex: 4;
 `;
+
 export const MainContent = styled.div`
   display: flex;
   flex: ${(props) => props.flex};
   flex-direction: ${(props) => props.direction};
-  overflow: auto;
+  /* overflow: auto; */
   padding: 0 2rem;
 `;
 export const LSideBarContainer = styled.div`
@@ -34,18 +34,23 @@ export const LSideBarContainer = styled.div`
   height: 100%;
   padding: 20px 0px;
   align-items: center;
-  flex: 0.8;
   flex: 1;
   flex-direction: column;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 60px;
 `;
 
 export const RSideBarContainer = styled.div`
   display: flex;
   padding-left: 20px;
   align-items: flex-start;
-  flex: 0.8;
   flex: 1;
+  height: max-content;
   flex-direction: column;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 80px;
 `;
 
 export const Heading = styled.h3`

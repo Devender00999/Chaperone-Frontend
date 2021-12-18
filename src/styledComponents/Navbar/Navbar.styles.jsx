@@ -6,6 +6,10 @@ export const NavbarContainer = styled.div`
   background: #f6f6f6;
   height: 60px;
   justify-content: space-between;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1;
 `;
 
 export const NavLogo = styled.img`

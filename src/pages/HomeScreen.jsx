@@ -72,8 +72,28 @@ const HomeScreen = (props) => {
       link: "https://google.com",
     },
   ];
+
+  const pgData = [
+    {
+      name: "Stanza Living Boston House",
+      images: [
+        "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60",
+        "https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60",
+        "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
+        "https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60",
+      ],
+      address:
+        "D 264 Subhash Nagar, Pandav Nagar Complex, near Subhash Nagar Metro Station, Delhi 110099",
+      price: "18000",
+      location: "https://google.com",
+      distFromCollege: "500m from GTBIT",
+      distFromMetro: "500m from GTBIT",
+      link: "/",
+      for: "girls",
+    },
+  ];
   return (
-    <StyledContainer id="container">
+    <StyledContainer>
       <Navbar />
       <StyledMain className="main">
         <SideBar sideData={props.sideData} title="Home"></SideBar>
@@ -91,7 +111,9 @@ const HomeScreen = (props) => {
               heading="OurApp - a social media web app in NodeJS"
               desc="Build this full stack application where you will get to learn about building modern, fast and scalable server-side web applications with NodeJS, databases like MongoDB and more."
             />
-            <PGCard />
+            {pgData.map((pg, id) => (
+              <PGCard key={id} data={pg} />
+            ))}
           </MainContent>
           <RightSideBar />
         </Content>
