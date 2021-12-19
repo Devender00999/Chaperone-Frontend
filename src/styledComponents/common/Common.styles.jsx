@@ -60,6 +60,11 @@ export const Heading = styled.h3`
   color: #000;
 `;
 
+export const PageHeading = styled.h3`
+  font-size: 1.5rem;
+  /* font-weight: 500; */
+`;
+
 export const DescText = styled.p`
   font-family: Poppins;
   font-size: 0.875rem;
