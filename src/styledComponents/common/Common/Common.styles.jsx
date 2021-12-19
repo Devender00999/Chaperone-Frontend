@@ -62,7 +62,17 @@ export const Heading = styled.h3`
 
 export const PageHeading = styled.h3`
   font-size: 1.5rem;
-  /* font-weight: 500; */
+`;
+
+export const SecondaryHeading = styled.h3`
+  font-family: Poppins;
+  font-size: 1.25rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #ff6600;
+
+  line-height: 30px;
+  letter-spacing: 2px;
 `;
 
 export const DescText = styled.p`
@@ -131,5 +141,18 @@ export const SecondaryButton = styled(Link)`
   border: 1px solid #cacaca;
   &:hover {
     color: #ff6600;
+  }
+`;
+
+export const ViewLink = styled(Link)`
+  color: #ff6600;
+  cursor: pointer;
+  font-size: 0.875rem;
+  text-decoration: none;
+  height: max-content;
+
+  &:hover {
+    color: #ff6600;
+    opacity: 0.8;
   }
 `;

@@ -1,21 +1,16 @@
 import React from "react";
 import Carousel from "../../components/Carousel/Carousel";
 import { CardContainer, CardData, CardImage } from "../common/Card/Card.styles";
-import {
-  PGContainer,
-  PGFeature,
-  PGMapLink,
-  PGTag,
-  PGTagText,
-} from "./PGCard.styles";
+import { PGContainer, PGFeature, PGTag, PGTagText } from "./PGCard.styles";
 import {
   DescText,
   Heading,
   Price,
   PrimaryButton,
-} from "../common/Common.styles";
+} from "../common/Common/Common.styles";
 import SchoolIcon from "@mui/icons-material/School";
 import TrainIcon from "@mui/icons-material/Train";
+import { StyledLink } from "../common/Common/Common";
 
 const PGCard = (props) => {
   return (
@@ -30,9 +25,12 @@ const PGCard = (props) => {
         </PGContainer>
         <PGContainer>
           <DescText style={{ width: "70%" }}>{props.data.address}</DescText>
-          <PGMapLink to={props.data.location} style={{ flex: "unset" }}>
-            View on map <img src="/images/common/arrow.svg" alt="Arrow" />
-          </PGMapLink>
+          <StyledLink
+            title="View on map"
+            image="/images/common/arrow.svg"
+            link="/somewhere"
+            style={{ flex: "unset" }}
+          />
         </PGContainer>
         <PGContainer style={{ justifyContent: "flex-start" }}>
           <PGFeature>

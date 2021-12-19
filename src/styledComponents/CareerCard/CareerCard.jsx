@@ -1,4 +1,5 @@
 import React from "react";
+import { StyledLink } from "../common/Common/Common";
 import * as Card from "./CareerCard.styles";
 
 const CareerCard = ({ data }) => {
@@ -42,10 +43,7 @@ const CareerCard = ({ data }) => {
             <Card.CareerCardFeature>{feature}</Card.CareerCardFeature>
           ))}
         </Card.CareerFeatureContainer>
-        <Card.CareerCardLink href={data.link}>
-          View Details
-          <Card.CareerCardLinkImg src="/images/common/arrow.svg" />{" "}
-        </Card.CareerCardLink>
+        <StyledLink title="View Details" link={data.link} />
       </Card.CareerCardFooter>
     </Card.CareerCardContainer>
   );

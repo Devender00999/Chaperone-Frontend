@@ -17,19 +17,6 @@ export const CardImage = styled.div`
 
 export const CardData = styled.div`
   padding: 1.5rem 1.5rem 1rem;
-
   display: flex;
   flex-direction: column;
-`;
-
-export const CardHeading = styled.h3`
-  font-family: Poppins;
-  font-size: 1rem;
-  font-weight: 400;
-`;
-
-export const CardDesc = styled.p`
-  font-family: Poppins;
-  font-size: 0.875rem;
-  color: #666666;
 `;

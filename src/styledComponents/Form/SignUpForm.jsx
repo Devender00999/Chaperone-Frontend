@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PrimaryButton } from "../common/Common.styles";
+import { PrimaryButton } from "../common/Common/Common.styles";
 import * as Form from "./Form.styles";
 import FormInput from "./FormInput";
 

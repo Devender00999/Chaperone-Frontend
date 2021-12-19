@@ -11,6 +11,7 @@ import FindPG from "./pages/FindPG";
 import EasyBuy from "./pages/EasyBuy";
 import DoubtDesk from "./pages/DoubtDesk";
 import Blogs from "./pages/Blogs";
+import RoadmapPage from "./styledComponents/styledPages/RoadmapPage/RoadmapPage";
 const sideData = [
   {
     title: "Home",
@@ -94,6 +95,11 @@ const App = () => {
       />
       <Route path="/find-pg" exact element={<FindPG sideData={sideData} />} />
       <Route path="/easy-buy" exact element={<EasyBuy sideData={sideData} />} />
+      <Route
+        path="/roadmap-page"
+        exact
+        element={<RoadmapPage sideData={sideData} />}
+      />
       <Route
         path="/doubt-desk"
         exact

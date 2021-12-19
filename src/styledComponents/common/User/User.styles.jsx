@@ -9,6 +9,7 @@ export const UserDetails = styled.div`
 export const UserContainer = styled.div`
   display: flex;
   align-items: center;
+  margin: 0 0 0.5rem;
 `;
 
 export const UserImage = styled.img`

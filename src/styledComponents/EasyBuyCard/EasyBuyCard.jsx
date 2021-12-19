@@ -9,7 +9,7 @@ import {
   Heading,
   Price,
   PrimaryButton,
-} from "../common/Common.styles";
+} from "../common/Common/Common.styles";
 
 const EasyBuyCard = (props) => {
   return (

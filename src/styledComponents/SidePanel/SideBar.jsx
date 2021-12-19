@@ -1,5 +1,5 @@
 import React from "react";
-import { LSideBarContainer } from "../common/Common.styles";
+import { LSideBarContainer } from "../common/Common/Common.styles";
 import {
   SideBarItem,
   SideBarItemText,

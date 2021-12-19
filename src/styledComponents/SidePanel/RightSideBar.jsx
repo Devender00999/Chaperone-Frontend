@@ -1,4 +1,4 @@
-import { RSideBarContainer } from "../common/Common.styles";
+import { RSideBarContainer } from "../common/Common/Common.styles";
 import { SideBarHeading, SideBarList, SideBarListItem } from "./SideBar.styles";
 
 const sideBarHeading = {

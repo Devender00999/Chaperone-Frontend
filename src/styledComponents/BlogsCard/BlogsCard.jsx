@@ -1,24 +1,18 @@
 import React from "react";
-// import { User, UserImage, UserName } from "../../Navbar/Navbar.styles";
-import {
-  CardContainer,
-  CardData,
-  CardDesc,
-  CardHeading,
-  CardImage,
-} from "../common/Card/Card.styles";
+import { CardContainer, CardData, CardImage } from "../common/Card/Card.styles";
 import ShareIcon from "@mui/icons-material/Share";
 import Like from "../common/Like";
 import User from "../common/User/User";
 import { UserDetails, UserProps } from "../common/User/User.styles";
+import { DescText, Heading } from "../common/Common/Common.styles";
 
 const BlogsCard = (props) => {
   return (
     <CardContainer>
       <CardImage image={props.image} />
       <CardData>
-        <CardHeading>{props.heading}</CardHeading>
-        <CardDesc>{props.desc}</CardDesc>
+        <Heading>{props.heading}</Heading>
+        <DescText>{props.desc}</DescText>
         <UserDetails>
           <User
             className="secondary-color"

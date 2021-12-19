@@ -5,7 +5,7 @@ import {
   PageHeading,
   StyledContainer,
   StyledMain,
-} from "../styledComponents/common/Common.styles";
+} from "../styledComponents/common/Common/Common.styles";
 import Navbar from "../styledComponents/Navbar/Navbar";
 import SideBar from "../styledComponents/SidePanel/SideBar";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";

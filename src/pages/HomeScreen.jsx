@@ -5,7 +5,7 @@ import {
   MainContent,
   StyledContainer,
   StyledMain,
-} from "../styledComponents/common/Common.styles";
+} from "../styledComponents/common/Common/Common.styles";
 import Navbar from "../styledComponents/Navbar/Navbar";
 import SideBar from "../styledComponents/SidePanel/SideBar";
 import Tags from "../styledComponents/Tags/Tags";
@@ -69,7 +69,12 @@ const HomeScreen = (props) => {
       duration: "3 Months",
       amount: 2000,
       lastDate: "23 Nov' 21",
-      features: ["Internship", "Part time allowed"],
+      features: [
+        "Internship",
+        "Part time allowed",
+        "Internship",
+        "Part time allowed",
+      ],
       link: "https://google.com",
     },
   ];
