@@ -24,11 +24,7 @@ const Roadmaps = (props) => {
       <StyledMain className="main">
         <SideBar sideData={props.sideData} title="Roadmaps"></SideBar>
         <Content>
-          <MainContent direction="column" flex={3}>
-            {blogs.map((blog) => (
-              <BlogsCard {...blog} />
-            ))}
-          </MainContent>
+          <MainContent direction="column" flex={3}></MainContent>
           <RightSideBar />
         </Content>
       </StyledMain>
