@@ -1,7 +1,7 @@
 import React from "react";
-import User from "../common/User/User";
-import { UserDetails, UserProps } from "../common/User/User.styles";
-import Like from "../common/Like";
+import User from "../../common/User/User";
+import { UserDetails, UserProps } from "../../common/User/User.styles";
+import Like from "../../common/Like";
 import ShareIcon from "@mui/icons-material/Share";
 import {
   BlogContent,

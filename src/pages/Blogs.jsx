@@ -8,7 +8,7 @@ import {
 import Navbar from "../styledComponents/Navbar/Navbar";
 import SideBar from "../styledComponents/SidePanel/SideBar";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
-import BlogPage from "../styledComponents/BlogPage/BlogPage";
+import BlogPage from "../styledComponents/styledPages/BlogPage/BlogPage";
 
 const Blogs = (props) => {
   return (
