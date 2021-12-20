@@ -12,6 +12,7 @@ import EasyBuy from "./pages/EasyBuy";
 import DoubtDesk from "./pages/DoubtDesk";
 import Blogs from "./pages/Blogs";
 import RoadmapPage from "./styledComponents/styledPages/RoadmapPage/RoadmapPage";
+import CareerPage from "./styledComponents/styledPages/CareerPage/CareerPage";
 const sideData = [
   {
     title: "Home",
@@ -92,6 +93,11 @@ const App = () => {
         path="/career-aware"
         exact
         element={<CareerAware sideData={sideData} />}
+      />
+      <Route
+        path="/career-aware/:data"
+        exact
+        element={<CareerPage sideData={sideData} />}
       />
       <Route path="/find-pg" exact element={<FindPG sideData={sideData} />} />
       <Route path="/easy-buy" exact element={<EasyBuy sideData={sideData} />} />
