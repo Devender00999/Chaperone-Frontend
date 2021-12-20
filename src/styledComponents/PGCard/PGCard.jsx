@@ -14,48 +14,74 @@ import { StyledLink } from "../common/Common/Common";
 
 const PGCard = (props) => {
   return (
-    <CardContainer>
-      <CardImage style={{ height: "250px" }}>
-        <Carousel images={props.data.images} height="250px" />
+    <CardContainer style={props.small && { width: "35%" }}>
+      <CardImage
+        style={({ height: "250px" }, props.small && { height: "180px" })}
+      >
+        <Carousel
+          images={props.data.images}
+          height={props.small ? "180px" : "250px"}
+        />
       </CardImage>
-      <CardData>
+      <CardData style={props.small && { padding: "1.5rem" }}>
         <PGContainer>
-          <Heading>Stanza Living Boston House</Heading>
+          <Heading style={props.small && { width: "70%" }}>
+            Stanza Living Boston House
+          </Heading>
           <Price>₹ {props.data.price}</Price>
         </PGContainer>
         <PGContainer>
-          <DescText style={{ width: "70%" }}>{props.data.address}</DescText>
+          <DescText
+            style={({ width: "70%" }, props.small && { fontSize: "0.75rem" })}
+          >
+            {props.data.address}
+          </DescText>
           <StyledLink
             title="View on map"
             image="/images/common/arrow.svg"
             link="/somewhere"
-            style={{ flex: "unset" }}
+            style={({ flex: "unset" }, props.small && { display: "none" })}
           />
         </PGContainer>
-        <PGContainer style={{ justifyContent: "flex-start" }}>
-          <PGFeature>
+        <PGContainer
+          style={
+            ({ justifyContent: "flex-start" },
+            props.small && { flexDirection: "column", rowGap: "0.5rem" })
+          }
+        >
+          <PGFeature style={props.small && { fontSize: "0.625rem" }}>
             <SchoolIcon
-              style={{
-                fontSize: "20px",
-                color: "#515151",
-                marginRight: "0.5rem",
-              }}
-            />
+              style={
+                ({
+                  fontSize: "20px",
+                  color: "#515151",
+                  marginRight: "0.5rem",
+                },
+                props.small && { fontSize: "1rem" })
+              }
+            />{" "}
             {props.data.distFromCollege}
           </PGFeature>
 
-          <PGFeature>
+          <PGFeature style={props.small && { fontSize: "0.625rem" }}>
             <TrainIcon
-              style={{
-                fontSize: "20px",
-                color: "#515151",
-                marginRight: "0.5rem",
-              }}
-            />
+              style={
+                ({
+                  fontSize: "20px",
+                  color: "#515151",
+                  marginRight: "0.5rem",
+                },
+                props.small && { fontSize: "1rem" })
+              }
+            />{" "}
             {props.data.distFromMetro}
           </PGFeature>
         </PGContainer>
-        <PrimaryButton style={{ alignSelf: "flex-end" }}>
+        <PrimaryButton
+          style={
+            ({ alignSelf: "flex-end" }, props.small && { fontSize: "0.625rem" })
+          }
+        >
           View PG Details
         </PrimaryButton>
       </CardData>

@@ -2,23 +2,62 @@ import React from "react";
 import {
   Content,
   MainContent,
+  PageHeading,
   StyledContainer,
   StyledMain,
 } from "../styledComponents/common/Common/Common.styles";
 import Navbar from "../styledComponents/Navbar/Navbar";
 import SideBar from "../styledComponents/SidePanel/SideBar";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
-import BlogsCard from "../styledComponents/BlogsCard/BlogsCard";
+import SubjectCard from "../styledComponents/SubjectCard/SubjectCard";
 
 const Academics = (props) => {
-  const blogs = [
+  const subjects = [
     {
-      image: "/images/blogs/Image.svg",
-      heading: "Complete Roadmap to Web Development 2021",
-      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
+      title: "Software Testing & Quality assurance",
+      topics: [
+        {
+          topicName: "Unit 1 - Software Testing & Quality",
+          topicLink: "/some topic",
+        },
+        {
+          topicName: "Unit 2 - White Box Testing & Black Box Testing",
+          topicLink: "/some topic",
+        },
+        {
+          topicName: "Unit 3 - Quality Assurance & Standards",
+          topicLink: "/some topic",
+        },
+        {
+          topicName:
+            "Unit 4 - Test Selection & Minimization for Regression Testing ",
+          topicLink: "/some topic",
+        },
+      ],
+    },
+    {
+      title: "Software Testing & Quality assurance",
+      topics: [
+        {
+          topicName: "Unit 1 - Software Testing & Quality",
+          topicLink: "/some topic",
+        },
+        {
+          topicName: "Unit 2 - White Box Testing & Black Box Testing",
+          topicLink: "/some topic",
+        },
+        {
+          topicName: "Unit 3 - Quality Assurance & Standards",
+          topicLink: "/some topic",
+        },
+        {
+          topicName:
+            "Unit 4 - Test Selection & Minimization for Regression Testing ",
+          topicLink: "/some topic",
+        },
+      ],
     },
   ];
-
   return (
     <StyledContainer id="container">
       <Navbar />
@@ -26,8 +65,9 @@ const Academics = (props) => {
         <SideBar sideData={props.sideData} title="Academics"></SideBar>
         <Content>
           <MainContent direction="column" flex={3}>
-            {blogs.map((blog) => (
-              <BlogsCard {...blog} />
+            <PageHeading>Academics</PageHeading>
+            {subjects.map((subject, i) => (
+              <SubjectCard key={i} subject={subject} />
             ))}
           </MainContent>
           <RightSideBar />

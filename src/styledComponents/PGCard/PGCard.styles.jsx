@@ -13,6 +13,10 @@ export const PGFeature = styled.p`
   padding: 5px 20px;
   margin-right: 15px;
   margin-bottom: 0;
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
+  width: fit-content;
 `;
 
 export const PGTag = styled.div`

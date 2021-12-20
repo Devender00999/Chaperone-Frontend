@@ -7,6 +7,12 @@ export const StyledContainer = styled.div`
   flex-direction: column;
 `;
 
+export const CommonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  column-gap: 1.5rem;
+`;
+
 export const StyledMain = styled.div`
   display: flex;
   height: 100%;

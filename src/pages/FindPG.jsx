@@ -1,21 +1,53 @@
 import React from "react";
-import BlogsCard from "../styledComponents/BlogsCard/BlogsCard";
 import {
+  CommonContainer,
   Content,
   MainContent,
+  PageHeading,
   StyledContainer,
   StyledMain,
 } from "../styledComponents/common/Common/Common.styles";
 import Navbar from "../styledComponents/Navbar/Navbar";
 import SideBar from "../styledComponents/SidePanel/SideBar";
-import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
+import PGCard from "../styledComponents/PGCard/PGCard";
 
 const FindPG = (props) => {
-  const blogs = [
+  const pgData = [
     {
-      image: "/images/blogs/Image.svg",
-      heading: "Complete Roadmap to Web Development 2021",
-      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
+      name: "Stanza Living Boston House",
+      images: ["/images/pg-finder/pg img.png"],
+      address:
+        "D 264 Subhash Nagar, Pandav Nagar Complex, near Subhash Nagar Metro Station, Delhi 110099",
+      price: "18000",
+      location: "https://google.com",
+      distFromCollege: "500m from GTBIT",
+      distFromMetro: "800m from Subhash Nagar Metro Station",
+      link: "/",
+      for: "girls",
+    },
+    {
+      name: "Stanza Living Boston House",
+      images: ["/images/pg-finder/pg img.png"],
+      address:
+        "D 264 Subhash Nagar, Pandav Nagar Complex, near Subhash Nagar Metro Station, Delhi 110099",
+      price: "11000",
+      location: "https://google.com",
+      distFromCollege: "600m from GTBIT",
+      distFromMetro: "800m from Mayapuri Metro Station",
+      link: "/",
+      for: "boys",
+    },
+    {
+      name: "Stanza Living Boston House",
+      images: ["/images/pg-finder/pg img.png"],
+      address:
+        "D 264 Subhash Nagar, Pandav Nagar Complex, near Subhash Nagar Metro Station, Delhi 110099",
+      price: "11000",
+      location: "https://google.com",
+      distFromCollege: "600m from GTBIT",
+      distFromMetro: "800m from Subhash Nagar Metro Station",
+      link: "/",
+      for: "boys",
     },
   ];
   return (
@@ -25,11 +57,13 @@ const FindPG = (props) => {
         <SideBar sideData={props.sideData} title="Find PG"></SideBar>
         <Content>
           <MainContent direction="column" flex={3}>
-            {blogs.map((blog) => (
-              <BlogsCard {...blog} />
-            ))}
+            <PageHeading>Find PG</PageHeading>
+            <CommonContainer>
+              {pgData.map((pg, id) => (
+                <PGCard small key={id} data={pg} />
+              ))}
+            </CommonContainer>
           </MainContent>
-          <RightSideBar />
         </Content>
       </StyledMain>
     </StyledContainer>
