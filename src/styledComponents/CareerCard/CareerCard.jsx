@@ -39,8 +39,8 @@ const CareerCard = ({ data }) => {
       </Card.CareerTable>
       <Card.CareerCardFooter>
         <Card.CareerFeatureContainer>
-          {data.features.map((feature) => (
-            <Card.CareerCardFeature>{feature}</Card.CareerCardFeature>
+          {data.features.map((feature, id) => (
+            <Card.CareerCardFeature key={id}>{feature}</Card.CareerCardFeature>
           ))}
         </Card.CareerFeatureContainer>
         <StyledLink title="View Details" link={data.link} />

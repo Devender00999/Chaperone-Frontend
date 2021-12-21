@@ -1,21 +1,30 @@
 import React from "react";
-import BlogsCard from "../styledComponents/BlogsCard/BlogsCard";
 import {
   Content,
   MainContent,
+  PageHeading,
   StyledContainer,
   StyledMain,
 } from "../styledComponents/common/Common/Common.styles";
 import Navbar from "../styledComponents/Navbar/Navbar";
 import SideBar from "../styledComponents/SidePanel/SideBar";
-import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
+import { SelectTags } from "../styledComponents/SelectTag/SelectTag.styles";
+import SelectTag from "../styledComponents/SelectTag/SelectTag";
+import EasyBuyCard from "../styledComponents/EasyBuyCard/EasyBuyCard";
 
 const EasyBuy = (props) => {
-  const blogs = [
+  const items = ["Engg. Drawing Board", "Lab Coat", "Drafter", "Sheet Holder"];
+
+  const prices = [500, 1000, 2000];
+  const priceRange = prices.map((price) => "< ₹" + price);
+
+  const easyBuyData = [
     {
-      image: "/images/blogs/Image.svg",
-      heading: "Complete Roadmap to Web Development 2021",
-      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
+      name: "Engg. Drawing Board",
+      about:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis suscipit felis ac elit lacinia semper. Vestibulum vulputate lorem elementum vulputate consectetur.",
+      images: ["/images/easy-buy/img.svg"],
+      price: "250",
     },
   ];
   return (
@@ -25,11 +34,25 @@ const EasyBuy = (props) => {
         <SideBar sideData={props.sideData} title="Easy Buy"></SideBar>
         <Content>
           <MainContent direction="column" flex={3}>
-            {blogs.map((blog) => (
-              <BlogsCard {...blog} />
+            <PageHeading>Easy Buy</PageHeading>
+            <SelectTags>
+              <SelectTag
+                defaultValue="Select Item"
+                options={items}
+                selected={true}
+              />
+
+              <SelectTag
+                defaultValue="Select Price Range"
+                options={priceRange}
+                selected={false}
+              />
+            </SelectTags>
+
+            {easyBuyData.map((item, id) => (
+              <EasyBuyCard key={id} data={item} />
             ))}
           </MainContent>
-          <RightSideBar />
         </Content>
       </StyledMain>
     </StyledContainer>

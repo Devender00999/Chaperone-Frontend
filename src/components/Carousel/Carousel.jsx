@@ -10,7 +10,6 @@ import { autoPlay } from "react-swipeable-views-utils";
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const Carousel = (props) => {
-  console.log("carousel", props.images);
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = props.images.length;

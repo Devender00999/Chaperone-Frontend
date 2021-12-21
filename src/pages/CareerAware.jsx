@@ -9,12 +9,14 @@ import {
 import Navbar from "../styledComponents/Navbar/Navbar";
 import SideBar from "../styledComponents/SidePanel/SideBar";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
-import {
-  Option,
-  Select,
-  SelectTags,
-} from "../styledComponents/CareerCard/CareerCard.styles";
+// import {
+//   Option,
+//   Select,
+//   SelectTags,
+// } from "../styledComponents/CareerCard/CareerCard.styles";
 import CareerCard from "../styledComponents/CareerCard/CareerCard";
+import SelectTag from "../styledComponents/SelectTag/SelectTag";
+import { SelectTags } from "../styledComponents/SelectTag/SelectTag.styles";
 
 const CareerAware = (props) => {
   const careerData = [
@@ -48,6 +50,16 @@ const CareerAware = (props) => {
       link: "https://google.com",
     },
   ];
+
+  const profileTypes = ["Internship", "Job"];
+  const profiles = [
+    "Web Developer",
+    "Android Developer",
+    "Java Developer",
+    "Frontend Developer",
+    "Backend Developer",
+  ];
+
   return (
     <StyledContainer id="container">
       <Navbar />
@@ -56,20 +68,23 @@ const CareerAware = (props) => {
         <Content>
           <MainContent direction="column" flex={3}>
             <PageHeading>Career Aware</PageHeading>
+
             <SelectTags>
-              <Select selected={true}>
-                <Option>Internship</Option>
-                <Option>Job</Option>
-              </Select>
-              <Select selected={false}>
-                <Option>Job Profile</Option>
-                <Option>Web Developer</Option>
-                <Option>UI Designer</Option>
-              </Select>
+              <SelectTag
+                selected={true}
+                defaultValue="Select Profile Type"
+                options={profileTypes}
+              />
+
+              <SelectTag
+                selected={false}
+                defaultValue="Select Profile"
+                options={profiles}
+              />
             </SelectTags>
 
-            {careerData.map((data) => (
-              <CareerCard data={data} />
+            {careerData.map((data, id) => (
+              <CareerCard key={id} data={data} />
             ))}
           </MainContent>
           <RightSideBar />
