@@ -57,7 +57,6 @@ export const CareerTable = styled.div`
 `;
 export const CareerTableRow = styled.div`
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
 `;
 

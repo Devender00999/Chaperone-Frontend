@@ -1,31 +1,66 @@
 import styled from "styled-components";
 
-export const BlogPageContainer = styled.div`
+export const CareerPageContainer = styled.div`
+  border: 1px solid #666666;
+  margin: 10px 0 30px 0;
+  padding: 30px;
+  border-radius: 5px;
+  flex-direction: column;
+  display: flex;
+`;
+
+export const CareerHeading = styled.h3`
+  font-size: 1.3rem;
+`;
+export const CareerCompayHeading = styled.span`
+  font-size: 1.3rem;
+  color: #ff6600;
+`;
+
+export const CareerAddress = styled.p`
+  font-size: 14px;
+  color: #666666;
+`;
+
+export const CareerExtraInfo = styled.p`
+  font-size: 10px;
+`;
+
+export const CareerAboutContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 1rem 0;
+`;
+export const CareerAboutHeading = styled.p`
+  font-family: poppins;
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
 `;
 
-export const BlogPageImage = styled.div`
-  background: url(${(props) => props.src});
-  width: 100%;
-  height: 250px;
-`;
-export const BlogContent = styled.div`
-  margin: 20px;
-  border-radius: 20px 20px 0px 0px;
-  transform: translateY(-75px);
-  padding: 30px 40px;
-  background: white;
-`;
-export const BlogHeading = styled.p`
-  font-size: 18px;
-  margin-bottom: 6px;
+export const CareerAboutDescription = styled.p`
+  font-family: poppins;
+  margin: 5px 0;
+  color: #515151;
+  margin-bottom: 15px;
+  font-size: 0.875rem;
 `;
 
-export const BlogText = styled.p`
-  font-size: 13px;
-  color: #666666;
+export const CareerListContainer = styled.div`
   margin-top: 20px;
-  line-height: 20px;
+`;
+
+export const CareerList = styled.ul`
+  list-style-type: disc;
+  margin: 5px;
+`;
+
+export const CareerListItem = styled.li`
+  font-family: poppins;
+  margin: 2px 0 0 0;
+  color: #515151;
+  font-size: 0.875rem;
+  &::marker {
+    color: #6b6b6b;
+    font-size: 12px;
+  }
 `;

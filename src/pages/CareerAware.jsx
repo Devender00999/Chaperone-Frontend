@@ -45,7 +45,7 @@ const CareerAware = (props) => {
         "Internship",
         "Part time allowed",
       ],
-      link: "https://google.com",
+      link: "job2",
     },
   ];
   return (
