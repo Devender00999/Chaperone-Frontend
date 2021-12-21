@@ -134,6 +134,7 @@ export const PrimaryButton = styled.button`
   border: none;
   border-radius: 2px;
   margin-top: 1rem;
+  font-weight: 500;
 `;
 
 export const SecondaryButton = styled(Link)`
