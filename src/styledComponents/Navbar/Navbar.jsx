@@ -6,14 +6,14 @@ import {
   NavNotification,
   UserDetails,
 } from "./Navbar.styles";
-import NavbarSearh from "./Search";
+import Search from "./Search";
 import User from "../common/User/User";
 const Navbar = () => {
   return (
     <NavbarContainer>
       <NavLogo src="/images/navbar/logo.svg" />
       <NavbarSearchContainer>
-        <NavbarSearh style={{ width: "75%" }} />
+        <Search width={"75%"} />
       </NavbarSearchContainer>
       <UserDetails>
         <NavNotification src="/images/navbar/notifications.svg" />

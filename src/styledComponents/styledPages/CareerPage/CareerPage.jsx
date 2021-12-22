@@ -106,6 +106,15 @@ and encourage them to use our beta programs.`,
     ],
     noOfOpening: "9",
   };
+  const rightSideBarData = {
+    heading: "Your Recents",
+    content: [
+      "Choice filling Round 1 for B Tech...",
+      "Final Datesheet for Reappear exam",
+      "Data Structures Notes",
+      "Roadmap to UX Designing",
+    ],
+  };
   return (
     <StyledContainer id="container">
       <Navbar />
@@ -211,7 +220,7 @@ and encourage them to use our beta programs.`,
               <PrimaryButton>Apply Now</PrimaryButton>
             </CareerPageContainer>
           </MainContent>
-          <RightSideBar />
+          <RightSideBar {...rightSideBarData} />
         </Content>
       </StyledMain>
     </StyledContainer>

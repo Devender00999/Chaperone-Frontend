@@ -13,6 +13,7 @@ import DoubtDesk from "./pages/DoubtDesk";
 import Blogs from "./pages/Blogs";
 import RoadmapPage from "./styledComponents/styledPages/RoadmapPage/RoadmapPage";
 import CareerPage from "./styledComponents/styledPages/CareerPage/CareerPage";
+import DoubtDeskPage from "./styledComponents/styledPages/DoubtDeskPage/DoubtDeskPage";
 const sideData = [
   {
     title: "Home",
@@ -110,6 +111,11 @@ const App = () => {
         path="/doubt-desk"
         exact
         element={<DoubtDesk sideData={sideData} />}
+      />
+      <Route
+        path="/doubt-desk/ask-question"
+        exact
+        element={<DoubtDeskPage sideData={sideData} />}
       />
       <Route path="/blogs" exact element={<Blogs sideData={sideData} />} />
     </Routes>

@@ -103,6 +103,15 @@ const HomeScreen = (props) => {
       price: "250",
     },
   ];
+  const rightSideBarData = {
+    heading: "Your Recents",
+    content: [
+      "Choice filling Round 1 for B Tech...",
+      "Final Datesheet for Reappear exam",
+      "Data Structures Notes",
+      "Roadmap to UX Designing",
+    ],
+  };
   return (
     <StyledContainer>
       <Navbar />
@@ -132,7 +141,7 @@ const HomeScreen = (props) => {
 
             {/* <EasyBuyCard /> */}
           </MainContent>
-          <RightSideBar />
+          <RightSideBar {...rightSideBarData} />
         </Content>
       </StyledMain>
     </StyledContainer>

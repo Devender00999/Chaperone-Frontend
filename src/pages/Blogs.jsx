@@ -11,6 +11,15 @@ import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
 import BlogPage from "../styledComponents/styledPages/BlogPage/BlogPage";
 
 const Blogs = (props) => {
+  const rightSideBarData = {
+    heading: "Your Recents",
+    content: [
+      "Choice filling Round 1 for B Tech...",
+      "Final Datesheet for Reappear exam",
+      "Data Structures Notes",
+      "Roadmap to UX Designing",
+    ],
+  };
   return (
     <StyledContainer id="container">
       <Navbar />
@@ -20,7 +29,7 @@ const Blogs = (props) => {
           <MainContent direction="column" flex={3}>
             <BlogPage />
           </MainContent>
-          <RightSideBar />
+          <RightSideBar {...rightSideBarData} />
         </Content>
       </StyledMain>
     </StyledContainer>

@@ -1,5 +1,5 @@
 import React from "react";
-import { ViewLink } from "./Common.styles";
+import { StyledTag, StyledTagContainer, ViewLink } from "./Common.styles";
 
 export const StyledLink = (props) => {
   return (
@@ -10,5 +10,17 @@ export const StyledLink = (props) => {
         alt="Arrow"
       />
     </ViewLink>
+  );
+};
+
+export const StyledTags = (props) => {
+  return (
+    <StyledTagContainer>
+      {props.data.map((item) => (
+        <StyledTag color={props.color} bColor={props.bColor}>
+          {item}
+        </StyledTag>
+      ))}
+    </StyledTagContainer>
   );
 };

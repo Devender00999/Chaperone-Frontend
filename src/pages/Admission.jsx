@@ -28,6 +28,15 @@ const Admission = (props) => {
       desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
     },
   ];
+  const rightSideBarData = {
+    heading: "Quick Links",
+    content: [
+      "Choice filling Round 1 for B Tech...",
+      "Final Datesheet for Reappear exam",
+      "Datesheet Mid Term exams",
+      "Scholarship Program",
+    ],
+  };
   return (
     <StyledContainer id="container">
       <Navbar />
@@ -39,7 +48,7 @@ const Admission = (props) => {
               <BlogsCard {...blog} />
             ))}
           </MainContent>
-          <RightSideBar />
+          <RightSideBar {...rightSideBarData} />
         </Content>
       </StyledMain>
     </StyledContainer>

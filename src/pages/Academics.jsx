@@ -58,6 +58,15 @@ const Academics = (props) => {
       ],
     },
   ];
+  const rightSideBarData = {
+    heading: "Other Section",
+    content: [
+      "Industrial Traning Report Format",
+      "Industrial Traning Report Example",
+      "Minor/Major Project Synopsis Format",
+      "Minor/Major Project Report Format",
+    ],
+  };
   return (
     <StyledContainer id="container">
       <Navbar />
@@ -70,7 +79,7 @@ const Academics = (props) => {
               <SubjectCard key={i} subject={subject} />
             ))}
           </MainContent>
-          <RightSideBar />
+          <RightSideBar {...rightSideBarData} />
         </Content>
       </StyledMain>
     </StyledContainer>
