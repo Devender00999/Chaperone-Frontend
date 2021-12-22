@@ -12,27 +12,45 @@ import {
 } from "../common/Common/Common.styles";
 
 const EasyBuyCard = (props) => {
+  const { small } = props;
   return (
-    <CardContainer>
-      <CardImage style={{ height: "250px" }}>
-        <Carousel images={props.data.images} height="250px" />
+    <CardContainer style={small && { width: "31%" }}>
+      <CardImage style={({ height: "250px" }, small && { height: "180px" })}>
+        <Carousel
+          images={props.data.images}
+          height={small ? "180px" : "250px"}
+        />
       </CardImage>
-      <CardData>
+      <CardData style={small && { padding: "1rem" }}>
         <PGContainer>
           <Heading>{props.data.name}</Heading>
           <Price>₹ {props.data.price}</Price>
         </PGContainer>
         <PGContainer>
-          <DescText style={{ width: "90%" }}>{props.data.about}</DescText>
+          <DescText
+            style={({ width: "90%" }, small && { fontSize: "0.75rem" })}
+          >
+            {props.data.about}
+          </DescText>
         </PGContainer>
-        <UserDetails>
+        <UserDetails style={small && { justifyContent: "center" }}>
           <User
             className="secondary-color"
             image="/images/common/user-2.svg"
             name="Deepak Kumar"
+            style={small && { display: "none" }}
           />
 
-          <PrimaryButton style={{ alignSelf: "flex-end" }}>
+          <PrimaryButton
+            style={
+              ({ alignSelf: "flex-end" },
+              small && {
+                alignSelf: "center",
+                fontSize: "0.75rem",
+                margin: "0.5rem 0",
+              })
+            }
+          >
             Contact Owner
           </PrimaryButton>
         </UserDetails>
