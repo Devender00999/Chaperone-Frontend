@@ -13,11 +13,33 @@ export const DoubtInputBox = styled.div`
 `;
 export const DoubtInput = styled.textarea`
   padding: 10px 20px;
+  resize: none;
+
   outline: none;
   border: 0.5px solid #515151;
   border-radius: 5px;
   font-size: 15px;
 `;
+
+export const DoubtInputTags = styled.div`
+  padding: 10px 20px;
+  outline: none;
+  border: 0.5px solid #515151;
+  border-radius: 5px;
+  display: flex;
+  width: 100%;
+  min-height: 100px;
+  font-size: 15px;
+  flex-wrap: wrap; ;
+`;
+export const DoubtInputTag = styled.textarea`
+  resize: none;
+  overflow: hidden;
+  border: none;
+  outline: none;
+  padding: 5px 0;
+`;
+
 export const DoubtInputLabel = styled.label`
   font-size: 13px;
   position: absolute;
@@ -31,7 +53,10 @@ export const DoubtInputLabel = styled.label`
 export const InputTags = styled.span`
   background: rgba(255, 202, 125, 0.5);
   padding: 3px 15px;
+  margin: 5px;
+  margin-left: 0;
   font-size: 12px;
+  height: max-content;
   color: #ff6600;
   width: max-content;
   display: flex;
@@ -43,4 +68,5 @@ export const InputDelete = styled.img`
   width: 9px;
   margin-left: 10px;
   height: 9px;
+  cursor: pointer;
 `;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Content,
   MainContent,
@@ -15,6 +15,8 @@ import {
   DoubtInput,
   DoubtInputBox,
   DoubtInputLabel,
+  DoubtInputTag,
+  DoubtInputTags,
   InputDelete,
   InputTags,
 } from "./DoubtDeskPage.styles";
@@ -23,7 +25,24 @@ const rightSideBarData = {
   heading: "Other Section",
   content: ["New Questions", "My Questions", "My Answers", "Ask a Question"],
 };
+
 const DoubtDeskPage = (props) => {
+  const [list, setList] = useState([]);
+  const handleAdd = (e) => {
+    if (e.keyCode === 13) {
+      setList([...list, e.target.value]);
+      e.target.value = "";
+    }
+  };
+  const handleBack = (e) => {
+    if (e.keyCode === 8 && e.target.value === "") {
+      setList([...list.slice(0, list.length - 1)]);
+      e.target.value = "";
+    }
+  };
+  const handleDelete = (item) => {
+    setList(list.filter((element) => element !== item));
+  };
   return (
     <StyledContainer>
       <Navbar />
@@ -40,12 +59,27 @@ const DoubtDeskPage = (props) => {
                   placeholder="Please write your question here"
                 ></DoubtInput>
               </DoubtInputBox>
+
               <DoubtInputBox>
                 <DoubtInputLabel>Tags</DoubtInputLabel>
-                <DoubtInput
-                  rows={3}
-                  placeholder="Please write your question here"
-                ></DoubtInput>
+                <DoubtInputTags>
+                  {list.map((item, key) => (
+                    <InputTags key={key}>
+                      {item}
+                      <InputDelete
+                        src="/images/common/delete-cross.svg"
+                        onClick={() => handleDelete(item)}
+                      />
+                    </InputTags>
+                  ))}
+
+                  <DoubtInputTag
+                    onKeyUp={handleAdd}
+                    onKeyDown={handleBack}
+                    rows={1}
+                    type="text"
+                  />
+                </DoubtInputTags>
               </DoubtInputBox>
               <PrimaryButton
                 style={{ alignSelf: "flex-start", marginTop: 0 }}
