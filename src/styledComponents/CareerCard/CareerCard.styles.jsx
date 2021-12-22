@@ -82,8 +82,8 @@ export const CareerFeatureContainer = styled.div`
 `;
 
 export const CareerCardFeature = styled.p`
-  background: #f6f6f6;
-  color: #666666;
+  background: ${(props) => props.bColor};
+  color: ${(props) => props.color};
   border-radius: 1.25rem;
   font-size: 0.8125rem;
   padding: 5px 20px;

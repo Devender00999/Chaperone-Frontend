@@ -87,7 +87,7 @@ const CareerAware = (props) => {
               <CareerCard key={id} data={data} />
             ))}
           </MainContent>
-          <RightSideBar />
+          <RightSideBar heading="" content={[]} />
         </Content>
       </StyledMain>
     </StyledContainer>

@@ -52,7 +52,7 @@ export const NavbarSearchIcon = styled.img`
 `;
 export const NavbarSearchInputContainer = styled.div`
   position: relative;
-  width: 75%;
+  width: ${(props) => props.width};
   display: flex;
   align-items: center;
 `;

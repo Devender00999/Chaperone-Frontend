@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledLink } from "../common/Common/Common";
+import { StyledLink, StyledTags } from "../common/Common/Common";
 import * as Card from "./CareerCard.styles";
 
 const CareerCard = ({ data }) => {
@@ -39,9 +39,11 @@ const CareerCard = ({ data }) => {
       </Card.CareerTable>
       <Card.CareerCardFooter>
         <Card.CareerFeatureContainer>
-          {data.features.map((feature, id) => (
-            <Card.CareerCardFeature key={id}>{feature}</Card.CareerCardFeature>
-          ))}
+          <StyledTags
+            color={"#666666"}
+            bColor={"#f6f6f6"}
+            data={data.features}
+          ></StyledTags>
         </Card.CareerFeatureContainer>
         <StyledLink title="View Details" link={data.link} />
       </Card.CareerCardFooter>

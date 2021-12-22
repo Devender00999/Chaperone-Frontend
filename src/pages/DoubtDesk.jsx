@@ -1,23 +1,57 @@
 import React from "react";
-import BlogsCard from "../styledComponents/BlogsCard/BlogsCard";
 import {
   Content,
   MainContent,
   StyledContainer,
   StyledMain,
+  PageHeading,
 } from "../styledComponents/common/Common/Common.styles";
 import Navbar from "../styledComponents/Navbar/Navbar";
 import SideBar from "../styledComponents/SidePanel/SideBar";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
+import Search from "../styledComponents/Navbar/Search";
+
+import DoubtDeskCards from "../styledComponents/DoubtDeskCard/DoubtDeskCard";
 
 const DoubtDesk = (props) => {
-  const blogs = [
+  const data = [
     {
-      image: "/images/blogs/Image.svg",
-      heading: "Complete Roadmap to Web Development 2021",
-      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
+      question: "How to create custom tooltip in CSS?",
+      askedBy: "Devender Kumar",
+      views: 3,
+      answers: [],
+      postedTime: "",
+      tags: ["HTML", "CSS", "React"],
+    },
+    {
+      question: "How to create custom tooltip in CSS?",
+      askedBy: "Devender Kumar",
+      views: 3,
+      answers: [],
+      postedTime: "",
+      tags: ["HTML", "CSS", "React"],
+    },
+    {
+      question: "How to create custom tooltip in CSS?",
+      askedBy: "Devender Kumar",
+      views: 3,
+      answers: [],
+      postedTime: "",
+      tags: ["HTML", "CSS", "React"],
+    },
+    {
+      question: "How to create custom tooltip in CSS?",
+      askedBy: "Devender Kumar",
+      views: 3,
+      answers: [],
+      postedTime: "",
+      tags: ["HTML", "CSS", "React"],
     },
   ];
+  const rightSideBarData = {
+    heading: "Other Section",
+    content: ["New Questions", "My Questions", "My Answers", "Ask a Question"],
+  };
   return (
     <StyledContainer id="container">
       <Navbar />
@@ -25,11 +59,11 @@ const DoubtDesk = (props) => {
         <SideBar sideData={props.sideData} title="Doubt Desk"></SideBar>
         <Content>
           <MainContent direction="column" flex={3}>
-            {blogs.map((blog) => (
-              <BlogsCard {...blog} />
-            ))}
+            <PageHeading>Doubt Desk</PageHeading>
+            <Search width="100%"></Search>
+            <DoubtDeskCards data={data} />
           </MainContent>
-          <RightSideBar />
+          <RightSideBar {...rightSideBarData} />
         </Content>
       </StyledMain>
     </StyledContainer>

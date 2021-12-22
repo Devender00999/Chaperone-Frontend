@@ -5,13 +5,13 @@ import {
   NavbarSearchInputContainer,
 } from "./Navbar.styles";
 
-const NavbarSearh = () => {
+const Search = (props) => {
   return (
-    <NavbarSearchInputContainer>
+    <NavbarSearchInputContainer width={props.width}>
       <NavbarSearchIcon src="/images/common/search.svg" alt="search" />
       <NavbarSearchInput type="search" placeholder="Search" />
     </NavbarSearchInputContainer>
   );
 };
 
-export default NavbarSearh;
+export default Search;

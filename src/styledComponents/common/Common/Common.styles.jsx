@@ -167,3 +167,21 @@ export const ViewLink = styled(Link)`
     opacity: 0.8;
   }
 `;
+
+export const StyledTagContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 0.625rem;
+  flex: 3;
+`;
+
+export const StyledTag = styled.p`
+  background: ${(props) => props.bColor};
+  color: ${(props) => props.color};
+  border-radius: 1.25rem;
+  font-size: 0.8125rem;
+  padding: 4px 20px;
+  margin-right: 15px;
+  height: max-content;
+  margin-bottom: 0;
+`;
