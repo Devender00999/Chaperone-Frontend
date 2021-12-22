@@ -14,7 +14,7 @@ import { StyledLink } from "../common/Common/Common";
 
 const PGCard = (props) => {
   return (
-    <CardContainer style={props.small && { width: "35%" }}>
+    <CardContainer style={props.small && { width: "32%" }}>
       <CardImage
         style={({ height: "250px" }, props.small && { height: "180px" })}
       >

@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  CommonContainer,
   Content,
   MainContent,
   PageHeading,
@@ -26,6 +27,27 @@ const EasyBuy = (props) => {
       images: ["/images/easy-buy/img.svg"],
       price: "250",
     },
+    {
+      name: "Engg. Drawing Board",
+      about:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis suscipit felis ac elit lacinia semper. Vestibulum vulputate lorem elementum vulputate consectetur.",
+      images: ["/images/easy-buy/img.svg"],
+      price: "250",
+    },
+    {
+      name: "Engg. Drawing Board",
+      about:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis suscipit felis ac elit lacinia semper. Vestibulum vulputate lorem elementum vulputate consectetur.",
+      images: ["/images/easy-buy/img.svg"],
+      price: "250",
+    },
+    {
+      name: "Engg. Drawing Board",
+      about:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis suscipit felis ac elit lacinia semper. Vestibulum vulputate lorem elementum vulputate consectetur.",
+      images: ["/images/easy-buy/img.svg"],
+      price: "250",
+    },
   ];
   return (
     <StyledContainer id="container">
@@ -41,7 +63,6 @@ const EasyBuy = (props) => {
                 options={items}
                 selected={true}
               />
-
               <SelectTag
                 defaultValue="Select Price Range"
                 options={priceRange}
@@ -49,9 +70,11 @@ const EasyBuy = (props) => {
               />
             </SelectTags>
 
-            {easyBuyData.map((item, id) => (
-              <EasyBuyCard key={id} data={item} />
-            ))}
+            <CommonContainer>
+              {easyBuyData.map((item, id) => (
+                <EasyBuyCard small key={id} data={item} />
+              ))}
+            </CommonContainer>
           </MainContent>
         </Content>
       </StyledMain>

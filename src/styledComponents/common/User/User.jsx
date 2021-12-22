@@ -3,7 +3,7 @@ import { UserContainer, UserImage, UserName } from "./User.styles";
 
 const User = (props) => {
   return (
-    <UserContainer>
+    <UserContainer style={props.style}>
       <UserImage
         style={props.small && { width: "20px", height: "20px" }}
         src={props.image}

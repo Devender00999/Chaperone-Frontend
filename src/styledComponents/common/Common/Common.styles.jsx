@@ -9,8 +9,10 @@ export const StyledContainer = styled.div`
 
 export const CommonContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  column-gap: 1.5rem;
+  justify-content: space-evenly;
+  column-gap: 1rem;
+  row-gap: 1rem;
+  flex-wrap: wrap;
 `;
 
 export const StyledMain = styled.div`
@@ -82,9 +84,11 @@ export const SecondaryHeading = styled.h3`
 `;
 
 export const DescText = styled.p`
+  color: #666666;
   font-family: Poppins;
   font-size: 0.875rem;
-  color: #666666;
+  margin: 0;
+  padding: 0.5rem 0;
 `;
 
 export const HeadingContent = styled.h2`
