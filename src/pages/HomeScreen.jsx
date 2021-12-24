@@ -16,6 +16,7 @@ import PGCard from "../styledComponents/PGCard/PGCard";
 import EasyBuyCard from "../styledComponents/EasyBuyCard/EasyBuyCard";
 import { blogsData } from "../data/blog";
 import { careerData } from "../data/career";
+import { pgData } from "../data/pgFinder";
 const HomeScreen = (props) => {
   const tags = [
     { value: "All", selected: true },
@@ -23,21 +24,6 @@ const HomeScreen = (props) => {
     { value: "Interest", selected: false },
     { value: "Interest", selected: false },
     { value: "Interest", selected: false },
-  ];
-
-  const pgData = [
-    {
-      name: "Stanza Living Boston House",
-      images: ["/images/pg-finder/pg img.png"],
-      address:
-        "D 264 Subhash Nagar, Pandav Nagar Complex, near Subhash Nagar Metro Station, Delhi 110099",
-      price: "18000",
-      location: "https://google.com",
-      distFromCollege: "500m from GTBIT",
-      distFromMetro: "500m from GTBIT",
-      link: "/",
-      for: "girls",
-    },
   ];
 
   const easyBuyData = [

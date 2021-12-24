@@ -61,7 +61,7 @@ const Carousel = (props) => {
           </div>
         ))}
       </AutoPlaySwipeableViews>
-      {props.images.length > 0 && (
+      {props.images.length > 1 && (
         <div
           style={{
             position: "absolute",

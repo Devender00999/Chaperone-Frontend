@@ -22,8 +22,9 @@ import { StyledLink } from "../../common/Common/Common";
 import SchoolIcon from "@mui/icons-material/School";
 import TrainIcon from "@mui/icons-material/Train";
 
+import { pgData } from "../../../data/pgFinder";
+
 const PGPage = (props) => {
-  const images = ["/images/blogs/Background.svg"];
   return (
     <StyledContainer>
       <Navbar />
@@ -33,7 +34,7 @@ const PGPage = (props) => {
           <MainContent direction="column" flex={3}>
             <BlogPageContainer>
               <Carousel
-                images={images}
+                images={pgData[0].images}
                 height="250px"
                 bottom="4rem"
                 right="1.25rem"
@@ -42,21 +43,18 @@ const PGPage = (props) => {
               <BlogContent>
                 <PGContainer>
                   <Heading style={{ color: "#ff6600", fontWeight: 500 }}>
-                    Stanza Living Boston House
+                    {pgData[0].name}
                   </Heading>
-                  <Price>₹ 18000 </Price>
+                  <Price>₹ {pgData[0].price} </Price>
                 </PGContainer>
-                <DescText>
-                  D 264 Subhash Nagar, Pandav Nagar Complex, near Subhash Nagar
-                  Metro Station, Delhi 110092
-                </DescText>
+                <DescText>{pgData[0].address}</DescText>
                 <PGContainer
                   style={{
                     justifyContent: "flex-end",
                     padding: "0rem 0 0.5rem",
                   }}
                 >
-                  <StyledLink link="/map" title="View on Map" />
+                  <StyledLink link={pgData[0].location} title="View on Map" />
                 </PGContainer>
 
                 <PGContainer
@@ -72,7 +70,7 @@ const PGPage = (props) => {
                         marginRight: "0.5rem",
                       }}
                     />{" "}
-                    500m from GTBIT
+                    {pgData[0].distFromCollege}
                   </PGFeature>
 
                   <PGFeature>
@@ -83,35 +81,34 @@ const PGPage = (props) => {
                         marginRight: "0.5rem",
                       }}
                     />{" "}
-                    800m from Subhash Nagar Metro Station
+                    {pgData[0].distFromMetro}
                   </PGFeature>
                 </PGContainer>
                 <CommonContainer style={{ justifyContent: "space-between" }}>
                   <ListContainer>
                     <Heading>Amenities</Heading>
                     <List>
-                      <ListItem>Wifi</ListItem>
-                      <ListItem>Power Backup</ListItem>
-                      <ListItem>Room Cleaning</ListItem>
-                      <ListItem>Wifi</ListItem>
+                      {pgData[0].amenities.map((amenity, key) => (
+                        <ListItem key={key}>{amenity}</ListItem>
+                      ))}
                     </List>
                   </ListContainer>
 
                   <ListContainer>
                     <Heading>House Rules</Heading>
                     <List>
-                      <ListItem>Wifi</ListItem>
-                      <ListItem>Power Backup</ListItem>
-                      <ListItem>Room Cleaning</ListItem>
-                      <ListItem>Wifi</ListItem>
+                      {pgData[0].houseRules.map((houseRule, key) => (
+                        <ListItem key={key}>{houseRule}</ListItem>
+                      ))}
                     </List>
                   </ListContainer>
 
                   <ListContainer>
                     <Heading>Other charges</Heading>
                     <List>
-                      <ListItem>Rs. 3000 Deposit Amount </ListItem>
-                      <ListItem>Laundry</ListItem>
+                      {pgData[0].otherCharges.map((otherCharge, key) => (
+                        <ListItem key={key}>{otherCharge}</ListItem>
+                      ))}
                     </List>
                   </ListContainer>
                 </CommonContainer>

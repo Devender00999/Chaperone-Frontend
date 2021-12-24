@@ -47,6 +47,7 @@ const PGCard = (props) => {
           style={{
             justifyContent: "flex-start",
             flexDirection: small && "column",
+            alignItems: small && "flex-start",
             rowGap: small && "0.5rem",
             padding: small && "0.5rem 0",
           }}
