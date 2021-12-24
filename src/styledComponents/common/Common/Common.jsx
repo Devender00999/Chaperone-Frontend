@@ -14,8 +14,8 @@ export const StyledLink = (props) => {
 export const StyledTags = (props) => {
   return (
     <StyledTagContainer>
-      {props.data.map((item, id) => (
-        <StyledTag key={id} color={props.color} bColor={props.bColor}>
+      {props.data.map((item, key) => (
+        <StyledTag key={key} color={props.color} bColor={props.bColor}>
           {item}
         </StyledTag>
       ))}

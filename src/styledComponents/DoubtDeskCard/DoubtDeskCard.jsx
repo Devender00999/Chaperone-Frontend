@@ -16,8 +16,8 @@ import {
 const DoubtDeskCards = (props) => {
   return (
     <DoubtCardContainer>
-      {props.data.map((doubt) => (
-        <DoubtCard>
+      {props.data.map((doubt, key) => (
+        <DoubtCard key={key} to={"asdfasdf"}>
           <DoubtStatus>
             <DoubtStatusCard>
               <DoubtStatusNumber>{doubt.views}</DoubtStatusNumber>

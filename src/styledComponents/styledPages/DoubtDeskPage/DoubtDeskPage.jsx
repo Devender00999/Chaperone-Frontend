@@ -27,21 +27,52 @@ const rightSideBarData = {
 };
 
 const DoubtDeskPage = (props) => {
-  const [list, setList] = useState([]);
+  const [questionData, setQuestionData] = useState({
+    question: "",
+    questionTags: [],
+  });
+
   const handleAdd = (e) => {
     if (e.keyCode === 13) {
-      setList([...list, e.target.value]);
+      const data = e.target.value;
+      setQuestionData((prevState) => ({
+        ...prevState,
+        questionTags: [...prevState.questionTags, data],
+      }));
       e.target.value = "";
     }
   };
   const handleBack = (e) => {
     if (e.keyCode === 8 && e.target.value === "") {
-      setList([...list.slice(0, list.length - 1)]);
+      setQuestionData((prevState) => ({
+        ...prevState,
+        questionTags: [
+          ...prevState.questionTags.slice(0, prevState.questionTags.length - 1),
+        ],
+      }));
       e.target.value = "";
     }
   };
   const handleDelete = (item) => {
-    setList(list.filter((element) => element !== item));
+    setQuestionData((prevState) => ({
+      ...prevState,
+      questionTags: prevState.questionTags.filter(
+        (element) => element !== item
+      ),
+    }));
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(questionData);
+  };
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setQuestionData((prevState) => {
+      return {
+        ...prevState,
+        question: value,
+      };
+    });
   };
   return (
     <StyledContainer>
@@ -51,19 +82,21 @@ const DoubtDeskPage = (props) => {
         <Content>
           <MainContent direction="column" flex={3}>
             <PageHeading>Doubt Desk / Ask a Question</PageHeading>
-            <DoubtForm>
+            <DoubtForm onSubmit={handleSubmit}>
               <DoubtInputBox>
                 <DoubtInputLabel>Question</DoubtInputLabel>
                 <DoubtInput
                   rows={5}
+                  value={questionData.question}
                   placeholder="Please write your question here"
+                  onChange={handleChange}
                 ></DoubtInput>
               </DoubtInputBox>
 
               <DoubtInputBox>
                 <DoubtInputLabel>Tags</DoubtInputLabel>
                 <DoubtInputTags>
-                  {list.map((item, key) => (
+                  {questionData.questionTags.map((item, key) => (
                     <InputTags key={key}>
                       {item}
                       <InputDelete

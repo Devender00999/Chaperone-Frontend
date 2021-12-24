@@ -14,7 +14,8 @@ import CareerCard from "../styledComponents/CareerCard/CareerCard";
 import ProjectCard from "../styledComponents/ProjectCard/ProjectCard";
 import PGCard from "../styledComponents/PGCard/PGCard";
 import EasyBuyCard from "../styledComponents/EasyBuyCard/EasyBuyCard";
-
+import { blogsData } from "../data/blog";
+import { careerData } from "../data/career";
 const HomeScreen = (props) => {
   const tags = [
     { value: "All", selected: true },
@@ -22,61 +23,6 @@ const HomeScreen = (props) => {
     { value: "Interest", selected: false },
     { value: "Interest", selected: false },
     { value: "Interest", selected: false },
-  ];
-
-  const blogs = [
-    {
-      image: "/images/blogs/Image.svg",
-      heading: "Complete Roadmap to Web Development 2021",
-      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
-    },
-    {
-      image: "/images/blogs/Image.svg",
-      heading: "Complete Roadmap to Web Development 2021",
-      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
-    },
-    {
-      image: "/images/blogs/Image.svg",
-      heading: "Complete Roadmap to Web Development 2021",
-      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
-    },
-    {
-      image: "/images/blogs/Image.svg",
-      heading: "Complete Roadmap to Web Development 2021",
-      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
-    },
-  ];
-
-  const careerData = [
-    {
-      title: "Web Development",
-      companyName: "bon ton",
-      type: "Work from home",
-      companyLogo: "/images/career-card/bonton.svg",
-      startDate: "Immediately",
-      duration: "3 Months",
-      amount: 2000,
-      lastDate: "23 Nov' 21",
-      features: ["Internship", "Part time allowed"],
-      link: "https://google.com",
-    },
-    {
-      title: "Web Development",
-      companyName: "bon ton",
-      type: "Work from home",
-      companyLogo: "/images/career-card/bonton.svg",
-      startDate: "Immediately",
-      duration: "3 Months",
-      amount: 2000,
-      lastDate: "23 Nov' 21",
-      features: [
-        "Internship",
-        "Part time allowed",
-        "Internship",
-        "Part time allowed",
-      ],
-      link: "https://google.com",
-    },
   ];
 
   const pgData = [
@@ -120,7 +66,7 @@ const HomeScreen = (props) => {
         <Content>
           <MainContent direction="column" flex={3}>
             <Tags tags={tags} />
-            {blogs.map((blog, id) => (
+            {blogsData.map((blog, id) => (
               <BlogsCard key={id} {...blog} />
             ))}
             {careerData.map((data, id) => (
