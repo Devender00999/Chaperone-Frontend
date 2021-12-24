@@ -32,11 +32,11 @@ export const DoubtInputTags = styled.div`
   font-size: 15px;
   flex-wrap: wrap; ;
 `;
-export const DoubtInputTag = styled.textarea`
-  resize: none;
-  overflow: hidden;
+export const DoubtInputTag = styled.input`
   border: none;
   outline: none;
+  height: max-content;
+  width: 100px;
   padding: 5px 0;
 `;
 
@@ -69,4 +69,10 @@ export const InputDelete = styled.img`
   margin-left: 10px;
   height: 9px;
   cursor: pointer;
+`;
+
+export const DoubtAnswerContainer = styled.div`
+  padding: 10px 0;
+  border: none;
+  border-top: 1px solid #cacaca;
 `;

@@ -1,12 +1,13 @@
 import styled from "styled-components";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const DoubtCardContainer = styled.div``;
 
-export const DoubtCard = styled.div`
+export const DoubtCard = styled(Link)`
   display: flex;
   padding: 10px 0;
   margin: 10px 0;
+  text-decoration: none;
 `;
 
 export const DoubtStatus = styled.div`
@@ -60,4 +61,12 @@ export const DoubtAskBySection = styled.p`
 export const DoubtAskBy = styled.span`
   color: #ff6600;
   font-weight: 300;
+  font-family: "Poppins";
+`;
+
+export const DoubtAnswer = styled.pre`
+  color: #666666;
+  font-family: "Poppins";
+  padding: 10px 0;
+  margin-bottom: 5px;
 `;
