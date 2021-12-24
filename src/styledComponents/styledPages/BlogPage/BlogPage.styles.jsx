@@ -18,10 +18,6 @@ export const BlogContent = styled.div`
   padding: 30px 40px;
   background: white;
 `;
-export const BlogHeading = styled.p`
-  font-size: 18px;
-  margin-bottom: 6px;
-`;
 
 export const BlogText = styled.p`
   font-size: 13px;

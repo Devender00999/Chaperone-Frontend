@@ -15,7 +15,7 @@ const EasyBuyCard = (props) => {
   const { small } = props;
   return (
     <CardContainer style={small && { width: "31%" }}>
-      <CardImage style={({ height: "250px" }, small && { height: "180px" })}>
+      <CardImage style={{ height: small ? "180px" : "250px" }}>
         <Carousel
           images={props.data.images}
           height={small ? "180px" : "250px"}
@@ -27,9 +27,7 @@ const EasyBuyCard = (props) => {
           <Price>₹ {props.data.price}</Price>
         </PGContainer>
         <PGContainer>
-          <DescText
-            style={({ width: "90%" }, small && { fontSize: "0.75rem" })}
-          >
+          <DescText style={{ width: "90%", fontSize: small && "0.75rem" }}>
             {props.data.about}
           </DescText>
         </PGContainer>

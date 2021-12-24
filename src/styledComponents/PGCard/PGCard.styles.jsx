@@ -3,15 +3,16 @@ import styled from "styled-components";
 export const PGContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const PGFeature = styled.p`
   background: #f6f6f6;
   color: #666666;
   border-radius: 20px;
-  font-size: 13px;
-  padding: 5px 20px;
-  margin-right: 15px;
+  font-size: 0.75rem;
+  padding: 0.5rem 1.25rem;
+  margin-right: 1rem;
   margin-bottom: 0;
   display: flex;
   column-gap: 0.5rem;

@@ -66,6 +66,7 @@ export const Heading = styled.h3`
   font-size: 1rem;
   font-weight: 400;
   color: #000;
+  margin: 0;
 `;
 
 export const PageHeading = styled.h3`
@@ -137,7 +138,7 @@ export const PrimaryButton = styled.button`
   color: white;
   border: none;
   border-radius: 2px;
-  margin-top: 1rem;
+  margin: 0.5rem 0;
   font-weight: 500;
 `;
 
@@ -184,4 +185,27 @@ export const StyledTag = styled.p`
   margin-right: 15px;
   height: max-content;
   margin-bottom: 0;
+`;
+
+//List
+
+export const ListContainer = styled.div`
+  padding: 1.5rem 0;
+  width: 30%;
+`;
+
+export const List = styled.ul`
+  display: flex;
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  flex-direction: column;
+`;
+
+export const ListItem = styled.li`
+  font-family: Poppins;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #515151;
+  padding: 0.2rem 0;
+  text-transform: capitalize;
+  word-wrap: break-word;
 `;

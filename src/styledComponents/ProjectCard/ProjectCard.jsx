@@ -24,18 +24,19 @@ const ProjectCard = (props) => {
             image="/images/common/user-2.svg"
             name="Deepak Kumar"
             small={props.small}
+            style={{ padding: "1rem 0 0.5rem" }}
           />
         )}
-        <DescText style={props.small && { fontSize: "0.75rem" }}>
+        <DescText style={props.small ? { fontSize: "0.75rem" } : {}}>
           {props.desc}
         </DescText>
-        <UserDetails>
+        <UserDetails style={{ padding: "0.5rem 0" }}>
           {!props.small && (
             <User
               className="secondary-color"
               image="/images/common/user-2.svg"
               name="Deepak Kumar"
-              small
+              small={props.small}
             />
           )}
           <UserProps>

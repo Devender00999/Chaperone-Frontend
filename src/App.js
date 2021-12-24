@@ -14,6 +14,7 @@ import Blogs from "./pages/Blogs";
 import RoadmapPage from "./styledComponents/styledPages/RoadmapPage/RoadmapPage";
 import CareerPage from "./styledComponents/styledPages/CareerPage/CareerPage";
 import DoubtDeskPage from "./styledComponents/styledPages/DoubtDeskPage/DoubtDeskPage";
+import PGPage from "./styledComponents/styledPages/PGPage/PGPage";
 const sideData = [
   {
     title: "Home",
@@ -80,11 +81,18 @@ const App = () => {
         exact
         element={<Admission sideData={sideData} />}
       />
+
       <Route
         path="/roadmaps"
         exact
         element={<Roadmaps sideData={sideData} />}
       />
+      <Route
+        path="/roadmap-page"
+        exact
+        element={<RoadmapPage sideData={sideData} />}
+      />
+
       <Route
         path="/academics"
         exact
@@ -101,12 +109,10 @@ const App = () => {
         element={<CareerPage sideData={sideData} />}
       />
       <Route path="/find-pg" exact element={<FindPG sideData={sideData} />} />
+
+      <Route path="/find-pg/:id" element={<PGPage sideData={sideData} />} />
+
       <Route path="/easy-buy" exact element={<EasyBuy sideData={sideData} />} />
-      <Route
-        path="/roadmap-page"
-        exact
-        element={<RoadmapPage sideData={sideData} />}
-      />
       <Route
         path="/doubt-desk"
         exact

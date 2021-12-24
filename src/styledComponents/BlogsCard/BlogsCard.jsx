@@ -18,6 +18,7 @@ const BlogsCard = (props) => {
             className="secondary-color"
             image="/images/common/user-2.svg"
             name="Deepak Kumar"
+            style={{ padding: "0.5rem 0" }}
           />
           <UserProps>
             <Like className="cursor-pointer" />

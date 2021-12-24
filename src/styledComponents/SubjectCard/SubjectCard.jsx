@@ -1,10 +1,10 @@
 import React from "react";
+import { StyledLink } from "../common/Common/Common";
 import { DescText, Heading } from "../common/Common/Common.styles";
 import {
   SubjectContainer,
   SubjectTopic,
   SubjectTopics,
-  TopicLink,
 } from "./SubjectCard.styles";
 
 const SubjectCard = (props) => {
@@ -18,7 +18,7 @@ const SubjectCard = (props) => {
             <DescText style={{ margin: "0 0 0.5rem" }}>
               {topic.topicName}
             </DescText>
-            <TopicLink to={topic.topicLink}>View</TopicLink>
+            <StyledLink link={topic.topicLink} title="View" />
           </SubjectTopic>
         ))}
       </SubjectTopics>

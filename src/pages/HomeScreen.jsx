@@ -120,11 +120,11 @@ const HomeScreen = (props) => {
         <Content>
           <MainContent direction="column" flex={3}>
             <Tags tags={tags} />
-            {blogs.map((blog) => (
-              <BlogsCard {...blog} />
+            {blogs.map((blog, id) => (
+              <BlogsCard key={id} {...blog} />
             ))}
-            {careerData.map((data) => (
-              <CareerCard data={data} />
+            {careerData.map((data, id) => (
+              <CareerCard key={id} data={data} />
             ))}
             <ProjectCard
               image="/images/projects/Image.svg"

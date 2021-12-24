@@ -3,13 +3,14 @@ import styled from "styled-components";
 export const UserDetails = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
+  padding: 0.5rem 0;
 `;
 
 export const UserContainer = styled.div`
   display: flex;
   align-items: center;
-  margin: 0 0 0.5rem;
 `;
 
 export const UserImage = styled.img`
@@ -21,7 +22,7 @@ export const UserImage = styled.img`
 
 export const UserName = styled.p`
   font-family: "poppins";
-  font-size: 16px;
+  font-size: 1rem;
   margin: 0;
 `;
 

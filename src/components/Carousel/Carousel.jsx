@@ -61,44 +61,46 @@ const Carousel = (props) => {
           </div>
         ))}
       </AutoPlaySwipeableViews>
-      <div
-        style={{
-          position: "absolute",
-          bottom: "1rem",
-          right: "1rem",
-          borderRadius: "0.25rem",
-          overflow: "hidden",
-          border: "1px solid #D2D5D8",
-        }}
-      >
-        <Button
-          size="small"
-          onClick={handleBack}
-          disabled={activeStep === 0}
-          sx={buttonStyle}
+      {props.images.length > 0 && (
+        <div
           style={{
-            borderRight: "1px solid #D2D5D8",
+            position: "absolute",
+            bottom: props.bottom ? props.bottom : "1rem",
+            right: props.right ? props.right : "1.25rem",
+            borderRadius: "0.25rem",
+            overflow: "hidden",
+            border: "1px solid #D2D5D8",
           }}
         >
-          {theme.direction === "rtl" ? (
-            <KeyboardArrowRight />
-          ) : (
-            <KeyboardArrowLeft />
-          )}
-        </Button>
-        <Button
-          size="small"
-          onClick={handleNext}
-          disabled={activeStep === maxSteps - 1}
-          sx={buttonStyle}
-        >
-          {theme.direction === "rtl" ? (
-            <KeyboardArrowLeft style={{ color: "red" }} />
-          ) : (
-            <KeyboardArrowRight />
-          )}
-        </Button>
-      </div>
+          <Button
+            size="small"
+            onClick={handleBack}
+            disabled={activeStep === 0}
+            sx={buttonStyle}
+            style={{
+              borderRight: "1px solid #D2D5D8",
+            }}
+          >
+            {theme.direction === "rtl" ? (
+              <KeyboardArrowRight />
+            ) : (
+              <KeyboardArrowLeft />
+            )}
+          </Button>
+          <Button
+            size="small"
+            onClick={handleNext}
+            disabled={activeStep === maxSteps - 1}
+            sx={buttonStyle}
+          >
+            {theme.direction === "rtl" ? (
+              <KeyboardArrowLeft style={{ color: "red" }} />
+            ) : (
+              <KeyboardArrowRight />
+            )}
+          </Button>
+        </div>
+      )}
     </Box>
   );
 };
