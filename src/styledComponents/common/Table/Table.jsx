@@ -32,7 +32,7 @@ const Blogs = [
 
 const DataTable = () => {
   return (
-    <table striped bordered hover>
+    <table>
       <thead>
         <tr>
           <TableColumnHeading>Heading</TableColumnHeading>

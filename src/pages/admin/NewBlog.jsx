@@ -35,6 +35,7 @@ const NewBlog = () => {
     const imageUrl = URL.createObjectURL(event.target.files[0]);
     setHeaderImage(imageUrl);
   };
+  console.log(markup);
   return (
     <>
       <MainContent direction={"column"}>
@@ -86,8 +87,6 @@ const NewBlog = () => {
 
           <div
             style={{
-              height: "38vh",
-              // height: "calc(100% - 160px )",
               border: "1px solid #D2D2D2",
               marginBottom: "20px",
               borderRadius: "5px",
@@ -98,9 +97,11 @@ const NewBlog = () => {
               onEditorStateChange={onEditorStateChange}
             />
           </div>
-          <PrimaryButton type="submit">Submit</PrimaryButton>
+          <PrimaryButton className="btn" type="submit">
+            Submit
+          </PrimaryButton>
         </Form>
-        <div dangerouslySetInnerHTML={{ __html: markup }} />
+        {/* <div dangerouslySetInnerHTML={{ __html: markup }} /> */}
       </MainContent>
     </>
   );

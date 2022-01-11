@@ -9,10 +9,10 @@ import {
 } from "./SideBar.styles";
 
 const SideBar = (props) => {
-  const { title, setTitle } = props;
+  const { setTitle } = props;
   const location = useLocation();
-  const unknownLink =
-    location.pathname === "/not-found" || location.pathname === "/unauthorised";
+  const { pathname } = location;
+  const unknownLink = pathname === "/not-found" || pathname === "/unauthorised";
   if (unknownLink) setTitle("");
   return (
     <LSideBarContainer>
@@ -20,15 +20,15 @@ const SideBar = (props) => {
         return (
           <SideBarItem
             key={id}
-            selected={title === item.title}
+            selected={pathname === item.link}
             to={item.link}
             onClick={() => setTitle(item.title)}
           >
             <SideBarItemIcon
               src={item.icon}
-              style={{ opacity: title === item.title ? 1 : 0.5 }}
+              style={{ opacity: pathname === item.link ? 1 : 0.5 }}
             />
-            <SideBarItemText selected={title === item.title}>
+            <SideBarItemText selected={pathname === item.link}>
               {item.title}
             </SideBarItemText>
           </SideBarItem>

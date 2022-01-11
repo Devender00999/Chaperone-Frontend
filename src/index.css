@@ -67,9 +67,24 @@ body {
   overflow: auto;
 }
 .home-editor {
-  height: 40vh !important;
+  height: 37vh !important;
   overflow: auto;
+  margin-top: 0;
+}
+.public-DraftEditor-content[contenteditable="true"] {
+  height: 27px;
+}
+
+@media screen and (max-height: 660px) {
+  .home-editor {
+    height: 28vh !important;
+    overflow: auto;
+    margin-top: 0;
+  }
 }
 .DraftEditor-root {
   height: 90% !important;
+}
+.public-DraftStyleDefault-ltr {
+  margin-top: 5px !important;
 }

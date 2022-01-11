@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./index.css";
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./pages/Home";
