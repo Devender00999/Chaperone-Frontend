@@ -40,8 +40,8 @@ const ProjectCard = (props) => {
             />
           )}
           <UserProps>
-            <SecondaryButton to="/">View Project</SecondaryButton>
-            <SecondaryButton to="">Github Link</SecondaryButton>
+            <SecondaryButton to={props.liveLink}>View Project</SecondaryButton>
+            <SecondaryButton to={props.githubLink}>Github Link</SecondaryButton>
           </UserProps>
         </UserDetails>
       </CardData>

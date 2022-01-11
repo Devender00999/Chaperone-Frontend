@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const ArticlesContainer = styled.div`
-  margin: 1rem 0;
+  margin: 0.5rem 0;
 `;
 
 export const ArticleTextCon = styled.div`
@@ -35,4 +35,5 @@ export const HeadingContainer = styled.div`
 export const ProjectContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 `;

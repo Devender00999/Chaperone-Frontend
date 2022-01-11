@@ -5,18 +5,14 @@ import {
   MainContent,
   PageHeading,
   PrimaryButton,
-  StyledContainer,
-  StyledMain,
 } from "../../common/Common/Common.styles";
 import {
   DoubtAnswer,
   DoubtAskBy,
   DoubtQuestion,
 } from "../../DoubtDeskCard/DoubtDeskCard.styles";
-import Navbar from "../../Navbar/Navbar";
 import Search from "../../Navbar/Search";
 import RightSideBar from "../../SidePanel/RightSideBar";
-import SideBar from "../../SidePanel/SideBar";
 import {
   DoubtAnswerContainer,
   DoubtForm,
@@ -74,56 +70,48 @@ const DoubtDeskAnswers = (props) => {
     setAnswer("");
   };
   return (
-    <StyledContainer>
-      <Navbar />
-      <StyledMain>
-        <SideBar sideData={props.sideData} title="Doubt Desk"></SideBar>{" "}
-        <Content>
-          <MainContent direction="column" flex={3}>
-            <PageHeading>Doubt Desk / Ask a Question</PageHeading>
-            <Search width="100%" query></Search>
-            <DoubtQuestion style={{ margin: "20px 0" }}>
-              Q. {data.question}
-            </DoubtQuestion>
-            {data.answers.map((data, key) => (
-              <DoubtAnswerContainer key={key}>
-                <DoubtAskBy style={{ fontSize: "15px", fontWeight: 400 }}>
-                  answered by {data.name}
-                </DoubtAskBy>
-                <DoubtAnswer
-                  dangerouslySetInnerHTML={{ __html: data.answer }}
-                ></DoubtAnswer>
-              </DoubtAnswerContainer>
-            ))}
-            <DoubtAnswerContainer>
-              <DoubtForm style={{ margin: 0 }} onSubmit={handleSubmit}>
-                <Heading
-                  style={{ margin: "10px 0 25px 0px", fontSize: "18px" }}
-                >
-                  Submit your Answer
-                </Heading>
-                <DoubtInputBox>
-                  <DoubtInputLabel>Answer</DoubtInputLabel>
-                  <DoubtInput
-                    rows={5}
-                    placeholder="Please type your answer here"
-                    onChange={(e) => setAnswer(e.target.value)}
-                    value={answer}
-                  ></DoubtInput>
-                </DoubtInputBox>
-                <PrimaryButton
-                  style={{ margin: "0 0 20px 0", alignSelf: "flex-start" }}
-                  type="submit"
-                >
-                  Submit
-                </PrimaryButton>
-              </DoubtForm>
-            </DoubtAnswerContainer>
-          </MainContent>
-          <RightSideBar {...rightSideBarData} />
-        </Content>
-      </StyledMain>
-    </StyledContainer>
+    <Content>
+      <MainContent direction="column" flex={3}>
+        <PageHeading>Doubt Desk / Ask a Question</PageHeading>
+        <Search width="100%" query></Search>
+        <DoubtQuestion style={{ margin: "20px 0" }}>
+          Q. {data.question}
+        </DoubtQuestion>
+        {data.answers.map((data, key) => (
+          <DoubtAnswerContainer key={key}>
+            <DoubtAskBy style={{ fontSize: "15px", fontWeight: 400 }}>
+              answered by {data.name}
+            </DoubtAskBy>
+            <DoubtAnswer
+              dangerouslySetInnerHTML={{ __html: data.answer }}
+            ></DoubtAnswer>
+          </DoubtAnswerContainer>
+        ))}
+        <DoubtAnswerContainer>
+          <DoubtForm style={{ margin: 0 }} onSubmit={handleSubmit}>
+            <Heading style={{ margin: "10px 0 25px 0px", fontSize: "18px" }}>
+              Submit your Answer
+            </Heading>
+            <DoubtInputBox>
+              <DoubtInputLabel>Answer</DoubtInputLabel>
+              <DoubtInput
+                rows={5}
+                placeholder="Please type your answer here"
+                onChange={(e) => setAnswer(e.target.value)}
+                value={answer}
+              ></DoubtInput>
+            </DoubtInputBox>
+            <PrimaryButton
+              style={{ margin: "0 0 20px 0", alignSelf: "flex-start" }}
+              type="submit"
+            >
+              Submit
+            </PrimaryButton>
+          </DoubtForm>
+        </DoubtAnswerContainer>
+      </MainContent>
+      <RightSideBar {...rightSideBarData} />
+    </Content>
   );
 };
 

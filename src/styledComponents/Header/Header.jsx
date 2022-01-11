@@ -15,7 +15,7 @@ import {
   StyledHeader,
 } from "./Header.styles";
 
-const Header = () => {
+const Header = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [componentForm, setComponentForm] = useState({
     content: SignInForm,
@@ -42,7 +42,12 @@ const Header = () => {
           <StyledButtons onClick={(e) => handleClick(e, SignUpForm)}>
             Create a new account
           </StyledButtons>
-          <StyledButtons onClick={() => (window.location = "/home")}>
+          <StyledButtons
+            onClick={() => {
+              localStorage.setItem("user", "true");
+              window.location.href = "/";
+            }}
+          >
             Sign in with Google
           </StyledButtons>
           <StyledButtons onClick={(e) => handleClick(e, SignInForm)}>

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+
 import {
   Content,
   DescText,
@@ -6,13 +7,10 @@ import {
   MainContent,
   PageHeading,
   SecondaryHeading,
-  StyledContainer,
-  StyledMain,
 } from "../../common/Common/Common.styles";
-import { StyledLink } from "../../common/Common/Common";
-import Navbar from "../../Navbar/Navbar";
+
+import { GoBack, StyledLink } from "../../common/Common/Common";
 import RightSideBar from "../../SidePanel/RightSideBar";
-import SideBar from "../../SidePanel/SideBar";
 import {
   Article,
   ArticleNumber,
@@ -21,7 +19,9 @@ import {
   HeadingContainer,
   ProjectContainer,
 } from "./RoadmapPage.styles";
+
 import ProjectCard from "../../ProjectCard/ProjectCard";
+import { roadmapsData } from "../../../data/roadmaps";
 
 const RoadmapPage = (props) => {
   const rightSideBarData = {
@@ -33,97 +33,67 @@ const RoadmapPage = (props) => {
       "Roadmap to UX Designing",
     ],
   };
+
+  const [showArticles, setShowArticles] = useState(false);
+  const articleLimit = showArticles
+    ? roadmapsData[0].featuredArticles.length
+    : 4;
+
+  const [showProjects, setShowProjects] = useState(false);
+  const projectLimit = showProjects ? roadmapsData[0].projectsIdeas.length : 2;
   return (
-    <StyledContainer>
-      <Navbar />
-      <StyledMain>
-        <SideBar sideData={props.sideData} title="Roadmaps"></SideBar>{" "}
-        <Content>
-          <MainContent direction="column" flex={3}>
-            <PageHeading>Web Development</PageHeading>
-            <ArticlesContainer>
-              <HeadingContainer>
-                <SecondaryHeading>Featured Articles</SecondaryHeading>
-                <StyledLink title="View All" link="/somewhre" />
-              </HeadingContainer>
+    <Content>
+      <MainContent direction="column" flex={3}>
+        <HeadingContainer>
+          <PageHeading>Web Development</PageHeading>
+          <GoBack title="" link="/roadmaps" />
+        </HeadingContainer>
 
-              <Article to="/somewhere">
-                <ArticleNumber>01</ArticleNumber>
+        <ArticlesContainer>
+          <HeadingContainer>
+            <SecondaryHeading>Featured Articles</SecondaryHeading>
+            <StyledLink
+              title="View All"
+              onClick={() => setShowArticles((prev) => !prev)}
+              link=""
+            />
+          </HeadingContainer>
+
+          {roadmapsData[0].featuredArticles
+            .slice(0, articleLimit)
+            .map((article, index) => (
+              <Article to="/blogs">
+                <ArticleNumber>
+                  {index < 10 - 1 ? "0" + (index + 1) : index + 1}
+                </ArticleNumber>
                 <ArticleTextCon>
-                  <Heading>Begin Web Development with Headstart</Heading>
+                  <Heading>{article.heading}</Heading>
                   <DescText style={{ fontSize: "12px" }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Maecenas lobortis risus nec metus luctus lacinia in nec
-                    sapien.Quisque nec interdum neque. Ut non massa id odio
-                    auctor...
+                    {article.desc.substring(0, 150)}
                   </DescText>
                 </ArticleTextCon>
               </Article>
+            ))}
+        </ArticlesContainer>
 
-              <Article to="/somewhere">
-                <ArticleNumber>02</ArticleNumber>
-                <ArticleTextCon>
-                  <Heading>Begin Web Development with Headstart</Heading>
-                  <DescText style={{ fontSize: "12px" }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Maecenas lobortis risus nec metus luctus lacinia in nec
-                    sapien.Quisque nec interdum neque. Ut non massa id odio
-                    auctor...
-                  </DescText>
-                </ArticleTextCon>
-              </Article>
-
-              <Article to="/somewhere">
-                <ArticleNumber>03</ArticleNumber>
-                <ArticleTextCon>
-                  <Heading>Begin Web Development with Headstart</Heading>
-                  <DescText style={{ fontSize: "12px" }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Maecenas lobortis risus nec metus luctus lacinia in nec
-                    sapien.Quisque nec interdum neque. Ut non massa id odio
-                    auctor...
-                  </DescText>
-                </ArticleTextCon>
-              </Article>
-
-              <Article to="/somewhere">
-                <ArticleNumber>04</ArticleNumber>
-                <ArticleTextCon>
-                  <Heading>Begin Web Development with Headstart</Heading>
-                  <DescText style={{ fontSize: "12px" }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Maecenas lobortis risus nec metus luctus lacinia in nec
-                    sapien.Quisque nec interdum neque. Ut non massa id odio
-                    auctor...
-                  </DescText>
-                </ArticleTextCon>
-              </Article>
-            </ArticlesContainer>
-
-            <HeadingContainer>
-              <SecondaryHeading>PROJECT IDEAS</SecondaryHeading>
-              <StyledLink title="View All" link="/somewhre" />
-            </HeadingContainer>
-            <ProjectContainer>
-              <ProjectCard
-                small
-                image="/images/projects/Image.svg"
-                heading="OurApp - a social media web app in NodeJS"
-                desc="Build this full stack application where you will get to learn about building modern, fast and scalable server-side web applications with NodeJS, databases like MongoDB and more."
-              />
-
-              <ProjectCard
-                small
-                image="/images/projects/Image.svg"
-                heading="OurApp - a social media web app in NodeJS"
-                desc="Build this full stack application where you will get to learn about building modern, fast and scalable server-side web applications with NodeJS, databases like MongoDB and more."
-              />
-            </ProjectContainer>
-          </MainContent>
-          <RightSideBar {...rightSideBarData} />
-        </Content>
-      </StyledMain>
-    </StyledContainer>
+        <HeadingContainer>
+          <SecondaryHeading>PROJECT IDEAS</SecondaryHeading>
+          <StyledLink
+            title="View All"
+            link=""
+            onClick={() => setShowProjects((prev) => !prev)}
+          />
+        </HeadingContainer>
+        <ProjectContainer>
+          {roadmapsData[0].projectsIdeas
+            .slice(0, projectLimit)
+            .map((project) => (
+              <ProjectCard small {...project} />
+            ))}
+        </ProjectContainer>
+      </MainContent>
+      <RightSideBar {...rightSideBarData} />
+    </Content>
   );
 };
 

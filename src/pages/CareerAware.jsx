@@ -2,18 +2,10 @@ import React from "react";
 import {
   Content,
   MainContent,
-  StyledContainer,
-  StyledMain,
   PageHeading,
 } from "../styledComponents/common/Common/Common.styles";
-import Navbar from "../styledComponents/Navbar/Navbar";
-import SideBar from "../styledComponents/SidePanel/SideBar";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
-// import {
-//   Option,
-//   Select,
-//   SelectTags,
-// } from "../styledComponents/CareerCard/CareerCard.styles";
+
 import CareerCard from "../styledComponents/CareerCard/CareerCard";
 import SelectTag from "../styledComponents/SelectTag/SelectTag";
 import { SelectTags } from "../styledComponents/SelectTag/SelectTag.styles";
@@ -61,36 +53,30 @@ const CareerAware = (props) => {
   ];
 
   return (
-    <StyledContainer id="container">
-      <Navbar />
-      <StyledMain className="main">
-        <SideBar sideData={props.sideData} title="Career Aware"></SideBar>
-        <Content>
-          <MainContent direction="column" flex={3}>
-            <PageHeading>Career Aware</PageHeading>
+    <Content>
+      <MainContent direction="column" flex={3}>
+        <PageHeading>Career Aware</PageHeading>
 
-            <SelectTags>
-              <SelectTag
-                selected={true}
-                defaultValue="Select Profile Type"
-                options={profileTypes}
-              />
+        <SelectTags>
+          <SelectTag
+            selected={true}
+            defaultValue="Select Profile Type"
+            options={profileTypes}
+          />
 
-              <SelectTag
-                selected={false}
-                defaultValue="Select Profile"
-                options={profiles}
-              />
-            </SelectTags>
+          <SelectTag
+            selected={false}
+            defaultValue="Select Profile"
+            options={profiles}
+          />
+        </SelectTags>
 
-            {careerData.map((data, id) => (
-              <CareerCard key={id} data={data} />
-            ))}
-          </MainContent>
-          <RightSideBar heading="" content={[]} />
-        </Content>
-      </StyledMain>
-    </StyledContainer>
+        {careerData.map((data, id) => (
+          <CareerCard key={id} data={data} />
+        ))}
+      </MainContent>
+      <RightSideBar heading="" content={[]} />
+    </Content>
   );
 };
 

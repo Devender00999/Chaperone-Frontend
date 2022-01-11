@@ -5,11 +5,7 @@ import {
   MainContent,
   PageHeading,
   PrimaryButton,
-  StyledContainer,
-  StyledMain,
 } from "../../common/Common/Common.styles";
-import Navbar from "../../Navbar/Navbar";
-import SideBar from "../../SidePanel/SideBar";
 import RightSideBar from "../../SidePanel/RightSideBar";
 import {
   CareerAboutContainer,
@@ -116,114 +112,100 @@ and encourage them to use our beta programs.`,
     ],
   };
   return (
-    <StyledContainer id="container">
-      <Navbar />
-      <StyledMain className="main">
-        <SideBar sideData={props.sideData} title="Career Aware"></SideBar>
-        <Content>
-          <MainContent direction="column" flex={3}>
-            <PageHeading>Career Aware</PageHeading>
-            <CareerPageContainer>
-              <CareerHeading>
-                {careerData.role} at{" "}
-                <CareerCompayHeading>
-                  {careerData.companyName}
-                </CareerCompayHeading>
-              </CareerHeading>
-              <CareerAddress>
-                <img
-                  src="/images/common/location.svg"
-                  style={{ marginRight: "5px" }}
-                  alt="location"
-                />
-                {careerData.companyAddress}
-              </CareerAddress>
-              <Card.CareerTable>
-                <Card.CareerTableRow>
-                  <Card.CareerTableData>APPLY BY</Card.CareerTableData>
-                  <Card.CareerTableData>
-                    {careerData.lastDate}
-                  </Card.CareerTableData>
-                </Card.CareerTableRow>
-                <Card.CareerTableRow>
-                  <Card.CareerTableData>STIPEND</Card.CareerTableData>
-                  <Card.CareerTableData>
-                    {careerData.stipend + "/month"}
-                    <CareerExtraInfo>({careerData.duration})</CareerExtraInfo>
-                  </Card.CareerTableData>
-                </Card.CareerTableRow>
-                <Card.CareerTableRow>
-                  <Card.CareerTableData>CTC</Card.CareerTableData>
-                  <Card.CareerTableData>
-                    {careerData.ctcOffered}
-                    <CareerExtraInfo>
-                      (After Training Completion)
-                    </CareerExtraInfo>
-                  </Card.CareerTableData>
-                </Card.CareerTableRow>
-              </Card.CareerTable>
+    <Content>
+      <MainContent direction="column" flex={3}>
+        <PageHeading>Career Aware</PageHeading>
+        <CareerPageContainer>
+          <CareerHeading>
+            {careerData.role} at{" "}
+            <CareerCompayHeading>{careerData.companyName}</CareerCompayHeading>
+          </CareerHeading>
+          <CareerAddress>
+            <img
+              src="/images/common/location.svg"
+              style={{ marginRight: "5px" }}
+              alt="location"
+            />
+            {careerData.companyAddress}
+          </CareerAddress>
+          <Card.CareerTable>
+            <Card.CareerTableRow>
+              <Card.CareerTableData>APPLY BY</Card.CareerTableData>
+              <Card.CareerTableData>{careerData.lastDate}</Card.CareerTableData>
+            </Card.CareerTableRow>
+            <Card.CareerTableRow>
+              <Card.CareerTableData>STIPEND</Card.CareerTableData>
+              <Card.CareerTableData>
+                {careerData.stipend + "/month"}
+                <CareerExtraInfo>({careerData.duration})</CareerExtraInfo>
+              </Card.CareerTableData>
+            </Card.CareerTableRow>
+            <Card.CareerTableRow>
+              <Card.CareerTableData>CTC</Card.CareerTableData>
+              <Card.CareerTableData>
+                {careerData.ctcOffered}
+                <CareerExtraInfo>(After Training Completion)</CareerExtraInfo>
+              </Card.CareerTableData>
+            </Card.CareerTableRow>
+          </Card.CareerTable>
 
-              <CareerAboutContainer>
-                <CareerAboutHeading>
-                  About {careerData.companyName}
-                </CareerAboutHeading>
-                <CareerAboutDescription
-                  dangerouslySetInnerHTML={{ __html: careerData.description }}
-                ></CareerAboutDescription>
-                <CareerListContainer>
-                  <CareerAboutHeading>Key Responsibilities</CareerAboutHeading>
-                  <CareerList>
-                    {careerData.responsibilities.map((responsibility, key) => (
-                      <CareerListItem key={key}>
-                        {responsibility}
-                      </CareerListItem>
-                    ))}
-                  </CareerList>
-                </CareerListContainer>
-                <CareerListContainer>
-                  <CareerAboutHeading>Requirements</CareerAboutHeading>
-                  <CareerList>
-                    {careerData.requirements.map((requirement, key) => (
-                      <CareerListItem key={key}>{requirement}</CareerListItem>
-                    ))}
-                  </CareerList>
-                </CareerListContainer>
-                <CareerListContainer>
-                  <CareerAboutHeading>Eligibility</CareerAboutHeading>
-                  <CareerAboutDescription>
-                    {careerData.eligibility}
-                  </CareerAboutDescription>
-                </CareerListContainer>
-                <CareerListContainer>
-                  <CareerAboutHeading>Skills Required</CareerAboutHeading>
-                  <CareerList>
-                    {careerData.skillsRequired.map((skills, key) => (
-                      <CareerListItem key={key}>{skills}</CareerListItem>
-                    ))}
-                  </CareerList>
-                </CareerListContainer>
-                <CareerListContainer>
-                  <CareerAboutHeading>Recruitment Process</CareerAboutHeading>
-                  <CareerList>
-                    {careerData.recruitmentProcess.map((process, key) => (
-                      <CareerListItem key={key}>{process}</CareerListItem>
-                    ))}
-                  </CareerList>
-                </CareerListContainer>
-                <CareerListContainer>
-                  <CareerAboutHeading>Number Of Openings</CareerAboutHeading>
-                  <CareerAboutDescription>
-                    {careerData.noOfOpening}
-                  </CareerAboutDescription>
-                </CareerListContainer>
-              </CareerAboutContainer>
-              <PrimaryButton>Apply Now</PrimaryButton>
-            </CareerPageContainer>
-          </MainContent>
-          <RightSideBar {...rightSideBarData} />
-        </Content>
-      </StyledMain>
-    </StyledContainer>
+          <CareerAboutContainer>
+            <CareerAboutHeading>
+              About {careerData.companyName}
+            </CareerAboutHeading>
+            <CareerAboutDescription
+              dangerouslySetInnerHTML={{ __html: careerData.description }}
+            ></CareerAboutDescription>
+            <CareerListContainer>
+              <CareerAboutHeading>Key Responsibilities</CareerAboutHeading>
+              <CareerList>
+                {careerData.responsibilities.map((responsibility, key) => (
+                  <CareerListItem key={key}>{responsibility}</CareerListItem>
+                ))}
+              </CareerList>
+            </CareerListContainer>
+            <CareerListContainer>
+              <CareerAboutHeading>Requirements</CareerAboutHeading>
+              <CareerList>
+                {careerData.requirements.map((requirement, key) => (
+                  <CareerListItem key={key}>{requirement}</CareerListItem>
+                ))}
+              </CareerList>
+            </CareerListContainer>
+            <CareerListContainer>
+              <CareerAboutHeading>Eligibility</CareerAboutHeading>
+              <CareerAboutDescription>
+                {careerData.eligibility}
+              </CareerAboutDescription>
+            </CareerListContainer>
+            <CareerListContainer>
+              <CareerAboutHeading>Skills Required</CareerAboutHeading>
+              <CareerList>
+                {careerData.skillsRequired.map((skills, key) => (
+                  <CareerListItem key={key}>{skills}</CareerListItem>
+                ))}
+              </CareerList>
+            </CareerListContainer>
+            <CareerListContainer>
+              <CareerAboutHeading>Recruitment Process</CareerAboutHeading>
+              <CareerList>
+                {careerData.recruitmentProcess.map((process, key) => (
+                  <CareerListItem key={key}>{process}</CareerListItem>
+                ))}
+              </CareerList>
+            </CareerListContainer>
+            <CareerListContainer>
+              <CareerAboutHeading>Number Of Openings</CareerAboutHeading>
+              <CareerAboutDescription>
+                {careerData.noOfOpening}
+              </CareerAboutDescription>
+            </CareerListContainer>
+          </CareerAboutContainer>
+          <PrimaryButton>Apply Now</PrimaryButton>
+        </CareerPageContainer>
+      </MainContent>
+      <RightSideBar {...rightSideBarData} />
+    </Content>
   );
 };
 

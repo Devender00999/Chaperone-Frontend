@@ -3,12 +3,8 @@ import {
   Content,
   MainContent,
   PageHeading,
-  StyledContainer,
-  StyledMain,
 } from "../styledComponents/common/Common/Common.styles";
-import Navbar from "../styledComponents/Navbar/Navbar";
 import { RoadmapCard } from "../styledComponents/RoadmapCard/RoadmapCard";
-import SideBar from "../styledComponents/SidePanel/SideBar";
 import { RoadmapsCardContainer } from "../styledComponents/RoadmapCard/RoadmapCard.styles";
 const roadmap = [
   {
@@ -56,22 +52,16 @@ const roadmap = [
 ];
 const Roadmaps = (props) => {
   return (
-    <StyledContainer id="container">
-      <Navbar />
-      <StyledMain className="main">
-        <SideBar sideData={props.sideData} title="Roadmaps"></SideBar>
-        <Content>
-          <MainContent direction="column" flex={3}>
-            <PageHeading>Roadmaps</PageHeading>
-            <RoadmapsCardContainer>
-              {roadmap.map((data) => (
-                <RoadmapCard key={data.id} {...data} />
-              ))}
-            </RoadmapsCardContainer>
-          </MainContent>
-        </Content>
-      </StyledMain>
-    </StyledContainer>
+    <Content>
+      <MainContent direction="column" flex={3}>
+        <PageHeading>Roadmaps</PageHeading>
+        <RoadmapsCardContainer>
+          {roadmap.map((data) => (
+            <RoadmapCard key={data.id} {...data} />
+          ))}
+        </RoadmapsCardContainer>
+      </MainContent>
+    </Content>
   );
 };
 

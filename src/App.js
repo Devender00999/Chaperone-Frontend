@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Routes } from "react-router";
+import React, { useState } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./pages/Home";
 import HomeScreen from "./pages/HomeScreen";
@@ -16,10 +16,18 @@ import CareerPage from "./styledComponents/styledPages/CareerPage/CareerPage";
 import DoubtDeskPage from "./styledComponents/styledPages/DoubtDeskPage/DoubtDeskPage";
 import PGPage from "./styledComponents/styledPages/PGPage/PGPage";
 import DoubtDeskAnswers from "./styledComponents/styledPages/DoubtDeskPage/DoubtDeskAnswers";
+import {
+  Content,
+  StyledContainer,
+  StyledMain,
+} from "./styledComponents/common/Common/Common.styles";
+import Navbar from "./styledComponents/Navbar/Navbar";
+import SideBar from "./styledComponents/SidePanel/SideBar";
+
 const sideData = [
   {
     title: "Home",
-    link: "/home",
+    link: "/",
     icon: "/images/sidebar/home.svg",
     selected: true,
   },
@@ -72,65 +80,105 @@ const sideData = [
     selected: false,
   },
 ];
+
 const App = () => {
-  return (
-    <Routes>
-      <Route path="/" exact element={<Home />} />
-      <Route path="/home" exact element={<HomeScreen sideData={sideData} />} />
-      <Route
-        path="/admission"
-        exact
-        element={<Admission sideData={sideData} />}
-      />
+  let [user, setUser] = useState(localStorage.getItem("user"));
+  const [selectSideBar, setSelectSideBar] = useState("Home");
 
-      <Route
-        path="/roadmaps"
-        exact
-        element={<Roadmaps sideData={sideData} />}
-      />
-      <Route
-        path="/roadmap-page"
-        exact
-        element={<RoadmapPage sideData={sideData} />}
-      />
+  return !user ? (
+    <Home setUser={setUser} />
+  ) : (
+    <StyledContainer>
+      <Navbar />
+      <StyledMain className="main">
+        <SideBar
+          sideData={sideData}
+          title={selectSideBar}
+          setTitle={setSelectSideBar}
+        ></SideBar>
 
-      <Route
-        path="/academics"
-        exact
-        element={<Academics sideData={sideData} />}
-      />
-      <Route
-        path="/career-aware"
-        exact
-        element={<CareerAware sideData={sideData} />}
-      />
-      <Route
-        path="/career-aware/:data"
-        exact
-        element={<CareerPage sideData={sideData} />}
-      />
-      <Route path="/find-pg" exact element={<FindPG sideData={sideData} />} />
+        <Routes>
+          {/* <Route path="/" exact element={} /> */}
 
-      <Route path="/find-pg/:id" element={<PGPage sideData={sideData} />} />
+          <Route path="/" exact element={<HomeScreen sideData={sideData} />} />
 
-      <Route path="/easy-buy" exact element={<EasyBuy sideData={sideData} />} />
-      <Route
-        path="/doubt-desk"
-        exact
-        element={<DoubtDesk sideData={sideData} />}
-      />
-      <Route
-        path="/doubt-desk/ask-question"
-        exact
-        element={<DoubtDeskPage sideData={sideData} />}
-      />
-      <Route
-        path="/doubt-desk/:id"
-        exact
-        element={<DoubtDeskAnswers sideData={sideData} />}
-      />
-      <Route path="/blogs" exact element={<Blogs sideData={sideData} />} />
-    </Routes>
+          <Route
+            path="/admission"
+            exact
+            element={<Admission sideData={sideData} />}
+          />
+
+          <Route
+            path="/roadmaps"
+            exact
+            element={<Roadmaps sideData={sideData} />}
+          />
+
+          <Route
+            path="/roadmap-page"
+            exact
+            element={<RoadmapPage sideData={sideData} />}
+          />
+
+          <Route
+            path="/academics"
+            exact
+            element={<Academics sideData={sideData} />}
+          />
+
+          <Route
+            path="/career-aware"
+            exact
+            element={<CareerAware sideData={sideData} />}
+          />
+
+          <Route
+            path="/career-aware/:data"
+            exact
+            element={<CareerPage sideData={sideData} />}
+          />
+
+          <Route
+            path="/find-pg"
+            exact
+            element={<FindPG sideData={sideData} />}
+          />
+
+          <Route path="/find-pg/:id" element={<PGPage sideData={sideData} />} />
+
+          <Route
+            path="/easy-buy"
+            exact
+            element={<EasyBuy sideData={sideData} />}
+          />
+
+          <Route
+            path="/doubt-desk"
+            exact
+            element={<DoubtDesk sideData={sideData} />}
+          />
+
+          <Route
+            path="/doubt-desk/ask-question"
+            exact
+            element={<DoubtDeskPage sideData={sideData} />}
+          />
+
+          <Route
+            path="/doubt-desk/:id"
+            exact
+            element={<DoubtDeskAnswers sideData={sideData} />}
+          />
+
+          <Route path="/blogs" exact element={<Blogs sideData={sideData} />} />
+          <Route
+            path="/not-found"
+            element={<Content>Page Not Found</Content>}
+          ></Route>
+          <Route path="/*" element={<Navigate to="/not-found" />} />
+        </Routes>
+      </StyledMain>
+    </StyledContainer>
   );
 };
 

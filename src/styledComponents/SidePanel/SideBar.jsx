@@ -1,4 +1,6 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
+
 import { LSideBarContainer } from "../common/Common/Common.styles";
 import {
   SideBarItem,
@@ -7,20 +9,24 @@ import {
 } from "./SideBar.styles";
 
 const SideBar = (props) => {
+  const { title, setTitle } = props;
+  const location = useLocation();
+  if (location.pathname === "/not-found") setTitle("");
   return (
     <LSideBarContainer>
       {props.sideData.map((item, id) => {
         return (
           <SideBarItem
             key={id}
-            selected={props.title === item.title}
+            selected={title === item.title}
             to={item.link}
+            onClick={() => setTitle(item.title)}
           >
             <SideBarItemIcon
               src={item.icon}
-              style={{ opacity: props.title === item.title ? 1 : 0.5 }}
+              style={{ opacity: title === item.title ? 1 : 0.5 }}
             />
-            <SideBarItemText selected={props.title === item.title}>
+            <SideBarItemText selected={title === item.title}>
               {item.title}
             </SideBarItemText>
           </SideBarItem>

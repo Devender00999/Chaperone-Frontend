@@ -3,11 +3,7 @@ import {
   Content,
   MainContent,
   PageHeading,
-  StyledContainer,
-  StyledMain,
 } from "../styledComponents/common/Common/Common.styles";
-import Navbar from "../styledComponents/Navbar/Navbar";
-import SideBar from "../styledComponents/SidePanel/SideBar";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
 import SubjectCard from "../styledComponents/SubjectCard/SubjectCard";
 
@@ -68,21 +64,15 @@ const Academics = (props) => {
     ],
   };
   return (
-    <StyledContainer id="container">
-      <Navbar />
-      <StyledMain className="main">
-        <SideBar sideData={props.sideData} title="Academics"></SideBar>
-        <Content>
-          <MainContent direction="column" flex={3}>
-            <PageHeading>Academics</PageHeading>
-            {subjects.map((subject, i) => (
-              <SubjectCard key={i} subject={subject} />
-            ))}
-          </MainContent>
-          <RightSideBar {...rightSideBarData} />
-        </Content>
-      </StyledMain>
-    </StyledContainer>
+    <Content>
+      <MainContent direction="column" flex={3}>
+        <PageHeading>Academics</PageHeading>
+        {subjects.map((subject, i) => (
+          <SubjectCard key={i} subject={subject} />
+        ))}
+      </MainContent>
+      <RightSideBar {...rightSideBarData} />
+    </Content>
   );
 };
 

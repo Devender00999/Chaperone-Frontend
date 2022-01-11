@@ -69,8 +69,26 @@ export const Heading = styled.h3`
   margin: 0;
 `;
 
+export const ViewLink = styled(Link)`
+  color: #ff6600;
+  cursor: pointer;
+  font-size: 0.875rem;
+  text-decoration: none;
+  height: max-content;
+
+  &:hover {
+    color: #ff6600;
+    opacity: 0.8;
+  }
+`;
+
 export const PageHeading = styled.h3`
   font-size: 1.5rem;
+  margin: 0;
+`;
+
+export const BackButton = styled(ViewLink)`
+  transform: rotate(180deg);
 `;
 
 export const SecondaryHeading = styled.h3`
@@ -82,6 +100,7 @@ export const SecondaryHeading = styled.h3`
 
   line-height: 30px;
   letter-spacing: 2px;
+  margin: 0; ;
 `;
 
 export const DescText = styled.p`
@@ -153,19 +172,6 @@ export const SecondaryButton = styled(Link)`
   border: 1px solid #cacaca;
   &:hover {
     color: #ff6600;
-  }
-`;
-
-export const ViewLink = styled(Link)`
-  color: #ff6600;
-  cursor: pointer;
-  font-size: 0.875rem;
-  text-decoration: none;
-  height: max-content;
-
-  &:hover {
-    color: #ff6600;
-    opacity: 0.8;
   }
 `;
 

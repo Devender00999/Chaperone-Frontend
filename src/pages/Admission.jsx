@@ -2,11 +2,7 @@ import React from "react";
 import {
   Content,
   MainContent,
-  StyledContainer,
-  StyledMain,
 } from "../styledComponents/common/Common/Common.styles";
-import Navbar from "../styledComponents/Navbar/Navbar";
-import SideBar from "../styledComponents/SidePanel/SideBar";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
 import BlogsCard from "../styledComponents/BlogsCard/BlogsCard";
 
@@ -38,20 +34,14 @@ const Admission = (props) => {
     ],
   };
   return (
-    <StyledContainer id="container">
-      <Navbar />
-      <StyledMain className="main">
-        <SideBar sideData={props.sideData} title="Admission"></SideBar>
-        <Content>
-          <MainContent direction="column" flex={3}>
-            {blogs.map((blog) => (
-              <BlogsCard {...blog} />
-            ))}
-          </MainContent>
-          <RightSideBar {...rightSideBarData} />
-        </Content>
-      </StyledMain>
-    </StyledContainer>
+    <Content>
+      <MainContent direction="column" flex={3}>
+        {blogs.map((blog) => (
+          <BlogsCard {...blog} />
+        ))}
+      </MainContent>
+      <RightSideBar {...rightSideBarData} />
+    </Content>
   );
 };
 

@@ -8,6 +8,7 @@ import {
 } from "./Navbar.styles";
 import Search from "./Search";
 import User from "../common/User/User";
+
 const Navbar = () => {
   return (
     <NavbarContainer>

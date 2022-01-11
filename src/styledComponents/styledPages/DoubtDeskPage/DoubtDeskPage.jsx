@@ -4,12 +4,8 @@ import {
   MainContent,
   PageHeading,
   PrimaryButton,
-  StyledContainer,
-  StyledMain,
 } from "../../common/Common/Common.styles";
-import Navbar from "../../Navbar/Navbar";
 import RightSideBar from "../../SidePanel/RightSideBar";
-import SideBar from "../../SidePanel/SideBar";
 import {
   DoubtForm,
   DoubtInput,
@@ -75,57 +71,51 @@ const DoubtDeskPage = (props) => {
     });
   };
   return (
-    <StyledContainer>
-      <Navbar />
-      <StyledMain>
-        <SideBar sideData={props.sideData} title="Doubt Desk"></SideBar>{" "}
-        <Content>
-          <MainContent direction="column" flex={3}>
-            <PageHeading>Doubt Desk / Ask a Question</PageHeading>
-            <DoubtForm onSubmit={handleSubmit}>
-              <DoubtInputBox>
-                <DoubtInputLabel>Question</DoubtInputLabel>
-                <DoubtInput
-                  rows={5}
-                  value={questionData.question}
-                  placeholder="Please write your question here"
-                  onChange={handleChange}
-                ></DoubtInput>
-              </DoubtInputBox>
+    <Content>
+      <MainContent direction="column" flex={3}>
+        <PageHeading>Doubt Desk / Ask a Question</PageHeading>
+        <DoubtForm onSubmit={handleSubmit}>
+          <DoubtInputBox>
+            <DoubtInputLabel>Question</DoubtInputLabel>
+            <DoubtInput
+              rows={5}
+              value={questionData.question}
+              placeholder="Please write your question here"
+              onChange={handleChange}
+            ></DoubtInput>
+          </DoubtInputBox>
 
-              <DoubtInputBox>
-                <DoubtInputLabel>Tags</DoubtInputLabel>
-                <DoubtInputTags>
-                  {questionData.questionTags.map((item, key) => (
-                    <InputTags key={key}>
-                      {item}
-                      <InputDelete
-                        src="/images/common/delete-cross.svg"
-                        onClick={() => handleDelete(item)}
-                      />
-                    </InputTags>
-                  ))}
-
-                  <DoubtInputTag
-                    onKeyUp={handleAdd}
-                    onKeyDown={handleBack}
-                    rows={1}
-                    type="text"
+          <DoubtInputBox>
+            <DoubtInputLabel>Tags</DoubtInputLabel>
+            <DoubtInputTags>
+              {questionData.questionTags.map((item, key) => (
+                <InputTags key={key}>
+                  {item}
+                  <InputDelete
+                    src="/images/common/delete-cross.svg"
+                    onClick={() => handleDelete(item)}
                   />
-                </DoubtInputTags>
-              </DoubtInputBox>
-              <PrimaryButton
-                style={{ alignSelf: "flex-start", marginTop: 0 }}
-                type="submit"
-              >
-                Post Doubt
-              </PrimaryButton>
-            </DoubtForm>
-          </MainContent>
-          <RightSideBar {...rightSideBarData} />
-        </Content>
-      </StyledMain>
-    </StyledContainer>
+                </InputTags>
+              ))}
+
+              <DoubtInputTag
+                onKeyUp={handleAdd}
+                onKeyDown={handleBack}
+                rows={1}
+                type="text"
+              />
+            </DoubtInputTags>
+          </DoubtInputBox>
+          <PrimaryButton
+            style={{ alignSelf: "flex-start", marginTop: 0 }}
+            type="submit"
+          >
+            Post Doubt
+          </PrimaryButton>
+        </DoubtForm>
+      </MainContent>
+      <RightSideBar {...rightSideBarData} />
+    </Content>
   );
 };
 

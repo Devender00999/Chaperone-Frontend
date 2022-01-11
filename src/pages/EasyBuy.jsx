@@ -4,11 +4,7 @@ import {
   Content,
   MainContent,
   PageHeading,
-  StyledContainer,
-  StyledMain,
 } from "../styledComponents/common/Common/Common.styles";
-import Navbar from "../styledComponents/Navbar/Navbar";
-import SideBar from "../styledComponents/SidePanel/SideBar";
 import { SelectTags } from "../styledComponents/SelectTag/SelectTag.styles";
 import SelectTag from "../styledComponents/SelectTag/SelectTag";
 import EasyBuyCard from "../styledComponents/EasyBuyCard/EasyBuyCard";
@@ -50,35 +46,29 @@ const EasyBuy = (props) => {
     },
   ];
   return (
-    <StyledContainer id="container">
-      <Navbar />
-      <StyledMain className="main">
-        <SideBar sideData={props.sideData} title="Easy Buy"></SideBar>
-        <Content>
-          <MainContent direction="column" flex={3}>
-            <PageHeading>Easy Buy</PageHeading>
-            <SelectTags>
-              <SelectTag
-                defaultValue="Select Item"
-                options={items}
-                selected={true}
-              />
-              <SelectTag
-                defaultValue="Select Price Range"
-                options={priceRange}
-                selected={false}
-              />
-            </SelectTags>
+    <Content>
+      <MainContent direction="column" flex={3}>
+        <PageHeading>Easy Buy</PageHeading>
+        <SelectTags>
+          <SelectTag
+            defaultValue="Select Item"
+            options={items}
+            selected={true}
+          />
+          <SelectTag
+            defaultValue="Select Price Range"
+            options={priceRange}
+            selected={false}
+          />
+        </SelectTags>
 
-            <CommonContainer>
-              {easyBuyData.map((item, id) => (
-                <EasyBuyCard small key={id} data={item} />
-              ))}
-            </CommonContainer>
-          </MainContent>
-        </Content>
-      </StyledMain>
-    </StyledContainer>
+        <CommonContainer>
+          {easyBuyData.map((item, id) => (
+            <EasyBuyCard small key={id} data={item} />
+          ))}
+        </CommonContainer>
+      </MainContent>
+    </Content>
   );
 };
 
