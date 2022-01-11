@@ -3,10 +3,10 @@ import {
   CommonContainer,
   MainContent,
   PageHeading,
-} from "../styledComponents/common/Common/Common.styles";
-import { SelectTags } from "../styledComponents/SelectTag/SelectTag.styles";
-import SelectTag from "../styledComponents/SelectTag/SelectTag";
-import EasyBuyCard from "../styledComponents/EasyBuyCard/EasyBuyCard";
+} from "../../styledComponents/common/Common/Common.styles";
+import { SelectTags } from "../../styledComponents/SelectTag/SelectTag.styles";
+import SelectTag from "../../styledComponents/SelectTag/SelectTag";
+import EasyBuyCard from "../../styledComponents/EasyBuyCard/EasyBuyCard";
 
 const EasyBuy = (props) => {
   const items = ["Engg. Drawing Board", "Lab Coat", "Drafter", "Sheet Holder"];

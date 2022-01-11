@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Content,
   Heading,
   MainContent,
   PageHeading,
@@ -70,7 +69,7 @@ const DoubtDeskAnswers = (props) => {
     setAnswer("");
   };
   return (
-    <Content>
+    <>
       <MainContent direction="column" flex={3}>
         <PageHeading>Doubt Desk / Ask a Question</PageHeading>
         <Search width="100%" query></Search>
@@ -111,7 +110,7 @@ const DoubtDeskAnswers = (props) => {
         </DoubtAnswerContainer>
       </MainContent>
       <RightSideBar {...rightSideBarData} />
-    </Content>
+    </>
   );
 };
 

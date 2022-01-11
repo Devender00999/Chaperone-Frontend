@@ -2,9 +2,9 @@ import React from "react";
 import {
   MainContent,
   PageHeading,
-} from "../styledComponents/common/Common/Common.styles";
-import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
-import SubjectCard from "../styledComponents/SubjectCard/SubjectCard";
+} from "../../styledComponents/common/Common/Common.styles";
+import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
+import SubjectCard from "../../styledComponents/SubjectCard/SubjectCard";
 
 const Academics = (props) => {
   const subjects = [

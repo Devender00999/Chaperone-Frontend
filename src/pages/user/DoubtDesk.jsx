@@ -2,11 +2,11 @@ import React from "react";
 import {
   MainContent,
   PageHeading,
-} from "../styledComponents/common/Common/Common.styles";
-import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
-import Search from "../styledComponents/Navbar/Search";
-import DoubtDeskCards from "../styledComponents/DoubtDeskCard/DoubtDeskCard";
-import { doubtsData } from "../data/doubt";
+} from "../../styledComponents/common/Common/Common.styles";
+import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
+import Search from "../../styledComponents/Navbar/Search";
+import DoubtDeskCards from "../../styledComponents/DoubtDeskCard/DoubtDeskCard";
+import { doubtsData } from "../../data/doubt";
 const DoubtDesk = (props) => {
   const rightSideBarData = {
     heading: "Other Section",

@@ -1,7 +1,7 @@
 import React from "react";
-import { MainContent } from "../styledComponents/common/Common/Common.styles";
-import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
-import BlogsCard from "../styledComponents/BlogsCard/BlogsCard";
+import { MainContent } from "../../styledComponents/common/Common/Common.styles";
+import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
+import BlogsCard from "../../styledComponents/BlogsCard/BlogsCard";
 
 const Admission = (props) => {
   const blogs = [
