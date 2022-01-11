@@ -17,9 +17,24 @@ import StyledEditor from "../../styledComponents/common/Common/StyledEditor";
 
 const NewBlog = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const [headerImage, setHeaderImage] = useState();
 
-  const [markup, setMarkup] = useState();
+  const [formData, setFormData] = useState({
+    heading: "",
+    image: "",
+    markup: "",
+  });
+
+  const handleChange = (e) => {
+    let { type, value, name } = e.target;
+
+    console.log(e.target.files);
+
+    if (type === "file") {
+      value = URL.createObjectURL(e.target.files[0]);
+    }
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
@@ -27,15 +42,9 @@ const NewBlog = () => {
     const rawContentState = convertToRaw(editorState.getCurrentContent());
 
     const markup = draftToHtml(rawContentState);
-    setMarkup(markup);
+    setFormData((prev) => ({ ...prev, markup }));
   };
 
-  const handleImage = (event) => {
-    console.log("Change");
-    const imageUrl = URL.createObjectURL(event.target.files[0]);
-    setHeaderImage(imageUrl);
-  };
-  console.log(markup);
   return (
     <>
       <MainContent direction={"column"}>
@@ -54,7 +63,13 @@ const NewBlog = () => {
               <Form.Group className="mb-2">
                 <Form.Label>Heading</Form.Label>
                 <br />
-                <Form.Control type="email" placeholder="Enter Heading" />
+                <Form.Control
+                  name="heading"
+                  value={formData.heading}
+                  type="text"
+                  placeholder="Enter Heading"
+                  onChange={handleChange}
+                />
               </Form.Group>
             </Col>
             <Col md style={{ paddingRight: 0 }}>
@@ -63,7 +78,7 @@ const NewBlog = () => {
                 <Form.Control
                   type="file"
                   name="image"
-                  onChange={(e) => handleImage(e)}
+                  onChange={handleChange}
                   placeholder="Enter Title"
                 />
               </Form.Group>
@@ -73,12 +88,12 @@ const NewBlog = () => {
             <Col>
               <img
                 className="mb-3 mt-3"
-                src={headerImage}
+                src={formData.image}
                 alt=""
                 style={{
                   width: "100%",
                   height: "300px",
-                  display: headerImage ? "block" : "none",
+                  display: formData.image ? "block" : "none",
                 }}
               />
             </Col>
