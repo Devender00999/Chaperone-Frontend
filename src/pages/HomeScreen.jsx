@@ -1,9 +1,6 @@
 import React from "react";
 import BlogsCard from "../styledComponents/BlogsCard/BlogsCard";
-import {
-  Content,
-  MainContent,
-} from "../styledComponents/common/Common/Common.styles";
+import { MainContent } from "../styledComponents/common/Common/Common.styles";
 
 import Tags from "../styledComponents/Tags/Tags";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
@@ -42,7 +39,7 @@ const HomeScreen = (props) => {
     ],
   };
   return (
-    <Content>
+    <>
       <MainContent direction="column" flex={3}>
         <Tags tags={tags} />
         {blogsData.map((blog, id) => (
@@ -69,7 +66,7 @@ const HomeScreen = (props) => {
         {/* <EasyBuyCard /> */}
       </MainContent>
       <RightSideBar {...rightSideBarData} />
-    </Content>
+    </>
   );
 };
 

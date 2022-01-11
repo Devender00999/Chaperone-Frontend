@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "poppins";
+  font-weight: 400;
+  transition: all 0.4s ease-in;
+}
+
+.gradient-border {
+  border-image-slice: 1;
+  border-top: 0;
+  border-image-source: linear-gradient(
+    170deg,
+    rgba(255, 102, 0, 0) 39.73%,
+    #ff6600 97.72%
+  );
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.secondary-color {
+  color: #ff6600;
+}
+body {
+  overflow-y: overlay;
+}
+
+/* Editing ScrollBar */
+
+::-webkit-scrollbar {
+  width: 6px;
+  background: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ff6600;
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-track-piece {
+  border-radius: 0px;
+  border: 1px solid rgb(179, 179, 179);
+}
+
+.rdw-dropdown-selectedtext {
+  text-decoration: none !important;
+  color: black;
+}
+
+/* editor styles */
+.rdw-editor-toolbar {
+  border: 0;
+  border-bottom: 1px solid #d2d2d2 !important;
+  border-radius: 5px;
+}
+.public-DraftStyleDefault-ltr {
+  padding: 0 15px;
+}
+.removeGutter {
+  --bs-gutter-x: 0;
+  --bs-gutter-y: 0;
+}
+.rdw-editor-main {
+  overflow: auto;
+}
+.home-editor {
+  height: 40vh !important;
+  overflow: auto;
+}
+.DraftEditor-root {
+  height: 90% !important;
+}

@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Content,
   MainContent,
   PageHeading,
 } from "../styledComponents/common/Common/Common.styles";
@@ -64,7 +63,7 @@ const Academics = (props) => {
     ],
   };
   return (
-    <Content>
+    <>
       <MainContent direction="column" flex={3}>
         <PageHeading>Academics</PageHeading>
         {subjects.map((subject, i) => (
@@ -72,7 +71,7 @@ const Academics = (props) => {
         ))}
       </MainContent>
       <RightSideBar {...rightSideBarData} />
-    </Content>
+    </>
   );
 };
 

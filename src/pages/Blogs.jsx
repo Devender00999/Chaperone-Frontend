@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  Content,
-  MainContent,
-} from "../styledComponents/common/Common/Common.styles";
+import { MainContent } from "../styledComponents/common/Common/Common.styles";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
 import BlogPage from "../styledComponents/styledPages/BlogPage/BlogPage";
 
@@ -17,12 +14,12 @@ const Blogs = (props) => {
     ],
   };
   return (
-    <Content>
+    <>
       <MainContent direction="column" flex={3}>
         <BlogPage />
       </MainContent>
       <RightSideBar {...rightSideBarData} />
-    </Content>
+    </>
   );
 };
 

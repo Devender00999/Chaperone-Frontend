@@ -1,7 +1,6 @@
 import React from "react";
 import {
   CommonContainer,
-  Content,
   MainContent,
   PageHeading,
 } from "../styledComponents/common/Common/Common.styles";
@@ -53,7 +52,7 @@ const FindPG = (props) => {
   const prices = ["15000", 18000, 19000, 25000];
   const priceRange = prices.map((price) => "< " + price);
   return (
-    <Content>
+    <>
       <MainContent direction="column" flex={3}>
         <PageHeading>Find PG</PageHeading>
 
@@ -72,7 +71,7 @@ const FindPG = (props) => {
           ))}
         </CommonContainer>
       </MainContent>
-    </Content>
+    </>
   );
 };
 

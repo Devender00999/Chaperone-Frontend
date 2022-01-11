@@ -28,6 +28,7 @@ export const Content = styled.div`
   width: 100%;
   border-left: 1px solid #f2f2f2;
   flex: 4;
+  min-height: calc(100vh - 60px);
 `;
 
 export const MainContent = styled.div`

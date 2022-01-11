@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Content,
   MainContent,
   PageHeading,
 } from "../styledComponents/common/Common/Common.styles";
@@ -53,7 +52,7 @@ const CareerAware = (props) => {
   ];
 
   return (
-    <Content>
+    <>
       <MainContent direction="column" flex={3}>
         <PageHeading>Career Aware</PageHeading>
 
@@ -76,7 +75,7 @@ const CareerAware = (props) => {
         ))}
       </MainContent>
       <RightSideBar heading="" content={[]} />
-    </Content>
+    </>
   );
 };
 

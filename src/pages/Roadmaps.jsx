@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Content,
   MainContent,
   PageHeading,
 } from "../styledComponents/common/Common/Common.styles";
@@ -52,7 +51,7 @@ const roadmap = [
 ];
 const Roadmaps = (props) => {
   return (
-    <Content>
+    <>
       <MainContent direction="column" flex={3}>
         <PageHeading>Roadmaps</PageHeading>
         <RoadmapsCardContainer>
@@ -61,7 +60,7 @@ const Roadmaps = (props) => {
           ))}
         </RoadmapsCardContainer>
       </MainContent>
-    </Content>
+    </>
   );
 };
 

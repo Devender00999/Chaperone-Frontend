@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Content,
   MainContent,
   PageHeading,
 } from "../styledComponents/common/Common/Common.styles";
@@ -14,14 +13,14 @@ const DoubtDesk = (props) => {
     content: ["New Questions", "My Questions", "My Answers", "Ask a Question"],
   };
   return (
-    <Content>
+    <>
       <MainContent direction="column" flex={3}>
         <PageHeading>Doubt Desk</PageHeading>
         <Search width="100%"></Search>
         <DoubtDeskCards data={doubtsData} />
       </MainContent>
       <RightSideBar {...rightSideBarData} />
-    </Content>
+    </>
   );
 };
 

@@ -11,7 +11,9 @@ import {
 const SideBar = (props) => {
   const { title, setTitle } = props;
   const location = useLocation();
-  if (location.pathname === "/not-found") setTitle("");
+  const unknownLink =
+    location.pathname === "/not-found" || location.pathname === "/unauthorised";
+  if (unknownLink) setTitle("");
   return (
     <LSideBarContainer>
       {props.sideData.map((item, id) => {

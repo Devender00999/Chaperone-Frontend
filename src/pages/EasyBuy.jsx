@@ -1,7 +1,6 @@
 import React from "react";
 import {
   CommonContainer,
-  Content,
   MainContent,
   PageHeading,
 } from "../styledComponents/common/Common/Common.styles";
@@ -46,7 +45,7 @@ const EasyBuy = (props) => {
     },
   ];
   return (
-    <Content>
+    <>
       <MainContent direction="column" flex={3}>
         <PageHeading>Easy Buy</PageHeading>
         <SelectTags>
@@ -68,7 +67,7 @@ const EasyBuy = (props) => {
           ))}
         </CommonContainer>
       </MainContent>
-    </Content>
+    </>
   );
 };
 

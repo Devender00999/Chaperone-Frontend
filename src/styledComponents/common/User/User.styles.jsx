@@ -11,6 +11,8 @@ export const UserDetails = styled.div`
 export const UserContainer = styled.div`
   display: flex;
   align-items: center;
+  user-select: none;
+  cursor: pointer;
 `;
 
 export const UserImage = styled.img`

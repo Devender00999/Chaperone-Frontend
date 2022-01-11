@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./pages/Home";
 import HomeScreen from "./pages/HomeScreen";
@@ -23,8 +23,17 @@ import {
 } from "./styledComponents/common/Common/Common.styles";
 import Navbar from "./styledComponents/Navbar/Navbar";
 import SideBar from "./styledComponents/SidePanel/SideBar";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import NewBlog from "./pages/admin/NewBlog";
+import AdminBlogs from "./pages/admin/AdminBlogs";
+import AdminAdmission from "./pages/admin/AdminAdmission";
+import AdminCareerAware from "./pages/admin/AdminCareerAware";
+import AdminRoadmaps from "./pages/admin/AdminRoadmaps";
+import AdminProjects from "./pages/admin/AdminProjects";
+import AdminFindPG from "./pages/admin/AdminFindPG";
+import AdminEasyBuy from "./pages/admin/AdminEasyBuy";
 
-const sideData = [
+const sideDataForUser = [
   {
     title: "Home",
     link: "/",
@@ -81,9 +90,69 @@ const sideData = [
   },
 ];
 
+const sideDataForAdmin = [
+  {
+    title: "Dashboard",
+    link: "/admin",
+    icon: "/images/sidebar/home.svg",
+    selected: true,
+  },
+  {
+    title: "Admissions",
+    link: "/admin/admissions",
+    icon: "/images/sidebar/admission.svg",
+    selected: false,
+  },
+  {
+    title: "Roadmaps",
+    link: "/admin/roadmaps",
+    icon: "/images/sidebar/roadmap.svg",
+    selected: false,
+  },
+  {
+    title: "Projects",
+    link: "/admin/projects",
+    icon: "/images/sidebar/academics.svg",
+    selected: false,
+  },
+  {
+    title: "Career Aware",
+    link: "/admin/career-aware",
+    icon: "/images/sidebar/careeraware.svg",
+    selected: false,
+  },
+  {
+    title: "Find PG",
+    link: "/admin/find-pg",
+    icon: "/images/sidebar/findpg.svg",
+    selected: false,
+  },
+  {
+    title: "Easy Buy",
+    link: "/admin/easy-buy",
+    icon: "/images/sidebar/easybuy.svg",
+    selected: false,
+  },
+  {
+    title: "Blogs",
+    link: "/admin/blogs",
+    icon: "/images/sidebar/blogs.svg",
+    selected: false,
+  },
+];
+
 const App = () => {
-  let [user, setUser] = useState(localStorage.getItem("user"));
-  const [selectSideBar, setSelectSideBar] = useState("Home");
+  const location = useLocation();
+
+  let [user, setUser] = useState({
+    user: localStorage.getItem("user"),
+    isAdmin: true,
+  });
+
+  const isAdmin = user.isAdmin && location.pathname.includes("admin");
+  const [selectSideBar, setSelectSideBar] = useState(
+    isAdmin ? "Dashboard" : "Home"
+  );
 
   return !user ? (
     <Home setUser={setUser} />
@@ -92,91 +161,88 @@ const App = () => {
       <Navbar />
       <StyledMain className="main">
         <SideBar
-          sideData={sideData}
+          sideData={isAdmin ? sideDataForAdmin : sideDataForUser}
           title={selectSideBar}
           setTitle={setSelectSideBar}
         ></SideBar>
 
-        <Routes>
-          {/* <Route path="/" exact element={} /> */}
+        <Content>
+          <Routes>
+            {/* <Route path="/" exact element={} /> */}
 
-          <Route path="/" exact element={<HomeScreen sideData={sideData} />} />
+            <Route path="/" exact element={<HomeScreen />} />
 
-          <Route
-            path="/admission"
-            exact
-            element={<Admission sideData={sideData} />}
-          />
+            <Route path="/admission" exact element={<Admission />} />
 
-          <Route
-            path="/roadmaps"
-            exact
-            element={<Roadmaps sideData={sideData} />}
-          />
+            <Route path="/roadmaps" exact element={<Roadmaps />} />
 
-          <Route
-            path="/roadmap-page"
-            exact
-            element={<RoadmapPage sideData={sideData} />}
-          />
+            <Route path="/roadmap-page" exact element={<RoadmapPage />} />
 
-          <Route
-            path="/academics"
-            exact
-            element={<Academics sideData={sideData} />}
-          />
+            <Route path="/academics" exact element={<Academics />} />
 
-          <Route
-            path="/career-aware"
-            exact
-            element={<CareerAware sideData={sideData} />}
-          />
+            <Route path="/career-aware" exact element={<CareerAware />} />
 
-          <Route
-            path="/career-aware/:data"
-            exact
-            element={<CareerPage sideData={sideData} />}
-          />
+            <Route path="/career-aware/:data" exact element={<CareerPage />} />
 
-          <Route
-            path="/find-pg"
-            exact
-            element={<FindPG sideData={sideData} />}
-          />
+            <Route path="/find-pg" exact element={<FindPG />} />
 
-          <Route path="/find-pg/:id" element={<PGPage sideData={sideData} />} />
+            <Route path="/find-pg/:id" element={<PGPage />} />
 
-          <Route
-            path="/easy-buy"
-            exact
-            element={<EasyBuy sideData={sideData} />}
-          />
+            <Route path="/easy-buy" exact element={<EasyBuy />} />
 
-          <Route
-            path="/doubt-desk"
-            exact
-            element={<DoubtDesk sideData={sideData} />}
-          />
+            <Route path="/doubt-desk" exact element={<DoubtDesk />} />
 
-          <Route
-            path="/doubt-desk/ask-question"
-            exact
-            element={<DoubtDeskPage sideData={sideData} />}
-          />
+            <Route
+              path="/doubt-desk/ask-question"
+              exact
+              element={<DoubtDeskPage />}
+            />
 
-          <Route
-            path="/doubt-desk/:id"
-            exact
-            element={<DoubtDeskAnswers sideData={sideData} />}
-          />
+            <Route
+              path="/doubt-desk/:id"
+              exact
+              element={<DoubtDeskAnswers />}
+            />
 
-          <Route path="/blogs" exact element={<Blogs sideData={sideData} />} />
-          <Route
-            path="/not-found"
-            element={<Content>Page Not Found</Content>}
-          ></Route>
-          <Route path="/*" element={<Navigate to="/not-found" />} />
-        </Routes>
+            <Route path="/blogs" exact element={<Blogs />} />
+            <Route path="/not-found" element={<>Page Not Found</>} />
+            <Route path="/unauthorised" element={<>You are unauthorised</>} />
+          </Routes>
+          {isAdmin ? (
+            <Routes>
+              <Route
+                path="/admin"
+                exact
+                element={
+                  isAdmin ? <AdminDashboard /> : <Navigate to="/unauthorised" />
+                }
+              />
+
+              <Route
+                path="/admin/admissions"
+                exact
+                element={<AdminAdmission />}
+              />
+
+              <Route path="/admin/blogs" exact element={<AdminBlogs />} />
+              <Route path="/admin/blogs/new" exact element={<NewBlog />} />
+              <Route path="/admin/roadmaps" exact element={<AdminRoadmaps />} />
+              <Route path="/admin/projects" exact element={<AdminProjects />} />
+              <Route
+                path="/admin/career-aware"
+                exact
+                element={<AdminCareerAware />}
+              />
+              <Route path="/admin/find-pg" exact element={<AdminFindPG />} />
+              <Route path="/admin/easy-buy" exact element={<AdminEasyBuy />} />
+              <Route path="/*" element={<Navigate to="/not-found" />} />
+            </Routes>
+          ) : (
+            <Routes>
+              <Route path="/admin*" element={<Navigate to="/unauthorised" />} />
+            </Routes>
+          )}
+        </Content>
       </StyledMain>
     </StyledContainer>
   );

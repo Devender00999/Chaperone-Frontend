@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  Content,
-  MainContent,
-} from "../styledComponents/common/Common/Common.styles";
+import { MainContent } from "../styledComponents/common/Common/Common.styles";
 import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
 import BlogsCard from "../styledComponents/BlogsCard/BlogsCard";
 
@@ -34,14 +31,14 @@ const Admission = (props) => {
     ],
   };
   return (
-    <Content>
+    <>
       <MainContent direction="column" flex={3}>
         {blogs.map((blog) => (
           <BlogsCard {...blog} />
         ))}
       </MainContent>
       <RightSideBar {...rightSideBarData} />
-    </Content>
+    </>
   );
 };
 
