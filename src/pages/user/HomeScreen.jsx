@@ -1,16 +1,16 @@
 import React from "react";
-import BlogsCard from "../styledComponents/BlogsCard/BlogsCard";
-import { MainContent } from "../styledComponents/common/Common/Common.styles";
+import BlogsCard from "../../styledComponents/BlogsCard/BlogsCard";
+import { MainContent } from "../../styledComponents/common/Common/Common.styles";
 
-import Tags from "../styledComponents/Tags/Tags";
-import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
-import CareerCard from "../styledComponents/CareerCard/CareerCard";
-import ProjectCard from "../styledComponents/ProjectCard/ProjectCard";
-import PGCard from "../styledComponents/PGCard/PGCard";
-import EasyBuyCard from "../styledComponents/EasyBuyCard/EasyBuyCard";
-import { blogsData } from "../data/blog";
-import { careerData } from "../data/career";
-import { pgData } from "../data/pgFinder";
+import Tags from "../../styledComponents/Tags/Tags";
+import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
+import CareerCard from "../../styledComponents/CareerCard/CareerCard";
+import ProjectCard from "../../styledComponents/ProjectCard/ProjectCard";
+import PGCard from "../../styledComponents/PGCard/PGCard";
+import EasyBuyCard from "../../styledComponents/EasyBuyCard/EasyBuyCard";
+import { blogsData } from "../../data/blog";
+import { careerData } from "../../data/career";
+import { pgData } from "../../data/pgFinder";
 const HomeScreen = (props) => {
   const tags = [
     { value: "All", selected: true },

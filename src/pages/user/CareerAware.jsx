@@ -2,12 +2,12 @@ import React from "react";
 import {
   MainContent,
   PageHeading,
-} from "../styledComponents/common/Common/Common.styles";
-import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
+} from "../../styledComponents/common/Common/Common.styles";
 
-import CareerCard from "../styledComponents/CareerCard/CareerCard";
-import SelectTag from "../styledComponents/SelectTag/SelectTag";
-import { SelectTags } from "../styledComponents/SelectTag/SelectTag.styles";
+import CareerCard from "../../styledComponents/CareerCard/CareerCard";
+import SelectTag from "../../styledComponents/SelectTag/SelectTag";
+import { SelectTags } from "../../styledComponents/SelectTag/SelectTag.styles";
+import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
 
 const CareerAware = (props) => {
   const careerData = [

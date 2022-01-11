@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Home from "./pages/Home";
-import HomeScreen from "./pages/HomeScreen";
-import Admission from "./pages/Admission";
-import Academics from "./pages/Academics";
-import Roadmaps from "./pages/Roadmaps";
-import CareerAware from "./pages/CareerAware";
-import FindPG from "./pages/FindPG";
-import EasyBuy from "./pages/EasyBuy";
-import DoubtDesk from "./pages/DoubtDesk";
-import Blogs from "./pages/Blogs";
+import Home from "./pages/user/Home";
+import HomeScreen from "./pages/user/HomeScreen";
+import Admission from "./pages/user/Admission";
+import Academics from "./pages/user/Academics";
+import Roadmaps from "./pages/user/Roadmaps";
+import CareerAware from "./pages/user/CareerAware";
+import FindPG from "./pages/user/FindPG";
+import EasyBuy from "./pages/user/EasyBuy";
+import DoubtDesk from "./pages/user/DoubtDesk";
+import Blogs from "./pages/user/Blogs";
 import RoadmapPage from "./styledComponents/styledPages/RoadmapPage/RoadmapPage";
 import CareerPage from "./styledComponents/styledPages/CareerPage/CareerPage";
 import DoubtDeskPage from "./styledComponents/styledPages/DoubtDeskPage/DoubtDeskPage";
 import PGPage from "./styledComponents/styledPages/PGPage/PGPage";
 import DoubtDeskAnswers from "./styledComponents/styledPages/DoubtDeskPage/DoubtDeskAnswers";
+
 import {
   Content,
   StyledContainer,

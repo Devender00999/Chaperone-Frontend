@@ -1,7 +1,7 @@
 import React from "react";
-import { MainContent } from "../styledComponents/common/Common/Common.styles";
-import RightSideBar from "../styledComponents/SidePanel/RightSideBar";
-import BlogPage from "../styledComponents/styledPages/BlogPage/BlogPage";
+import { MainContent } from "../../styledComponents/common/Common/Common.styles";
+import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
+import BlogPage from "../../styledComponents/styledPages/BlogPage/BlogPage";
 
 const Blogs = (props) => {
   const rightSideBarData = {

@@ -2,9 +2,9 @@ import React from "react";
 import {
   MainContent,
   PageHeading,
-} from "../styledComponents/common/Common/Common.styles";
-import { RoadmapCard } from "../styledComponents/RoadmapCard/RoadmapCard";
-import { RoadmapsCardContainer } from "../styledComponents/RoadmapCard/RoadmapCard.styles";
+} from "../../styledComponents/common/Common/Common.styles";
+import { RoadmapCard } from "../../styledComponents/RoadmapCard/RoadmapCard";
+import { RoadmapsCardContainer } from "../../styledComponents/RoadmapCard/RoadmapCard.styles";
 const roadmap = [
   {
     id: "roadmaptrack001",

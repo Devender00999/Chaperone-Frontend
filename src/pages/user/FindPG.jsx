@@ -3,10 +3,10 @@ import {
   CommonContainer,
   MainContent,
   PageHeading,
-} from "../styledComponents/common/Common/Common.styles";
-import PGCard from "../styledComponents/PGCard/PGCard";
-import { SelectTags } from "../styledComponents/SelectTag/SelectTag.styles";
-import SelectTag from "../styledComponents/SelectTag/SelectTag";
+} from "../../styledComponents/common/Common/Common.styles";
+import PGCard from "../../styledComponents/PGCard/PGCard";
+import { SelectTags } from "../../styledComponents/SelectTag/SelectTag.styles";
+import SelectTag from "../../styledComponents/SelectTag/SelectTag";
 
 const FindPG = (props) => {
   const pgData = [
