@@ -18,10 +18,10 @@ const UserRoutes = () => {
   return (
     <Routes>
       <Route path="/" exact element={<HomeScreen />} />
-
       <Route path="/admission" exact element={<Admission />} />
 
       <Route path="/roadmaps" exact element={<Roadmaps />} />
+
       <Route path="/roadmap-page" exact element={<RoadmapPage />} />
 
       <Route path="/academics" exact element={<Academics />} />
