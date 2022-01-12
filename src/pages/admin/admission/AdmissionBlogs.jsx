@@ -1,16 +1,16 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import DataTable from "../../styledComponents/common/Table/Table";
+import DataTable from "../../../styledComponents/common/Table/Table";
 import {
   PageHeading,
   HeadingContainer,
   HeadingContent,
   MainContent,
   PrimaryButton,
-} from "../../styledComponents/common/Common/Common.styles";
+} from "../../../styledComponents/common/Common/Common.styles";
 
-const AdminBlogs = () => {
+const AdmissionBlogs = () => {
   return (
     <>
       <MainContent direction={"column"} flex={"auto"}>
@@ -38,4 +38,4 @@ const AdminBlogs = () => {
   );
 };
 
-export default AdminBlogs;
+export default AdmissionBlogs;

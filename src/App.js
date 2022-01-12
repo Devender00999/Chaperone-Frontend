@@ -76,7 +76,7 @@ const sideDataForAdmin = [
   {
     title: "Dashboard",
     link: "/admin",
-    icon: "/images/sidebar/home.svg",
+    icon: "/images/sidebar/dashboard.svg",
     selected: true,
   },
   {
@@ -94,6 +94,12 @@ const sideDataForAdmin = [
   {
     title: "Projects",
     link: "/admin/projects",
+    icon: "/images/sidebar/project.svg",
+    selected: false,
+  },
+  {
+    title: "Academics",
+    link: "/admin/academics",
     icon: "/images/sidebar/academics.svg",
     selected: false,
   },

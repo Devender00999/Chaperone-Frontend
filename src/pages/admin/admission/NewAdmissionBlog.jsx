@@ -16,7 +16,7 @@ import {
 import StyledEditor from "../../styledComponents/common/Common/StyledEditor";
 import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
 
-const NewBlog = () => {
+const NewAdmissionBlog = () => {
   useEffect(() => {
     document
       .querySelector('input[type="file"]')
@@ -134,4 +134,4 @@ const NewBlog = () => {
   );
 };
 
-export default NewBlog;
+export default NewAdmissionBlog;

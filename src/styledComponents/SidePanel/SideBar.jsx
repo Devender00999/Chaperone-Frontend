@@ -26,7 +26,9 @@ const SideBar = (props) => {
           >
             <SideBarItemIcon
               src={item.icon}
-              style={{ opacity: pathname === item.link ? 1 : 0.5 }}
+              style={{
+                opacity: pathname === item.link ? 1 : 0.5,
+              }}
             />
             <SideBarItemText selected={pathname === item.link}>
               {item.title}
