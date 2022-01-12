@@ -21,7 +21,11 @@ const BlogsCard = (props) => {
             style={{ padding: "0.5rem 0" }}
           />
           <UserProps>
-            <Like className="cursor-pointer" />
+            <Like
+              id={props.id}
+              liked={props.liked}
+              className="cursor-pointer"
+            />
             <ShareIcon
               className="cursor-pointer"
               style={{ marginLeft: "1rem" }}

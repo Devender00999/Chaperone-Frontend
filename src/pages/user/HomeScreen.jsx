@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import BlogsCard from "../../styledComponents/BlogsCard/BlogsCard";
 import { MainContent } from "../../styledComponents/common/Common/Common.styles";
 
@@ -11,6 +12,7 @@ import EasyBuyCard from "../../styledComponents/EasyBuyCard/EasyBuyCard";
 import { blogsData } from "../../data/blog";
 import { careerData } from "../../data/career";
 import { pgData } from "../../data/pgFinder";
+import { setAdArticles } from "../../redux/actions/admissionActions";
 const HomeScreen = (props) => {
   const tags = [
     { value: "All", selected: true },
@@ -38,13 +40,24 @@ const HomeScreen = (props) => {
       "Roadmap to UX Designing",
     ],
   };
+
+  const allAdArticles = useSelector((state) => state.allAdArticles);
+  const dispatch = useDispatch();
+  console.log(allAdArticles);
+
+  useEffect(() => {
+    setTimeout(() => dispatch(setAdArticles(blogsData)), 3000);
+  }, [dispatch]);
+
   return (
     <>
       <MainContent direction="column" flex={3}>
         <Tags tags={tags} />
-        {blogsData.map((blog, id) => (
-          <BlogsCard key={id} {...blog} />
-        ))}
+        {Object.keys(allAdArticles).length === 0
+          ? "Loading..."
+          : allAdArticles.articles.map((blog, id) => (
+              <BlogsCard key={id} {...blog} />
+            ))}
         {careerData.map((data, id) => (
           <CareerCard key={id} data={data} />
         ))}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import { LSideBarContainer } from "../common/Common/Common.styles";
@@ -13,7 +13,10 @@ const SideBar = (props) => {
   const location = useLocation();
   const { pathname } = location;
   const unknownLink = pathname === "/not-found" || pathname === "/unauthorised";
-  if (unknownLink) setTitle("");
+
+  useEffect(() => {
+    if (unknownLink) setTitle("");
+  });
   return (
     <LSideBarContainer>
       {props.sideData.map((item, id) => {
