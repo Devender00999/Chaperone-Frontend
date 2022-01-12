@@ -46,7 +46,7 @@ const HomeScreen = (props) => {
   console.log(allAdArticles);
 
   useEffect(() => {
-    setTimeout(() => dispatch(setAdArticles(blogsData)), 3000);
+    dispatch(setAdArticles(blogsData));
   }, [dispatch]);
 
   return (

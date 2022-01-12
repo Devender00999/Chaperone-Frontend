@@ -60,6 +60,7 @@ export const UserDetails = styled.div`
   display: flex;
   align-items: center;
   flex: 1;
+  justify-content: center;
 `;
 
 export const UserImage = styled.img`
