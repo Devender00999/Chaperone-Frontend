@@ -5,8 +5,9 @@ import Like from "../common/Like";
 import User from "../common/User/User";
 import { UserDetails, UserProps } from "../common/User/User.styles";
 import { DescText, Heading } from "../common/Common/Common.styles";
-
+import CustomDropdown from "../../components/CustomDropdown/CustomDropdown";
 const BlogsCard = (props) => {
+  console.log(window.location.href);
   return (
     <CardContainer>
       <CardImage image={props.image} />
@@ -26,10 +27,18 @@ const BlogsCard = (props) => {
               liked={props.liked}
               className="cursor-pointer"
             />
-            <ShareIcon
-              className="cursor-pointer"
-              style={{ marginLeft: "1rem" }}
-            />
+
+            <CustomDropdown
+              Toggle={
+                <ShareIcon
+                  className="cursor-pointer"
+                  style={{ marginLeft: "1rem" }}
+                />
+              }
+              Menu={<Share />}
+              float={"left"}
+              width={50}
+            ></CustomDropdown>
           </UserProps>
         </UserDetails>
       </CardData>
@@ -37,4 +46,15 @@ const BlogsCard = (props) => {
   );
 };
 
+const Share = () => {
+  const link = "whatsapp://send?text=" + window.location.href;
+  return (
+    <>
+      <a href={link} target="_blank" rel="noreferrer">
+        Whatsapp
+      </a>
+      <span>Copy</span>
+    </>
+  );
+};
 export default BlogsCard;
