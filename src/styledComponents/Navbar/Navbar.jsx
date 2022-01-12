@@ -3,7 +3,7 @@ import {
   NavbarContainer,
   NavbarSearchContainer,
   NavLogo,
-  NavNotification,
+  // NavNotification,
   UserDetails,
 } from "./Navbar.styles";
 import Search from "./Search";
@@ -13,14 +13,14 @@ import CustomDropdown from "../../components/CustomDropdown/CustomDropdown";
 const Navbar = () => {
   return (
     <NavbarContainer>
-      <Link to="/">
+      <Link style={{ flex: 1, display: "flex" }} to="/">
         <NavLogo src="/images/navbar/logo.svg" />
       </Link>
       <NavbarSearchContainer>
         <Search width={"75%"} />
       </NavbarSearchContainer>
       <UserDetails>
-        <NavNotification src="/images/navbar/notifications.svg" />
+        {/* <NavNotification src="/images/navbar/notifications.svg" /> */}
 
         <CustomDropdown
           Toggle={
