@@ -8,11 +8,14 @@ import {
 } from "./Navbar.styles";
 import Search from "./Search";
 import User from "../common/User/User";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <NavbarContainer>
-      <NavLogo src="/images/navbar/logo.svg" />
+      <Link to="/">
+        <NavLogo src="/images/navbar/logo.svg" />
+      </Link>
       <NavbarSearchContainer>
         <Search width={"75%"} />
       </NavbarSearchContainer>

@@ -128,7 +128,7 @@ const App = () => {
 
   let [user, setUser] = useState({
     user: localStorage.getItem("user"),
-    isAdmin: false,
+    isAdmin: true,
   });
 
   useEffect(() => {
