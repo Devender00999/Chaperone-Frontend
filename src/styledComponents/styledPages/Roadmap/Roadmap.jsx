@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import {
-  Content,
   DescText,
   Heading,
   MainContent,
@@ -18,12 +17,18 @@ import {
   ArticleTextCon,
   HeadingContainer,
   ProjectContainer,
-} from "./RoadmapPage.styles";
+} from "./Roadmap.styles";
 
 import ProjectCard from "../../ProjectCard/ProjectCard";
-import { roadmapsData } from "../../../data/roadmaps";
+import { roadmapsData } from "../../../data/roadmapsData";
+import { useParams } from "react-router-dom";
 
-const RoadmapPage = (props) => {
+const Roadmap = () => {
+  const params = useParams();
+  const roadmaps = roadmapsData.find((item) => item.id === params.id);
+
+  if (!roadmaps) window.location.href = "/not-found";
+
   const rightSideBarData = {
     heading: "Your Recents",
     content: [
@@ -35,17 +40,15 @@ const RoadmapPage = (props) => {
   };
 
   const [showArticles, setShowArticles] = useState(false);
-  const articleLimit = showArticles
-    ? roadmapsData[0].featuredArticles.length
-    : 4;
+  const articleLimit = showArticles ? roadmaps.articles.length : 4;
 
   const [showProjects, setShowProjects] = useState(false);
-  const projectLimit = showProjects ? roadmapsData[0].projectsIdeas.length : 2;
+  const projectLimit = showProjects ? roadmaps.projectsIdeas.length : 2;
   return (
-    <Content>
+    <>
       <MainContent direction="column" flex={3}>
         <HeadingContainer>
-          <PageHeading>Web Development</PageHeading>
+          <PageHeading>{roadmaps.heading}</PageHeading>
           <GoBack title="" link="/roadmaps" />
         </HeadingContainer>
 
@@ -59,21 +62,22 @@ const RoadmapPage = (props) => {
             />
           </HeadingContainer>
 
-          {roadmapsData[0].featuredArticles
-            .slice(0, articleLimit)
-            .map((article, index) => (
-              <Article to="/blogs">
-                <ArticleNumber>
-                  {index < 10 - 1 ? "0" + (index + 1) : index + 1}
-                </ArticleNumber>
-                <ArticleTextCon>
-                  <Heading>{article.heading}</Heading>
-                  <DescText style={{ fontSize: "12px" }}>
-                    {article.desc.substring(0, 150)}
-                  </DescText>
-                </ArticleTextCon>
-              </Article>
-            ))}
+          {roadmaps.articles.slice(0, articleLimit).map((article, index) => (
+            <Article
+              key={article.id}
+              to={`/roadmaps/${roadmaps.id}/${article.id}`}
+            >
+              <ArticleNumber>
+                {index < 10 - 1 ? "0" + (index + 1) : index + 1}
+              </ArticleNumber>
+              <ArticleTextCon>
+                <Heading>{article.heading}</Heading>
+                <DescText style={{ fontSize: "12px" }}>
+                  {article.desc.substring(0, 150)}
+                </DescText>
+              </ArticleTextCon>
+            </Article>
+          ))}
         </ArticlesContainer>
 
         <HeadingContainer>
@@ -85,16 +89,14 @@ const RoadmapPage = (props) => {
           />
         </HeadingContainer>
         <ProjectContainer>
-          {roadmapsData[0].projectsIdeas
-            .slice(0, projectLimit)
-            .map((project) => (
-              <ProjectCard small {...project} />
-            ))}
+          {roadmaps.projectsIdeas.slice(0, projectLimit).map((project) => (
+            <ProjectCard small key={project.id} {...project} />
+          ))}
         </ProjectContainer>
       </MainContent>
       <RightSideBar {...rightSideBarData} />
-    </Content>
+    </>
   );
 };
 
-export default RoadmapPage;
+export default Roadmap;

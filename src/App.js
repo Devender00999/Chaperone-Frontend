@@ -159,19 +159,20 @@ const App = () => {
         ></SideBar>
 
         <Content>
-          <UserRoutes />
-
-          {isAdmin ? (
-            <AdminRoutes isAdmin={isAdmin} />
-          ) : (
-            <Routes>
-              <Route
-                path="/admin/*"
-                element={<Navigate to="/unauthorised" />}
-              />
-            </Routes>
-          )}
-          <DefaultRoutes />
+          <Routes>
+            <Route path="/">
+              {UserRoutes}
+              {isAdmin ? (
+                AdminRoutes
+              ) : (
+                <Route
+                  path="/admin/*"
+                  element={<Navigate to="/unauthorised" />}
+                />
+              )}
+              {DefaultRoutes}
+            </Route>
+          </Routes>
         </Content>
       </StyledMain>
     </StyledContainer>

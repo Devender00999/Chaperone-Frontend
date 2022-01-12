@@ -1,12 +1,12 @@
-import { Route, Routes } from "react-router-dom";
+import React from "react";
+import { Navigate, Route } from "react-router-dom";
 
-const DefaultRoutes = () => {
-  return (
-    <Routes>
-      <Route path="/unauthorised" element={<>You are unauthorised</>} />
-      <Route element={<>Page Not Found</>} />
-    </Routes>
-  );
-};
+const DefaultRoutes = (
+  <React.Fragment>
+    <Route path="/unauthorised" element={<>You are unauthorised</>} />
+    <Route path="/not-found" element={<>Not Found</>} />
+    <Route path="*" element={<Navigate to="/not-found" />} />
+  </React.Fragment>
+);
 
 export default DefaultRoutes;

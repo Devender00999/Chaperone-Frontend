@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export const BlogPageContainer = styled.div`
+export const BlogContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 1rem 0;
 `;
 
-export const BlogPageImage = styled.div`
+export const BlogImage = styled.div`
   background: url(${(props) => props.src});
   width: 100%;
   height: 250px;

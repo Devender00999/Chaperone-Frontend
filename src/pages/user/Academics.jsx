@@ -64,7 +64,7 @@ const Academics = (props) => {
   };
   return (
     <>
-      <MainContent direction="column" flex={3}>
+      <MainContent direction="column" flex={3} style={{ rowGap: "1rem" }}>
         <PageHeading>Academics</PageHeading>
         {subjects.map((subject, i) => (
           <SubjectCard key={i} subject={subject} />

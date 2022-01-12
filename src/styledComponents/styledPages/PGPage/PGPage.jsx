@@ -12,7 +12,7 @@ import {
   Price,
 } from "../../common/Common/Common.styles";
 import RightSideBar from "../../SidePanel/RightSideBar";
-import { BlogContent, BlogPageContainer } from "../BlogPage/BlogPage.styles";
+import { BlogContent, BlogContainer } from "../Blog/Blog.styles";
 import { PGContainer, PGFeature } from "../../PGCard/PGCard.styles";
 import { StyledLink } from "../../common/Common/Common";
 import SchoolIcon from "@mui/icons-material/School";
@@ -24,7 +24,7 @@ const PGPage = (props) => {
   return (
     <Content>
       <MainContent direction="column" flex={3}>
-        <BlogPageContainer>
+        <BlogContainer>
           <Carousel
             images={pgData[0].images}
             height="250px"
@@ -105,7 +105,7 @@ const PGPage = (props) => {
               </ListContainer>
             </CommonContainer>
           </BlogContent>
-        </BlogPageContainer>
+        </BlogContainer>
       </MainContent>
       <RightSideBar heading="" content={[]} />
     </Content>

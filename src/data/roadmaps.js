@@ -1,89 +1,44 @@
-export const roadmapsData = [
+export const roadmaps = [
   {
-    heading: "Web Development",
-    featuredArticles: [
-      {
-        heading: "Begin Web Development with Headstart",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lobortis risus nec metus luctus lacinia in nec sapien.Quisque nec interdum neque. Ut non massa id odio auctor...",
-        content: "",
-      },
-      {
-        heading: "Begin Web Development with Headstart",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lobortis risus nec metus luctus lacinia in nec sapien.Quisque nec interdum neque. Ut non massa id odio auctor...",
-        content: "",
-      },
-      {
-        heading: "Begin Web Development with Headstart",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lobortis risus nec metus luctus lacinia in nec sapien.Quisque nec interdum neque. Ut non massa id odio auctor...",
-        content: "",
-      },
-      {
-        heading: "Begin Web Development with Headstart",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lobortis risus nec metus luctus lacinia in nec sapien.Quisque nec interdum neque. Ut non massa id odio auctor...",
-        content: "",
-      },
-      {
-        heading: "Begin Web Development with Headstart",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lobortis risus nec metus luctus lacinia in nec sapien.Quisque nec interdum neque. Ut non massa id odio auctor...",
-        content: "",
-      },
-      {
-        heading: "Begin Web Development with Headstart",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lobortis risus nec metus luctus lacinia in nec sapien.Quisque nec interdum neque. Ut non massa id odio auctor...",
-        content: "",
-      },
-      {
-        heading: "Begin Web Development with Headstart",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lobortis risus nec metus luctus lacinia in nec sapien.Quisque nec interdum neque. Ut non massa id odio auctor...",
-        content: "",
-      },
-      {
-        heading: "Begin Web Development with Headstart",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lobortis risus nec metus luctus lacinia in nec sapien.Quisque nec interdum neque. Ut non massa id odio auctor...",
-        content: "",
-      },
-      {
-        heading: "Begin Web Development with Headstart",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lobortis risus nec metus luctus lacinia in nec sapien.Quisque nec interdum neque. Ut non massa id odio auctor...",
-        content: "",
-      },
-      {
-        heading: "Begin Web Development with Headstart",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lobortis risus nec metus luctus lacinia in nec sapien.Quisque nec interdum neque. Ut non massa id odio auctor...",
-        content: "",
-      },
-      {
-        heading: "Begin Web Development with Headstart",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lobortis risus nec metus luctus lacinia in nec sapien.Quisque nec interdum neque. Ut non massa id odio auctor...",
-        content: "",
-      },
-      {
-        heading: "Begin Web Development with Headstart",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lobortis risus nec metus luctus lacinia in nec sapien.Quisque nec interdum neque. Ut non massa id odio auctor...",
-        content: "",
-      },
-    ],
-    projectsIdeas: [
-      {
-        image: "/images/projects/Image.svg",
-        heading: "OurApp - a social media web app in NodeJS",
-        desc: "Build this full stack application where you will get to learn about building modern, fast and scalable server-side web applications with NodeJS, databases like MongoDB and more.",
-        liveLink: "/",
-        githubLink: "/",
-      },
-      {
-        image: "/images/projects/Image.svg",
-        heading: "OurApp - a social media web app in NodeJS",
-        desc: "Build this full stack application where you will get to learn about building modern, fast and scalable server-side web applications with NodeJS, databases like MongoDB and more.",
-        liveLink: "/",
-        githubLink: "/",
-      },{
-        image: "/images/projects/Image.svg",
-        heading: "OurApp - a social media web app in NodeJS",
-        desc: "Build this full stack application where you will get to learn about building modern, fast and scalable server-side web applications with NodeJS, databases like MongoDB and more.",
-        liveLink: "/",
-        githubLink: "/",
-      },
-    ],
+    id: "roadmaptrack001",
+    roadmapIcon: "/images/roadmaps/cloud-computing.svg",
+    roadmapTitle: "Cloud Computing",
+    roadMapList: ["Roadmap", "Projects", "Latest Treads for 2021"],
+    roadMapLink: "/",
+  },
+  {
+    id: "roadmaptrack002",
+    roadmapIcon: "/images/roadmaps/web-technology.svg",
+    roadmapTitle: "Web Technology",
+    roadMapList: ["Roadmap", "Projects", "Latest Treads for 2021"],
+    roadMapLink: `/roadmaps/roadmaptrack002`,
+  },
+  {
+    id: "roadmaptrack003",
+    roadmapIcon: "/images/roadmaps/machine-learning.svg",
+    roadmapTitle: "Machine Learning",
+    roadMapList: ["Roadmap", "Projects", "Latest Treads for 2021"],
+    roadMapLink: "/",
+  },
+  {
+    id: "roadmaptrack004",
+    roadmapIcon: "/images/roadmaps/data-science.svg",
+    roadmapTitle: "Data Science",
+    roadMapList: ["Roadmap", "Projects", "Latest Treads for 2021"],
+    roadMapLink: "/",
+  },
+  {
+    id: "roadmaptrack005",
+    roadmapIcon: "/images/roadmaps/ux-design.svg",
+    roadmapTitle: "UX Desinging",
+    roadMapList: ["Roadmap", "Projects", "Latest Treads for 2021"],
+    roadMapLink: "/",
+  },
+  {
+    id: "roadmaptrack006",
+    roadmapIcon: "/images/roadmaps/blockchain.svg",
+    roadmapTitle: "Blockchain",
+    roadMapList: ["Roadmap", "Projects", "Latest Treads for 2021"],
+    roadMapLink: "/",
   },
 ];

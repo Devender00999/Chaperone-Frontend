@@ -1,5 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-// import AdminAdmission from "../pages/admin/AdminAdmission";
+import { Route, Navigate } from "react-router-dom";
 import AdminBlogs from "../pages/admin/AdminBlogs";
 import AdminCareerAware from "../pages/admin/AdminCareerAware";
 import AdminDashboard from "../pages/admin/AdminDashboard";
@@ -9,14 +8,17 @@ import AdminProjects from "../pages/admin/AdminProjects";
 import AdminRoadmaps from "../pages/admin/AdminRoadmaps";
 import AdmissionBlogs from "../pages/admin/admission/AdmissionBlogs";
 import NewBlog from "../pages/admin/NewBlog";
+import React from "react";
 
-const AdminRoutes = (props) => (
-  <Routes>
+const user = JSON.parse(localStorage.getItem("user"));
+
+const AdminRoutes = (
+  <React.Fragment>
     <Route
       path="/admin"
       exact
       element={
-        props.isAdmin ? <AdminDashboard /> : <Navigate to="/unauthorised" />
+        user.isAdmin ? <AdminDashboard /> : <Navigate to="/unauthorised" />
       }
     />
 
@@ -29,7 +31,7 @@ const AdminRoutes = (props) => (
     <Route path="/admin/career-aware" exact element={<AdminCareerAware />} />
     <Route path="/admin/find-pg" exact element={<AdminFindPG />} />
     <Route path="/admin/easy-buy" exact element={<AdminEasyBuy />} />
-  </Routes>
+  </React.Fragment>
 );
 
 export default AdminRoutes;

@@ -44,7 +44,13 @@ const Header = (props) => {
           </StyledButtons>
           <StyledButtons
             onClick={() => {
-              localStorage.setItem("user", "true");
+              localStorage.setItem(
+                "user",
+                JSON.stringify({
+                  name: "Deepak Kumar",
+                  isAdmin: true,
+                })
+              );
               window.location.href = "/";
             }}
           >

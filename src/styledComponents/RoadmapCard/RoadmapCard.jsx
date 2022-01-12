@@ -11,7 +11,7 @@ import {
 export const RoadmapCard = (props) => {
   return (
     <RoadmapsCard>
-      <RoadmapsCardImage src={props.roadmapImg} alt={props.roadmapImg} />
+      <RoadmapsCardImage src={props.roadmapIcon} alt={props.roadmapIcon} />
 
       <RoadmapsCardTitle>{props.roadmapTitle}</RoadmapsCardTitle>
       <RoadmapsCardList>
@@ -19,7 +19,7 @@ export const RoadmapCard = (props) => {
           <RoadmapsCardListItem key={key}>{item}</RoadmapsCardListItem>
         ))}
       </RoadmapsCardList>
-      <RoadmapsCardLink to={props.roadMapLink}>
+      <RoadmapsCardLink to={`/roadmaps/${props.id}`}>
         <img src="/images/common/arrow.png" alt="Arrow" />
       </RoadmapsCardLink>
     </RoadmapsCard>
