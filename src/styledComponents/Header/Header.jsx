@@ -20,9 +20,11 @@ const Header = (props) => {
   const [componentForm, setComponentForm] = useState({
     content: SignInForm,
   });
-  const handleClick = (e, Component) => {
+  const handleComponentChange = (e, Component) => {
     componentForm.content = Component;
-    setComponentForm(componentForm);
+    setComponentForm({
+      content: Component,
+    });
     setShowModal(true);
   };
   return (
@@ -39,7 +41,7 @@ const Header = (props) => {
           relevant to their college degree.
         </Desc>
         <ButtonSection>
-          <StyledButtons onClick={(e) => handleClick(e, SignUpForm)}>
+          <StyledButtons onClick={(e) => handleComponentChange(e, SignUpForm)}>
             Create a new account
           </StyledButtons>
           <StyledButtons
@@ -56,7 +58,7 @@ const Header = (props) => {
           >
             Sign in with Google
           </StyledButtons>
-          <StyledButtons onClick={(e) => handleClick(e, SignInForm)}>
+          <StyledButtons onClick={(e) => handleComponentChange(e, SignInForm)}>
             Sign in with Email
           </StyledButtons>
         </ButtonSection>
@@ -64,7 +66,9 @@ const Header = (props) => {
       <StyledModal
         showModal={showModal}
         setShowModal={setShowModal}
-        Component={componentForm.content}
+        Component={
+          <componentForm.content changeComponent={handleComponentChange} />
+        }
       />
     </StyledHeader>
   );

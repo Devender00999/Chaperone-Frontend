@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const ServicesContainer = styled.div`
@@ -71,7 +72,7 @@ export const ServiceDesc = styled.p`
   text-align: left;
 `;
 
-export const ServiceLink = styled.a`
+export const ServiceLink = styled(Link)`
   text-decoration: none;
   align-self: flex-end;
   margin-top: 1rem;

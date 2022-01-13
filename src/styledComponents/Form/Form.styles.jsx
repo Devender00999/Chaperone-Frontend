@@ -36,6 +36,15 @@ export const FormHeading = styled.h2`
 export const FormText = styled.p`
   margin-bottom: 8px;
 `;
+export const FormLinkText = styled.span`
+  color: #ff6600;
+  font-family: "Poppins";
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: inline-block;
+  margin-left: 5px;
+  cursor: pointer;
+`;
 export const FormLink = styled.a`
   color: #ff6600;
   text-decoration: none;

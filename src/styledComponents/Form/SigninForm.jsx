@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { PrimaryButton } from "../common/Common/Common.styles";
+import { SideBarHeading } from "../SidePanel/SideBar.styles";
 import * as Form from "./Form.styles";
 import FormInput from "./FormInput";
-const SignInForm = () => {
+import ResetPassForm from "./ResetPassForm";
+import SignUpForm from "./SignUpForm";
+const SignInForm = (props) => {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-
+  console.log(props);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUser((prevValue) => ({ ...prevValue, [name]: value }));
@@ -21,7 +24,12 @@ const SignInForm = () => {
     <Form.FormContainer action="" method="" onSubmit={handleSubmit}>
       <Form.FormHeading>Sign In</Form.FormHeading>
       <Form.FormText>
-        New User? <Form.FormLink href="">Create an Account</Form.FormLink>
+        New User?{" "}
+        <Form.FormLinkText
+          onClick={(e) => props.changeComponent(e, SignUpForm)}
+        >
+          Create an Account
+        </Form.FormLinkText>
       </Form.FormText>
       <FormInput
         icon="/images/common/at.svg"
@@ -42,9 +50,14 @@ const SignInForm = () => {
         handleChange={handleChange}
       />
 
-      <Form.FormLink href="" style={{ alignSelf: "flex-end" }}>
-        Forget Password?
-      </Form.FormLink>
+      <div style={{ alignSelf: "flex-end" }}>
+        <Form.FormLinkText
+          onClick={(e) => props.changeComponent(e, ResetPassForm)}
+          style={{ alignSelf: "flex-end" }}
+        >
+          Forget Password?
+        </Form.FormLinkText>
+      </div>
       <PrimaryButton type="submit">Sign In</PrimaryButton>
     </Form.FormContainer>
   );

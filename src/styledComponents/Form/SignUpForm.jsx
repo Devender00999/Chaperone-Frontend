@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { PrimaryButton } from "../common/Common/Common.styles";
 import * as Form from "./Form.styles";
 import FormInput from "./FormInput";
+import ResetPassForm from "./ResetPassForm";
+import SignInForm from "./SigninForm";
 
-const SignUpForm = () => {
+const SignUpForm = (props) => {
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -24,7 +26,12 @@ const SignUpForm = () => {
     <Form.FormContainer action="" method="" onSubmit={handleSubmit}>
       <Form.FormHeading>Create an account</Form.FormHeading>
       <Form.FormText>
-        Already have an account? <Form.FormLink href="">Sign In</Form.FormLink>
+        Already have an account?
+        <Form.FormLinkText
+          onClick={(e) => props.changeComponent(e, SignInForm)}
+        >
+          Sign In
+        </Form.FormLinkText>
       </Form.FormText>
       <FormInput
         icon="/images/common/user.svg"
@@ -64,9 +71,12 @@ const SignUpForm = () => {
         handleChange={handleChange}
       />
 
-      <Form.FormLink href="" style={{ alignSelf: "flex-end" }}>
+      <Form.FormLinkText
+        style={{ alignSelf: "flex-end" }}
+        onClick={(e) => props.changeComponent(e, ResetPassForm)}
+      >
         Forget Password?
-      </Form.FormLink>
+      </Form.FormLinkText>
       <PrimaryButton type="submit">Create Account</PrimaryButton>
     </Form.FormContainer>
   );
