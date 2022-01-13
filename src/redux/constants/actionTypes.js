@@ -1,5 +1,7 @@
-export const ActionTypes = {
-  SET_ALL_ADMISSION_ARTICLES: "SET_ALL_ADMISSION_ARTICLES",
-  SET_ADMISSION_ARTICLE: "SET_ADMISSION_ARTICLE",
-  LIKE_ADMISSION_ARTICLE: "LIKE_ADMISSIONN_ARTICLE",
-};
+import admissionActionType from "./admissionActionTypes"
+
+const ActionTypes = {
+   ...admissionActionType
+}
+console.log(ActionTypes)
+export default ActionTypes

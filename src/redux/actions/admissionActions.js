@@ -1,6 +1,6 @@
-import { ActionTypes } from "../constants/actionTypes";
+import ActionTypes from "../constants/ActionTypes";
 
-export const setAdArticles = (articles) => ({
+export const setAllAdArticles = (articles) => ({
   type: ActionTypes.SET_ALL_ADMISSION_ARTICLES,
   payload: articles,
 });
