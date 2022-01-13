@@ -132,51 +132,51 @@ const sideDataForAdmin = [
 const App = () => {
   const location = useLocation();
 
-  let [user, setUser] = useState({
-    user: localStorage.getItem("user"),
-    isAdmin: true,
-  });
+  let [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
+  const [selectSideBar, setSelectSideBar] = useState("Home");
+  console.log(user);
+  console.log(user);
+  if (!user) {
+    return <Home setUser={setUser} />;
+  } else {
+    const isAdmin = user.isAdmin && location.pathname.includes("admin");
+    if (isAdmin) {
+      setSelectSideBar(isAdmin ? "Dashboard" : "Home");
+    }
+    return (
+      <StyledContainer>
+        <Navbar />
+        <StyledMain className="main">
+          <SideBar
+            sideData={isAdmin ? sideDataForAdmin : sideDataForUser}
+            title={selectSideBar}
+            setTitle={setSelectSideBar}
+          ></SideBar>
 
-  const isAdmin = user.isAdmin && location.pathname.includes("admin");
-  const [selectSideBar, setSelectSideBar] = useState(
-    isAdmin ? "Dashboard" : "Home"
-  );
-
-  return !user ? (
-    <Home setUser={setUser} />
-  ) : (
-    <StyledContainer>
-      <Navbar />
-      <StyledMain className="main">
-        <SideBar
-          sideData={isAdmin ? sideDataForAdmin : sideDataForUser}
-          title={selectSideBar}
-          setTitle={setSelectSideBar}
-        ></SideBar>
-
-        <Content>
-          <Routes>
-            <Route path="/">
-              {UserRoutes}
-              {isAdmin ? (
-                AdminRoutes
-              ) : (
-                <Route
-                  path="/admin/*"
-                  element={<Navigate to="/unauthorised" />}
-                />
-              )}
-              {DefaultRoutes}
-            </Route>
-          </Routes>
-        </Content>
-      </StyledMain>
-    </StyledContainer>
-  );
+          <Content>
+            <Routes>
+              <Route path="/">
+                {UserRoutes}
+                {isAdmin ? (
+                  AdminRoutes
+                ) : (
+                  <Route
+                    path="/admin/*"
+                    element={<Navigate to="/unauthorised" />}
+                  />
+                )}
+                {DefaultRoutes}
+              </Route>
+            </Routes>
+          </Content>
+        </StyledMain>
+      </StyledContainer>
+    );
+  }
 };
 
 export default App;

@@ -11,8 +11,8 @@ import NewBlog from "../pages/admin/NewBlog";
 import React from "react";
 
 const user = JSON.parse(localStorage.getItem("user"));
-
-const AdminRoutes = (
+console.log(user + "  dsafasdfasdfsdf");
+const AdminRoutes = user && (
   <React.Fragment>
     <Route
       path="/admin"

@@ -41,7 +41,15 @@ const UserOptions = () => {
     <>
       <div style={{ textAlign: "center" }}>Edit Profile</div>
       <hr style={{ margin: 0 }} />
-      <div style={{ textAlign: "center" }}>Logout</div>
+      <div
+        style={{ textAlign: "center" }}
+        onClick={() => {
+          localStorage.removeItem("user");
+          window.location.href = "/";
+        }}
+      >
+        Logout
+      </div>
     </>
   );
 };
