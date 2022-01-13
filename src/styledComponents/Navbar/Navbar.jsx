@@ -10,6 +10,7 @@ import Search from "./Search";
 import User from "../common/User/User";
 import { Link } from "react-router-dom";
 import { DropdownButton, Dropdown } from "react-bootstrap";
+
 const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -37,7 +38,7 @@ const Navbar = () => {
           drop={"start"}
           variant="none"
           title={
-            <User name="Deepak Kumar" image="/images/navbar/defaultuser.svg" />
+            <User name={user.name} image="/images/navbar/defaultuser.svg" />
           }
         >
           <Dropdown.Item className="py-2">Edit Profile</Dropdown.Item>

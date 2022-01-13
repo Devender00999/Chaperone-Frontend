@@ -13,7 +13,11 @@ import { admissionData } from "../../data/admissionData";
 import { careerData } from "../../data/career";
 import { pgData } from "../../data/pgFinder";
 import Actions from "../../redux/actions/Action";
+
 const HomeScreen = (props) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const dispatch = useDispatch();
+
   const tags = [
     { value: "All", selected: true },
     { value: "Interest", selected: false },
@@ -42,12 +46,33 @@ const HomeScreen = (props) => {
   };
 
   const allAdArticles = useSelector((state) => state.allAdArticles);
-  const dispatch = useDispatch();
   console.log(allAdArticles);
 
   useEffect(() => {
     dispatch(Actions.setAllAdArticles(admissionData));
-  }, [dispatch]);
+    if(user.createAccount === true){
+      dispatch(Actions.createAccount({
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        number: user.number
+      }))
+    }
+    else{
+      dispatch(Actions.userLoggedIn({
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        number: user.number,
+        enrollNo: user.enrollNo,
+        collegeName: user.collegeName,
+        profileImg: user.profileImg,
+        interests: user.interests,
+        sem: user.sem,
+        branch: user.branch
+      }))
+    }
+  }, [dispatch, user.id, user.createAccount, user.email, user.name, user.number, user.enrollNo, user.collegeName, user.profileImg, user.interests, user.sem, user.branch]);
 
   return (
     <>

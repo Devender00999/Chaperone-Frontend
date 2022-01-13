@@ -7,8 +7,14 @@ import * as Form from "./Form.styles";
 import FormInput from "./FormInput";
 import ResetPassForm from "./ResetPassForm";
 import SignUpForm from "./SignUpForm";
+import Request from "../../requests/request";
+import port from "../../port";
+import { useDispatch } from "react-redux";
+import Actions from "../../redux/actions/Action";
+
 const SignInForm = (props) => {
   const [error, setError] = useState(null);
+  const dispatch = useDispatch();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -25,6 +31,21 @@ const SignInForm = (props) => {
     console.log(isAdmin);
     if (error) setError(error.details[0].message);
     else setError(null);
+    let admin = isAdmin === "user" ? false : isAdmin === "admin" ? true : null;
+    let postFormData = {
+      ...user,
+      isAdmin: admin
+    }
+    Request.post("http://localhost:" + port + "/api/login/sinuser", postFormData)
+      .then((res) => {
+        dispatch(Actions.userLoggedIn(res.user));
+          localStorage.setItem(
+            "user",
+            JSON.stringify({...res.user, isAdmin: res.isAdmin, createAccount: false})
+          );
+          window.location.href = "/dashboard"
+      })
+      .catch((err) => console.log(err));
   };
   const validateUser = (user) => {
     const schema = Joi.object({
