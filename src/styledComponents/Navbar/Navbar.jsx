@@ -21,7 +21,6 @@ const Navbar = () => {
       </NavbarSearchContainer>
       <UserDetails>
         {/* <NavNotification src="/images/navbar/notifications.svg" /> */}
-
         <CustomDropdown
           Toggle={
             <User name="Deepak Kumar" image="/images/navbar/defaultuser.svg" />
@@ -37,12 +36,15 @@ const Navbar = () => {
 
 export default Navbar;
 const UserOptions = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <>
-      <div style={{ textAlign: "center" }}>Edit Profile</div>
+      <div>Edit Profile</div>
+      <hr style={{ margin: 0 }} />
+      {user && user.isAdmin && <Link to="/admin">Admin Portal</Link>}
       <hr style={{ margin: 0 }} />
       <div
-        style={{ textAlign: "center" }}
         onClick={() => {
           localStorage.removeItem("user");
           window.location.href = "/";

@@ -144,9 +144,6 @@ const App = () => {
     return <Home setUser={setUser} />;
   } else {
     const isAdmin = user.isAdmin && location.pathname.includes("admin");
-    if (isAdmin) {
-      setSelectSideBar(isAdmin ? "Dashboard" : "Home");
-    }
     return (
       <StyledContainer>
         <Navbar />

@@ -30,7 +30,7 @@ const CareerCard = ({ data }) => {
         </Card.CareerTableRow>
         <Card.CareerTableRow>
           <Card.CareerTableData>STIPEND</Card.CareerTableData>
-          <Card.CareerTableData>{data.amount + "/month"}</Card.CareerTableData>
+          <Card.CareerTableData>{data.stipend + "/month"}</Card.CareerTableData>
         </Card.CareerTableRow>
         <Card.CareerTableRow>
           <Card.CareerTableData>APPLY BY</Card.CareerTableData>
@@ -45,7 +45,7 @@ const CareerCard = ({ data }) => {
             data={data.features}
           ></StyledTags>
         </Card.CareerFeatureContainer>
-        <StyledLink title="View Details" link={data.link} />
+        <StyledLink title="View Details" link={`/career-aware/${data.id}`} />
       </Card.CareerCardFooter>
     </Card.CareerCardContainer>
   );
