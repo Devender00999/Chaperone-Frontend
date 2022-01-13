@@ -11,9 +11,12 @@ import {
 import SchoolIcon from "@mui/icons-material/School";
 import TrainIcon from "@mui/icons-material/Train";
 import { StyledLink } from "../common/Common/Common";
+import { useNavigate } from "react-router-dom";
 
 const PGCard = (props) => {
   const { small } = props;
+  console.log(props);
+  const navigate = useNavigate();
   return (
     <CardContainer style={small && { width: "32%" }}>
       <CardImage style={{ height: small ? "180px" : "250px" }}>
@@ -75,6 +78,7 @@ const PGCard = (props) => {
           </PGFeature>
         </PGContainer>
         <PrimaryButton
+          onClick={() => navigate(`/find-pg/${props.data.id}`)}
           style={{ alignSelf: "flex-end", fontSize: small && "0.625rem" }}
         >
           View PG Details

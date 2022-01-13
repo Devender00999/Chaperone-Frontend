@@ -9,6 +9,7 @@ import AdminRoadmaps from "../pages/admin/AdminRoadmaps";
 import AdmissionBlogs from "../pages/admin/admission/AdmissionBlogs";
 import NewBlog from "../pages/admin/NewBlog";
 import React from "react";
+import NewAdmissionBlog from "../pages/admin/admission/NewAdmissionBlog";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
@@ -21,7 +22,10 @@ const AdminRoutes = user && (
         user.isAdmin ? <AdminDashboard /> : <Navigate to="/unauthorised" />
       }
     />
+
+    {/* Admin Admission Routes */}
     <Route path="/admin/admissions" exact element={<AdmissionBlogs />} />
+    <Route path="/admin/admissions/:id" exact element={<NewAdmissionBlog />} />
 
 
     <Route path="/admin/blogs" exact element={<AdminBlogs />} />

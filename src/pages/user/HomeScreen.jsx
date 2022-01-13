@@ -9,7 +9,7 @@ import CareerCard from "../../styledComponents/CareerCard/CareerCard";
 import ProjectCard from "../../styledComponents/ProjectCard/ProjectCard";
 import PGCard from "../../styledComponents/PGCard/PGCard";
 import EasyBuyCard from "../../styledComponents/EasyBuyCard/EasyBuyCard";
-import { blogsData } from "../../data/blog";
+import { admissionData } from "../../data/admissionData";
 import { careerData } from "../../data/career";
 import { pgData } from "../../data/pgFinder";
 import Actions from "../../redux/actions/Action";
@@ -46,7 +46,7 @@ const HomeScreen = (props) => {
   console.log(allAdArticles);
 
   useEffect(() => {
-    dispatch(Actions.setAllAdArticles(blogsData));
+    dispatch(Actions.setAllAdArticles(admissionData));
   }, [dispatch]);
 
   return (
