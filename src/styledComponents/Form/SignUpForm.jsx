@@ -4,8 +4,13 @@ import * as Form from "./Form.styles";
 import FormInput from "./FormInput";
 import ResetPassForm from "./ResetPassForm";
 import SignInForm from "./SigninForm";
+import Request from "../../requests/request";
+import port from "../../port"
+import { useDispatch } from "react-redux";
+import Actions from "../../redux/actions/Action";
 
 const SignUpForm = (props) => {
+  const dispatch = useDispatch();
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -20,6 +25,20 @@ const SignUpForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    Request.post("http://localhost:" + port + "/login/SignUp", user)
+			.then((res) => {
+				if (res.message !== "Email account exist") {
+					const userData = {
+						id: res.user.id,
+						name: res.user.name,
+						email: res.user.email,
+						mobNo: res.user.mobNo,
+					}
+					dispatch(Actions.createAccount(userData));
+          localStorage.setItem("user",JSON.stringify({name: "Deepak Kumar", isAdmin: true }))
+				}
+			})
+			.catch(err => console.log(err))
   };
 
   return (
@@ -69,6 +88,7 @@ const SignUpForm = (props) => {
         value={user.password}
         name="password"
         handleChange={handleChange}
+        required
       />
 
       <Form.FormLinkText

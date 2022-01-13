@@ -1,7 +1,9 @@
 import admissionActionType from "./admissionActionTypes"
+import userActionType from "./userActionTypes"
 
 const ActionTypes = {
-   ...admissionActionType
+   ...admissionActionType,
+   ...userActionType
 }
-console.log(ActionTypes)
+
 export default ActionTypes

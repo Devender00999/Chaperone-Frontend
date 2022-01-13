@@ -18,55 +18,55 @@ import DefaultRoutes from "./routes/default-routes";
 const sideDataForUser = [
   {
     title: "Home",
-    link: "/",
+    link: "/dashboard",
     icon: "/images/sidebar/home.svg",
     selected: true,
   },
   {
     title: "Admission",
-    link: "/admission",
+    link: "/dashboard/admission",
     icon: "/images/sidebar/admission.svg",
     selected: false,
   },
   {
     title: "Roadmaps",
-    link: "/roadmaps",
+    link: "/dashboard/roadmaps",
     icon: "/images/sidebar/roadmap.svg",
     selected: false,
   },
   {
     title: "Academics",
-    link: "/academics",
+    link: "/dashboard/academics",
     icon: "/images/sidebar/academics.svg",
     selected: false,
   },
   {
     title: "Career Aware",
-    link: "/career-aware",
+    link: "/dashboard/career-aware",
     icon: "/images/sidebar/careeraware.svg",
     selected: false,
   },
   {
     title: "Find PG",
-    link: "/find-pg",
+    link: "/dashboard/find-pg",
     icon: "/images/sidebar/findpg.svg",
     selected: false,
   },
   {
     title: "Easy Buy",
-    link: "/easy-buy",
+    link: "/dashboard/easy-buy",
     icon: "/images/sidebar/easybuy.svg",
     selected: false,
   },
   {
     title: "Doubt Desk",
-    link: "/doubt-desk",
+    link: "/dashboard/doubt-desk",
     icon: "/images/sidebar/doubtdesk.svg",
     selected: false,
   },
   {
     title: "Write a blog",
-    link: "/blogs",
+    link: "/dashboard/blogs",
     icon: "/images/sidebar/blogs.svg",
     selected: false,
   },
@@ -138,7 +138,6 @@ const App = () => {
     window.scrollTo(0, 0);
   }, [location]);
   const [selectSideBar, setSelectSideBar] = useState("Home");
-  console.log(user);
   console.log(user);
   if (!user) {
     return <Home setUser={setUser} />;
