@@ -12,7 +12,7 @@ import EasyBuyCard from "../../styledComponents/EasyBuyCard/EasyBuyCard";
 import { admissionData } from "../../data/admissionData";
 import { careerData } from "../../data/career";
 import { pgData } from "../../data/pgFinder";
-import { setAdArticles } from "../../redux/actions/admissionActions";
+import Actions from "../../redux/actions/Action";
 const HomeScreen = (props) => {
   const tags = [
     { value: "All", selected: true },
@@ -46,7 +46,7 @@ const HomeScreen = (props) => {
   console.log(allAdArticles);
 
   useEffect(() => {
-    dispatch(setAdArticles(admissionData));
+    dispatch(Actions.setAllAdArticles(admissionData));
   }, [dispatch]);
 
   return (

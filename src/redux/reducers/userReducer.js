@@ -1,6 +1,15 @@
 import ActionTypes from "../constants/ActionTypes";
 
-export const adArticleReducer = (state = [], { type, payload }) => {
+export const userReducer = (state = {}, { type, payload }) => {
+  switch (type) {
+    case ActionTypes.USER_CREATE_ACCOUNT:
+      return { ...payload };
+    default:
+      return state;
+  }
+};
+
+export const adminReducer = (state = [], { type, payload }) => {
   switch (type) {
     case ActionTypes.SET_ALL_ADMISSION_ARTICLES:
       return { ...state, articles: payload };

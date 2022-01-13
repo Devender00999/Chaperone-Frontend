@@ -16,9 +16,9 @@ import {
 } from "./Header.styles";
 
 const Header = (props) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [componentForm, setComponentForm] = useState({
-    content: SignInForm,
+    content: SignUpForm,
   });
   const handleComponentChange = (e, Component) => {
     componentForm.content = Component;
@@ -53,7 +53,7 @@ const Header = (props) => {
                   isAdmin: true,
                 })
               );
-              window.location.href = "/";
+              window.location.href = "/dashboard";
             }}
           >
             Sign in with Google

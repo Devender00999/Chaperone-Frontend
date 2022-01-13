@@ -27,6 +27,7 @@ const AdminRoutes = user && (
     <Route path="/admin/admissions" exact element={<AdmissionBlogs />} />
     <Route path="/admin/admissions/:id" exact element={<NewAdmissionBlog />} />
 
+
     <Route path="/admin/blogs" exact element={<AdminBlogs />} />
     <Route path="/admin/blogs/new" exact element={<NewBlog />} />
     <Route path="/admin/roadmaps" exact element={<AdminRoadmaps />} />
