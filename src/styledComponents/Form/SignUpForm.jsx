@@ -8,9 +8,11 @@ import Request from "../../requests/request";
 import port from "../../port"
 import { useDispatch } from "react-redux";
 import Actions from "../../redux/actions/Action";
+import { useNavigate } from "react-router-dom";
 
 const SignUpForm = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -25,17 +27,18 @@ const SignUpForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    Request.post("http://localhost:" + port + "/login/SignUp", user)
+    Request.post("http://localhost:" + port + "/api/login/signup", user)
 			.then((res) => {
 				if (res.message !== "Email account exist") {
 					const userData = {
 						id: res.user.id,
 						name: res.user.name,
 						email: res.user.email,
-						mobNo: res.user.mobNo,
+						mobNo: res.user.mobNo
 					}
 					dispatch(Actions.createAccount(userData));
-          localStorage.setItem("user",JSON.stringify({name: "Deepak Kumar", isAdmin: true }))
+          localStorage.setItem("user",JSON.stringify({...userData, isAdmin: false}))
+          navigate("/dashboard");
 				}
 			})
 			.catch(err => console.log(err))

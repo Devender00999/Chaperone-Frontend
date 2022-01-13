@@ -16,7 +16,7 @@ import {
 } from "./Header.styles";
 
 const Header = (props) => {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [componentForm, setComponentForm] = useState({
     content: SignUpForm,
   });
@@ -45,16 +45,16 @@ const Header = (props) => {
             Create a new account
           </StyledButtons>
           <StyledButtons
-            onClick={() => {
-              localStorage.setItem(
-                "user",
-                JSON.stringify({
-                  name: "Deepak Kumar",
-                  isAdmin: true,
-                })
-              );
-              window.location.href = "/dashboard";
-            }}
+          // onClick={() => {
+          //   localStorage.setItem(
+          //     "user",
+          //     JSON.stringify({
+          //       name: "Deepak Kumar",
+          //       isAdmin: true,
+          //     })
+          //   );
+          //   window.location.href = "/dashboard";
+          // }}
           >
             Sign in with Google
           </StyledButtons>

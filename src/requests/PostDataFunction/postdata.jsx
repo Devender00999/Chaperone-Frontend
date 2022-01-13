@@ -11,3 +11,13 @@ const post = async(url= '', data = {}, header = { "Content-Type": "application/j
 }
 
 export default post
+
+/*
+import axios from "axios"
+
+const post = async(url= '', data = {}, header = { "Content-Type": "application/json" }) => {
+   const res = await axios.post(url,data)
+}
+
+export default post
+*/

@@ -5,7 +5,7 @@ import { userReducer, adminReducer } from "./userReducer";
 const reducers = combineReducers({
   user: userReducer,
   admin: adminReducer,
-  allAdArticles: adArticleReducer,
-});
+  allAdArticles: adArticleReducer
+})
 
-export default reducers;
+export default reducers
