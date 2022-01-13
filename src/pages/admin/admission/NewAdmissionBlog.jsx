@@ -12,9 +12,9 @@ import {
   MainContent,
   PageHeading,
   PrimaryButton,
-} from "../../styledComponents/common/Common/Common.styles";
-import StyledEditor from "../../styledComponents/common/Common/StyledEditor";
-import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
+} from "../../../styledComponents/common/Common/Common.styles";
+import StyledEditor from "../../../styledComponents/common/Common/StyledEditor";
+import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
 
 const NewAdmissionBlog = () => {
   useEffect(() => {
@@ -57,7 +57,9 @@ const NewAdmissionBlog = () => {
   return (
     <>
       <MainContent direction={"column"} flex={4}>
-        <PageHeading style={{ marginBottom: "10px" }}>Admissions</PageHeading>
+        <PageHeading style={{ marginBottom: "10px" }}>
+          Admission Blogs
+        </PageHeading>
         <Form>
           <Row
             style={{

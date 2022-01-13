@@ -34,7 +34,7 @@ const Admission = (props) => {
     <>
       <MainContent direction="column" flex={3}>
         {blogs.map((blog) => (
-          <BlogsCard {...blog} />
+        <BlogsCard {...blog} />
         ))}
       </MainContent>
       <RightSideBar {...rightSideBarData} />

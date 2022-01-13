@@ -56,8 +56,8 @@ const Services = () => {
         Our Services
       </ServicesHeading>
       <ServicesCards>
-        {services.map((service) => (
-          <Service service={service} />
+        {services.map((service, id) => (
+          <Service key={id} service={service} />
         ))}
       </ServicesCards>
     </ServicesContainer>

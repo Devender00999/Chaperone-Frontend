@@ -4,13 +4,16 @@ import * as Form from "./Form.styles";
 import FormInput from "./FormInput";
 import ResetPassForm from "./ResetPassForm";
 import SignInForm from "./SigninForm";
+import Joi from "joi";
+import { Alert } from "react-bootstrap";
 import Request from "../../requests/request";
-import port from "../../port"
+import port from "../../port";
 import { useDispatch } from "react-redux";
 import Actions from "../../redux/actions/Action";
 import { useNavigate } from "react-router-dom";
 
 const SignUpForm = (props) => {
+  const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [user, setUser] = useState({
@@ -25,25 +28,50 @@ const SignUpForm = (props) => {
     setUser((prevValue) => ({ ...prevValue, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    Request.post("http://localhost:" + port + "/api/login/signup", user)
-			.then((res) => {
-				if (res.message !== "Email account exist") {
-					const userData = {
-						id: res.user.id,
-						name: res.user.name,
-						email: res.user.email,
-						mobNo: res.user.mobNo
-					}
-					dispatch(Actions.createAccount(userData));
-          localStorage.setItem("user",JSON.stringify({...userData, isAdmin: false}))
-          navigate("/dashboard");
-				}
-			})
-			.catch(err => console.log(err))
+  const formatError = (error) => {
+    error = error.replaceAll(`"`, "") + ".".slice(2);
+    error = error[0].toLocaleUpperCase() + error.slice(1);
+    return error;
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { error } = validateUser(user);
+    if (error) setError(formatError(error.details[0].message));
+    else {
+      setError(null);
+
+      Request.post("http://localhost:" + port + "/login/SignUp", user)
+        .then((res) => {
+          if (res.message !== "Email account exist") {
+            const userData = {
+              id: res.user.id,
+              name: res.user.name,
+              email: res.user.email,
+              mobNo: res.user.mobNo,
+            };
+            dispatch(Actions.createAccount(userData));
+            localStorage.setItem(
+              "user",
+              JSON.stringify({ name: "Deepak Kumar", isAdmin: true })
+            );
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+  const validateUser = (user) => {
+    const schema = Joi.object({
+      name: Joi.string().required(),
+      email: Joi.string()
+        .required()
+        .email({ tlds: { allow: false } })
+        .only(),
+      password: Joi.string().min(8).max(32),
+      number: Joi.string().required().length(10),
+    });
+    return schema.validate(user);
+  };
   return (
     <Form.FormContainer action="" method="" onSubmit={handleSubmit}>
       <Form.FormHeading>Create an account</Form.FormHeading>
@@ -62,14 +90,12 @@ const SignUpForm = (props) => {
         name="name"
         type="text"
         placeholder="Name"
-        required
       />
       <FormInput
         icon="/images/common/at.svg"
         type="email"
         name="email"
         placeholder="Email"
-        required={true}
         value={user.email}
         handleChange={handleChange}
       />
@@ -81,7 +107,6 @@ const SignUpForm = (props) => {
         name="number"
         type="number"
         placeholder="Mobile Number"
-        required
       />
       <FormInput
         icon="/images/common/eye.svg"
@@ -93,7 +118,11 @@ const SignUpForm = (props) => {
         handleChange={handleChange}
         required
       />
-
+      {error && (
+        <Alert style={{ padding: "0.4rem 1rem" }} variant={"danger"}>
+          {error}
+        </Alert>
+      )}
       <Form.FormLinkText
         style={{ alignSelf: "flex-end" }}
         onClick={(e) => props.changeComponent(e, ResetPassForm)}

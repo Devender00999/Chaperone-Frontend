@@ -5,9 +5,11 @@ import Like from "../common/Like";
 import User from "../common/User/User";
 import { UserDetails, UserProps } from "../common/User/User.styles";
 import { DescText, Heading } from "../common/Common/Common.styles";
-import CustomDropdown from "../../components/CustomDropdown/CustomDropdown";
+// import CustomDropdown from "../../components/CustomDropdown/CustomDropdown";
+import { Dropdown, DropdownButton } from "react-bootstrap";
 const BlogsCard = (props) => {
   console.log(window.location.href);
+
   return (
     <CardContainer>
       <CardImage image={props.image} />
@@ -28,17 +30,32 @@ const BlogsCard = (props) => {
               className="cursor-pointer"
             />
 
-            <CustomDropdown
+            {/* <CustomDropdown
               Toggle={
                 <ShareIcon
                   className="cursor-pointer"
                   style={{ marginLeft: "1rem" }}
                 />
               }
-              Menu={<Share />}
+              Menu={Share}
               float={"left"}
               width={50}
-            ></CustomDropdown>
+              showMenu={showMenu}
+              setShowMenu={setShowMenu}
+            ></CustomDropdown> */}
+            <DropdownButton
+              drop={"start"}
+              variant="none"
+              title={<ShareIcon className="cursor-pointer" />}
+            >
+              <Dropdown.Item className="text-center py-2" eventKey="1">
+                Whatsapp
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item className="text-center py-2" eventKey="1">
+                Copy
+              </Dropdown.Item>
+            </DropdownButton>
           </UserProps>
         </UserDetails>
       </CardData>
@@ -46,15 +63,4 @@ const BlogsCard = (props) => {
   );
 };
 
-const Share = () => {
-  const link = "whatsapp://send?text=" + window.location.href;
-  return (
-    <>
-      <a href={link} target="_blank" rel="noreferrer">
-        Whatsapp
-      </a>
-      <span>Copy</span>
-    </>
-  );
-};
 export default BlogsCard;
