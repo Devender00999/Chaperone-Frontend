@@ -13,7 +13,7 @@ const Service = ({ service }) => {
       <ServiceIcon className="gradient-border" src={service.icon} />
       <ServiceTitle>{service.title}</ServiceTitle>
       <ServiceDesc>{service.desc}</ServiceDesc>
-      <ServiceLink href={service.link}>
+      <ServiceLink to={service.link}>
         <img src="/images/common/arrow.png" alt="Arrow" />
       </ServiceLink>
     </ServiceContainer>

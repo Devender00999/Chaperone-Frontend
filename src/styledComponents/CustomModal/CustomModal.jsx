@@ -10,7 +10,7 @@ const StyledModal = ({ showModal, setShowModal, Component }) => {
           onClick={() => setShowModal(!showModal)}
           src="images/cancel.png"
         />
-        <Modal.ModalBody>{<Component />}</Modal.ModalBody>
+        <Modal.ModalBody>{Component}</Modal.ModalBody>
       </Modal.ModalContainer>
     </Modal.ModalOverlay>
   );
