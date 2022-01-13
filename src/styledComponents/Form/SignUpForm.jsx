@@ -6,14 +6,13 @@ import ResetPassForm from "./ResetPassForm";
 import SignInForm from "./SigninForm";
 import Joi from "joi";
 import { Alert } from "react-bootstrap";
-const SignUpForm = (props) => {
-  const [error, setError] = useState(null);
 import Request from "../../requests/request";
-import port from "../../port"
+import port from "../../port";
 import { useDispatch } from "react-redux";
 import Actions from "../../redux/actions/Action";
 
 const SignUpForm = (props) => {
+  const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const [user, setUser] = useState({
     name: "",
@@ -37,7 +36,27 @@ const SignUpForm = (props) => {
     e.preventDefault();
     const { error } = validateUser(user);
     if (error) setError(formatError(error.details[0].message));
-    else setError(null);
+    else {
+      setError(null);
+
+      Request.post("http://localhost:" + port + "/login/SignUp", user)
+        .then((res) => {
+          if (res.message !== "Email account exist") {
+            const userData = {
+              id: res.user.id,
+              name: res.user.name,
+              email: res.user.email,
+              mobNo: res.user.mobNo,
+            };
+            dispatch(Actions.createAccount(userData));
+            localStorage.setItem(
+              "user",
+              JSON.stringify({ name: "Deepak Kumar", isAdmin: true })
+            );
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   };
   const validateUser = (user) => {
     const schema = Joi.object({
@@ -50,20 +69,6 @@ const SignUpForm = (props) => {
       number: Joi.string().required().length(10),
     });
     return schema.validate(user);
-    Request.post("http://localhost:" + port + "/login/SignUp", user)
-			.then((res) => {
-				if (res.message !== "Email account exist") {
-					const userData = {
-						id: res.user.id,
-						name: res.user.name,
-						email: res.user.email,
-						mobNo: res.user.mobNo,
-					}
-					dispatch(Actions.createAccount(userData));
-          localStorage.setItem("user",JSON.stringify({name: "Deepak Kumar", isAdmin: true }))
-				}
-			})
-			.catch(err => console.log(err))
   };
   return (
     <Form.FormContainer action="" method="" onSubmit={handleSubmit}>
