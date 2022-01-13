@@ -1,9 +1,9 @@
-import { setAllAdArticles, setAdArticle, likeAdArticle } from "./admissionActions"
+import * as admissionActions from "./admissionActions"
+import * as userActions from "./userActions"
 
 const Actions = {
-   setAllAdArticles,
-   setAdArticle,
-   likeAdArticle
+   ...admissionActions,
+   ...userActions
 }
 
 export default Actions

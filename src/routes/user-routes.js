@@ -18,30 +18,21 @@ import Blog from "../styledComponents/styledPages/Blog/Blog";
 
 const UserRoutes = (
   <React.Fragment>
-    <Route index exact element={<HomeScreen />} />
-    <Route path="admission" exact element={<Admission />} />
-
-    <Route path="roadmaps" element={<Roadmaps />}></Route>
-    <Route path="roadmaps/:id" element={<Roadmap />} />
-    <Route path="roadmaps/:id/:articleId" element={<Blog />} />
-
-    <Route path="academics" exact element={<Academics />} />
-
-    <Route path="career-aware" exact element={<CareerAware />} />
-    <Route path="career-aware/:data" exact element={<CareerPage />} />
-
-    <Route path="find-pg" exact element={<FindPG />} />
-    <Route path="find-pg/:id" element={<PGPage />} />
-
-    <Route path="easy-buy" exact element={<EasyBuy />} />
-
-    <Route path="doubt-desk" exact element={<DoubtDesk />} />
-
-    <Route path="doubt-desk/ask-question" exact element={<DoubtDeskPage />} />
-
-    <Route path="doubt-desk/:id" exact element={<DoubtDeskAnswers />} />
-
-    <Route path="blogs" exact element={<Blogs />} />
+    <Route path="dashboard" exact element={<HomeScreen />} />
+    <Route path="dashboard/admission" exact element={<Admission />} />
+    <Route path="dashboard/roadmaps" element={<Roadmaps />}></Route>
+    <Route path="dashboard/roadmaps/:id" element={<Roadmap />} />
+    <Route path="dashboard/roadmaps/:id/:articleId" element={<Blog />} />
+    <Route path="dashboard/academics" exact element={<Academics />} />
+    <Route path="dashboard/career-aware" exact element={<CareerAware />} />
+    <Route path="dashboard/career-aware/:data" exact element={<CareerPage />} />
+    <Route path="dashboard/find-pg" exact element={<FindPG />} />
+    <Route path="dashboard/find-pg/:id" element={<PGPage />} />
+    <Route path="dashboard/easy-buy" exact element={<EasyBuy />} />
+    <Route path="dashboard/doubt-desk" exact element={<DoubtDesk />} />
+    <Route path="dashboard/doubt-desk/ask-question" exact element={<DoubtDeskPage />} />
+    <Route path="dashboard/doubt-desk/:id" exact element={<DoubtDeskAnswers />} />
+    <Route path="dashboard/blogs" exact element={<Blogs />} />
   </React.Fragment>
 );
 

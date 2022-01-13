@@ -21,8 +21,8 @@ const AdminRoutes = user && (
         user.isAdmin ? <AdminDashboard /> : <Navigate to="/unauthorised" />
       }
     />
-
     <Route path="/admin/admissions" exact element={<AdmissionBlogs />} />
+
 
     <Route path="/admin/blogs" exact element={<AdminBlogs />} />
     <Route path="/admin/blogs/new" exact element={<NewBlog />} />

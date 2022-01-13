@@ -8,6 +8,13 @@ import Joi from "joi";
 import { Alert } from "react-bootstrap";
 const SignUpForm = (props) => {
   const [error, setError] = useState(null);
+import Request from "../../requests/request";
+import port from "../../port"
+import { useDispatch } from "react-redux";
+import Actions from "../../redux/actions/Action";
+
+const SignUpForm = (props) => {
+  const dispatch = useDispatch();
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -43,6 +50,20 @@ const SignUpForm = (props) => {
       number: Joi.string().required().length(10),
     });
     return schema.validate(user);
+    Request.post("http://localhost:" + port + "/login/SignUp", user)
+			.then((res) => {
+				if (res.message !== "Email account exist") {
+					const userData = {
+						id: res.user.id,
+						name: res.user.name,
+						email: res.user.email,
+						mobNo: res.user.mobNo,
+					}
+					dispatch(Actions.createAccount(userData));
+          localStorage.setItem("user",JSON.stringify({name: "Deepak Kumar", isAdmin: true }))
+				}
+			})
+			.catch(err => console.log(err))
   };
   return (
     <Form.FormContainer action="" method="" onSubmit={handleSubmit}>
@@ -88,6 +109,7 @@ const SignUpForm = (props) => {
         value={user.password}
         name="password"
         handleChange={handleChange}
+        required
       />
       {error && (
         <Alert style={{ padding: "0.4rem 1rem" }} variant={"danger"}>
