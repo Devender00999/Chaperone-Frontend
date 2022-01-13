@@ -138,8 +138,7 @@ const App = () => {
     window.scrollTo(0, 0);
   }, [location]);
   const [selectSideBar, setSelectSideBar] = useState("Home");
-  console.log(user);
-  console.log(user);
+
   if (!user) {
     return <Home setUser={setUser} />;
   } else {

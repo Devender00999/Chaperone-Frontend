@@ -162,3 +162,34 @@ input[type="file"]::file-selector-button {
   position: absolute;
   /* transform: translate(calc(-100% + 42px), 25px); */
 }
+
+.form-check-input:checked {
+  background-color: #ff6600 !important;
+  border-color: #ff6600 !important;
+  cursor: pointer;
+}
+
+/* i */
+.dropdown-toggle.btn.btn-none:focus {
+  box-shadow: none;
+}
+.dropdown-toggle.btn.btn-none {
+  padding: 0 !important;
+}
+.dropstart .dropdown-toggle::before {
+  display: none !important;
+}
+.dropdown-menu.show {
+  transform: translate(0, 40px) !important;
+  padding: 0 !important;
+}
+.dropdown-item > a:active {
+  color: white !important;
+}
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #ff6600 !important;
+}
+.dropdown-divider {
+  margin: 0 !important;
+}

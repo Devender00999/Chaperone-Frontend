@@ -1,10 +1,25 @@
-import React, { useState } from "react";
-const CustomDropdown = ({ Toggle, Menu, float, width }) => {
+import React, { useEffect, useState } from "react";
+const CustomDropdown = ({
+  Toggle,
+  Menu,
+  float,
+  width,
+  showMenu,
+  setShowMenu,
+}) => {
+  const [sMenu, setSMenu] = useState("");
+  useEffect(() => {
+    setSMenu(showMenu);
+  }, [sMenu, showMenu]);
   const direction = float === "left" ? `-100% + ${width}px` : "0px";
-  const [showMenu, setShowMenu] = useState("none");
   const handleShowMenu = () => {
-    if (showMenu === "flex") setShowMenu("none");
-    if (showMenu === "none") setShowMenu("flex");
+    if (showMenu === "flex") {
+      setShowMenu("none");
+      setSMenu(showMenu);
+    } else if (showMenu === "none") {
+      setShowMenu("flex");
+      setSMenu(showMenu);
+    }
   };
   return (
     <div style={{ minWidth: width }} className="customDropdown">
@@ -13,13 +28,13 @@ const CustomDropdown = ({ Toggle, Menu, float, width }) => {
       </span>
       <div
         style={{
-          display: showMenu,
+          display: sMenu,
           transform: `translate(calc(${direction}), 0)`,
           minWidth: width,
         }}
         className="customDropdownMenu"
       >
-        {Menu}
+        {<Menu />}
       </div>
     </div>
   );
