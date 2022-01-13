@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import DataTable from "../../styledComponents/common/Table/Table";
+import DataTable from "../../styledComponents/common/Table/DataTable";
 import {
   PageHeading,
   HeadingContainer,

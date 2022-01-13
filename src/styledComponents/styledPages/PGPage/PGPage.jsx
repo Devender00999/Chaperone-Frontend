@@ -19,14 +19,20 @@ import SchoolIcon from "@mui/icons-material/School";
 import TrainIcon from "@mui/icons-material/Train";
 
 import { pgData } from "../../../data/pgFinder";
+import { useParams } from "react-router-dom";
 
 const PGPage = (props) => {
+  const params = useParams();
+  const { pgId } = params;
+
+  const pgDetails = pgData.find((pg) => pg.id === pgId);
+
   return (
     <Content>
       <MainContent direction="column" flex={3}>
         <BlogContainer>
           <Carousel
-            images={pgData[0].images}
+            images={pgDetails.images}
             height="250px"
             bottom="4rem"
             right="1.25rem"
@@ -35,18 +41,18 @@ const PGPage = (props) => {
           <BlogContent>
             <PGContainer>
               <Heading style={{ color: "#ff6600", fontWeight: 500 }}>
-                {pgData[0].name}
+                {pgDetails.name}
               </Heading>
-              <Price>₹ {pgData[0].price} </Price>
+              <Price>₹ {pgDetails.price} </Price>
             </PGContainer>
-            <DescText>{pgData[0].address}</DescText>
+            <DescText>{pgDetails.address}</DescText>
             <PGContainer
               style={{
                 justifyContent: "flex-end",
                 padding: "0rem 0 0.5rem",
               }}
             >
-              <StyledLink link={pgData[0].location} title="View on Map" />
+              <StyledLink link={pgDetails.location} title="View on Map" />
             </PGContainer>
 
             <PGContainer
@@ -62,7 +68,7 @@ const PGPage = (props) => {
                     marginRight: "0.5rem",
                   }}
                 />{" "}
-                {pgData[0].distFromCollege}
+                {pgDetails.distFromCollege}
               </PGFeature>
 
               <PGFeature>
@@ -73,14 +79,14 @@ const PGPage = (props) => {
                     marginRight: "0.5rem",
                   }}
                 />{" "}
-                {pgData[0].distFromMetro}
+                {pgDetails.distFromMetro}
               </PGFeature>
             </PGContainer>
             <CommonContainer style={{ justifyContent: "space-between" }}>
               <ListContainer>
                 <Heading>Amenities</Heading>
                 <List>
-                  {pgData[0].amenities.map((amenity, key) => (
+                  {pgDetails.amenities.map((amenity, key) => (
                     <ListItem key={key}>{amenity}</ListItem>
                   ))}
                 </List>
@@ -89,7 +95,7 @@ const PGPage = (props) => {
               <ListContainer>
                 <Heading>House Rules</Heading>
                 <List>
-                  {pgData[0].houseRules.map((houseRule, key) => (
+                  {pgDetails.houseRules.map((houseRule, key) => (
                     <ListItem key={key}>{houseRule}</ListItem>
                   ))}
                 </List>
@@ -98,7 +104,7 @@ const PGPage = (props) => {
               <ListContainer>
                 <Heading>Other charges</Heading>
                 <List>
-                  {pgData[0].otherCharges.map((otherCharge, key) => (
+                  {pgDetails.otherCharges.map((otherCharge, key) => (
                     <ListItem key={key}>{otherCharge}</ListItem>
                   ))}
                 </List>

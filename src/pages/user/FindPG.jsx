@@ -7,47 +7,9 @@ import {
 import PGCard from "../../styledComponents/PGCard/PGCard";
 import { SelectTags } from "../../styledComponents/SelectTag/SelectTag.styles";
 import SelectTag from "../../styledComponents/SelectTag/SelectTag";
+import { pgData } from "../../data/pgFinder";
 
 const FindPG = (props) => {
-  const pgData = [
-    {
-      name: "Stanza Living Boston House",
-      images: ["/images/pg-finder/pg img.png"],
-      address:
-        "D 264 Subhash Nagar, Pandav Nagar Complex, near Subhash Nagar Metro Station, Delhi 110099",
-      price: "18000",
-      location: "https://google.com",
-      distFromCollege: "500m from GTBIT",
-      distFromMetro: "800m from Subhash Nagar Metro Station",
-      link: "/",
-      for: "girls",
-    },
-    {
-      name: "Stanza Living Boston House",
-      images: ["/images/pg-finder/pg img.png"],
-      address:
-        "D 264 Subhash Nagar, Pandav Nagar Complex, near Subhash Nagar Metro Station, Delhi 110099",
-      price: "11000",
-      location: "https://google.com",
-      distFromCollege: "600m from GTBIT",
-      distFromMetro: "800m from Mayapuri Metro Station",
-      link: "/",
-      for: "boys",
-    },
-    {
-      name: "Stanza Living Boston House",
-      images: ["/images/pg-finder/pg img.png"],
-      address:
-        "D 264 Subhash Nagar, Pandav Nagar Complex, near Subhash Nagar Metro Station, Delhi 110099",
-      price: "11000",
-      location: "https://google.com",
-      distFromCollege: "600m from GTBIT",
-      distFromMetro: "800m from Subhash Nagar Metro Station",
-      link: "/",
-      for: "boys",
-    },
-  ];
-
   const forWhom = ["Girls", "Boys"];
   const prices = ["15000", 18000, 19000, 25000];
   const priceRange = prices.map((price) => "< " + price);

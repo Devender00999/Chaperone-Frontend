@@ -26,7 +26,6 @@ const ResetPassForm = () => {
         iconHide="/images/common/eye-slash.svg"
         type="password"
         name="password"
-        placeholder="Password"
         value={user.password}
         placeholder="Password"
         handleChange={handleChange}

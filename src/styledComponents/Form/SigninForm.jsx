@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { PrimaryButton } from "../common/Common/Common.styles";
-import { SideBarHeading } from "../SidePanel/SideBar.styles";
 import * as Form from "./Form.styles";
 import FormInput from "./FormInput";
 import ResetPassForm from "./ResetPassForm";

@@ -45,7 +45,7 @@ const CareerCard = ({ data }) => {
             data={data.features}
           ></StyledTags>
         </Card.CareerFeatureContainer>
-        <StyledLink title="View Details" link={`/career-aware/${data.id}`} />
+        <StyledLink title="View Details" link={`${data.id}`} />
       </Card.CareerCardFooter>
     </Card.CareerCardContainer>
   );
