@@ -14,7 +14,9 @@ import SideBar from "./styledComponents/SidePanel/SideBar";
 import AdminRoutes from "./routes/admin-routes";
 import UserRoutes from "./routes/user-routes";
 import DefaultRoutes from "./routes/default-routes";
-import decodeToken from "./requests/decode/decodeToken";
+import getUserDetails from "./requests/decode/decodeToken";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const sideDataForUser = [
   {
@@ -126,9 +128,8 @@ const sideDataForAdmin = [
 
 const App = () => {
   const location = useLocation();
-  const token = localStorage.getItem("token");
 
-  const userDetails = decodeToken(token);
+  const userDetails = getUserDetails();
 
   let [user, setUser] = useState(userDetails);
   useEffect(() => {
@@ -163,6 +164,7 @@ const App = () => {
               )}
               {DefaultRoutes}
             </Routes>
+            <ToastContainer />
           </Content>
         </StyledMain>
       </StyledContainer>

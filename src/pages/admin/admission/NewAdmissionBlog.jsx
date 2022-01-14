@@ -7,7 +7,7 @@ import draftToHtml from "draftjs-to-html";
 import { EditorState } from "draft-js";
 import { Form, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { toast } from 'react-toastify';
 import {
 	MainContent,
 	PageHeading,
@@ -22,17 +22,23 @@ import htmlToDraft from "html-to-draftjs";
 import Request from "../../../requests/request"
 import port from "../../../port.js"
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import Actions from "../../../redux/actions/Action"
+import getUserDetails from "../../../requests/decode/decodeToken"
 
 const NewAdmissionBlog = () => {
+	const user = getUserDetails();
+	if(user === null)
+		window.location.href = "/";
 	const params = useParams();
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const admissionData = useSelector((state) => state.allAdArticles);
-
 	const [formData, setFormData] = useState({
 		heading: "",
 		image: "",
 		content: "",
-		desc: ""
+		desc: "",
 	});
 	const [editorState, setEditorState] = useState();
 	const { id } = params;
@@ -54,12 +60,11 @@ const NewAdmissionBlog = () => {
 
 	//Setting editor state if blog is being edited
 	useEffect(() => {
-		let blog;
+		let article;
 		if (id) {
-			blog = admissionData.find((blog) => blog._id === id);
-			console.log("called");
-			if (blog) {
-				setFormData(blog);
+			article = admissionData.find((blog) => blog._id === id);
+			if (article) {
+				setFormData(article);
 				const newEditor = convertHTMLToDraft(formData.content);
 				setEditorState(newEditor);
 			} else if (id === "new") {
@@ -80,25 +85,29 @@ const NewAdmissionBlog = () => {
 	// Handle Submit
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		let reqRoute = "edit";
-		let req = Request.put;
+		const content = draftToHtml(
+			convertToRaw(editorState.getCurrentContent())
+		);
 		if (id === "new") {
-			reqRoute = "new";
-			req = Request.post;
-			console.log(formData);
+			const newAdmissionData = { ...formData, content: content, author: user.name};
+			console.log(newAdmissionData);
+			dispatch(Actions.addAdmisArticle(newAdmissionData));
+
+			const res = await Request.post("http://localhost:" + port + "/api/admissions/", newAdmissionData)
+			console.log(res);
+			toast.success("Article created successfully!!")
 		} else {
-			const content = draftToHtml(
-				convertToRaw(editorState.getCurrentContent())
-			);
 			setFormData((prev) => ({ ...prev, content: content }));
 			const index = admissionData.findIndex((blog) => blog._id === formData._id);
-			const newAdmissionData = [...admissionData];
-			newAdmissionData[index] = { ...formData, content: content };
+			const nAdmissionData = [...admissionData];
+			nAdmissionData[index] = { ...formData, content: content };
 
-			const res = await req("http://localhost:" + port + "/api/admission/" + reqRoute, newAdmissionData[index])
+			const res = await Request.put("http://localhost:" + port + "/api/admissions/:" + formData._id, nAdmissionData[index])
 			console.log(res);
-			navigate("/admin/admissions");
+			dispatch(Actions.editAdmisArticle(index, nAdmissionData[index]));
+			toast.success("Article modified successfully!!")
 		}
+		navigate("/admin/admissions");
 	};
 
 	const handleChange = (e) => {

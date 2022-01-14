@@ -1,15 +1,16 @@
 import jwt_decode from "jwt-decode";
 
-const decodeToken = (token) => {
-  if (token) {
-    const user = jwt_decode(token);
-    return user;
-  } else {
-    return null;
-  }
+const getUserDetails = () => {
+	const token = localStorage.getItem("token");
+   if (token) {
+      const user = jwt_decode(token);
+      return user;
+   } else {
+      return null;
+   }
 };
 
-export default decodeToken;
+export default getUserDetails;
 
 /*
    if(user.createAccount === true){

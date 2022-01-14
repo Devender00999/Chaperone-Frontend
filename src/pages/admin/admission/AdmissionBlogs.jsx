@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import DataTable from "../../../styledComponents/common/Table/DataTable";
-import { admissionData } from "../../../data/admissionData";
 import { useSelector } from "react-redux"
 import {
   PageHeading,

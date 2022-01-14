@@ -11,10 +11,9 @@ import AcademicItems from "../pages/admin/academics/AcademicItems";
 import NewAcademicsItem from "../pages/admin/academics/NewAcademicsItem";
 import CareerBlogs from "../pages/admin/careeraware/CareerBlogs";
 import NewCareer from "../pages/admin/careeraware/NewCareer";
-import decodeToken from "../requests/decode/decodeToken";
+import getUserDetails from "../requests/decode/decodeToken";
 
-const token = localStorage.getItem("token");
-const user = decodeToken(token);
+const user = getUserDetails();
 
 const AdminRoutes = user && (
   <React.Fragment>

@@ -10,14 +10,13 @@ import Search from "./Search";
 import User from "../common/User/User";
 import { Link } from "react-router-dom";
 import { DropdownButton, Dropdown } from "react-bootstrap";
-import decodeToken from "../../requests/decode/decodeToken";
+import getUserDetails from "../../requests/decode/decodeToken";
 
 const Navbar = () => {
-   const token = localStorage.getItem("token");
    // if (!token) {
    //   window.location.href = "/"
    // }
-   const user = decodeToken(token);
+   const user = getUserDetails();
 
    return (
       <NavbarContainer>

@@ -5,12 +5,20 @@ export const setAllAdArticles = (articles) => ({
    payload: articles,
 });
 
-export const setAdArticle = (article) => ({
-   type: ActionTypes.SET_ADMISSION_ARTICLE,
+export const addAdmisArticle = (article) => ({
+   type: ActionTypes.ADD_ADMISSION_ARTICLE,
    payload: article,
 });
 
-export const likeAdArticle = (id) => ({
-   type: ActionTypes.LIKE_ADMISSION_ARTICLE,
-   payload: { id },
+export const editAdmisArticle = (id, article) => ({
+   type: ActionTypes.EDIT_ADMISSION_ARTICLE,
+   payload: {
+      id: id,
+      article: article
+   }
 });
+
+// export const likeAdArticle = (id) => ({
+//    type: ActionTypes.LIKE_ADMISSION_ARTICLE,
+//    payload: { id },
+// });
