@@ -13,8 +13,8 @@ import {
 } from "../../../styledComponents/common/Common/Common.styles";
 import Request from "../../../requests/request";
 import port from "../../../port";
-import { useDispatch } from "react-redux";
 import Actions from "../../../redux/actions/Action"
+import { useDispatch } from "react-redux";
 
 const AdmissionBlogs = () => {
   const admissionBlogs = useSelector((state) => state.allAdArticles)
@@ -23,15 +23,16 @@ const AdmissionBlogs = () => {
   const navigator = useNavigate();
   const handleEdit = (id) => {
     navigator(`${id}`);
+    console.log(id);
   };
 
   const handleDelete = (id) => {
     const blogs = admissionBlogs.filter((blog) => blog.id !== id);
-    setAdmissionBlogs(blogs);
+    // setAdmissionBlogs(blogs);
   };
 
   useEffect(async () => {
-    const res = await Request.get("http://localohost/" + port + "/api/admissions/");
+    const res = await Request.get("http://localhost:" + port + "/api/admissions/");
     console.log(res);
     dispatch(Actions.setAllAdArticles(res));
   }, [dispatch])
