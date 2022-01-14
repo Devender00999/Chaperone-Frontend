@@ -131,7 +131,6 @@ const App = () => {
   const userDetails = decodeToken(token);
 
   let [user, setUser] = useState(userDetails);
-  console.log(user);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);

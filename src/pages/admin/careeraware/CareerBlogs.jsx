@@ -28,7 +28,7 @@ const CareerBlogs = () => {
     <>
       <MainContent direction={"column"} flex={"auto"}>
         <HeadingContainer>
-          <PageHeading>Edit Your Roadmap Blogs</PageHeading>
+          <PageHeading>Edit Your Career Oppotunities</PageHeading>
           <HeadingContent>
             <Form.Control
               style={{ width: "200px", padding: "0 20px", outline: "none" }}

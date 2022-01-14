@@ -48,10 +48,14 @@ const Navbar = () => {
         >
           <Dropdown.Item className="py-2">Edit Profile</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item as={Link} to="/admin" className="py-2" eventKey="1">
-            Admin Portal
-          </Dropdown.Item>
-          <Dropdown.Divider />
+          {user.isAdmin && (
+            <Dropdown.Item as={Link} to="/admin" className="py-2" eventKey="1">
+              Admin Portal
+            </Dropdown.Item>
+          )}
+
+          {user.isAdmin && <Dropdown.Divider />}
+
           <Dropdown.Item
             className="py-2"
             onClick={() => {
