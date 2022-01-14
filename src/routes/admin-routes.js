@@ -10,8 +10,13 @@ import AdmissionBlogs from "../pages/admin/admission/AdmissionBlogs";
 import NewBlog from "../pages/admin/NewBlog";
 import React from "react";
 import NewAdmissionBlog from "../pages/admin/admission/NewAdmissionBlog";
+import decodeToken from "../requests/decode/decodeToken";
 
-const user = JSON.parse(localStorage.getItem("user"));
+const token = localStorage.getItem("token")
+// if (!token) {
+//   window.location.href = "/"
+// }
+const user = decodeToken(token)
 
 const AdminRoutes = user && (
   <React.Fragment>
