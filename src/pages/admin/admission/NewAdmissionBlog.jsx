@@ -9,6 +9,7 @@ import { Form, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import {
+  HeaderPreview,
   MainContent,
   PageHeading,
   PrimaryButton,
@@ -28,6 +29,7 @@ const NewAdmissionBlog = () => {
     heading: "",
     image: "",
     content: "",
+    desc: "",
   });
   const [editorState, setEditorState] = useState();
   const { id } = params;
@@ -62,6 +64,7 @@ const NewAdmissionBlog = () => {
           heading: "",
           image: "",
           content: "",
+          desc: "",
         };
 
         setFormData(initialState);
@@ -138,6 +141,20 @@ const NewAdmissionBlog = () => {
               </Form.Group>
             </Col>
             <Col md style={{ paddingRight: 0 }}>
+              <Form.Group className="mb-2">
+                <Form.Label>Description</Form.Label>
+                <br />
+                <Form.Control
+                  name="desc"
+                  value={formData.desc}
+                  type="text"
+                  as="textarea"
+                  placeholder="What is this blog about?"
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            </Col>
+            <Col md style={{ paddingRight: 0 }}>
               <Form.Group className="mb-3">
                 <Form.Label>Upload Header Image</Form.Label>
                 <FileBase64
@@ -153,13 +170,11 @@ const NewAdmissionBlog = () => {
           </Row>
           <Row>
             <Col>
-              <img
+              <HeaderPreview
+                image={formData.image}
                 className="mb-3 mt-3"
-                src={formData.image}
                 alt=""
                 style={{
-                  width: "100%",
-                  height: "300px",
                   display: formData.image ? "block" : "none",
                 }}
               />

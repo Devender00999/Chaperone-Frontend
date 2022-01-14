@@ -2,26 +2,38 @@ import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import DataTable from "../../../styledComponents/common/Table/DataTable";
-import { admissionData } from "../../../data/admissionData";
 import {
   PageHeading,
   HeadingContainer,
   HeadingContent,
   MainContent,
   PrimaryButton,
+  Heading,
 } from "../../../styledComponents/common/Common/Common.styles";
 
+import { roadmapsData } from "../../../data/roadmapsData";
+
 const RoadmapBlogs = () => {
-  const [admissionBlogs, setAdmissionBlogs] = useState(admissionData);
+  const [roadmaps, setRoadmaps] = useState(roadmapsData);
 
   const navigator = useNavigate();
-  const handleEdit = (id) => {
-    navigator(`${id}`);
+  const handleEdit = (id, roadmapId) => {
+    navigator(`${roadmapId}/${id}`);
   };
 
-  const handleDelete = (id) => {
-    const blogs = admissionBlogs.filter((blog) => blog.id !== id);
-    setAdmissionBlogs(blogs);
+  const handleDelete = (id, roadmapId) => {
+    //finding roadmap from which articles are being deleted
+    const index = roadmaps.findIndex((roadmap) => roadmap.id === roadmapId);
+
+    //deteting the article with id
+    const articles = roadmaps[index].articles.filter(
+      (article) => article.id !== id
+    );
+
+    const newRoadmaps = [...roadmaps];
+    newRoadmaps[index].articles = [...articles];
+
+    setRoadmaps(newRoadmaps);
   };
 
   return (
@@ -45,11 +57,28 @@ const RoadmapBlogs = () => {
             </PrimaryButton>
           </HeadingContent>
         </HeadingContainer>
-        <DataTable
-          data={admissionBlogs}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-        />
+        {roadmaps.map((roadmap) => (
+          <div key={roadmap.id}>
+            <Heading
+              style={{
+                padding: "1rem 1rem",
+                fontWeight: "bold",
+                fontSize: "1.25rem",
+                margin: "1rem 0 0",
+                boxShadow: "0 0 5px rgb(0 0 0 / 10%)",
+              }}
+            >
+              {roadmap.title}
+            </Heading>
+            <DataTable
+              key={roadmap.id}
+              id={roadmap.id}
+              data={roadmap.articles}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+          </div>
+        ))}
       </MainContent>
     </>
   );

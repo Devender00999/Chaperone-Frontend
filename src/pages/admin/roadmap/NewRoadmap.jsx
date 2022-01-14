@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FileBase64 from "react-file-base64";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { convertToRaw } from "draft-js";
+import { ContentState, convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 
 import { EditorState } from "draft-js";
@@ -9,28 +9,95 @@ import { Form, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import {
+  HeaderPreview,
   MainContent,
   PageHeading,
   PrimaryButton,
 } from "../../../styledComponents/common/Common/Common.styles";
 import StyledEditor from "../../../styledComponents/common/Common/StyledEditor";
 import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
+import { useNavigate, useParams } from "react-router-dom";
+import { roadmapsData as data } from "../../../data/roadmapsData";
+import htmlToDraft from "html-to-draftjs";
 
-const NewRoadmapBlog = () => {
+const NewAdmissionBlog = () => {
+  const params = useParams();
+  const navigate = useNavigate();
+  const [roadmapsData, setAdmissionData] = useState(data);
+
+  const [formData, setFormData] = useState({
+    heading: "",
+    image: "",
+    content: "",
+  });
+  const [editorState, setEditorState] = useState();
+  const { id, roadmapId } = params;
+
   useEffect(() => {
     document
       .querySelector('input[type="file"]')
       .setAttribute("accept", "image/x-png,image/jpeg");
     document.querySelector('input[type="file"]').classList.add("form-control");
   });
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
-  const [formData, setFormData] = useState({
-    heading: "",
-    image: "",
-    markup: "",
-    categories: "Cloud Computing",
-  });
+  const convertHTMLToDraft = (content) => {
+    const blocksFromHtml = htmlToDraft(content);
+    const contentState = ContentState.createFromBlockArray(
+      blocksFromHtml.contentBlocks
+    );
+    return EditorState.createWithContent(contentState);
+  };
+
+  //Setting editor state if blog is being edited
+  useEffect(() => {
+    if (id && roadmapId) {
+      const roadmap = roadmapsData.find((roadmap) => roadmap.id === roadmapId);
+
+      if (roadmap) {
+        const article = roadmap.articles.find(
+          (article) => article.id === parseInt(id)
+        );
+
+        if (article) {
+          setFormData(article);
+          const newEditor = convertHTMLToDraft(formData.content);
+          setEditorState(newEditor);
+        } else {
+          navigate("/not-found");
+        }
+      } else if (roadmapId === "new") {
+        let initialState = {
+          heading: "",
+          image: "",
+          content: "",
+          desc: "",
+        };
+
+        setFormData(initialState);
+      } else {
+        navigate("/not-found");
+      }
+    }
+  }, [params, navigate, formData.content, roadmapsData, roadmapId, id]);
+
+  // Handle Submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (id === "new") {
+      console.log(formData);
+    } else {
+      const content = draftToHtml(
+        convertToRaw(editorState.getCurrentContent())
+      );
+
+      setFormData((prev) => ({ ...prev, content: content }));
+      const index = roadmapsData.findIndex((blog) => blog.id === formData.id);
+      const newRoadmapsData = [...roadmapsData];
+      newRoadmapsData[index] = { ...formData, content: content };
+      setAdmissionData(newRoadmapsData);
+      navigate("/admin/roadmaps");
+    }
+  };
 
   const handleChange = (e) => {
     let { type, value, name } = e.target;
@@ -48,34 +115,13 @@ const NewRoadmapBlog = () => {
   };
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
-
-    const rawContentState = convertToRaw(editorState.getCurrentContent());
-
-    const markup = draftToHtml(rawContentState);
-    setFormData((prev) => ({ ...prev, markup }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-  };
-  const roadmapCategories = [
-    "Cloud Computing",
-    "Web Technology",
-    "Machine Learning",
-    "Data Science",
-    "UX Desinging",
-    "Blockchain",
-  ];
   return (
     <>
-      <MainContent
-        direction={"column"}
-        flex={4}
-        style={{ paddingBottom: "10px" }}
-      >
+      <MainContent direction={"column"} flex={4}>
         <PageHeading style={{ marginBottom: "10px" }}>Roadmaps</PageHeading>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Row
             style={{
               marginRight: 0,
@@ -95,8 +141,14 @@ const NewRoadmapBlog = () => {
                   placeholder="Enter Heading"
                   onChange={handleChange}
                 >
-                  {roadmapCategories.map((cat) => (
-                    <option value={cat}>{cat}</option>
+                  {roadmapsData.map((cat) => (
+                    <option
+                      key={cat.id}
+                      selected={cat.id === roadmapId}
+                      value={cat.id}
+                    >
+                      {cat.title}
+                    </option>
                   ))}
                 </Form.Select>
               </Form.Group>
@@ -130,13 +182,11 @@ const NewRoadmapBlog = () => {
           </Row>
           <Row>
             <Col>
-              <img
+              <HeaderPreview
+                image={formData.image}
                 className="mb-3 mt-3"
-                src={formData.image}
                 alt=""
                 style={{
-                  width: "100%",
-                  height: "300px",
                   display: formData.image ? "block" : "none",
                 }}
               />
@@ -157,7 +207,7 @@ const NewRoadmapBlog = () => {
             />
           </div>
           <PrimaryButton onClick={handleSubmit} className="btn" type="submit">
-            Submit
+            {id !== "new" ? "Save" : "Submit"}
           </PrimaryButton>
         </Form>
         {/* <div dangerouslySetInnerHTML={{ __html: markup }} /> */}
@@ -167,4 +217,4 @@ const NewRoadmapBlog = () => {
   );
 };
 
-export default NewRoadmapBlog;
+export default NewAdmissionBlog;

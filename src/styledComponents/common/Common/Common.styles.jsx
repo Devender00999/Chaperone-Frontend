@@ -216,3 +216,11 @@ export const ListItem = styled.li`
   text-transform: capitalize;
   word-wrap: break-word;
 `;
+
+export const HeaderPreview = styled.div`
+  width: 100%;
+  height: 200px;
+  background: ${(props) => `url(${props.image})`};
+  background-repeat: no-repeat;
+  background-size: "cover";
+`;
