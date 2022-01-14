@@ -10,9 +10,15 @@ import Search from "./Search";
 import User from "../common/User/User";
 import { Link } from "react-router-dom";
 import { DropdownButton, Dropdown } from "react-bootstrap";
+import decodeToken from "../../requests/decode/decodeToken";
 
 const Navbar = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
+  // if (!token) {
+  //   window.location.href = "/"
+  // }
+  const user = decodeToken(token);
+
   return (
     <NavbarContainer>
       <Link style={{ flex: 1, display: "flex" }} to="/">
@@ -49,7 +55,7 @@ const Navbar = () => {
           <Dropdown.Item
             className="py-2"
             onClick={() => {
-              localStorage.removeItem("user");
+              localStorage.removeItem("token");
               window.location.href = "/";
             }}
           >

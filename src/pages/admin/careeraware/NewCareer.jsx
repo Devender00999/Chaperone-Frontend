@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FileBase64 from "react-file-base64";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { convertToRaw } from "draft-js";
-import draftToHtml from "draftjs-to-html";
 
-import { EditorState } from "draft-js";
 import { Form, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -13,7 +10,6 @@ import {
   PageHeading,
   PrimaryButton,
 } from "../../../styledComponents/common/Common/Common.styles";
-import StyledEditor from "../../../styledComponents/common/Common/StyledEditor";
 import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
 
 const NewCareer = () => {
@@ -23,7 +19,6 @@ const NewCareer = () => {
       .setAttribute("accept", "image/x-png,image/jpeg");
     document.querySelector('input[type="file"]').classList.add("form-control");
   });
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const [formData, setFormData] = useState({
     heading: "",
@@ -46,14 +41,6 @@ const NewCareer = () => {
     const file = e.base64;
     setFormData((prev) => ({ ...prev, image: file }));
   };
-  const onEditorStateChange = (editorState) => {
-    setEditorState(editorState);
-
-    const rawContentState = convertToRaw(editorState.getCurrentContent());
-
-    const markup = draftToHtml(rawContentState);
-    setFormData((prev) => ({ ...prev, markup }));
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -74,7 +61,7 @@ const NewCareer = () => {
         flex={4}
         style={{ paddingBottom: "10px" }}
       >
-        <PageHeading style={{ marginBottom: "10px" }}>Roadmaps</PageHeading>
+        <PageHeading style={{ marginBottom: "10px" }}>Career Aware</PageHeading>
         <Form>
           <Row
             style={{
@@ -86,8 +73,40 @@ const NewCareer = () => {
             className="removeGutter"
           >
             <Col md style={{ paddingRight: 0 }}>
+              <Form.Group
+                className="mb-2 d-flex "
+                style={{ columnGap: "20px" }}
+              >
+                <div style={{ flex: 1 }}>
+                  <Form.Label>Company Name</Form.Label>
+                  <br />
+                  <Form.Control
+                    name="semester"
+                    type="text"
+                    placeholder="Enter Company Name"
+                    onChange={handleChange}
+                  ></Form.Control>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <Form.Label>Position</Form.Label>
+                  <br />
+
+                  <Form.Control
+                    name="branch"
+                    type="text"
+                    placeholder="Enter Heading"
+                    onChange={handleChange}
+                  >
+                    {roadmapCategories.map((cat) => (
+                      <option value={cat}>{cat}</option>
+                    ))}
+                  </Form.Control>
+                </div>
+              </Form.Group>
+            </Col>
+            <Col md style={{ paddingRight: 0 }}>
               <Form.Group className="mb-2">
-                <Form.Label>Technology</Form.Label>
+                <Form.Label>Subject</Form.Label>
                 <br />
                 <Form.Select
                   name="categories"
@@ -102,21 +121,8 @@ const NewCareer = () => {
               </Form.Group>
             </Col>
             <Col md style={{ paddingRight: 0 }}>
-              <Form.Group className="mb-2">
-                <Form.Label>Heading</Form.Label>
-                <br />
-                <Form.Control
-                  name="heading"
-                  value={formData.heading}
-                  type="text"
-                  placeholder="Enter Heading"
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-            <Col md style={{ paddingRight: 0 }}>
               <Form.Group className="mb-3">
-                <Form.Label>Upload Header Image</Form.Label>
+                <Form.Label>Upload File</Form.Label>
                 <FileBase64
                   className="form-control"
                   type="file"
@@ -142,22 +148,22 @@ const NewCareer = () => {
               />
             </Col>
           </Row>
-          <Form.Label>Body</Form.Label>
 
-          <div
-            style={{
-              border: "1px solid #D2D2D2",
-              marginBottom: "20px",
-              borderRadius: "5px",
-            }}
-          >
-            <StyledEditor
-              editorState={editorState}
-              onEditorStateChange={onEditorStateChange}
-            />
-          </div>
+          <Col md style={{ paddingRight: 0 }}>
+            <Form.Group className="mb-2">
+              <Form.Label>Teacher</Form.Label>
+              <br />
+              <Form.Control
+                name="heading"
+                value={formData.heading}
+                type="text"
+                placeholder="Enter name of teacher"
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
           <PrimaryButton onClick={handleSubmit} className="btn" type="submit">
-            Submit
+            Upload Note
           </PrimaryButton>
         </Form>
         {/* <div dangerouslySetInnerHTML={{ __html: markup }} /> */}
