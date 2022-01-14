@@ -15,7 +15,6 @@ import { pgData } from "../../data/pgFinder";
 import Actions from "../../redux/actions/Action";
 
 const HomeScreen = (props) => {
-  const user = JSON.parse(localStorage.getItem("user"));
   const dispatch = useDispatch();
 
   const tags = [
@@ -50,29 +49,7 @@ const HomeScreen = (props) => {
 
   useEffect(() => {
     dispatch(Actions.setAllAdArticles(admissionData));
-    if(user.createAccount === true){
-      dispatch(Actions.createAccount({
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        number: user.number
-      }))
-    }
-    else{
-      dispatch(Actions.userLoggedIn({
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        number: user.number,
-        enrollNo: user.enrollNo,
-        collegeName: user.collegeName,
-        profileImg: user.profileImg,
-        interests: user.interests,
-        sem: user.sem,
-        branch: user.branch
-      }))
-    }
-  }, [dispatch, user.id, user.createAccount, user.email, user.name, user.number, user.enrollNo, user.collegeName, user.profileImg, user.interests, user.sem, user.branch]);
+  }, [dispatch]);
 
   return (
     <>
@@ -81,8 +58,8 @@ const HomeScreen = (props) => {
         {Object.keys(allAdArticles).length === 0
           ? "Loading..."
           : allAdArticles.articles.map((blog, id) => (
-              <BlogsCard key={id} {...blog} />
-            ))}
+            <BlogsCard key={id} {...blog} />
+          ))}
         {careerData.map((data, id) => (
           <CareerCard key={id} data={data} />
         ))}

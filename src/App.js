@@ -14,6 +14,7 @@ import SideBar from "./styledComponents/SidePanel/SideBar";
 import AdminRoutes from "./routes/admin-routes";
 import UserRoutes from "./routes/user-routes";
 import DefaultRoutes from "./routes/default-routes";
+import decodeToken from "./requests/decode/decodeToken";
 
 const sideDataForUser = [
   {
@@ -125,8 +126,13 @@ const sideDataForAdmin = [
 
 const App = () => {
   const location = useLocation();
+  const token = localStorage.getItem("token");
+  // if (!token) {
+  //   window.location.href = "/"
+  // }
+  const use = decodeToken(token);
 
-  let [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  let [user, setUser] = useState(use);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -149,16 +155,16 @@ const App = () => {
           <Content>
             <Routes>
               <Route path="/" element={<Home />} />
-                {UserRoutes}
-                {isAdmin ? (
-                  AdminRoutes
-                ) : (
-                  <Route
-                    path="/admin/*"
-                    element={<Navigate to="/unauthorised" />}
-                  />
-                )}
-                {DefaultRoutes}
+              {UserRoutes}
+              {isAdmin ? (
+                AdminRoutes
+              ) : (
+                <Route
+                  path="/admin/*"
+                  element={<Navigate to="/unauthorised" />}
+                />
+              )}
+              {DefaultRoutes}
             </Routes>
           </Content>
         </StyledMain>
