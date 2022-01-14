@@ -21,10 +21,23 @@ const NewCareer = () => {
   });
 
   const [formData, setFormData] = useState({
-    heading: "",
-    image: "",
-    markup: "",
-    categories: "Cloud Computing",
+    companyName: "",
+    position: "",
+    applyBy: "",
+    stipend: "0",
+    ctc: "",
+    companyLogo: "",
+    noOfOpening: "",
+    type: "Internship",
+    companyAddress: "",
+    startDate: "",
+    duration: "",
+    description: ``,
+    responsibilities: "",
+    requirements: "",
+    eligibilityBatch: "",
+    skillsRequired: "",
+    recruitmentProcess: "",
   });
 
   const handleChange = (e) => {
@@ -33,6 +46,8 @@ const NewCareer = () => {
     if (type === "file") {
       value = URL.createObjectURL(e.target.files[0]);
       console.log(e);
+    }
+    if (name === "responsibilities") {
     }
 
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -44,16 +59,21 @@ const NewCareer = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (formData.responsibilities.includes("\n")) {
+      formData.responsibilities = formData.responsibilities.split("\n");
+    }
+    if (formData.requirements.includes("\n")) {
+      formData.requirements = formData.requirements.split("\n");
+    }
+    if (formData.skillsRequired.includes("\n")) {
+      formData.skillsRequired = formData.skillsRequired.split("\n");
+    }
+    if (formData.recruitmentProcess.includes("\n")) {
+      formData.recruitmentProcess = formData.recruitmentProcess.split("\n");
+    }
     console.log(formData);
   };
-  const roadmapCategories = [
-    "Cloud Computing",
-    "Web Technology",
-    "Machine Learning",
-    "Data Science",
-    "UX Desinging",
-    "Blockchain",
-  ];
+
   return (
     <>
       <MainContent
@@ -72,65 +92,234 @@ const NewCareer = () => {
             }}
             className="removeGutter"
           >
-            <Col md style={{ paddingRight: 0 }}>
-              <Form.Group
-                className="mb-2 d-flex "
-                style={{ columnGap: "20px" }}
-              >
-                <div style={{ flex: 1 }}>
-                  <Form.Label>Company Name</Form.Label>
-                  <br />
-                  <Form.Control
-                    name="semester"
-                    type="text"
-                    placeholder="Enter Company Name"
-                    onChange={handleChange}
-                  ></Form.Control>
-                </div>
-                <div style={{ flex: 1 }}>
-                  <Form.Label>Position</Form.Label>
-                  <br />
-
-                  <Form.Control
-                    name="branch"
-                    type="text"
-                    placeholder="Enter Heading"
-                    onChange={handleChange}
-                  >
-                    {roadmapCategories.map((cat) => (
-                      <option value={cat}>{cat}</option>
-                    ))}
-                  </Form.Control>
-                </div>
-              </Form.Group>
-            </Col>
-            <Col md style={{ paddingRight: 0 }}>
-              <Form.Group className="mb-2">
-                <Form.Label>Subject</Form.Label>
+            <Form.Group
+              className="mb-2 d-flex pe-0"
+              style={{ columnGap: "20px" }}
+            >
+              <div style={{ flex: 1 }}>
+                <Form.Label>Company Name</Form.Label>
                 <br />
-                <Form.Select
-                  name="categories"
+                <Form.Control
+                  name="companyName"
                   type="text"
-                  placeholder="Enter Heading"
+                  value={formData.companyName}
+                  placeholder="Enter Company Name"
                   onChange={handleChange}
-                >
-                  {roadmapCategories.map((cat) => (
-                    <option value={cat}>{cat}</option>
-                  ))}
-                </Form.Select>
-              </Form.Group>
-            </Col>
+                  required
+                />
+              </div>
+              <div style={{ flex: 1 }}>
+                <Form.Label>Position</Form.Label>
+                <br />
+
+                <Form.Control
+                  name="position"
+                  type="text"
+                  placeholder="Enter role"
+                  onChange={handleChange}
+                  value={formData.position}
+                  required
+                ></Form.Control>
+              </div>
+            </Form.Group>
+            <Form.Group
+              className="mb-2 d-flex pe-0"
+              style={{ columnGap: "20px" }}
+            >
+              <div style={{ flex: 1 }}>
+                <Form.Label>Apply By</Form.Label>
+                <br />
+                <Form.Control
+                  name="applyBy"
+                  type="date"
+                  placeholder="Enter last date"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div style={{ flex: 1 }}>
+                <Form.Label>Stipend</Form.Label>
+                <br />
+
+                <Form.Control
+                  name="stipend"
+                  type="text"
+                  value={formData.stipend}
+                  placeholder="Enter stipend/month"
+                  onChange={handleChange}
+                ></Form.Control>
+              </div>
+              <div style={{ flex: 1 }}>
+                <Form.Label>CTC</Form.Label>
+                <br />
+                <Form.Control
+                  name="ctc"
+                  type="text"
+                  value={formData.ctc}
+                  placeholder="Enter CTC"
+                  onChange={handleChange}
+                ></Form.Control>
+              </div>
+            </Form.Group>
             <Col md style={{ paddingRight: 0 }}>
               <Form.Group className="mb-3">
-                <Form.Label>Upload File</Form.Label>
+                <Form.Label>Upload Logo</Form.Label>
                 <FileBase64
                   className="form-control"
                   type="file"
-                  name="image"
+                  name="companyLogo"
                   accept="image/x-png,image/gif,image/jpeg"
                   onDone={handleFileChange}
-                  placeholder="Enter Title"
                 />
+              </Form.Group>
+            </Col>
+            <Col md style={{ paddingRight: 0 }}>
+              <Form.Group className="mb-2 d-flex" style={{ columnGap: "20px" }}>
+                <div style={{ flex: 1 }}>
+                  <Form.Label>Number of Openings </Form.Label>
+                  <br />
+
+                  <Form.Control
+                    name="noOfOpening"
+                    type="number"
+                    value={formData.noOfOpening}
+                    placeholder="Enter No. of openings"
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <Form.Label>Starts From</Form.Label>
+                  <br />
+
+                  <Form.Control
+                    name="startDate"
+                    type="date"
+                    placeholder="Enter Heading"
+                    onChange={handleChange}
+                    required
+                  ></Form.Control>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <Form.Label>Oppotunity</Form.Label>
+                  <br />
+                  <Form.Select
+                    name="type"
+                    type="text"
+                    placeholder="Enter Heading"
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="Internship">Internship</option>
+
+                    <option value="Job">Job</option>
+                  </Form.Select>
+                </div>
+              </Form.Group>
+            </Col>
+            <Col md style={{ paddingRight: 0 }}>
+              <Form.Group>
+                <Form.Label> Address</Form.Label>
+                <br />
+
+                <Form.Control
+                  className="mb-2 d-flex pe-0"
+                  name="companyAddress"
+                  type="text"
+                  value={formData.companyAddress}
+                  placeholder="Enter Company's address"
+                  onChange={handleChange}
+                ></Form.Control>
+              </Form.Group>
+            </Col>
+
+            <Col md style={{ paddingRight: 0 }}>
+              <Form.Group className="mb-2 pe-0">
+                <Form.Label> About Company</Form.Label>
+                <br />
+                <Form.Control
+                  as={"textarea"}
+                  name="description"
+                  type="text"
+                  value={formData.description}
+                  placeholder="About the company"
+                  onChange={handleChange}
+                ></Form.Control>
+              </Form.Group>
+            </Col>
+            <Col md style={{ paddingRight: 0 }}>
+              <Form.Group className="mb-2 pe-0">
+                <Form.Label> Key Responsibilities</Form.Label>
+                <br />
+                <Form.Control
+                  as={"textarea"}
+                  rows={6}
+                  name="responsibilities"
+                  type="text"
+                  value={formData.responsibilities}
+                  placeholder="Responsibilities of candidate"
+                  onChange={handleChange}
+                ></Form.Control>
+              </Form.Group>
+            </Col>
+            <Col md style={{ paddingRight: 0 }}>
+              <Form.Group className="mb-2 pe-0">
+                <Form.Label>Requirements</Form.Label>
+                <br />
+                <Form.Control
+                  as={"textarea"}
+                  rows={6}
+                  name="requirements"
+                  type="text"
+                  value={formData.requirements}
+                  placeholder="Requirements"
+                  onChange={handleChange}
+                ></Form.Control>
+              </Form.Group>
+            </Col>
+            <Col md style={{ paddingRight: 0 }}>
+              <Form.Group className="mb-2 pe-0">
+                <Form.Label>Eligibility</Form.Label>
+                <br />
+                <Form.Control
+                  as={"textarea"}
+                  rows={4}
+                  name="eligibilityBatch"
+                  type="text"
+                  value={formData.eligibilityBatch}
+                  placeholder="Eligibility"
+                  onChange={handleChange}
+                ></Form.Control>
+              </Form.Group>
+            </Col>
+            <Col md style={{ paddingRight: 0 }}>
+              <Form.Group className="mb-2 pe-0">
+                <Form.Label>Skills Required</Form.Label>
+                <br />
+                <Form.Control
+                  as={"textarea"}
+                  rows={4}
+                  name="skillsRequired"
+                  type="text"
+                  value={formData.skillsRequired}
+                  placeholder="Enter skills required for the job"
+                  onChange={handleChange}
+                ></Form.Control>
+              </Form.Group>
+            </Col>
+            <Col md style={{ paddingRight: 0 }}>
+              <Form.Group className="mb-2 pe-0">
+                <Form.Label>Recruitment Process</Form.Label>
+                <br />
+                <Form.Control
+                  as={"textarea"}
+                  rows={4}
+                  value={formData.recruitmentProcess}
+                  name="recruitmentProcess"
+                  type="text"
+                  placeholder="Enter recuitment process"
+                  onChange={handleChange}
+                ></Form.Control>
               </Form.Group>
             </Col>
           </Row>
@@ -141,27 +330,14 @@ const NewCareer = () => {
                 src={formData.image}
                 alt=""
                 style={{
-                  width: "100%",
-                  height: "300px",
+                  width: "40px",
+                  height: "40px",
                   display: formData.image ? "block" : "none",
                 }}
               />
             </Col>
           </Row>
 
-          <Col md style={{ paddingRight: 0 }}>
-            <Form.Group className="mb-2">
-              <Form.Label>Teacher</Form.Label>
-              <br />
-              <Form.Control
-                name="heading"
-                value={formData.heading}
-                type="text"
-                placeholder="Enter name of teacher"
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
           <PrimaryButton onClick={handleSubmit} className="btn" type="submit">
             Upload Note
           </PrimaryButton>

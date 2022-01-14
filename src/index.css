@@ -197,3 +197,6 @@ input[type="file"]::file-selector-button {
 .dropdown-divider {
   margin: 0 !important;
 }
+textarea {
+  resize: none !important;
+}
