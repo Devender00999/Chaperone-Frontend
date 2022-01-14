@@ -55,7 +55,7 @@ const Navbar = () => {
           <Dropdown.Item
             className="py-2"
             onClick={() => {
-              localStorage.removeItem("user");
+              localStorage.removeItem("token");
               window.location.href = "/";
             }}
           >

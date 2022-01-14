@@ -38,7 +38,7 @@ const CareerBlogs = () => {
             <PrimaryButton className="primaryButton">
               <Link
                 style={{ textDecoration: "none", color: "White" }}
-                to="/admin/roadmaps/new"
+                to="/admin/career-aware/new"
               >
                 Add New
               </Link>

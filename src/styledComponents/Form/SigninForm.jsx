@@ -9,12 +9,12 @@ import ResetPassForm from "./ResetPassForm";
 import SignUpForm from "./SignUpForm";
 import Request from "../../requests/request";
 import port from "../../port";
-import { useDispatch } from "react-redux";
-import Actions from "../../redux/actions/Action";
+// import { useDispatch } from "react-redux";
+// import Actions from "../../redux/actions/Action";
 
 const SignInForm = (props) => {
   const [error, setError] = useState(null);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -28,7 +28,6 @@ const SignInForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { error } = validateUser(user);
-    console.log(isAdmin);
     if (error) setError(error.details[0].message);
     else setError(null);
     let admin = isAdmin === "user" ? false : isAdmin === "admin" ? true : null;

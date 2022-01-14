@@ -127,13 +127,11 @@ const sideDataForAdmin = [
 const App = () => {
   const location = useLocation();
   const token = localStorage.getItem("token");
-  // if (!token) {
-  //   window.location.href = "/"
-  // }
-  const use = decodeToken(token);
 
-  let [user, setUser] = useState(use);
+  const userDetails = decodeToken(token);
 
+  let [user, setUser] = useState(userDetails);
+  console.log(user);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
@@ -154,7 +152,7 @@ const App = () => {
 
           <Content>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Navigate to="/dashboard" />} />
               {UserRoutes}
               {isAdmin ? (
                 AdminRoutes

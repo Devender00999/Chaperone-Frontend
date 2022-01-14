@@ -81,7 +81,7 @@ const NewAcademicsItem = () => {
                   <Form.Label>Semester</Form.Label>
                   <br />
                   <Form.Select
-                    name="categories"
+                    name="semester"
                     type="text"
                     placeholder="Enter Heading"
                     onChange={handleChange}
@@ -96,7 +96,7 @@ const NewAcademicsItem = () => {
                   <br />
 
                   <Form.Select
-                    name="categories"
+                    name="branch"
                     type="text"
                     placeholder="Enter Heading"
                     onChange={handleChange}
