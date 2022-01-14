@@ -6,3 +6,10 @@ export const createAccount = (user) => {
     payload: user
   }
 }
+
+export const userLoggedIn = (user) => {
+  return {
+    type: ActionTypes.USER_LOGGED_IN,
+    payload: user
+  }
+}

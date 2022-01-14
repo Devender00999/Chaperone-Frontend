@@ -1,3 +1,3 @@
-const port = 3002
+const port = 3002;
 
-export default port
+export default port;

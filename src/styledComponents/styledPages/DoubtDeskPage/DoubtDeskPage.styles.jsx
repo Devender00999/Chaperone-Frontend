@@ -16,7 +16,7 @@ export const DoubtInput = styled.textarea`
   resize: none;
 
   outline: none;
-  border: 0.5px solid #515151;
+  border: 1px solid #ced4da;
   border-radius: 5px;
   font-size: 15px;
 `;
@@ -24,7 +24,7 @@ export const DoubtInput = styled.textarea`
 export const DoubtInputTags = styled.div`
   padding: 10px 20px;
   outline: none;
-  border: 0.5px solid #515151;
+  border: 1px solid #ced4da;
   border-radius: 5px;
   display: flex;
   width: 100%;

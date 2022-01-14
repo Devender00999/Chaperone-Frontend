@@ -10,9 +10,8 @@ import Search from "./Search";
 import User from "../common/User/User";
 import { Link } from "react-router-dom";
 import { DropdownButton, Dropdown } from "react-bootstrap";
-const Navbar = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
 
+const Navbar = () => {
   return (
     <NavbarContainer>
       <Link style={{ flex: 1, display: "flex" }} to="/">
@@ -37,20 +36,13 @@ const Navbar = () => {
           drop={"start"}
           variant="none"
           title={
-            <User name="Deepak Kumar" image="/images/navbar/defaultuser.svg" />
+            <User name={user.name} image="/images/navbar/defaultuser.svg" />
           }
         >
           <Dropdown.Item className="py-2">Edit Profile</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item className="py-2" eventKey="1">
-            {user && user.isAdmin && (
-              <Link
-                style={{ color: "#212529", textDecoration: "none" }}
-                to="/admin"
-              >
-                Admin Portal
-              </Link>
-            )}
+          <Dropdown.Item as={Link} to="/admin" className="py-2" eventKey="1">
+            Admin Portal
           </Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item

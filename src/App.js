@@ -121,12 +121,6 @@ const sideDataForAdmin = [
     icon: "/images/sidebar/easybuy.svg",
     selected: false,
   },
-  {
-    title: "Blogs",
-    link: "/admin/blogs",
-    icon: "/images/sidebar/blogs.svg",
-    selected: false,
-  },
 ];
 
 const App = () => {
@@ -154,7 +148,7 @@ const App = () => {
 
           <Content>
             <Routes>
-              <Route path="/">
+              <Route path="/" element={<Home />} />
                 {UserRoutes}
                 {isAdmin ? (
                   AdminRoutes
@@ -165,7 +159,6 @@ const App = () => {
                   />
                 )}
                 {DefaultRoutes}
-              </Route>
             </Routes>
           </Content>
         </StyledMain>

@@ -18,7 +18,7 @@ import Blog from "../styledComponents/styledPages/Blog/Blog";
 
 const UserRoutes = (
   <React.Fragment>
-    <Route path="/dashboard" exact element={<HomeScreen />} />
+    <Route path="/dashboard" element={<HomeScreen />} />
     <Route path="/dashboard/admission" exact element={<Admission />} />
     <Route path="/dashboard/roadmaps" element={<Roadmaps />}></Route>
     <Route path="/dashboard/roadmaps/:id" element={<Roadmap />} />
