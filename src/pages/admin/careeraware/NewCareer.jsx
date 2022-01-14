@@ -47,9 +47,6 @@ const NewCareer = () => {
       value = URL.createObjectURL(e.target.files[0]);
       console.log(e);
     }
-    if (name === "responsibilities") {
-    }
-
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
   const handleFileChange = (e) => {
