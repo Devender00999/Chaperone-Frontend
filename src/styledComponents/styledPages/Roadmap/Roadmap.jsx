@@ -43,12 +43,12 @@ const Roadmap = () => {
   const articleLimit = showArticles ? roadmaps.articles.length : 4;
 
   const [showProjects, setShowProjects] = useState(false);
-  const projectLimit = showProjects ? roadmaps.projectsIdeas.length : 2;
+  const projectLimit = showProjects ? roadmaps.projects.length : 2;
   return (
     <>
       <MainContent direction="column" flex={3}>
         <HeadingContainer>
-          <PageHeading>{roadmaps.heading}</PageHeading>
+          <PageHeading>{roadmaps.title}</PageHeading>
           <GoBack title="" link="/roadmaps" />
         </HeadingContainer>
 
@@ -65,16 +65,14 @@ const Roadmap = () => {
           {roadmaps.articles.slice(0, articleLimit).map((article, index) => (
             <Article
               key={article.id}
-              to={`/roadmaps/${roadmaps.id}/${article.id}`}
+              to={`/dashboard/roadmaps/${roadmaps.id}/${article.id}`}
             >
               <ArticleNumber>
                 {index < 10 - 1 ? "0" + (index + 1) : index + 1}
               </ArticleNumber>
               <ArticleTextCon>
                 <Heading>{article.heading}</Heading>
-                <DescText style={{ fontSize: "12px" }}>
-                  {article.desc.substring(0, 150)}
-                </DescText>
+                <DescText>{article.desc.substring(0, 150)}</DescText>
               </ArticleTextCon>
             </Article>
           ))}
@@ -89,7 +87,7 @@ const Roadmap = () => {
           />
         </HeadingContainer>
         <ProjectContainer>
-          {roadmaps.projectsIdeas.slice(0, projectLimit).map((project) => (
+          {roadmaps.projects.slice(0, projectLimit).map((project) => (
             <ProjectCard small key={project.id} {...project} />
           ))}
         </ProjectContainer>

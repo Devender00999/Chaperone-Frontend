@@ -3,6 +3,7 @@ import FileBase64 from "react-file-base64";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Form, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from "react-router-dom";
 
 import {
   MainContent,
@@ -10,6 +11,8 @@ import {
   PrimaryButton,
 } from "../../../styledComponents/common/Common/Common.styles";
 import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
+import { useParams } from "react-router-dom";
+import { roadmapsData } from "../../../data/roadmapsData";
 import {
   DoubtInputTag,
   DoubtInputTags,
@@ -18,6 +21,7 @@ import {
 } from "../../../styledComponents/styledPages/DoubtDeskPage/DoubtDeskPage.styles";
 
 const NewProject = () => {
+  //List Tags Component
   const [questionData, setQuestionData] = useState({
     question: "",
     questionTags: [],
@@ -52,6 +56,7 @@ const NewProject = () => {
       ),
     }));
   };
+
   useEffect(() => {
     document
       .querySelector('input[type="file"]')
@@ -59,13 +64,36 @@ const NewProject = () => {
     document.querySelector('input[type="file"]').classList.add("form-control");
   });
 
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    title: "",
+    heading: "",
     image: "",
     description: "",
     github: "",
+    author: "",
     link: "",
   });
+
+  const { category, id } = useParams();
+
+  useEffect(() => {
+    if (category) {
+      const roadmaps = roadmapsData.find((roadmap) => roadmap.id === category);
+      // if (!roadmaps) navigate("/not-found");
+
+      const project = roadmaps.projects.find(
+        (project) => project.id === parseInt(id)
+      );
+
+      // if (!project) navigate("/not-found");
+
+      console.log(roadmaps, project);
+      setFormData({ ...project });
+    } else if (category === "new") {
+    } else {
+    }
+  }, [navigate, id, category]);
 
   const handleChange = (e) => {
     let { type, value, name } = e.target;
@@ -109,8 +137,8 @@ const NewProject = () => {
                 <Form.Label>Title</Form.Label>
                 <br />
                 <Form.Control
-                  name="title"
-                  value={formData.title}
+                  name="heading"
+                  value={formData.heading}
                   type="text"
                   placeholder="Enter project title"
                   onChange={handleChange}
@@ -215,7 +243,6 @@ const NewProject = () => {
             Submit
           </PrimaryButton>
         </Form>
-        {/* <div dangerouslySetInnerHTML={{ __html: markup }} /> */}
       </MainContent>
       <RightSideBar heading="" content={[]} />
     </>

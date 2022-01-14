@@ -11,15 +11,15 @@ import {
 export const RoadmapCard = (props) => {
   return (
     <RoadmapsCard>
-      <RoadmapsCardImage src={props.roadmapIcon} alt={props.roadmapIcon} />
+      <RoadmapsCardImage src={props.icon} alt={props.icon} />
 
-      <RoadmapsCardTitle>{props.roadmapTitle}</RoadmapsCardTitle>
+      <RoadmapsCardTitle>{props.title}</RoadmapsCardTitle>
       <RoadmapsCardList>
-        {props.roadMapList.map((item, key) => (
+        {props.features.map((item, key) => (
           <RoadmapsCardListItem key={key}>{item}</RoadmapsCardListItem>
         ))}
       </RoadmapsCardList>
-      <RoadmapsCardLink to={`/roadmaps/${props.id}`}>
+      <RoadmapsCardLink to={`/dashboard/roadmaps/${props.id}`}>
         <img src="/images/common/arrow.png" alt="Arrow" />
       </RoadmapsCardLink>
     </RoadmapsCard>

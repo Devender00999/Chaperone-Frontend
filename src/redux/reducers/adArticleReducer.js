@@ -3,7 +3,7 @@ import ActionTypes from "../constants/ActionTypes";
 export const adArticleReducer = (state = [], { type, payload }) => {
   switch (type) {
     case ActionTypes.SET_ALL_ADMISSION_ARTICLES:
-      return { ...state, articles: payload };
+      return [{ ...payload }];
 
     case ActionTypes.SET_ADMISSION_ARTICLE:
       return { ...state, admissionArticle: payload };
