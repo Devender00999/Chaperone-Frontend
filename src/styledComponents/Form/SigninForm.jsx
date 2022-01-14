@@ -36,14 +36,14 @@ const SignInForm = (props) => {
       ...user,
       isAdmin: admin
     }
-    Request.post("http://localhost:" + port + "/api/login/sinuser", postFormData)
+    Request.post("http://localhost:" + port + "/api/user/sinuser", postFormData)
       .then((res) => {
         dispatch(Actions.userLoggedIn(res.user));
-          localStorage.setItem(
-            "user",
-            JSON.stringify({...res.user, isAdmin: res.isAdmin, createAccount: false})
-          );
-          window.location.href = "/dashboard"
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ ...res.user, isAdmin: res.isAdmin, createAccount: false })
+        );
+        window.location.href = "/dashboard"
       })
       .catch((err) => console.log(err));
   };
