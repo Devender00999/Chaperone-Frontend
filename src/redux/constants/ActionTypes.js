@@ -1,6 +1,9 @@
-import admissionActionType from "./admissionActionTypes";
+import admissionActionType from "./admissionActionTypes"
+import userActionType from "./userActionTypes"
 
 const ActionTypes = {
-  ...admissionActionType,
-};
-export default ActionTypes;
+   ...admissionActionType,
+   ...userActionType
+}
+
+export default ActionTypes

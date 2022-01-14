@@ -148,7 +148,7 @@ const App = () => {
 
           <Content>
             <Routes>
-              <Route path="/">
+              <Route path="/" element={<Home />} />
                 {UserRoutes}
                 {isAdmin ? (
                   AdminRoutes
@@ -159,7 +159,6 @@ const App = () => {
                   />
                 )}
                 {DefaultRoutes}
-              </Route>
             </Routes>
           </Content>
         </StyledMain>

@@ -39,8 +39,9 @@ const SignUpForm = (props) => {
     else {
       setError(null);
 
-      Request.post("http://localhost:" + port + "/login/SignUp", user)
+      Request.post("http://localhost:" + port + "/api/login/signup", user)
         .then((res) => {
+          console.log(res.message);
           if (res.message !== "Email account exist") {
             const userData = {
               id: res.user.id,
@@ -51,8 +52,9 @@ const SignUpForm = (props) => {
             dispatch(Actions.createAccount(userData));
             localStorage.setItem(
               "user",
-              JSON.stringify({ name: "Deepak Kumar", isAdmin: true })
+              JSON.stringify({...userData, isAdmin: false, createAccount: true})
             );
+            window.location.href = "/dashboard"
           }
         })
         .catch((err) => console.log(err));
