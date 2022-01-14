@@ -16,7 +16,7 @@ const NewAcademicsItem = () => {
   useEffect(() => {
     document
       .querySelector('input[type="file"]')
-      .setAttribute("accept", "image/x-png,image/jpeg");
+      .setAttribute("accept", "application/pdf");
     document.querySelector('input[type="file"]').classList.add("form-control");
   });
 
@@ -104,19 +104,6 @@ const NewAcademicsItem = () => {
                     {roadmapCategories.map((cat) => (
                       <option value={cat}>{cat}</option>
                     ))}
-                    <Col md style={{ paddingRight: 0 }}>
-                      <Form.Group className="mb-2">
-                        <Form.Label>Heading</Form.Label>
-                        <br />
-                        <Form.Control
-                          name="heading"
-                          value={formData.heading}
-                          type="text"
-                          placeholder="Enter Heading"
-                          onChange={handleChange}
-                        />
-                      </Form.Group>
-                    </Col>
                   </Form.Select>
                 </div>
               </Form.Group>

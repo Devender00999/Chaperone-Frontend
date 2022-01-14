@@ -65,12 +65,12 @@ const sideDataForUser = [
     icon: "/images/sidebar/doubtdesk.svg",
     selected: false,
   },
-  {
-    title: "Write a blog",
-    link: "/dashboard/blogs",
-    icon: "/images/sidebar/blogs.svg",
-    selected: false,
-  },
+  // {
+  //   title: "Write a blog",
+  //   link: "/dashboard/blogs",
+  //   icon: "/images/sidebar/blogs.svg",
+  //   selected: false,
+  // },
 ];
 
 const sideDataForAdmin = [
