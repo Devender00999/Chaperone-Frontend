@@ -11,12 +11,16 @@ import {
 
 const DataTable = (props) => {
   const { data, onEdit, onDelete } = props;
-  return (
+  return data.length > 0 ? (
     <TableContainer>
       <TableRow style={{ background: "#ff6600", color: "#FFF" }}>
         <TableColumnHeading style={{ flex: 4 }}>Title</TableColumnHeading>
         <TableColumnHeading style={{ flex: 3 }}>Author</TableColumnHeading>
-        <TableColumnHeading style={{ flex: 1 }}>Likes</TableColumnHeading>
+        <TableColumnHeading
+          style={{ flex: 1, display: props.likes === false ? "none" : "block" }}
+        >
+          Likes
+        </TableColumnHeading>
         <TableColumnHeading style={{ flex: 1 }}>Edit</TableColumnHeading>
         <TableColumnHeading style={{ flex: 1 }}>Delete</TableColumnHeading>
       </TableRow>
@@ -25,7 +29,14 @@ const DataTable = (props) => {
           <TableRow key={id}>
             <TableColumn style={{ flex: 4 }}>{blog.heading} </TableColumn>
             <TableColumn style={{ flex: 3 }}>{blog.author}</TableColumn>
-            <TableColumn style={{ flex: 1 }}>{blog.likes}</TableColumn>
+            <TableColumn
+              style={{
+                flex: 1,
+                display: props.likes === false ? "none" : "block",
+              }}
+            >
+              {blog.likes}
+            </TableColumn>
             <TableColumn
               style={{
                 flex: 1,
@@ -35,7 +46,7 @@ const DataTable = (props) => {
             >
               <EditRoundedIcon
                 className="pointer-cursor"
-                onClick={() => onEdit(blog.id)}
+                onClick={() => onEdit(blog.id, props.id)}
               />
             </TableColumn>
             <TableColumn
@@ -48,13 +59,17 @@ const DataTable = (props) => {
             >
               <DeleteForeverRoundedIcon
                 className="pointer-cursor"
-                onClick={() => onDelete(blog.id)}
+                onClick={() => onDelete(blog.id, props.id)}
               />
             </TableColumn>
           </TableRow>
         );
       })}
     </TableContainer>
+  ) : (
+    <h4 style={{ color: "#aaa", textAlign: "center", padding: "1rem 0" }}>
+      No Data Available to Show
+    </h4>
   );
 };
 

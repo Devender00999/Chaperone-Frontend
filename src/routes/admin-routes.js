@@ -31,10 +31,21 @@ const AdminRoutes = user && (
     <Route path="/admin/admissions/:id" exact element={<NewAdmissionBlog />} />
     {/* Admin Roadmap Routes */}
     <Route path="/admin/roadmaps" exact element={<RoadmapBlogs />} />
-    <Route path="/admin/roadmaps/:id" exact element={<NewRoadmapBlog />} />
+    <Route path="/admin/roadmaps/new" exact element={<NewRoadmapBlog />} />
+    <Route
+      path="/admin/roadmaps/:roadmapId/:id"
+      exact
+      element={<NewRoadmapBlog />}
+    />
+
     {/* Admin Project Routes */}
     <Route path="/admin/projects" exact element={<ProjectBlogs />} />
-    <Route path="/admin/projects/:id" exact element={<NewProject />} />
+    <Route path="/admin/projects/new" exact element={<NewProject />} />
+    <Route
+      path="/admin/projects/:category/:id"
+      exact
+      element={<NewProject />}
+    />
 
     {/* Admin Academics Routes  */}
     <Route path="/admin/academics" exact element={<AcademicItems />} />

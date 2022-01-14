@@ -1,5 +1,5 @@
 import React from "react";
-import { roadmaps } from "../../data/roadmaps";
+import { roadmapsData as roadmaps } from "../../data/roadmapsData";
 import {
   MainContent,
   PageHeading,

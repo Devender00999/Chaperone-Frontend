@@ -1,5 +1,5 @@
 import * as admissionActions from "./admissionActions";
-import * as userActions from "./userActions";
+import * as userActions from "./UserActions";
 
 const Actions = {
   ...admissionActions,

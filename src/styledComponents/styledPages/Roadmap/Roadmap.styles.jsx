@@ -19,11 +19,13 @@ export const ArticleNumber = styled.h1`
   font-weight: 400;
   letter-spacing: 2px;
   margin-right: 1rem;
+  margin-bottom: 0;
   text-align: left;
 `;
 
 export const Article = styled(Link)`
   display: flex;
+  align-items:center;
   text-decoration: none;
 `;
 
