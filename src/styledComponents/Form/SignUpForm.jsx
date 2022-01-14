@@ -40,9 +40,8 @@ const SignUpForm = (props) => {
         .then((res) => {
           if (res.message === "Account Created Successfully") {
             localStorage.setItem("token", res.token);
-            window.location.href = "/dashboard"
-          }
-          else {
+            window.location.href = "/dashboard";
+          } else {
             setError(res.message);
           }
         })

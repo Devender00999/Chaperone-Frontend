@@ -3,7 +3,6 @@ import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdmissionBlogs from "../pages/admin/admission/AdmissionBlogs";
 import React from "react";
 import NewAdmissionBlog from "../pages/admin/admission/NewAdmissionBlog";
-import decodeToken from "../requests/decode/decodeToken";
 import RoadmapBlogs from "../pages/admin/roadmap/RoadmapBlogs";
 import NewRoadmapBlog from "../pages/admin/roadmap/NewRoadmap";
 import ProjectBlogs from "../pages/admin/project/ProjectBlogs";
@@ -12,12 +11,10 @@ import AcademicItems from "../pages/admin/academics/AcademicItems";
 import NewAcademicsItem from "../pages/admin/academics/NewAcademicsItem";
 import CareerBlogs from "../pages/admin/careeraware/CareerBlogs";
 import NewCareer from "../pages/admin/careeraware/NewCareer";
+import decodeToken from "../requests/decode/decodeToken";
 
-const token = localStorage.getItem("token")
-// if (!token) {
-//   window.location.href = "/"
-// }
-const user = decodeToken(token)
+const token = localStorage.getItem("token");
+const user = decodeToken(token);
 
 const AdminRoutes = user && (
   <React.Fragment>
