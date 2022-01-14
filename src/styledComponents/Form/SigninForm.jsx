@@ -33,15 +33,15 @@ const SignInForm = (props) => {
     let admin = isAdmin === "user" ? false : isAdmin === "admin" ? true : null;
     let postFormData = {
       ...user,
-      isAdmin: admin
-    }
+      isAdmin: admin,
+    };
     Request.post("http://localhost:" + port + "/api/user/sinuser", postFormData)
       .then((res) => {
-        localStorage.setItem(
-          "token",
-          res.token
-        );
-        window.location.href = "/dashboard"
+        if (!res.token) setError(res.message);
+        else {
+          localStorage.setItem("token", res.token);
+          window.location.href = "/dashboard";
+        }
       })
       .catch((err) => console.log(err));
   };
@@ -73,7 +73,6 @@ const SignInForm = (props) => {
         value={user.email}
         placeholder="Email"
         handleChange={handleChange}
-        required
       />
       <FormInput
         icon="/images/common/eye.svg"
