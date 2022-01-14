@@ -37,10 +37,9 @@ const SignInForm = (props) => {
     }
     Request.post("http://localhost:" + port + "/api/user/sinuser", postFormData)
       .then((res) => {
-        dispatch(Actions.userLoggedIn(res.user));
         localStorage.setItem(
-          "user",
-          JSON.stringify({ ...res.user, isAdmin: res.isAdmin, createAccount: false })
+          "token",
+          res.token
         );
         window.location.href = "/dashboard"
       })
