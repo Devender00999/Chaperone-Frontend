@@ -55,7 +55,7 @@ export const roadmapsData = [
   },
   {
     id: "roadmaptrack002",
-    icon: "/images/blogs/Image.svg",
+    icon: "/images/roadmaps/web-technology.svg",
     title: "Web Technology",
     features: ["Roadmap", "Projects", "Latest Treads for 2021"],
     articles: [
