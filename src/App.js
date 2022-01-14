@@ -122,12 +122,6 @@ const sideDataForAdmin = [
     icon: "/images/sidebar/easybuy.svg",
     selected: false,
   },
-  {
-    title: "Blogs",
-    link: "/admin/blogs",
-    icon: "/images/sidebar/blogs.svg",
-    selected: false,
-  },
 ];
 
 const App = () => {

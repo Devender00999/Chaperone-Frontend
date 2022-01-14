@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FileBase64 from "react-file-base64";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { ContentState, convertToRaw } from "draft-js";
+import { convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 
 import { EditorState } from "draft-js";
@@ -15,80 +15,22 @@ import {
 } from "../../../styledComponents/common/Common/Common.styles";
 import StyledEditor from "../../../styledComponents/common/Common/StyledEditor";
 import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
-import { useNavigate, useParams } from "react-router-dom";
-import { admissionData as data } from "../../../data/admissionData";
-import htmlToDraft from "html-to-draftjs";
 
-const NewAdmissionBlog = () => {
-  const params = useParams();
-  const navigate = useNavigate();
-  const [admissionData, setAdmissionData] = useState(data);
-
-  const [formData, setFormData] = useState({
-    heading: "",
-    image: "",
-    content: "",
-  });
-  const [editorState, setEditorState] = useState();
-  const { id } = params;
-
+const NewCareer = () => {
   useEffect(() => {
     document
       .querySelector('input[type="file"]')
       .setAttribute("accept", "image/x-png,image/jpeg");
     document.querySelector('input[type="file"]').classList.add("form-control");
   });
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
-  const convertHTMLToDraft = (content) => {
-    const blocksFromHtml = htmlToDraft(content);
-    const contentState = ContentState.createFromBlockArray(
-      blocksFromHtml.contentBlocks
-    );
-    return EditorState.createWithContent(contentState);
-  };
-
-  //Setting editor state if blog is being edited
-  useEffect(() => {
-    let blog;
-    if (id) {
-      blog = admissionData.find((blog) => blog.id === parseInt(id));
-      console.log("called");
-      if (blog) {
-        setFormData(blog);
-        const newEditor = convertHTMLToDraft(formData.content);
-        setEditorState(newEditor);
-      } else if (id === "new") {
-        let initialState = {
-          heading: "",
-          image: "",
-          content: "",
-        };
-
-        setFormData(initialState);
-      } else {
-        navigate("/not-found");
-      }
-    }
-  }, [params, navigate, formData.content, admissionData, id]);
-
-  // Handle Submit
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (id === "new") {
-      console.log(formData);
-    } else {
-      const content = draftToHtml(
-        convertToRaw(editorState.getCurrentContent())
-      );
-
-      setFormData((prev) => ({ ...prev, content: content }));
-      const index = admissionData.findIndex((blog) => blog.id === formData.id);
-      const newAdmissionData = [...admissionData];
-      newAdmissionData[index] = { ...formData, content: content };
-      setAdmissionData(newAdmissionData);
-      navigate("/admin/admissions");
-    }
-  };
+  const [formData, setFormData] = useState({
+    heading: "",
+    image: "",
+    markup: "",
+    categories: "Cloud Computing",
+  });
 
   const handleChange = (e) => {
     let { type, value, name } = e.target;
@@ -106,15 +48,34 @@ const NewAdmissionBlog = () => {
   };
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
+
+    const rawContentState = convertToRaw(editorState.getCurrentContent());
+
+    const markup = draftToHtml(rawContentState);
+    setFormData((prev) => ({ ...prev, markup }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+  const roadmapCategories = [
+    "Cloud Computing",
+    "Web Technology",
+    "Machine Learning",
+    "Data Science",
+    "UX Desinging",
+    "Blockchain",
+  ];
   return (
     <>
-      <MainContent direction={"column"} flex={4}>
-        <PageHeading style={{ marginBottom: "10px" }}>
-          Admission Blogs
-        </PageHeading>
-        <Form onSubmit={handleSubmit}>
+      <MainContent
+        direction={"column"}
+        flex={4}
+        style={{ paddingBottom: "10px" }}
+      >
+        <PageHeading style={{ marginBottom: "10px" }}>Roadmaps</PageHeading>
+        <Form>
           <Row
             style={{
               marginRight: 0,
@@ -124,6 +85,22 @@ const NewAdmissionBlog = () => {
             }}
             className="removeGutter"
           >
+            <Col md style={{ paddingRight: 0 }}>
+              <Form.Group className="mb-2">
+                <Form.Label>Technology</Form.Label>
+                <br />
+                <Form.Select
+                  name="categories"
+                  type="text"
+                  placeholder="Enter Heading"
+                  onChange={handleChange}
+                >
+                  {roadmapCategories.map((cat) => (
+                    <option value={cat}>{cat}</option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+            </Col>
             <Col md style={{ paddingRight: 0 }}>
               <Form.Group className="mb-2">
                 <Form.Label>Heading</Form.Label>
@@ -180,7 +157,7 @@ const NewAdmissionBlog = () => {
             />
           </div>
           <PrimaryButton onClick={handleSubmit} className="btn" type="submit">
-            {id !== "new" ? "Save" : "Submit"}
+            Submit
           </PrimaryButton>
         </Form>
         {/* <div dangerouslySetInnerHTML={{ __html: markup }} /> */}
@@ -190,4 +167,4 @@ const NewAdmissionBlog = () => {
   );
 };
 
-export default NewAdmissionBlog;
+export default NewCareer;

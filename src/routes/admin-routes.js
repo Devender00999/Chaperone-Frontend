@@ -1,16 +1,15 @@
 import { Route, Navigate } from "react-router-dom";
-import AdminBlogs from "../pages/admin/AdminBlogs";
-import AdminCareerAware from "../pages/admin/AdminCareerAware";
 import AdminDashboard from "../pages/admin/AdminDashboard";
-import AdminEasyBuy from "../pages/admin/AdminEasyBuy";
-import AdminFindPG from "../pages/admin/AdminFindPG";
-import AdminProjects from "../pages/admin/AdminProjects";
-import AdminRoadmaps from "../pages/admin/AdminRoadmaps";
 import AdmissionBlogs from "../pages/admin/admission/AdmissionBlogs";
-import NewBlog from "../pages/admin/NewBlog";
 import React from "react";
 import NewAdmissionBlog from "../pages/admin/admission/NewAdmissionBlog";
 import decodeToken from "../requests/decode/decodeToken";
+import RoadmapBlogs from "../pages/admin/roadmap/RoadmapBlogs";
+import NewRoadmapBlog from "../pages/admin/roadmap/NewRoadmap";
+import ProjectBlogs from "../pages/admin/project/ProjectBlogs";
+import NewProject from "../pages/admin/project/NewProject";
+import AcademicItems from "../pages/admin/academics/AcademicItems";
+import NewAcademicsItem from "../pages/admin/academics/NewAcademicsItem";
 
 const token = localStorage.getItem("token")
 // if (!token) {
@@ -31,15 +30,32 @@ const AdminRoutes = user && (
     {/* Admin Admission Routes */}
     <Route path="/admin/admissions" exact element={<AdmissionBlogs />} />
     <Route path="/admin/admissions/:id" exact element={<NewAdmissionBlog />} />
+    {/* Admin Roadmap Routes */}
+    <Route path="/admin/roadmaps" exact element={<RoadmapBlogs />} />
+    <Route path="/admin/roadmaps/:id" exact element={<NewRoadmapBlog />} />
+    {/* Admin Project Routes */}
+    <Route path="/admin/projects" exact element={<ProjectBlogs />} />
+    <Route path="/admin/projects/:id" exact element={<NewProject />} />
 
+    {/* Admin Academics Routes  */}
+    <Route path="/admin/academics" exact element={<AcademicItems />} />
+    <Route path="/admin/academics/:id" exact element={<NewAcademicsItem />} />
 
-    <Route path="/admin/blogs" exact element={<AdminBlogs />} />
-    <Route path="/admin/blogs/new" exact element={<NewBlog />} />
-    <Route path="/admin/roadmaps" exact element={<AdminRoadmaps />} />
-    <Route path="/admin/projects" exact element={<AdminProjects />} />
-    <Route path="/admin/career-aware" exact element={<AdminCareerAware />} />
-    <Route path="/admin/find-pg" exact element={<AdminFindPG />} />
-    <Route path="/admin/easy-buy" exact element={<AdminEasyBuy />} />
+    {/* Admin Academics Routes  */}
+    <Route path="/admin/career-aware" exact element={<AcademicItems />} />
+    <Route
+      path="/admin/career-aware/:id"
+      exact
+      element={<NewAcademicsItem />}
+    />
+
+    {/* Admin Academics Routes  */}
+    <Route path="/admin/find-pg" exact element={<AcademicItems />} />
+    <Route path="/admin/find-pg/:id" exact element={<NewAcademicsItem />} />
+
+    {/* Admin Academics Routes  */}
+    <Route path="/admin/easy-buy" exact element={<AcademicItems />} />
+    <Route path="/admin/easy-buy/:id" exact element={<NewAcademicsItem />} />
   </React.Fragment>
 );
 
