@@ -9,6 +9,8 @@ import ProjectBlogs from "../pages/admin/project/ProjectBlogs";
 import NewProject from "../pages/admin/project/NewProject";
 import AcademicItems from "../pages/admin/academics/AcademicItems";
 import NewAcademicsItem from "../pages/admin/academics/NewAcademicsItem";
+import CareerBlogs from "../pages/admin/careeraware/CareerBlogs";
+import NewCareer from "../pages/admin/careeraware/NewCareer";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
@@ -37,12 +39,8 @@ const AdminRoutes = user && (
     <Route path="/admin/academics/:id" exact element={<NewAcademicsItem />} />
 
     {/* Admin Academics Routes  */}
-    <Route path="/admin/career-aware" exact element={<AcademicItems />} />
-    <Route
-      path="/admin/career-aware/:id"
-      exact
-      element={<NewAcademicsItem />}
-    />
+    <Route path="/admin/career-aware" exact element={<CareerBlogs />} />
+    <Route path="/admin/career-aware/:id" exact element={<NewCareer />} />
 
     {/* Admin Academics Routes  */}
     <Route path="/admin/find-pg" exact element={<AcademicItems />} />
