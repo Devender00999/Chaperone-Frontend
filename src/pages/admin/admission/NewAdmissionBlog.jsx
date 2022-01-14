@@ -12,24 +12,27 @@ import {
 	MainContent,
 	PageHeading,
 	PrimaryButton,
+	HeaderPreview
 } from "../../../styledComponents/common/Common/Common.styles";
 import StyledEditor from "../../../styledComponents/common/Common/StyledEditor";
 import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
 import { useNavigate, useParams } from "react-router-dom";
-import { admissionData as data } from "../../../data/admissionData";
+// import { admissionData as data } from "../../../data/admissionData";
 import htmlToDraft from "html-to-draftjs";
 import Request from "../../../requests/request"
 import port from "../../../port.js"
+import { useSelector } from "react-redux";
 
 const NewAdmissionBlog = () => {
 	const params = useParams();
 	const navigate = useNavigate();
-	const [admissionData, setAdmissionData] = useState(data);
+	const admissionData = useSelector((state) => state.allAdArticles);
 
 	const [formData, setFormData] = useState({
 		heading: "",
 		image: "",
 		content: "",
+		desc: ""
 	});
 	const [editorState, setEditorState] = useState();
 	const { id } = params;
@@ -53,7 +56,7 @@ const NewAdmissionBlog = () => {
 	useEffect(() => {
 		let blog;
 		if (id) {
-			blog = admissionData.find((blog) => blog.id === parseInt(id));
+			blog = admissionData.find((blog) => blog._id === id);
 			console.log("called");
 			if (blog) {
 				setFormData(blog);
@@ -64,6 +67,7 @@ const NewAdmissionBlog = () => {
 					heading: "",
 					image: "",
 					content: "",
+					desc: ""
 				};
 
 				setFormData(initialState);
@@ -87,13 +91,12 @@ const NewAdmissionBlog = () => {
 				convertToRaw(editorState.getCurrentContent())
 			);
 			setFormData((prev) => ({ ...prev, content: content }));
-			const index = admissionData.findIndex((blog) => blog.id === formData.id);
+			const index = admissionData.findIndex((blog) => blog._id === formData._id);
 			const newAdmissionData = [...admissionData];
 			newAdmissionData[index] = { ...formData, content: content };
 
 			const res = await req("http://localhost:" + port + "/api/admission/" + reqRoute, newAdmissionData[index])
 			console.log(res);
-			setAdmissionData(newAdmissionData);
 			navigate("/admin/admissions");
 		}
 	};
@@ -150,12 +153,14 @@ const NewAdmissionBlog = () => {
 								<Form.Label>Description</Form.Label>
 								<br />
 								<Form.Control
+									rows='5'
 									name="desc"
 									value={formData.desc}
 									type="text"
 									as="textarea"
 									placeholder="What is this blog about?"
 									onChange={handleChange}
+									style={{resize: "none"}}
 								/>
 							</Form.Group>
 						</Col>
