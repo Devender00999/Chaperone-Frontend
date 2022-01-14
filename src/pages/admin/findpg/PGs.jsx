@@ -8,7 +8,6 @@ import {
   HeadingContainer,
   HeadingContent,
   MainContent,
-  PrimaryButton,
 } from "../../../styledComponents/common/Common/Common.styles";
 
 const Pgs = () => {
@@ -28,21 +27,24 @@ const Pgs = () => {
     <>
       <MainContent direction={"column"} flex={"auto"}>
         <HeadingContainer>
-          <PageHeading>Edit Your Roadmap Blogs</PageHeading>
+          <PageHeading>Edit Your PGs</PageHeading>
           <HeadingContent>
             <Form.Control
               style={{ width: "200px", padding: "0 20px", outline: "none" }}
               type="search"
               placeholder="Search"
             />
-            <PrimaryButton className="primaryButton">
-              <Link
-                style={{ textDecoration: "none", color: "White" }}
-                to="/admin/roadmaps/new"
-              >
-                Add New
-              </Link>
-            </PrimaryButton>
+            <Link
+              className="primaryButton"
+              to="/admin/find-pg/new"
+              style={{
+                textDecoration: "none",
+                color: "White",
+                background: "#ff6602",
+              }}
+            >
+              Add New
+            </Link>
           </HeadingContent>
         </HeadingContainer>
         <DataTable

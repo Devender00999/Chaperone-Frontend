@@ -12,6 +12,10 @@ import NewAcademicsItem from "../pages/admin/academics/NewAcademicsItem";
 import CareerBlogs from "../pages/admin/careeraware/CareerBlogs";
 import NewCareer from "../pages/admin/careeraware/NewCareer";
 import getUserDetails from "../requests/decode/decodeToken";
+import NewPG from "../pages/admin/findpg/NewPG";
+import Pgs from "../pages/admin/findpg/PGs";
+import EasyProducts from "../pages/admin/easybuy/EasyProducts";
+import NewEasyProduct from "../pages/admin/easybuy/NewEasyProduct";
 
 const user = getUserDetails();
 
@@ -55,12 +59,12 @@ const AdminRoutes = user && (
     <Route path="/admin/career-aware/:id" exact element={<NewCareer />} />
 
     {/* Admin Academics Routes  */}
-    <Route path="/admin/find-pg" exact element={<AcademicItems />} />
-    <Route path="/admin/find-pg/:id" exact element={<NewAcademicsItem />} />
+    <Route path="/admin/find-pg" exact element={<Pgs />} />
+    <Route path="/admin/find-pg/:id" exact element={<NewPG />} />
 
     {/* Admin Academics Routes  */}
-    <Route path="/admin/easy-buy" exact element={<AcademicItems />} />
-    <Route path="/admin/easy-buy/:id" exact element={<NewAcademicsItem />} />
+    <Route path="/admin/easy-buy" exact element={<EasyProducts />} />
+    <Route path="/admin/easy-buy/:id" exact element={<NewEasyProduct />} />
   </React.Fragment>
 );
 
