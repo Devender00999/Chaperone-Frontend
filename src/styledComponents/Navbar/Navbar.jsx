@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { DropdownButton, Dropdown } from "react-bootstrap";
 
 const Navbar = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
     <NavbarContainer>
       <Link style={{ flex: 1, display: "flex" }} to="/">
