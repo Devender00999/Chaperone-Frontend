@@ -34,11 +34,11 @@ const NewAdmissionBlog = () => {
   const { id, roadmapId } = params;
 
   useEffect(() => {
-    document
-      .querySelector('input[type="file"]')
-      .setAttribute("accept", "image/x-png,image/jpeg");
-    document.querySelector('input[type="file"]').classList.add("form-control");
-  });
+    document.querySelectorAll("input[type=file]").forEach((item) => {
+      item.setAttribute("accept", "image/x-png,image/jpeg");
+      item.classList.add("form-control");
+    });
+  }, []);
 
   const convertHTMLToDraft = (content) => {
     const blocksFromHtml = htmlToDraft(content);

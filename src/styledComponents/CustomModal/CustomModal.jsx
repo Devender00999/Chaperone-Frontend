@@ -8,7 +8,7 @@ const StyledModal = ({ showModal, setShowModal, Component }) => {
         <Modal.ModalClose
           draggable={false}
           onClick={() => setShowModal(!showModal)}
-          src="images/cancel.png"
+          src="/images/cancel.png"
         />
         <Modal.ModalBody>{Component}</Modal.ModalBody>
       </Modal.ModalContainer>
