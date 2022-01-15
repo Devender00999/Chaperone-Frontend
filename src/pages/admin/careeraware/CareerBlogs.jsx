@@ -59,6 +59,7 @@ const CareerBlogs = () => {
           data={careerBlogs}
           onEdit={handleEdit}
           onDelete={handleDelete}
+          page="Career"
         />
       </MainContent>
     </>
