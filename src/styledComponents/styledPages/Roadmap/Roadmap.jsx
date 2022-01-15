@@ -25,7 +25,7 @@ import { useParams } from "react-router-dom";
 
 const Roadmap = () => {
    const params = useParams();
-   const roadmaps = roadmapsData.find((item) => item.id === params.id);
+   const roadmaps = roadmapsData.find((item) => item._id === params.id);
 
    if (!roadmaps) window.location.href = "/not-found";
 
@@ -66,8 +66,8 @@ const Roadmap = () => {
                   .slice(0, articleLimit)
                   .map((article, index) => (
                      <Article
-                        key={article.id}
-                        to={`/dashboard/roadmaps/${roadmaps.id}/${article.id}`}
+                        key={article._id}
+                        to={`/dashboard/roadmaps/${roadmaps._id}/${article._id}`}
                      >
                         <ArticleNumber>
                            {index < 10 - 1 ? "0" + (index + 1) : index + 1}
@@ -90,7 +90,7 @@ const Roadmap = () => {
             </HeadingContainer>
             <ProjectContainer>
                {roadmaps.projects.slice(0, projectLimit).map((project) => (
-                  <ProjectCard small key={project.id} {...project} />
+                  <ProjectCard small key={project._id} {...project} />
                ))}
             </ProjectContainer>
          </MainContent>

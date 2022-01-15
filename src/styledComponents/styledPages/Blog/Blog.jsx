@@ -35,47 +35,49 @@ import { roadmapsData } from "../../../data/roadmapsData";
 // };
 
 const Blog = () => {
-  const images = ["/images/blogs/Background.svg"];
-  const params = useParams();
+   const images = ["/images/blogs/Background.svg"];
+   const params = useParams();
 
-  const roadmap = roadmapsData.find((roadmap) => roadmap.id === params.id);
+   const roadmap = roadmapsData.find((roadmap) => roadmap._id === params.id);
 
-  if (!roadmap) window.location.href = "/not-found";
-  const article = roadmap.articles.find(
-    (article) => article.id === parseInt(params.articleId)
-  );
-  if (!article) window.location.href = "/not-found";
+   if (!roadmap) window.location.href = "/not-found";
+   const article = roadmap.articles.find(
+      (article) => article._id === params.articleId
+   );
+   if (!article) window.location.href = "/not-found";
 
-  return (
-    <>
-      <MainContent direction="column" flex={3}>
-        <BlogContainer>
-          <Carousel images={images} height="250px" />
-          <BlogContent>
-            <Heading style={{ fontSize: "1.25rem", fontWeight: 500 }}>
-              {article.heading}
-            </Heading>
-            <UserDetails>
-              <User
-                className="secondary-color"
-                image="/images/common/user-2.svg"
-                name="Deepak Kumar"
-              />
-              <UserProps>
-                <Like className="cursor-pointer" />
-                <ShareIcon
-                  className="cursor-pointer"
-                  style={{ marginLeft: "0rem" }}
-                />
-              </UserProps>
-            </UserDetails>
-            <BlogText dangerouslySetInnerHTML={{ __html: article.content }} />
-          </BlogContent>
-        </BlogContainer>
-      </MainContent>
-      <RightSideBar heading="" content={[]} />
-    </>
-  );
+   return (
+      <>
+         <MainContent direction="column" flex={3}>
+            <BlogContainer>
+               <Carousel images={images} height="250px" />
+               <BlogContent>
+                  <Heading style={{ fontSize: "1.25rem", fontWeight: 500 }}>
+                     {article.heading}
+                  </Heading>
+                  <UserDetails>
+                     <User
+                        className="secondary-color"
+                        image="/images/common/user-2.svg"
+                        name="Deepak Kumar"
+                     />
+                     <UserProps>
+                        <Like className="cursor-pointer" />
+                        <ShareIcon
+                           className="cursor-pointer"
+                           style={{ marginLeft: "0rem" }}
+                        />
+                     </UserProps>
+                  </UserDetails>
+                  <BlogText
+                     dangerouslySetInnerHTML={{ __html: article.content }}
+                  />
+               </BlogContent>
+            </BlogContainer>
+         </MainContent>
+         <RightSideBar heading="" content={[]} />
+      </>
+   );
 };
 
 export default Blog;
