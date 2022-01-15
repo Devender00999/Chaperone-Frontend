@@ -77,7 +77,7 @@ const Navbar = () => {
       <StyledModal
         showModal={showModal}
         setShowModal={setShowModal}
-        Component={<ProfileForm />}
+        Component={<ProfileForm handleModal={setShowModal} />}
       />
     </NavbarContainer>
   );

@@ -4,7 +4,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import { Form, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 import {
   MainContent,
@@ -12,28 +12,27 @@ import {
   PrimaryButton,
 } from "../../../styledComponents/common/Common/Common.styles";
 import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
-import Request from "../../../requests/request"
-import port from "../../../port.js"
+import Request from "../../../requests/request";
+import port from "../../../port.js";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import Actions from "../../../redux/actions/Action"
+import Actions from "../../../redux/actions/Action";
 import { useNavigate, useParams } from "react-router-dom";
-import getUserDetails from "../../../requests/decode/decodeToken"
+import getUserDetails from "../../../requests/decode/decodeToken";
 
 const NewAcademicsItem = () => {
   const user = getUserDetails();
-  if (user === null)
-    window.location.href = "/";
+  if (user === null) window.location.href = "/";
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const academicData = useSelector((state) => state.allAcaArticles);
   useEffect(() => {
-    document
-      .querySelector('input[type="file"]')
-      .setAttribute("accept", "application/pdf");
-    document.querySelector('input[type="file"]').classList.add("form-control");
-  });
+    document.querySelectorAll("input[type=file]").forEach((item) => {
+      item.setAttribute("accept", "application/pdf,image/x-png,image/jpeg");
+      item.classList.add("form-control");
+    });
+  }, []);
 
   const [formData, setFormData] = useState({
     tname: "",
@@ -58,7 +57,9 @@ const NewAcademicsItem = () => {
 
   const base64toBlob = (data = "") => {
     // Cut the prefix `data:application/pdf;base64` from the raw base 64
-    const base64WithoutPrefix = data.substr('data:application/pdf;base64,'.length);
+    const base64WithoutPrefix = data.substr(
+      "data:application/pdf;base64,".length
+    );
 
     const bytes = atob(base64WithoutPrefix);
     let length = bytes.length;
@@ -68,7 +69,7 @@ const NewAcademicsItem = () => {
       out[length] = bytes.charCodeAt(length);
     }
 
-    return new Blob([out], { type: 'application/pdf' });
+    return new Blob([out], { type: "application/pdf" });
   };
 
   useEffect(() => {
@@ -106,33 +107,37 @@ const NewAcademicsItem = () => {
     if (id === "new") {
       const newAcademicData = { ...formData, author: user.name };
       console.log(newAcademicData);
-      
-      const res = await Request.post("http://localhost:" + port + "/api/academics/", newAcademicData)
+
+      const res = await Request.post(
+        "http://localhost:" + port + "/api/academics/",
+        newAcademicData
+      );
       if (res.message === "Article Created Successfully") {
         dispatch(Actions.addAcadArticle(newAcademicData));
-        toast.success(res.message)
-      }
-      else {
+        toast.success(res.message);
+      } else {
         toast.error(res.message);
       }
     } else {
       const index = academicData.findIndex((blog) => blog._id === formData._id);
       const nAcademicData = [...academicData];
-      nAcademicData[index] = { ...formData};
+      nAcademicData[index] = { ...formData };
 
-      const res = await Request.put("http://localhost:" + port + "/api/academics/" + formData._id, nAcademicData[index])
+      const res = await Request.put(
+        "http://localhost:" + port + "/api/academics/" + formData._id,
+        nAcademicData[index]
+      );
       if (res.message === "Article Modify Successfully") {
         dispatch(Actions.editAcadArticle(index, nAcademicData[index]));
-        toast.success(res.message)
-      }
-      else {
+        toast.success(res.message);
+      } else {
         toast.error(res.message);
       }
     }
     navigate("/admin/academics");
   };
 
-  const sem = [1, 2, 3, 4, 5, 6, 7, 8]
+  const sem = [1, 2, 3, 4, 5, 6, 7, 8];
   const branch = [
     "CSE 1",
     "CSE 2",
@@ -145,8 +150,8 @@ const NewAcademicsItem = () => {
     "ECE 3",
     "EEE",
     "AI-DS",
-    "AI-ML"
-  ]
+    "AI-ML",
+  ];
   const roadmapCategories = [
     "Cloud Computing",
     "Web Technology",
@@ -165,19 +170,19 @@ const NewAcademicsItem = () => {
         <PageHeading style={{ marginBottom: "10px" }}>Upload Notes</PageHeading>
         <Form>
           <Row>
-          <Col md style={{ paddingRight: 0 }}>
-            <Form.Group className="mb-2">
-              <Form.Label>Topic Name</Form.Label>
-              <br />
-              <Form.Control
-                name="topname"
-                value={formData.topname}
-                type="text"
-                placeholder="Enter topic name"
-                onChange={handlechange}
-              />
-            </Form.Group>
-          </Col>
+            <Col md style={{ paddingRight: 0 }}>
+              <Form.Group className="mb-2">
+                <Form.Label>Topic Name</Form.Label>
+                <br />
+                <Form.Control
+                  name="topname"
+                  value={formData.topname}
+                  type="text"
+                  placeholder="Enter topic name"
+                  onChange={handlechange}
+                />
+              </Form.Group>
+            </Col>
           </Row>
           <Row
             style={{
@@ -203,7 +208,9 @@ const NewAcademicsItem = () => {
                     onChange={handlechange}
                   >
                     {sem.map((cat) => (
-                      <option value={cat} key={cat}>{cat}</option>
+                      <option value={cat} key={cat}>
+                        {cat}
+                      </option>
                     ))}
                   </Form.Select>
                 </div>
@@ -218,7 +225,9 @@ const NewAcademicsItem = () => {
                     onChange={handlechange}
                   >
                     {branch.map((cat) => (
-                      <option value={cat} key={cat}>{cat}</option>
+                      <option value={cat} key={cat}>
+                        {cat}
+                      </option>
                     ))}
                   </Form.Select>
                 </div>
@@ -235,7 +244,9 @@ const NewAcademicsItem = () => {
                   onChange={handlechange}
                 >
                   {roadmapCategories.map((cat) => (
-                    <option value={cat} key={cat}>{cat}</option>
+                    <option value={cat} key={cat}>
+                      {cat}
+                    </option>
                   ))}
                 </Form.Select>
               </Form.Group>

@@ -11,29 +11,28 @@ import {
   PrimaryButton,
 } from "../../../styledComponents/common/Common/Common.styles";
 import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
-import { toast } from 'react-toastify';
-import Request from "../../../requests/request"
-import port from "../../../port.js"
+import { toast } from "react-toastify";
+import Request from "../../../requests/request";
+import port from "../../../port.js";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import Actions from "../../../redux/actions/Action"
+import Actions from "../../../redux/actions/Action";
 import { useNavigate, useParams } from "react-router-dom";
-import getUserDetails from "../../../requests/decode/decodeToken"
+import getUserDetails from "../../../requests/decode/decodeToken";
 
 const NewCareer = () => {
   const user = getUserDetails();
-  if (user === null)
-    window.location.href = "/";
+  if (user === null) window.location.href = "/";
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const academicData = useSelector((state) => state.careerArticles);
   useEffect(() => {
-    document
-      .querySelector('input[type="file"]')
-      .setAttribute("accept", "application/pdf");
-    document.querySelector('input[type="file"]').classList.add("form-control");
-  });
+    document.querySelectorAll("input[type=file]").forEach((item) => {
+      item.setAttribute("accept", "image/x-png,image/jpeg");
+      item.classList.add("form-control");
+    });
+  }, []);
 
   const [formData, setFormData] = useState({
     position: "",
@@ -51,7 +50,7 @@ const NewCareer = () => {
     eligibility: "",
     recruitmentProcess: "",
     skillRequired: "",
-    numOfOpening: ""
+    numOfOpening: "",
   });
   const { id } = params;
 
@@ -61,7 +60,7 @@ const NewCareer = () => {
     if (type === "file") {
       value = URL.createObjectURL(e.target.files[0]);
     }
-    console.log(typeof(e.target.value));
+    console.log(typeof e.target.value);
 
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -89,7 +88,7 @@ const NewCareer = () => {
           eligibility: "",
           recruitmentProcess: "",
           skillRequired: "",
-          numOfOpening: ""
+          numOfOpening: "",
         };
 
         setFormData(initialState);
@@ -121,13 +120,15 @@ const NewCareer = () => {
     if (id === "new") {
       const newAcademicData = { ...formData, author: user.name };
       console.log(newAcademicData);
-      
-      const res = await Request.post("http://localhost:" + port + "/api/career/", newAcademicData)
+
+      const res = await Request.post(
+        "http://localhost:" + port + "/api/career/",
+        newAcademicData
+      );
       if (res.message === "Job Created Successfully") {
         dispatch(Actions.addCareerArticle(newAcademicData));
         toast.success(res.message);
-      }
-      else {
+      } else {
         toast.error(res.message);
       }
     } else {
@@ -135,12 +136,14 @@ const NewCareer = () => {
       const nAcademicData = [...academicData];
       nAcademicData[index] = { ...formData };
 
-      const res = await Request.put("http://localhost:" + port + "/api/career/" + formData._id, nAcademicData[index])
+      const res = await Request.put(
+        "http://localhost:" + port + "/api/career/" + formData._id,
+        nAcademicData[index]
+      );
       if (res.message === "Job Modify Successfully") {
         dispatch(Actions.editCareerArticle(index, nAcademicData[index]));
         toast.success(res.message);
-      }
-      else {
+      } else {
         toast.error(res.message);
       }
     }

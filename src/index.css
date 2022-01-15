@@ -200,3 +200,19 @@ input[type="file"]::file-selector-button {
 textarea {
   resize: none !important;
 }
+
+/*  */
+.labelOnTop {
+  margin-bottom: 0 !important;
+  transform: translate(10px, 12px) !important;
+  background: white !important;
+  padding: 0 5px !important;
+}
+input[type="file"] {
+  padding-right: 0;
+}
+input[type="file"]::-webkit-file-upload-button {
+  float: right;
+  margin-right: 0;
+  z-index: 5;
+}

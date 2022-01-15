@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PrimaryButton } from "../common/Common/Common.styles";
 import { Alert } from "react-bootstrap";
 import Joi from "joi";
@@ -9,13 +9,24 @@ import SignUpForm from "./SignUpForm";
 import Request from "../../requests/request";
 import port from "../../port";
 import { Form as Form2 } from "react-bootstrap";
+import FileBase64 from "react-file-base64";
 const ProfileForm = (props) => {
+  useEffect(() => {
+    document.querySelectorAll("input[type=file]").forEach((item) => {
+      item.setAttribute("accept", "image/x-png,image/jpeg");
+      item.classList.add("form-control");
+    });
+  }, []);
+
   const [error, setError] = useState(null);
   const [user, setUser] = useState({
+    name: "",
     email: "",
-    password: "",
+    number: "",
+    branch: "",
+    semester: "",
+    profileImg: "/images/common/user.svg",
   });
-  const [isAdmin, setIsAdmin] = useState("user");
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUser((prevValue) => ({ ...prevValue, [name]: value }));
@@ -23,34 +34,14 @@ const ProfileForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { error } = validateUser(user);
-    if (error) setError(error.details[0].message);
-    else setError(null);
-    let admin = isAdmin === "user" ? false : isAdmin === "admin" ? true : null;
-    let postFormData = {
-      ...user,
-      isAdmin: admin,
-    };
-    Request.post("http://localhost:" + port + "/api/user/sinuser", postFormData)
-      .then((res) => {
-        if (!res.token) setError(res.message);
-        else {
-          localStorage.setItem("token", res.token);
-          window.location.href = "/dashboard";
-        }
-      })
-      .catch((err) => console.log(err));
+    console.log(user);
+    props.handleModal(false);
   };
-  const validateUser = (user) => {
-    const schema = Joi.object({
-      email: Joi.string()
-        .required()
-        .email({ tlds: { allow: false } })
-        .only(),
-      password: Joi.string().min(8).max(32),
-    });
-    return schema.validate(user);
+  const handleFileChange = (e) => {
+    let file = e.base64;
+    setUser((prev) => ({ ...prev, profileImg: file }));
   };
+
   return (
     <Form.FormContainer action="" method="" onSubmit={handleSubmit}>
       <Form.FormHeading style={{ fontSize: "25px" }}>
@@ -59,58 +50,75 @@ const ProfileForm = (props) => {
 
       <div className="d-flex" style={{ columnGap: "20px" }}>
         <img
-          src="images/common/user.svg"
+          src={user.profileImg}
           width="100px"
+          alt="invalid image"
           height="100px"
           style={{ marginRight: "20px" }}
         />
         <div>
-          <Form2.Control
-            type="email"
-            name="email"
-            style={{ width: "300px" }}
-            value={user.email}
-            placeholder="Email"
-            handleChange={handleChange}
-          />
-          <Form2.Control
-            style={{ width: "300px" }}
-            type="password"
-            placeholder="Password"
-            value={user.password}
-            name="password"
-            handleChange={handleChange}
-          />
-          <Form2.Control
-            style={{ width: "300px" }}
-            icon="/images/common/eye.svg"
-            iconHide="/images/common/eye-slash.svg"
-            type="password"
-            placeholder="Password"
-            value={user.password}
-            name="password"
-            handleChange={handleChange}
-          />
-          <Form2.Control
-            style={{ width: "300px" }}
-            icon="/images/common/eye.svg"
-            iconHide="/images/common/eye-slash.svg"
-            type="password"
-            placeholder="Password"
-            value={user.password}
-            name="password"
-            handleChange={handleChange}
-          />
-          <Form2.Control
-            style={{ width: "300px" }}
-            icon="/images/common/eye.svg"
-            iconHide="/images/common/eye-slash.svg"
-            type="password"
-            placeholder="Password"
-            value={user.password}
-            name="password"
-            handleChange={handleChange}
-          />
+          <Form2.Group className="">
+            <Form2.Label className="labelOnTop">Enter your name</Form2.Label>
+            <Form2.Control
+              type="text"
+              name="name"
+              style={{ width: "350px" }}
+              value={user.name}
+              onChange={handleChange}
+            />
+          </Form2.Group>
+          <Form2.Group className="mt-3" style={{ width: "350px" }}>
+            <Form2.Label className="labelOnTop">
+              {"Profile Picture"}
+            </Form2.Label>
+            <FileBase64
+              multiple={false}
+              name="images"
+              onDone={handleFileChange}
+            />
+          </Form2.Group>
+          <Form2.Group className="">
+            <Form2.Label className="labelOnTop">
+              Enter your mobile no.
+            </Form2.Label>
+            <Form2.Control
+              style={{ width: "350px" }}
+              type="text"
+              value={user.password}
+              name="number"
+              onChange={handleChange}
+            />
+          </Form2.Group>
+          <Form2.Group className="">
+            <Form2.Label className="labelOnTop">Email</Form2.Label>
+            <Form2.Control
+              style={{ width: "350px" }}
+              type="email"
+              value={user.email}
+              name="email"
+              onChange={handleChange}
+            />
+          </Form2.Group>
+          <Form2.Group className="">
+            <Form2.Label className="labelOnTop">Branch</Form2.Label>
+            <Form2.Control
+              style={{ width: "350px" }}
+              type="text"
+              value={user.branch}
+              name="branch"
+              onChange={handleChange}
+            />
+          </Form2.Group>
+          <Form2.Group className="">
+            <Form2.Label className="labelOnTop">Semester</Form2.Label>
+            <Form2.Control
+              style={{ width: "350px" }}
+              type="number"
+              value={user.semester}
+              name="semester"
+              onChange={handleChange}
+            />
+          </Form2.Group>
         </div>
       </div>
 
@@ -120,7 +128,9 @@ const ProfileForm = (props) => {
         </Alert>
       )}
 
-      <PrimaryButton type="submit">Sign In</PrimaryButton>
+      <PrimaryButton type="submit" className="mt-4">
+        Save Changes
+      </PrimaryButton>
     </Form.FormContainer>
   );
 };
