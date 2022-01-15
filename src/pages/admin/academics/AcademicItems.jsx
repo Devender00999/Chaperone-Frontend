@@ -60,6 +60,7 @@ const AcademicItems = () => {
           data={academicBlogs}
           onEdit={handleEdit}
           onDelete={handleDelete}
+          page="Academics"
         />
       </MainContent>
     </>

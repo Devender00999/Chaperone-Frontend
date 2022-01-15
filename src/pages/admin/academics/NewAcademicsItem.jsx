@@ -111,7 +111,6 @@ const NewAcademicsItem = () => {
       dispatch(Actions.addAdmisArticle(newAcademicData));
 
       const res = await Request.post("http://localhost:" + port + "/api/academics/", newAcademicData)
-      console.log(res);
       toast.success("Article created successfully!!")
     } else {
       setFormData((prev) => ({ ...prev, content: content }));

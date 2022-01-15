@@ -46,7 +46,6 @@ const HomeScreen = (props) => {
    };
 
    const allAdArticles = useSelector((state) => state.allAdArticles);
-   console.log(allAdArticles);
 
    useEffect(() => {
       async function AdArticleSetup() {

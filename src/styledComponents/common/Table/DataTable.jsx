@@ -10,12 +10,12 @@ import {
 } from "./DataTable.styles";
 
 const DataTable = (props) => {
-  const { data, onEdit, onDelete } = props;
+  const { data, onEdit, onDelete, page } = props;
   return data.length > 0 ? (
     <TableContainer>
       <TableRow style={{ background: "#ff6600", color: "#FFF" }}>
         <TableColumnHeading style={{ flex: 4 }}>Title</TableColumnHeading>
-        <TableColumnHeading style={{ flex: 3 }}>Author</TableColumnHeading>
+        <TableColumnHeading style={{ flex: 3 }}>{page === "Academics" ? "Subject Name" : "Author"}</TableColumnHeading>
         <TableColumnHeading
           style={{ flex: 1, display: props.likes === false ? "none" : "block" }}
         >
@@ -27,8 +27,8 @@ const DataTable = (props) => {
       {data.map((blog, id) => {
         return (
           <TableRow key={id}>
-            <TableColumn style={{ flex: 4 }}>{blog.topname} </TableColumn>
-            <TableColumn style={{ flex: 3 }}>{blog.author}</TableColumn>
+            <TableColumn style={{ flex: 4 }}>{blog.topname ? blog.topname : blog.heading} </TableColumn>
+            <TableColumn style={{ flex: 3 }}>{page === "Academics" ? blog.subName : blog.author}</TableColumn>
             <TableColumn
               style={{
                 flex: 1,
