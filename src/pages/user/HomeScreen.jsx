@@ -17,79 +17,78 @@ import Actions from "../../redux/actions/Action";
 import port from "../../port";
 
 const HomeScreen = (props) => {
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-   const tags = [
-      { value: "All", selected: true },
-      { value: "Interest", selected: false },
-      { value: "Interest", selected: false },
-      { value: "Interest", selected: false },
-      { value: "Interest", selected: false },
-   ];
+  const tags = [
+    { value: "All", selected: true },
+    { value: "Interest", selected: false },
+    { value: "Interest", selected: false },
+    { value: "Interest", selected: false },
+    { value: "Interest", selected: false },
+  ];
 
-   const easyBuyData = [
-      {
-         name: "Engg. Drawing Board",
-         about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis suscipit felis ac elit lacinia semper. Vestibulum vulputate lorem elementum vulputate consectetur.",
-         images: ["/images/easy-buy/img.svg"],
-         price: "250",
-      },
-   ];
-   const rightSideBarData = {
-      heading: "Your Recents",
-      content: [
-         "Choice filling Round 1 for B Tech...",
-         "Final Datesheet for Reappear exam",
-         "Data Structures Notes",
-         "Roadmap to UX Designing",
-      ],
-   };
+  const easyBuyData = [
+    {
+      name: "Engg. Drawing Board",
+      about:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis suscipit felis ac elit lacinia semper. Vestibulum vulputate lorem elementum vulputate consectetur.",
+      images: ["/images/easy-buy/img.svg"],
+      price: "250",
+    },
+  ];
+  const rightSideBarData = {
+    heading: "Your Recents",
+    content: [
+      "Choice filling Round 1 for B Tech...",
+      "Final Datesheet for Reappear exam",
+      "Data Structures Notes",
+      "Roadmap to UX Designing",
+    ],
+  };
 
-   const allAdArticles = useSelector((state) => state.allAdArticles);
+  const allAdArticles = useSelector((state) => state.allAdArticles);
 
-   useEffect(() => {
-      async function AdArticleSetup() {
-         const res = await Request.get(
-            "http://localhost:" + port + "/api/admissions/"
-         );
-         console.log(res);
-         dispatch(Actions.setAllAdArticles(res));
-      }
-      AdArticleSetup();
-   }, [dispatch]);
+  useEffect(() => {
+    async function AdArticleSetup() {
+      const res = await Request.get(
+        "http://localhost:" + port + "/api/admissions/"
+      );
+      console.log(res);
+      dispatch(Actions.setAllAdArticles(res));
+    }
+    AdArticleSetup();
+  }, [dispatch]);
 
-   return (
-      <>
-         <MainContent direction="column" flex={3}>
-            <Tags tags={tags} />
-            {Object.keys(allAdArticles).length === 0
-               ? "Loading..."
-               : allAdArticles.map((blog, id) => (
-                    <BlogsCard key={id} {...blog} />
-                 ))}
-            {careerData.map((data, id) => (
-               <CareerCard key={id} data={data} />
-            ))}
-            <ProjectCard
-               image="/images/projects/Image.svg"
-               heading="OurApp - a social media web app in NodeJS"
-               desc="Build this full stack application where you will get to learn about building modern, fast and scalable server-side web applications with NodeJS, databases like MongoDB and more."
-               link="/"
-               githubLink="/"
-            />
-            {pgData.map((pg, id) => (
-               <PGCard key={id} data={pg} />
-            ))}
+  return (
+    <>
+      <MainContent direction="column" flex={3}>
+        {/* <Tags tags={tags} /> */}
+        {Object.keys(allAdArticles).length === 0
+          ? "Loading..."
+          : allAdArticles.map((blog, id) => <BlogsCard key={id} {...blog} />)}
+        {careerData.map((data, id) => (
+          <CareerCard key={id} data={data} />
+        ))}
+        <ProjectCard
+          image="/images/projects/Image.svg"
+          heading="OurApp - a social media web app in NodeJS"
+          desc="Build this full stack application where you will get to learn about building modern, fast and scalable server-side web applications with NodeJS, databases like MongoDB and more."
+          link="/"
+          githubLink="/"
+        />
+        {pgData.map((pg, id) => (
+          <PGCard key={id} data={pg} />
+        ))}
 
-            {easyBuyData.map((item, id) => (
-               <EasyBuyCard key={id} data={item} />
-            ))}
+        {easyBuyData.map((item, id) => (
+          <EasyBuyCard key={id} data={item} />
+        ))}
 
-            {/* <EasyBuyCard /> */}
-         </MainContent>
-         <RightSideBar {...rightSideBarData} />
-      </>
-   );
+        {/* <EasyBuyCard /> */}
+      </MainContent>
+      <RightSideBar {...rightSideBarData} />
+    </>
+  );
 };
 
 export default HomeScreen;
