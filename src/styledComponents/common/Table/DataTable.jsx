@@ -89,7 +89,7 @@ const DataTable = (props) => {
                   >
                      <EditRoundedIcon
                         className="pointer-cursor"
-                        onClick={() => onEdit(blog._id, props._id)}
+                        onClick={() => onEdit(blog._id, props.id)}
                      />
                   </TableColumn>
                   <TableColumn
@@ -102,7 +102,7 @@ const DataTable = (props) => {
                   >
                      <DeleteForeverRoundedIcon
                         className="pointer-cursor"
-                        onClick={() => onDelete(blog._id, props._id)}
+                        onClick={() => onDelete(blog._id, props.id)}
                      />
                   </TableColumn>
                </TableRow>
