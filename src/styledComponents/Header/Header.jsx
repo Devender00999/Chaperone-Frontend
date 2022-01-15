@@ -44,7 +44,7 @@ const Header = (props) => {
           <StyledButtons onClick={(e) => handleComponentChange(e, SignUpForm)}>
             Create a new account
           </StyledButtons>
-          <StyledButtons
+          {/* <StyledButtons
           // onClick={() => {
           //   localStorage.setItem(
           //     "user",
@@ -57,7 +57,7 @@ const Header = (props) => {
           // }}
           >
             Sign in with Google
-          </StyledButtons>
+          </StyledButtons> */}
           <StyledButtons onClick={(e) => handleComponentChange(e, SignInForm)}>
             Sign in with Email
           </StyledButtons>
