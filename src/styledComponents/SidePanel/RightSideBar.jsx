@@ -9,7 +9,7 @@ const RightSideBar = (props) => {
         <SideBarHeading>{heading}</SideBarHeading>
         <SideBarList>
           {content.map((item, id) => (
-            <SideBarListItem key={id} to="/doubt-desk/ask-question">
+            <SideBarListItem key={id} to="/dashboard/doubt-desk/ask-question">
               {item.substring(0, 27) + (+item.length > 27 ? "..." : "")}
             </SideBarListItem>
           ))}

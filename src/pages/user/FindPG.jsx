@@ -13,6 +13,7 @@ const FindPG = (props) => {
   const forWhom = ["Girls", "Boys"];
   const prices = ["15000", 18000, 19000, 25000];
   const priceRange = prices.map((price) => "< " + price);
+  console.log(pgData);
   return (
     <>
       <MainContent direction="column" flex={3}>
