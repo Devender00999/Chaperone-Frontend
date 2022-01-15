@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import DataTable from "../../../styledComponents/common/Table/DataTable";
@@ -22,17 +22,15 @@ const AdmissionBlogs = () => {
   const navigator = useNavigate();
   const handleEdit = (id) => {
     navigator(`${id}`);
-    console.log(id);
   };
 
-  const handleDelete = (id) => {
-    const blogs = admissionBlogs.filter((blog) => blog.id !== id);
-    // setAdmissionBlogs(blogs);
+  const handleDelete = async(id) => {
+    const res = await Request.del("http://localhost:" + port + "/api/admissions/" + id);
+    dispatch(Actions.deleteAdmisArticle(id));
   };
 
   useEffect(async () => {
     const res = await Request.get("http://localhost:" + port + "/api/admissions/");
-    console.log(res);
     dispatch(Actions.setAllAdArticles(res));
   }, [dispatch])
 

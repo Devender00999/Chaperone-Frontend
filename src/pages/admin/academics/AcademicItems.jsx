@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import DataTable from "../../../styledComponents/common/Table/DataTable";
-import { admissionData } from "../../../data/admissionData";
+
 import {
   PageHeading,
   HeadingContainer,
@@ -10,19 +10,30 @@ import {
   MainContent,
   PrimaryButton,
 } from "../../../styledComponents/common/Common/Common.styles";
+import Request from "../../../requests/request";
+import port from "../../../port";
+import Actions from "../../../redux/actions/Action"
+import { useDispatch, useSelector } from "react-redux";
 
 const AcademicItems = () => {
-  const [admissionBlogs, setAdmissionBlogs] = useState(admissionData);
+  const academicBlogs = useSelector((state) => state.allAcaArticles)
 
+  const dispatch = useDispatch();
   const navigator = useNavigate();
   const handleEdit = (id) => {
     navigator(`${id}`);
   };
 
-  const handleDelete = (id) => {
-    const blogs = admissionBlogs.filter((blog) => blog.id !== id);
-    setAdmissionBlogs(blogs);
+  const handleDelete = async(id) => {
+    const res = await Request.del("http://localhost:" + port + "/api/academics/" + id);
+    dispatch(Actions.deleteAcadArticle(id));
   };
+
+  useEffect(async () => {
+    const res = await Request.get("http://localhost:" + port + "/api/academics/");
+    console.log(res);
+    dispatch(Actions.setallAcadArticles(res));
+  }, [dispatch])
 
   return (
     <>
@@ -46,7 +57,7 @@ const AcademicItems = () => {
           </HeadingContent>
         </HeadingContainer>
         <DataTable
-          data={admissionBlogs}
+          data={academicBlogs}
           onEdit={handleEdit}
           onDelete={handleDelete}
         />

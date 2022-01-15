@@ -27,7 +27,7 @@ const DataTable = (props) => {
       {data.map((blog, id) => {
         return (
           <TableRow key={id}>
-            <TableColumn style={{ flex: 4 }}>{blog.heading} </TableColumn>
+            <TableColumn style={{ flex: 4 }}>{blog.topname} </TableColumn>
             <TableColumn style={{ flex: 3 }}>{blog.author}</TableColumn>
             <TableColumn
               style={{

@@ -102,10 +102,14 @@ const NewAdmissionBlog = () => {
 			const nAdmissionData = [...admissionData];
 			nAdmissionData[index] = { ...formData, content: content };
 
-			const res = await Request.put("http://localhost:" + port + "/api/admissions/:" + formData._id, nAdmissionData[index])
-			console.log(res);
-			dispatch(Actions.editAdmisArticle(index, nAdmissionData[index]));
-			toast.success("Article modified successfully!!")
+			const res = await Request.put("http://localhost:" + port + "/api/admissions/" + formData._id, nAdmissionData[index])
+			if(res.message === "Article Modify Successfully"){
+				dispatch(Actions.editAdmisArticle(index, nAdmissionData[index]));
+				toast.success("Article modified successfully!!")
+			}
+			else{
+				toast.error(res.message);
+			}
 		}
 		navigate("/admin/admissions");
 	};

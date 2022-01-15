@@ -18,6 +18,11 @@ export const editAdmisArticle = (id, article) => ({
    }
 });
 
+export const deleteAdmisArticle = (id) => ({
+   type: ActionTypes.DELETE_ADMISSION_ARTICLE,
+   payload: { id: id }
+});
+
 // export const likeAdArticle = (id) => ({
 //    type: ActionTypes.LIKE_ADMISSION_ARTICLE,
 //    payload: { id },
