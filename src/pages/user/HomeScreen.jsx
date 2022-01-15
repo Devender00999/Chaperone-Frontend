@@ -74,7 +74,7 @@ const HomeScreen = (props) => {
                image="/images/projects/Image.svg"
                heading="OurApp - a social media web app in NodeJS"
                desc="Build this full stack application where you will get to learn about building modern, fast and scalable server-side web applications with NodeJS, databases like MongoDB and more."
-               liveLink="/"
+               link="/"
                githubLink="/"
             />
             {pgData.map((pg, id) => (

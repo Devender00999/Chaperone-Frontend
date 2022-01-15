@@ -11,8 +11,22 @@ import {
   PrimaryButton,
 } from "../../../styledComponents/common/Common/Common.styles";
 import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
+import { toast } from "react-toastify";
+import Request from "../../../requests/request";
+import port from "../../../port.js";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import Actions from "../../../redux/actions/Action";
+import { useNavigate, useParams } from "react-router-dom";
+import getUserDetails from "../../../requests/decode/decodeToken";
 
 const NewCareer = () => {
+  const user = getUserDetails();
+  if (user === null) window.location.href = "/";
+  const params = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const academicData = useSelector((state) => state.careerArticles);
   useEffect(() => {
     document.querySelectorAll("input[type=file]").forEach((item) => {
       item.setAttribute("accept", "image/x-png,image/jpeg");
@@ -21,54 +35,119 @@ const NewCareer = () => {
   }, []);
 
   const [formData, setFormData] = useState({
-    companyName: "",
     position: "",
-    applyBy: "",
-    stipend: "0",
+    companyName: "",
+    workLocation: "",
+    lastApplyDate: "",
+    jobType: "Internship",
+    logo: "",
+    stipend: "",
     ctc: "",
-    companyLogo: "",
-    noOfOpening: "",
-    type: "Internship",
-    companyAddress: "",
-    startDate: "",
-    duration: "",
-    description: ``,
-    responsibilities: "",
-    requirements: "",
-    eligibilityBatch: "",
-    skillsRequired: "",
+    jobStartDate: "",
+    aboutCompany: ``,
+    keyResponsibility: "",
+    requirement: "",
+    eligibility: "",
     recruitmentProcess: "",
+    skillRequired: "",
+    numOfOpening: "",
   });
+  const { id } = params;
 
   const handleChange = (e) => {
     let { type, value, name } = e.target;
 
     if (type === "file") {
       value = URL.createObjectURL(e.target.files[0]);
-      console.log(e);
     }
+    console.log(typeof e.target.value);
+
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+  useEffect(() => {
+    let article;
+    if (id) {
+      article = academicData.find((blog) => blog._id === id);
+      if (article) {
+        setFormData(article);
+      } else if (id === "new") {
+        let initialState = {
+          position: "",
+          companyName: "",
+          workLocation: "",
+          lastApplyDate: "",
+          jobType: "Internship",
+          logo: "",
+          stipend: "",
+          ctc: "",
+          jobStartDate: "",
+          aboutCompany: ``,
+          keyResponsibility: "",
+          requirement: "",
+          eligibility: "",
+          recruitmentProcess: "",
+          skillRequired: "",
+          numOfOpening: "",
+        };
+
+        setFormData(initialState);
+      } else {
+        navigate("/not-found");
+      }
+    }
+  }, [params, navigate, formData.content, academicData, id]);
+
   const handleFileChange = (e) => {
     const file = e.base64;
-    setFormData((prev) => ({ ...prev, image: file }));
+    setFormData((prev) => ({ ...prev, logo: file }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.responsibilities.includes("\n")) {
-      formData.responsibilities = formData.responsibilities.split("\n");
+    if (formData.keyResponsibility.includes("\n")) {
+      formData.keyResponsibility = formData.keyResponsibility.split("\n");
     }
-    if (formData.requirements.includes("\n")) {
-      formData.requirements = formData.requirements.split("\n");
+    if (formData.requirement.includes("\n")) {
+      formData.requirement = formData.requirement.split("\n");
     }
-    if (formData.skillsRequired.includes("\n")) {
-      formData.skillsRequired = formData.skillsRequired.split("\n");
+    if (formData.skillRequired.includes("\n")) {
+      formData.skillRequired = formData.skillRequired.split("\n");
     }
     if (formData.recruitmentProcess.includes("\n")) {
       formData.recruitmentProcess = formData.recruitmentProcess.split("\n");
     }
-    console.log(formData);
+    if (id === "new") {
+      const newAcademicData = { ...formData, author: user.name };
+      console.log(newAcademicData);
+
+      const res = await Request.post(
+        "http://localhost:" + port + "/api/career/",
+        newAcademicData
+      );
+      if (res.message === "Job Created Successfully") {
+        dispatch(Actions.addCareerArticle(newAcademicData));
+        toast.success(res.message);
+      } else {
+        toast.error(res.message);
+      }
+    } else {
+      const index = academicData.findIndex((blog) => blog._id === formData._id);
+      const nAcademicData = [...academicData];
+      nAcademicData[index] = { ...formData };
+
+      const res = await Request.put(
+        "http://localhost:" + port + "/api/career/" + formData._id,
+        nAcademicData[index]
+      );
+      if (res.message === "Job Modify Successfully") {
+        dispatch(Actions.editCareerArticle(index, nAcademicData[index]));
+        toast.success(res.message);
+      } else {
+        toast.error(res.message);
+      }
+    }
+    navigate("/admin/career-aware");
   };
 
   return (
@@ -127,7 +206,7 @@ const NewCareer = () => {
                 <Form.Label>Apply By</Form.Label>
                 <br />
                 <Form.Control
-                  name="applyBy"
+                  name="lastApplyDate"
                   type="date"
                   placeholder="Enter last date"
                   onChange={handleChange}
@@ -164,7 +243,7 @@ const NewCareer = () => {
                 <FileBase64
                   className="form-control"
                   type="file"
-                  name="companyLogo"
+                  name="logo"
                   accept="image/x-png,image/gif,image/jpeg"
                   onDone={handleFileChange}
                 />
@@ -177,9 +256,9 @@ const NewCareer = () => {
                   <br />
 
                   <Form.Control
-                    name="noOfOpening"
+                    name="numOfOpening"
                     type="number"
-                    value={formData.noOfOpening}
+                    value={formData.numOfOpening}
                     placeholder="Enter No. of openings"
                     onChange={handleChange}
                     required
@@ -190,7 +269,7 @@ const NewCareer = () => {
                   <br />
 
                   <Form.Control
-                    name="startDate"
+                    name="jobStartDate"
                     type="date"
                     placeholder="Enter Heading"
                     onChange={handleChange}
@@ -201,7 +280,7 @@ const NewCareer = () => {
                   <Form.Label>Oppotunity</Form.Label>
                   <br />
                   <Form.Select
-                    name="type"
+                    name="jobType"
                     type="text"
                     placeholder="Enter Heading"
                     onChange={handleChange}
@@ -221,9 +300,9 @@ const NewCareer = () => {
 
                 <Form.Control
                   className="mb-2 d-flex pe-0"
-                  name="companyAddress"
+                  name="workLocation"
                   type="text"
-                  value={formData.companyAddress}
+                  value={formData.workLocation}
                   placeholder="Enter Company's address"
                   onChange={handleChange}
                 ></Form.Control>
@@ -236,9 +315,9 @@ const NewCareer = () => {
                 <br />
                 <Form.Control
                   as={"textarea"}
-                  name="description"
+                  name="aboutCompany"
                   type="text"
-                  value={formData.description}
+                  value={formData.aboutCompany}
                   placeholder="About the company"
                   onChange={handleChange}
                 ></Form.Control>
@@ -251,9 +330,9 @@ const NewCareer = () => {
                 <Form.Control
                   as={"textarea"}
                   rows={6}
-                  name="responsibilities"
+                  name="keyResponsibility"
                   type="text"
-                  value={formData.responsibilities}
+                  value={formData.keyResponsibility}
                   placeholder="Responsibilities of candidate"
                   onChange={handleChange}
                 ></Form.Control>
@@ -266,9 +345,9 @@ const NewCareer = () => {
                 <Form.Control
                   as={"textarea"}
                   rows={6}
-                  name="requirements"
+                  name="requirement"
                   type="text"
-                  value={formData.requirements}
+                  value={formData.requirement}
                   placeholder="Requirements"
                   onChange={handleChange}
                 ></Form.Control>
@@ -281,9 +360,9 @@ const NewCareer = () => {
                 <Form.Control
                   as={"textarea"}
                   rows={4}
-                  name="eligibilityBatch"
+                  name="eligibility"
                   type="text"
-                  value={formData.eligibilityBatch}
+                  value={formData.eligibility}
                   placeholder="Eligibility"
                   onChange={handleChange}
                 ></Form.Control>
@@ -296,9 +375,9 @@ const NewCareer = () => {
                 <Form.Control
                   as={"textarea"}
                   rows={4}
-                  name="skillsRequired"
+                  name="skillRequired"
                   type="text"
-                  value={formData.skillsRequired}
+                  value={formData.skillRequired}
                   placeholder="Enter skills required for the job"
                   onChange={handleChange}
                 ></Form.Control>

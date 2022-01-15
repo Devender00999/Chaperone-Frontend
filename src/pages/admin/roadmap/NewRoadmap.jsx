@@ -51,19 +51,18 @@ const NewAdmissionBlog = () => {
   //Setting editor state if blog is being edited
   useEffect(() => {
     if (id && roadmapId) {
-      const roadmap = roadmapsData.find((roadmap) => roadmap.id === roadmapId);
+      const roadmap = roadmapsData.find((roadmap) => roadmap._id === roadmapId);
 
       if (roadmap) {
-        const article = roadmap.articles.find(
-          (article) => article.id === parseInt(id)
-        );
+        const article = roadmap.articles.find((article) => article._id === id);
 
         if (article) {
           setFormData(article);
+          console.log(formData);
           const newEditor = convertHTMLToDraft(formData.content);
           setEditorState(newEditor);
         } else {
-          navigate("/not-found");
+          // navigate("/not-found");
         }
       } else if (roadmapId === "new") {
         let initialState = {
@@ -75,10 +74,10 @@ const NewAdmissionBlog = () => {
 
         setFormData(initialState);
       } else {
-        navigate("/not-found");
+        // navigate("/not-found");
       }
     }
-  }, [params, navigate, formData.content, roadmapsData, roadmapId, id]);
+  }, [params, navigate, formData, roadmapsData, roadmapId, id]);
 
   // Handle Submit
   const handleSubmit = (e) => {
@@ -91,7 +90,7 @@ const NewAdmissionBlog = () => {
       );
 
       setFormData((prev) => ({ ...prev, content: content }));
-      const index = roadmapsData.findIndex((blog) => blog.id === formData.id);
+      const index = roadmapsData.findIndex((blog) => blog._id === formData._id);
       const newRoadmapsData = [...roadmapsData];
       newRoadmapsData[index] = { ...formData, content: content };
       setAdmissionData(newRoadmapsData);
@@ -141,18 +140,38 @@ const NewAdmissionBlog = () => {
                   placeholder="Enter Heading"
                   onChange={handleChange}
                 >
-                  {roadmapsData.map((cat) => (
-                    <option
-                      key={cat.id}
-                      selected={cat.id === roadmapId}
-                      value={cat.id}
-                    >
-                      {cat.title}
-                    </option>
-                  ))}
+                  {roadmapsData.map((cat) => {
+                    return (
+                      <option
+                        key={cat._id}
+                        selected={cat._id === roadmapId}
+                        value={cat._id}
+                      >
+                        {cat.title}
+                      </option>
+                    );
+                  })}
                 </Form.Select>
               </Form.Group>
             </Col>
+
+            <Col md style={{ paddingRight: 0 }}>
+              <Form.Group className="mb-2">
+                <Form.Label>Description</Form.Label>
+                <br />
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  name="description"
+                  style={{ resize: "none" }}
+                  value={formData.desc}
+                  type="text"
+                  placeholder="what did you created?"
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            </Col>
+
             <Col md style={{ paddingRight: 0 }}>
               <Form.Group className="mb-2">
                 <Form.Label>Heading</Form.Label>
