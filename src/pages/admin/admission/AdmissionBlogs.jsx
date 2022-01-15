@@ -59,6 +59,7 @@ const AdmissionBlogs = () => {
           data={admissionBlogs}
           onEdit={handleEdit}
           onDelete={handleDelete}
+          page="Admission"
         />
       </MainContent>
     </>

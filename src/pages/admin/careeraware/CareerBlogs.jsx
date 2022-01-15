@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import DataTable from "../../../styledComponents/common/Table/DataTable";
@@ -10,20 +10,30 @@ import {
   MainContent,
   PrimaryButton,
 } from "../../../styledComponents/common/Common/Common.styles";
+import Request from "../../../requests/request";
+import port from "../../../port";
+import Actions from "../../../redux/actions/Action"
+import { useDispatch, useSelector } from "react-redux";
 
 const CareerBlogs = () => {
-  const [admissionBlogs, setAdmissionBlogs] = useState(admissionData);
+  const careerBlogs = useSelector((state) => state.careerArticles)
 
+  const dispatch = useDispatch();
   const navigator = useNavigate();
   const handleEdit = (id) => {
     navigator(`${id}`);
   };
 
-  const handleDelete = (id) => {
-    const blogs = admissionBlogs.filter((blog) => blog.id !== id);
-    setAdmissionBlogs(blogs);
+  const handleDelete = async(id) => {
+    const res = await Request.del("http://localhost:" + port + "/api/career/" + id);
+    dispatch(Actions.deleteCareerArticle(id));
   };
 
+  useEffect(async () => {
+    const res = await Request.get("http://localhost:" + port + "/api/career/");
+    console.log(res);
+    dispatch(Actions.setAllCareerArticles(res));
+  }, [dispatch])
   return (
     <>
       <MainContent direction={"column"} flex={"auto"}>
@@ -46,9 +56,10 @@ const CareerBlogs = () => {
           </HeadingContent>
         </HeadingContainer>
         <DataTable
-          data={admissionBlogs}
+          data={careerBlogs}
           onEdit={handleEdit}
           onDelete={handleDelete}
+          page="Career"
         />
       </MainContent>
     </>

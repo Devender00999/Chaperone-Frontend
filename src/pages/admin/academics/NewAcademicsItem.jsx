@@ -43,7 +43,6 @@ const NewAcademicsItem = () => {
     notefile: "",
     subName: "Cloud Computing",
   });
-  const [editorState, setEditorState] = useState();
   const { id } = params;
 
   const handlechange = (e) => {
@@ -104,24 +103,27 @@ const NewAcademicsItem = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let content;
     if (id === "new") {
       const newAcademicData = { ...formData, author: user.name };
       console.log(newAcademicData);
-      dispatch(Actions.addAdmisArticle(newAcademicData));
-
+      
       const res = await Request.post("http://localhost:" + port + "/api/academics/", newAcademicData)
-      toast.success("Article created successfully!!")
+      if (res.message === "Article Created Successfully") {
+        dispatch(Actions.addAcadArticle(newAcademicData));
+        toast.success(res.message)
+      }
+      else {
+        toast.error(res.message);
+      }
     } else {
-      setFormData((prev) => ({ ...prev, content: content }));
       const index = academicData.findIndex((blog) => blog._id === formData._id);
       const nAcademicData = [...academicData];
-      nAcademicData[index] = { ...formData, content: content };
+      nAcademicData[index] = { ...formData};
 
       const res = await Request.put("http://localhost:" + port + "/api/academics/" + formData._id, nAcademicData[index])
       if (res.message === "Article Modify Successfully") {
-        dispatch(Actions.editAdmisArticle(index, nAcademicData[index]));
-        toast.success("Article modified successfully!!")
+        dispatch(Actions.editAcadArticle(index, nAcademicData[index]));
+        toast.success(res.message)
       }
       else {
         toast.error(res.message);

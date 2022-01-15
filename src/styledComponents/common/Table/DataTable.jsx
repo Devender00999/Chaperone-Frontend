@@ -9,15 +9,27 @@ import {
    TableContainer,
 } from "./DataTable.styles";
 
+const header = (page) => {
+   switch (page) {
+      case "Admission":
+         return "Author";
+      case "Academics":
+         return "Subject Name";
+      case "Career":
+         return "Company Name";
+      default:
+         return "Author";
+   }
+};
+
 const DataTable = (props) => {
-   console.log("props", props.id);
    const { data, onEdit, onDelete, page } = props;
    return data.length > 0 ? (
       <TableContainer>
          <TableRow style={{ background: "#ff6600", color: "#FFF" }}>
             <TableColumnHeading style={{ flex: 4 }}>Title</TableColumnHeading>
             <TableColumnHeading style={{ flex: 3 }}>
-               {page === "Academics" ? "Subject Name" : "Author"}
+               {header(page)}
             </TableColumnHeading>
             <TableColumnHeading
                style={{
@@ -31,21 +43,42 @@ const DataTable = (props) => {
             <TableColumnHeading style={{ flex: 1 }}>Delete</TableColumnHeading>
          </TableRow>
          {data.map((blog, id) => {
+            const chil1 = (page) => {
+               switch (page) {
+                  case "Admission":
+                     return blog.heading;
+                  case "Academics":
+                     return blog.topname;
+                  case "Career":
+                     return blog.position;
+
+                  default:
+                     return blog.heading;
+               }
+            };
+            const chil2 = (page) => {
+               switch (page) {
+                  case "Admission":
+                     return blog.author;
+                  case "Academics":
+                     return blog.subName;
+                  case "Career":
+                     return blog.companyName;
+                  default:
+                     return blog.author;
+               }
+            };
             return (
                <TableRow key={id}>
-                  <TableColumn style={{ flex: 4 }}>
-                     {blog.topname ? blog.topname : blog.heading}{" "}
-                  </TableColumn>
-                  <TableColumn style={{ flex: 3 }}>
-                     {page === "Academics" ? blog.subName : blog.author}
-                  </TableColumn>
+                  <TableColumn style={{ flex: 4 }}>{chil1(page)} </TableColumn>
+                  <TableColumn style={{ flex: 3 }}>{chil2(page)}</TableColumn>
                   <TableColumn
                      style={{
                         flex: 1,
                         display: props.likes === false ? "none" : "block",
                      }}
                   >
-                     {blog.likes}
+                     {blog.likes ? blog.likes : 0}
                   </TableColumn>
                   <TableColumn
                      style={{
@@ -56,7 +89,7 @@ const DataTable = (props) => {
                   >
                      <EditRoundedIcon
                         className="pointer-cursor"
-                        onClick={() => onEdit(blog._id, props.id)}
+                        onClick={() => onEdit(blog._id, props._id)}
                      />
                   </TableColumn>
                   <TableColumn
@@ -69,7 +102,7 @@ const DataTable = (props) => {
                   >
                      <DeleteForeverRoundedIcon
                         className="pointer-cursor"
-                        onClick={() => onDelete(blog._id, props.id)}
+                        onClick={() => onDelete(blog._id, props._id)}
                      />
                   </TableColumn>
                </TableRow>
