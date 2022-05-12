@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,13 +12,13 @@ import {
   MainContent,
   PrimaryButton,
 } from "../../../styledComponents/common/Common/Common.styles";
-import Request from "../../../requests/request";
+import http from "../../../requests/request";
 import port from "../../../port";
-import Actions from "../../../redux/actions/Action"
+import Actions from "../../../redux/actions/Action";
 import { useDispatch, useSelector } from "react-redux";
 
 const AcademicItems = () => {
-  const academicBlogs = useSelector((state) => state.allAcaArticles)
+  const academicBlogs = useSelector((state) => state.allAcaArticles);
 
   const dispatch = useDispatch();
   const navigator = useNavigate();
@@ -24,16 +26,18 @@ const AcademicItems = () => {
     navigator(`${id}`);
   };
 
-  const handleDelete = async(id) => {
-    const res = await Request.del("http://localhost:" + port + "/api/academics/" + id);
+  const handleDelete = async (id) => {
+    const res = await http.del(
+      "http://localhost:" + port + "/api/academics/" + id
+    );
     dispatch(Actions.deleteAcadArticle(id));
   };
 
   useEffect(async () => {
-    const res = await Request.get("http://localhost:" + port + "/api/academics/");
+    const res = await http.get("http://localhost:" + port + "/api/academics/");
     console.log(res);
     dispatch(Actions.setallAcadArticles(res));
-  }, [dispatch])
+  }, [dispatch]);
 
   return (
     <>

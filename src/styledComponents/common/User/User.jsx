@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import { UserContainer, UserImage, UserName } from "./User.styles";
 
@@ -6,7 +8,11 @@ const User = (props) => {
   return (
     <UserContainer style={props.style}>
       <UserImage
-        style={small ? { width: "20px", height: "20px" } : {}}
+        style={
+          small
+            ? { width: "30px", height: "30px" }
+            : { width: "35px", height: "35px" }
+        }
         src={props.image}
       />
       <UserName

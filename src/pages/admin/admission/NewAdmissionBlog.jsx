@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import FileBase64 from "react-file-base64";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -19,7 +21,7 @@ import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
 import { useNavigate, useParams } from "react-router-dom";
 // import { admissionData as data } from "../../../data/admissionData";
 import htmlToDraft from "html-to-draftjs";
-import Request from "../../../requests/request";
+import http from "../../../requests/request";
 import port from "../../../port.js";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -94,7 +96,7 @@ const NewAdmissionBlog = () => {
       console.log(newAdmissionData);
       dispatch(Actions.addAdmisArticle(newAdmissionData));
 
-      const res = await Request.post(
+      const res = await http.post(
         "http://localhost:" + port + "/api/admissions/",
         newAdmissionData
       );
@@ -108,7 +110,7 @@ const NewAdmissionBlog = () => {
       const nAdmissionData = [...admissionData];
       nAdmissionData[index] = { ...formData, content: content };
 
-      const res = await Request.put(
+      const res = await http.put(
         "http://localhost:" + port + "/api/admissions/" + formData._id,
         nAdmissionData[index]
       );

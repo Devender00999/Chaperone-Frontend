@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from "react";
 import { PrimaryButton } from "../common/Common/Common.styles";
 import * as Form from "./Form.styles";
@@ -8,8 +10,6 @@ const ResetPassForm = () => {
   const [error, setError] = useState();
   const [user, setUser] = useState({
     email: "",
-    password: "",
-    repassword: "",
   });
 
   const handleChange = (event) => {
@@ -38,8 +38,6 @@ const ResetPassForm = () => {
         .required()
         .email({ tlds: { allow: false } })
         .only(),
-      password: Joi.string().min(8).max(32),
-      repassword: Joi.string().min(8).max(32),
     });
     return schema.validate(user);
   };
@@ -55,31 +53,13 @@ const ResetPassForm = () => {
         placeholder="Email"
         handleChange={handleChange}
       />
-      <FormInput
-        icon="/images/common/eye.svg"
-        iconHide="/images/common/eye-slash.svg"
-        type="password"
-        name="password"
-        value={user.password}
-        placeholder="Password"
-        handleChange={handleChange}
-      />
-      <FormInput
-        icon="/images/common/eye.svg"
-        iconHide="/images/common/eye-slash.svg"
-        type="password"
-        placeholder="Confirm Password"
-        value={user.repassword}
-        name="repassword"
-        handleChange={handleChange}
-      />
       {error && (
         <Alert style={{ padding: "0.4rem 1rem" }} variant={"danger"}>
           {error}
         </Alert>
       )}
       <PrimaryButton style={{ marginTop: "20px" }} type="submit">
-        Reset Password
+        Send Email
       </PrimaryButton>
     </Form.FormContainer>
   );

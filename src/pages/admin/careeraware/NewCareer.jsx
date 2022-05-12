@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import FileBase64 from "react-file-base64";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -12,7 +14,7 @@ import {
 } from "../../../styledComponents/common/Common/Common.styles";
 import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
 import { toast } from "react-toastify";
-import Request from "../../../requests/request";
+import http from "../../../requests/request";
 import port from "../../../port.js";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -121,7 +123,7 @@ const NewCareer = () => {
       const newAcademicData = { ...formData, author: user.name };
       console.log(newAcademicData);
 
-      const res = await Request.post(
+      const res = await http.post(
         "http://localhost:" + port + "/api/career/",
         newAcademicData
       );
@@ -136,7 +138,7 @@ const NewCareer = () => {
       const nAcademicData = [...academicData];
       nAcademicData[index] = { ...formData };
 
-      const res = await Request.put(
+      const res = await http.put(
         "http://localhost:" + port + "/api/career/" + formData._id,
         nAcademicData[index]
       );

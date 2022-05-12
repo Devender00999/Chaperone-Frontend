@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import { PrimaryButton } from "../common/Common/Common.styles";
 import { Alert } from "react-bootstrap";
@@ -6,7 +8,7 @@ import * as Form from "./Form.styles";
 import FormInput from "./FormInput";
 import ResetPassForm from "./ResetPassForm";
 import SignUpForm from "./SignUpForm";
-import Request from "../../requests/request";
+import http from "../../requests/request";
 import port from "../../port";
 import { Form as Form2 } from "react-bootstrap";
 import FileBase64 from "react-file-base64";
@@ -71,11 +73,7 @@ const ProfileForm = (props) => {
             <Form2.Label className="labelOnTop">
               {"Profile Picture"}
             </Form2.Label>
-            <FileBase64
-              multiple={false}
-              name="images"
-              onDone={handleFileChange}
-            />
+            <input multiple={false} name="images" onDone={handleFileChange} />
           </Form2.Group>
           <Form2.Group className="">
             <Form2.Label className="labelOnTop">

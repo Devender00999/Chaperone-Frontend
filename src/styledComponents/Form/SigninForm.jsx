@@ -1,49 +1,47 @@
+/** @format */
+
 import React, { useState } from "react";
 import { PrimaryButton } from "../common/Common/Common.styles";
 import { Alert } from "react-bootstrap";
 import Joi from "joi";
 // import { SideBarHeading } from "../SidePanel/SideBar.styles";
+
 import * as Form from "./Form.styles";
 import FormInput from "./FormInput";
 import ResetPassForm from "./ResetPassForm";
 import SignUpForm from "./SignUpForm";
-import Request from "../../requests/request";
-import port from "../../port";
+import auth from "../../services/authService";
+
 // import { useDispatch } from "react-redux";
 // import Actions from "../../redux/actions/Action";
 
 const SignInForm = (props) => {
-  const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
   // const dispatch = useDispatch();
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  const [isAdmin, setIsAdmin] = useState("user");
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUser((prevValue) => ({ ...prevValue, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { error } = validateUser(user);
-    if (error) setError(error.details[0].message);
-    else setError(null);
-    let admin = isAdmin === "user" ? false : isAdmin === "admin" ? true : null;
-    let postFormData = {
-      ...user,
-      isAdmin: admin,
-    };
-    Request.post("http://localhost:" + port + "/api/user/sinuser", postFormData)
-      .then((res) => {
-        if (!res.token) setError(res.message);
-        else {
-          localStorage.setItem("token", res.token);
-          window.location.href = "/dashboard";
-        }
-      })
-      .catch((err) => console.log(err));
+    if (error) setMessage({ msg: error.message, type: "danger" });
+    else setMessage(null);
+    try {
+      await auth.login(user.email, user.password);
+      window.location.href = "/dashboard";
+    } catch (err) {
+      if (err.response) {
+        setMessage({ msg: err.response.data.message, type: "danger" });
+      } else {
+        console.log(err.message);
+      }
+    }
   };
   const validateUser = (user) => {
     const schema = Joi.object({
@@ -83,44 +81,10 @@ const SignInForm = (props) => {
         name="password"
         handleChange={handleChange}
       />
-      <div className="d-flex pt-3">
-        <div className="form-check">
-          <label htmlFor="user" className="form-check-label cursor-pointer">
-            <input
-              className="form-check-input "
-              name="isAdmin"
-              id="user"
-              type="radio"
-              value="user"
-              checked={isAdmin === "user"}
-              onClick={() => setIsAdmin("user")}
-              readOnly
-            />
-            User
-          </label>
-        </div>
-        <div className="form-check">
-          <label
-            htmlFor="admin"
-            className="form-check-label ms-3 cursor-pointer"
-          >
-            <input
-              className="form-check-input"
-              name="isAdmin"
-              id="admin"
-              type="radio"
-              value="admin"
-              checked={isAdmin === "admin"}
-              onClick={() => setIsAdmin("admin")}
-              readOnly
-            />
-            Admin
-          </label>
-        </div>
-      </div>
-      {error && (
-        <Alert style={{ padding: "0.4rem 1rem" }} variant={"danger"}>
-          {error.replaceAll(`"`, "") + "."}
+
+      {message && (
+        <Alert style={{ padding: "0.4rem 1rem" }} variant={message.type}>
+          {message.msg}
         </Alert>
       )}
       <div style={{ alignSelf: "flex-end" }}>

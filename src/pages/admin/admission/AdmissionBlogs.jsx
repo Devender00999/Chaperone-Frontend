@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import DataTable from "../../../styledComponents/common/Table/DataTable";
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 import {
   PageHeading,
   HeadingContainer,
@@ -10,13 +10,13 @@ import {
   MainContent,
   PrimaryButton,
 } from "../../../styledComponents/common/Common/Common.styles";
-import Request from "../../../requests/request";
+import http from "../../../requests/request";
 import port from "../../../port";
-import Actions from "../../../redux/actions/Action"
+import Actions from "../../../redux/actions/Action";
 import { useDispatch } from "react-redux";
 
 const AdmissionBlogs = () => {
-  const admissionBlogs = useSelector((state) => state.allAdArticles)
+  const admissionBlogs = useSelector((state) => state.allAdArticles);
 
   const dispatch = useDispatch();
   const navigator = useNavigate();
@@ -24,15 +24,17 @@ const AdmissionBlogs = () => {
     navigator(`${id}`);
   };
 
-  const handleDelete = async(id) => {
-    const res = await Request.del("http://localhost:" + port + "/api/admissions/" + id);
+  const handleDelete = async (id) => {
+    const res = await http.del(
+      "http://localhost:" + port + "/api/admissions/" + id
+    );
     dispatch(Actions.deleteAdmisArticle(id));
   };
 
   useEffect(async () => {
-    const res = await Request.get("http://localhost:" + port + "/api/admissions/");
+    const res = await http.get("http://localhost:" + port + "/api/admissions/");
     dispatch(Actions.setAllAdArticles(res));
-  }, [dispatch])
+  }, [dispatch]);
 
   return (
     <>

@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from "react";
 import { PrimaryButton } from "../common/Common/Common.styles";
 import * as Form from "./Form.styles";
@@ -6,21 +8,28 @@ import ResetPassForm from "./ResetPassForm";
 import SignInForm from "./SigninForm";
 import Joi from "joi";
 import { Alert } from "react-bootstrap";
-import Request from "../../requests/request";
-import port from "../../port";
+import http from "../../services/httpService";
+import { loginWithJwt } from "../../services/authService";
+import apiConfig from "../../config";
+
+const apiEndpoint = apiConfig.apiUrl + "/users/signup";
 
 const SignUpForm = (props) => {
-  const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
-    number: "",
+    phone: "",
   });
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setUser((prevValue) => ({ ...prevValue, [name]: value }));
+    const { name, value, type } = event.target;
+    setUser((prevValue) => {
+      if (type === "file") {
+        return { ...prevValue, [name]: event.target.files[0] };
+      } else return { ...prevValue, [name]: value };
+    });
   };
 
   const formatError = (error) => {
@@ -29,23 +38,36 @@ const SignUpForm = (props) => {
     return error;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { error } = validateUser(user);
-    if (error) setError(formatError(error.details[0].message));
-    else {
-      setError(null);
+    const userDetails = new FormData();
+    userDetails.append("name", user.name);
+    userDetails.append("email", user.email);
+    userDetails.append("phone", user.phone);
+    userDetails.append("password", user.password);
+    userDetails.append("profilePic", user.profilePic);
 
-      Request.post("http://localhost:" + port + "/api/user/signup", user)
-        .then((res) => {
-          if (res.message === "Account Created Successfully") {
-            localStorage.setItem("token", res.token);
-            window.location.href = "/dashboard";
-          } else {
-            setError(res.message);
-          }
-        })
-        .catch((err) => console.log(err));
+    if (error)
+      setMessage({
+        msg: formatError(error.details[0].message),
+        type: "danger",
+      });
+    else {
+      setMessage(null);
+      // return;
+      try {
+        const { data } = await http.post(apiEndpoint, userDetails);
+        setMessage({ msg: data.message, type: "danger" });
+        loginWithJwt(data.token);
+        window.location.href = "/";
+      } catch (err) {
+        if (err.response) {
+          setMessage({ msg: err.response.data.message, type: "danger" });
+        } else {
+          console.log(err.message);
+        }
+      }
     }
   };
   const validateUser = (user) => {
@@ -56,12 +78,18 @@ const SignUpForm = (props) => {
         .email({ tlds: { allow: false } })
         .only(),
       password: Joi.string().min(8).max(32),
-      number: Joi.string().required().length(10),
+      phone: Joi.string().required().length(10),
+      profilePic: Joi.object().required(),
     });
     return schema.validate(user);
   };
   return (
-    <Form.FormContainer action="" method="" onSubmit={handleSubmit}>
+    <Form.FormContainer
+      action=""
+      method=""
+      onSubmit={handleSubmit}
+      enctype="multipart/form-data"
+    >
       <Form.FormHeading>Create an account</Form.FormHeading>
       <Form.FormText>
         Already have an account?
@@ -90,11 +118,20 @@ const SignUpForm = (props) => {
 
       <FormInput
         icon="/images/common/mobile.svg"
-        value={user.number}
+        value={user.phone}
         handleChange={handleChange}
-        name="number"
+        name="phone"
         type="number"
         placeholder="Mobile Number"
+      />
+      <FormInput
+        icon="/images/common/photo.svg"
+        type="file"
+        name="profilePic"
+        placeholder="Profile Image"
+        // value={user.profileImg}
+        accept="image/png, image/gif, image/jpeg"
+        handleChange={handleChange}
       />
       <FormInput
         icon="/images/common/eye.svg"
@@ -106,9 +143,9 @@ const SignUpForm = (props) => {
         handleChange={handleChange}
         required
       />
-      {error && (
-        <Alert style={{ padding: "0.4rem 1rem" }} variant={"danger"}>
-          {error}
+      {message && (
+        <Alert style={{ padding: "0.4rem 1rem" }} variant={message.type}>
+          {message.msg}
         </Alert>
       )}
       <Form.FormLinkText

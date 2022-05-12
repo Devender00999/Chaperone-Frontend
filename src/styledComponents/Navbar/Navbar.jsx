@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from "react";
 import {
   NavbarContainer,
@@ -43,7 +45,10 @@ const Navbar = () => {
           drop={"start"}
           variant="none"
           title={
-            <User name={user.name} image="/images/navbar/defaultuser.svg" />
+            <User
+              name={user.name}
+              image={"http://localhost:3002" + user.profilePic}
+            />
           }
         >
           <Dropdown.Item

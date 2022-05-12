@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import BlogsCard from "../../styledComponents/BlogsCard/BlogsCard";
@@ -12,7 +14,7 @@ import EasyBuyCard from "../../styledComponents/EasyBuyCard/EasyBuyCard";
 // import { admissionData } from "../../data/admissionData";
 import { careerData } from "../../data/career";
 import { pgData } from "../../data/pgFinder";
-import Request from "../../requests/request";
+import http from "../../requests/request";
 import Actions from "../../redux/actions/Action";
 import port from "../../port";
 
@@ -50,7 +52,7 @@ const HomeScreen = (props) => {
 
   useEffect(() => {
     async function AdArticleSetup() {
-      const res = await Request.get(
+      const res = await http.get(
         "http://localhost:" + port + "/api/admissions/"
       );
       console.log(res);
