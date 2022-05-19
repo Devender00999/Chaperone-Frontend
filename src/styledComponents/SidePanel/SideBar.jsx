@@ -9,31 +9,43 @@ import {
 } from "./SideBar.styles";
 
 const SideBar = (props) => {
+  const getTitle = (item) => {
+    console.log(item.title);
+    if (
+      (pathname === "/dashboard" || pathname === "/admin") &&
+      (item.title === "Home" || item.title === "Dashboard")
+    )
+      return true;
+    return (
+      pathname.startsWith(item.link) &&
+      item.title !== "Home" &&
+      item.title !== "Dashboard"
+    );
+  };
   const { setTitle } = props;
-  const location = useLocation();
-  const { pathname } = location;
+  const { pathname } = useLocation();
   const unknownLink = pathname === "/not-found" || pathname === "/unauthorised";
-
   useEffect(() => {
     if (unknownLink) setTitle("");
   });
+
   return (
     <LSideBarContainer>
       {props.sideData.map((item, id) => {
         return (
           <SideBarItem
             key={id}
-            selected={pathname === item.link}
+            selected={getTitle(item)}
             to={item.link}
             onClick={() => setTitle(item.title)}
           >
             <SideBarItemIcon
               src={item.icon}
               style={{
-                opacity: pathname === item.link ? 1 : 0.5,
+                opacity: getTitle(item) ? 1 : 0.5,
               }}
             />
-            <SideBarItemText selected={pathname === item.link}>
+            <SideBarItemText selected={getTitle(item)}>
               {item.title}
             </SideBarItemText>
           </SideBarItem>

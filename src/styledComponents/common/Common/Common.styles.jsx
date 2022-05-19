@@ -116,11 +116,13 @@ export const HeadingContent = styled.h2`
   display: flex;
   column-gap: 30px;
   height: 40px;
+  align-items: center;
 `;
 
 export const HeadingContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const Price = styled.div`

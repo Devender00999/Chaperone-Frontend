@@ -15,6 +15,7 @@ const FormInput = ({ icon, type, value, placeholder, ...props }) => {
         draggable={false}
       />
       <Form.Input
+        className="formInput"
         type={type === "password" ? (showPassword ? "text" : "password") : type}
         placeholder={placeholder + "*"}
         value={value}

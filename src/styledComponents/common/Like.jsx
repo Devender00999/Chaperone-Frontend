@@ -11,9 +11,10 @@ const Like = (props) => {
   return (
     <div
       onClick={() => {
-        console.log(props.id);
-        // dispatch(likeAdArticle(props.id));
+        // console.log(props.id);
         setLiked(!liked);
+        props.onClick(liked);
+        // dispatch(likeAdArticle(props.id));
       }}
       className="cursor-pointer"
     >

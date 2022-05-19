@@ -58,7 +58,7 @@ const NewAdmissionBlog = () => {
 
         if (article) {
           setFormData(article);
-          console.log(formData);
+          // console.log(formData);
           const newEditor = convertHTMLToDraft(formData.content);
           setEditorState(newEditor);
         } else {
@@ -83,7 +83,7 @@ const NewAdmissionBlog = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (id === "new") {
-      console.log(formData);
+      // console.log(formData);
     } else {
       const content = draftToHtml(
         convertToRaw(editorState.getCurrentContent())
@@ -103,7 +103,7 @@ const NewAdmissionBlog = () => {
 
     if (type === "file") {
       value = URL.createObjectURL(e.target.files[0]);
-      console.log(e);
+      console.log(value);
     }
 
     setFormData((prev) => ({ ...prev, [name]: value }));

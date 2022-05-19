@@ -12,32 +12,31 @@ import {
   MainContent,
   PrimaryButton,
 } from "../../../styledComponents/common/Common/Common.styles";
-import http from "../../../requests/request";
-import port from "../../../port";
-import Actions from "../../../redux/actions/Action";
-import { useDispatch, useSelector } from "react-redux";
+
+// import Actions from "../../../redux/actions/Action";
+import { useSelector } from "react-redux";
 
 const AcademicItems = () => {
   const academicBlogs = useSelector((state) => state.allAcaArticles);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigator = useNavigate();
   const handleEdit = (id) => {
     navigator(`${id}`);
   };
 
-  const handleDelete = async (id) => {
-    const res = await http.del(
-      "http://localhost:" + port + "/api/academics/" + id
-    );
-    dispatch(Actions.deleteAcadArticle(id));
+  const handleDelete = (id) => {
+    // const res = await http.del(
+    //   "http://localhost:" + port + "/api/academics/" + id
+    // );
+    // dispatch(Actions.deleteAcadArticle(id));
   };
 
-  useEffect(async () => {
-    const res = await http.get("http://localhost:" + port + "/api/academics/");
-    console.log(res);
-    dispatch(Actions.setallAcadArticles(res));
-  }, [dispatch]);
+  useEffect(() => {
+    // const res = await http.get("http://localhost:" + port + "/api/academics/");
+    // console.log(res);
+    // dispatch(Actions.setallAcadArticles(res));
+  }, []);
 
   return (
     <>
@@ -50,14 +49,12 @@ const AcademicItems = () => {
               type="search"
               placeholder="Search"
             />
-            <PrimaryButton className="primaryButton">
-              <Link
-                style={{ textDecoration: "none", color: "White" }}
-                to="/admin/academics/new"
-              >
-                Add New
-              </Link>
-            </PrimaryButton>
+            <Link
+              style={{ textDecoration: "none", color: "White" }}
+              to="/admin/academics/new"
+            >
+              <PrimaryButton className="primaryButton">Add New</PrimaryButton>
+            </Link>
           </HeadingContent>
         </HeadingContainer>
         <DataTable

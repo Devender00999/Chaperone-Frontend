@@ -1,11 +1,9 @@
-/** @format */
-
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 import BlogsCard from "../../styledComponents/BlogsCard/BlogsCard";
 import { MainContent } from "../../styledComponents/common/Common/Common.styles";
-
-import Tags from "../../styledComponents/Tags/Tags";
+// import Tags from "../../styledComponents/Tags/Tags";
 import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
 import CareerCard from "../../styledComponents/CareerCard/CareerCard";
 import ProjectCard from "../../styledComponents/ProjectCard/ProjectCard";
@@ -14,20 +12,19 @@ import EasyBuyCard from "../../styledComponents/EasyBuyCard/EasyBuyCard";
 // import { admissionData } from "../../data/admissionData";
 import { careerData } from "../../data/career";
 import { pgData } from "../../data/pgFinder";
-import http from "../../requests/request";
+import http from "../../services/httpService";
 import Actions from "../../redux/actions/Action";
-import port from "../../port";
-
+import config from "../../config";
 const HomeScreen = (props) => {
   const dispatch = useDispatch();
 
-  const tags = [
-    { value: "All", selected: true },
-    { value: "Interest", selected: false },
-    { value: "Interest", selected: false },
-    { value: "Interest", selected: false },
-    { value: "Interest", selected: false },
-  ];
+  // const tags = [
+  //   { value: "All", selected: true },
+  //   { value: "Interest", selected: false },
+  //   { value: "Interest", selected: false },
+  //   { value: "Interest", selected: false },
+  //   { value: "Interest", selected: false },
+  // ];
 
   const easyBuyData = [
     {
@@ -52,11 +49,10 @@ const HomeScreen = (props) => {
 
   useEffect(() => {
     async function AdArticleSetup() {
-      const res = await http.get(
-        "http://localhost:" + port + "/api/admissions/"
-      );
-      console.log(res);
-      dispatch(Actions.setAllAdArticles(res));
+      if (allAdArticles.length === 0) {
+        const { data } = await http.get(config.apiUrl + "/admissions/");
+        dispatch(Actions.setAllAdArticles(data));
+      }
     }
     AdArticleSetup();
   }, [dispatch]);
@@ -67,7 +63,9 @@ const HomeScreen = (props) => {
         {/* <Tags tags={tags} /> */}
         {Object.keys(allAdArticles).length === 0
           ? "Loading..."
-          : allAdArticles.map((blog, id) => <BlogsCard key={id} {...blog} />)}
+          : allAdArticles.map((blog, id) => (
+              <BlogsCard type="admission" key={id} {...blog} />
+            ))}
         {careerData.map((data, id) => (
           <CareerCard key={id} data={data} />
         ))}

@@ -134,7 +134,6 @@ const NewEasyProduct = () => {
                   <Form.Control
                     name="ownerName"
                     type="name"
-                    value={formData.ownerName}
                     placeholder="Enter owner's name"
                     onChange={handleChange}
                     value={formData.ownerName}

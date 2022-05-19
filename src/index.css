@@ -213,7 +213,7 @@ textarea {
 input[type="file"] {
   padding-right: 0;
 }
-input[type="file"]::-webkit-file-upload-button {
+.formInput[type="file"]::-webkit-file-upload-button {
   /* input#file-upload-button { */
   margin-right: 0;
   top: 15px;

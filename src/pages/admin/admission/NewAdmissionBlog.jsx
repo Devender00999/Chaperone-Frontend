@@ -1,7 +1,6 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-import FileBase64 from "react-file-base64";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { ContentState, convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
@@ -21,12 +20,12 @@ import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
 import { useNavigate, useParams } from "react-router-dom";
 // import { admissionData as data } from "../../../data/admissionData";
 import htmlToDraft from "html-to-draftjs";
-import http from "../../../requests/request";
-import port from "../../../port.js";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Actions from "../../../redux/actions/Action";
 import getUserDetails from "../../../requests/decode/decodeToken";
+import config from "../../../config";
+import http from "../../../services/httpService";
 
 const NewAdmissionBlog = () => {
   const user = getUserDetails();
@@ -39,17 +38,10 @@ const NewAdmissionBlog = () => {
     heading: "",
     image: "",
     content: "",
-    desc: "",
+    description: "",
   });
   const [editorState, setEditorState] = useState();
   const { id } = params;
-
-  useEffect(() => {
-    document.querySelectorAll("input[type=file]").forEach((item) => {
-      item.setAttribute("accept", "image/x-png,image/jpeg");
-      item.classList.add("form-control");
-    });
-  }, []);
 
   const convertHTMLToDraft = (content) => {
     const blocksFromHtml = htmlToDraft(content);
@@ -75,13 +67,12 @@ const NewAdmissionBlog = () => {
           content: "",
           desc: "",
         };
-
         setFormData(initialState);
       } else {
         navigate("/not-found");
       }
     }
-  }, [params, navigate, formData.content, admissionData, id]);
+  }, [navigate, formData.content, admissionData, id]);
 
   // Handle Submit
   const handleSubmit = async (e) => {
@@ -91,34 +82,54 @@ const NewAdmissionBlog = () => {
       const newAdmissionData = {
         ...formData,
         content: content,
-        author: user.name,
+        authorId: user._id,
       };
-      console.log(newAdmissionData);
-      dispatch(Actions.addAdmisArticle(newAdmissionData));
-
-      const res = await http.post(
-        "http://localhost:" + port + "/api/admissions/",
-        newAdmissionData
-      );
-      console.log(res);
-      toast.success("Article created successfully!!");
+      const form = new FormData();
+      form.append("authorId", newAdmissionData.authorId);
+      form.append("content", newAdmissionData.content);
+      console.log(newAdmissionData.content);
+      form.append("description", newAdmissionData.description);
+      form.append("heading", newAdmissionData.heading);
+      form.append("image", newAdmissionData.image);
+      try {
+        const { data } = await http.post(config.apiUrl + "/admissions/", form);
+        if (data) {
+          toast.success("Article Created Successfully!");
+          newAdmissionData.author = {
+            name: user.name,
+            _id: user._id,
+            profilePic: user.profilePic,
+          };
+          dispatch(Actions.addAdmisArticle(newAdmissionData));
+        }
+      } catch (ex) {
+        toast.error(ex.response.data.message);
+        console.log(ex.response.data.message);
+      }
     } else {
       setFormData((prev) => ({ ...prev, content: content }));
       const index = admissionData.findIndex(
         (blog) => blog._id === formData._id
       );
+      formData.content = content;
       const nAdmissionData = [...admissionData];
       nAdmissionData[index] = { ...formData, content: content };
-
-      const res = await http.put(
-        "http://localhost:" + port + "/api/admissions/" + formData._id,
-        nAdmissionData[index]
-      );
-      if (res.message === "Article Modify Successfully") {
-        dispatch(Actions.editAdmisArticle(index, nAdmissionData[index]));
+      const form = new FormData();
+      form.append("heading", nAdmissionData[index].heading);
+      form.append("description", nAdmissionData[index].description);
+      form.append("content", nAdmissionData[index].content);
+      form.append("image", nAdmissionData[index].image);
+      try {
+        const { data } = await http.patch(
+          config.apiUrl + "/admissions/" + formData._id,
+          form
+        );
+        console.log(data);
+        dispatch(Actions.editAdmisArticle(index, data));
         toast.success("Article modified successfully!!");
-      } else {
-        toast.error(res.message);
+      } catch (ex) {
+        toast.error(ex.response.data);
+        console.log(ex.response.data.message);
       }
     }
     navigate("/admin/admissions");
@@ -127,17 +138,14 @@ const NewAdmissionBlog = () => {
   const handleChange = (e) => {
     let { type, value, name } = e.target;
 
-    if (type === "file") {
-      value = URL.createObjectURL(e.target.files[0]);
-      console.log(e);
-    }
+    setFormData((prevValue) => {
+      if (type === "file") {
+        let image = e.target.files[0];
+        return { ...prevValue, [name]: image };
+      } else return { ...prevValue, [name]: value };
+    });
+  };
 
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-  const handleFileChange = (e) => {
-    const file = e.base64;
-    setFormData((prev) => ({ ...prev, image: file }));
-  };
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
   };
@@ -177,8 +185,8 @@ const NewAdmissionBlog = () => {
                 <br />
                 <Form.Control
                   rows="5"
-                  name="desc"
-                  value={formData.desc}
+                  name="description"
+                  value={formData.description}
                   type="text"
                   as="textarea"
                   placeholder="What is this blog about?"
@@ -190,13 +198,12 @@ const NewAdmissionBlog = () => {
             <Col md style={{ paddingRight: 0 }}>
               <Form.Group className="mb-3">
                 <Form.Label>Upload Header Image</Form.Label>
-                <FileBase64
+                <Form.Control
                   className="form-control"
                   type="file"
                   name="image"
-                  accept="image/x-png,image/gif,image/jpeg"
-                  onDone={handleFileChange}
-                  placeholder="Enter Title"
+                  accept="image/x-png,image/jpg,image/jpeg"
+                  onChange={handleChange}
                 />
               </Form.Group>
             </Col>
@@ -204,11 +211,11 @@ const NewAdmissionBlog = () => {
           <Row>
             <Col>
               <HeaderPreview
-                image={formData.image}
+                image={config.url + formData.image}
                 className="mb-3 mt-3"
                 alt=""
                 style={{
-                  display: formData.image ? "block" : "none",
+                  display: "none",
                 }}
               />
             </Col>

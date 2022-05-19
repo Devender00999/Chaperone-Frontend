@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
@@ -10,6 +11,6 @@ ReactDOM.render(
     <Provider store={store}>
       <App />
     </Provider>
-  </BrowserRouter>
-  , document.getElementById("root")
+  </BrowserRouter>,
+  document.getElementById("root")
 );

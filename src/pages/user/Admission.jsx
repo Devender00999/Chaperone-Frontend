@@ -1,26 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { MainContent } from "../../styledComponents/common/Common/Common.styles";
 import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
 import BlogsCard from "../../styledComponents/BlogsCard/BlogsCard";
+import { useDispatch, useSelector } from "react-redux";
+import Actions from "../../redux/actions/Action";
+import http from "../../services/httpService";
+import config from "../../config";
+import { addAdmisArticle } from "../../redux/actions/admissionActions";
 
 const Admission = (props) => {
-  const blogs = [
-    {
-      image: "/images/blogs/Image.svg",
-      heading: "Complete Roadmap to Web Development 2021",
-      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
-    },
-    {
-      image: "/images/blogs/Image.svg",
-      heading: "Complete Roadmap to Web Development 2021",
-      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
-    },
-    {
-      image: "/images/blogs/Image.svg",
-      heading: "Complete Roadmap to Web Development 2021",
-      desc: "Today there are so many languages and tools and frameworks. Which one should you learn? And for each, there are a ton of courses. Super confusing! We are here to give you full guidance...",
-    },
-  ];
+  const dispatch = useDispatch();
+
   const rightSideBarData = {
     heading: "Quick Links",
     content: [
@@ -30,12 +20,25 @@ const Admission = (props) => {
       "Scholarship Program",
     ],
   };
+  const allAdArticles = useSelector((state) => state.allAdArticles);
+
+  useEffect(() => {
+    async function AdArticleSetup() {
+      // if (addAdmisArticle.length === 0) {
+      const { data } = await http.get(config.apiUrl + "/admissions/");
+      dispatch(Actions.setAllAdArticles(data));
+      // }
+    }
+    AdArticleSetup();
+  }, [dispatch]);
   return (
     <>
       <MainContent direction="column" flex={3}>
-        {blogs.map((blog) => (
-        <BlogsCard {...blog} />
-        ))}
+        {allAdArticles.length > 0
+          ? allAdArticles.map((blog, id) => (
+              <BlogsCard type="admission" key={id} {...blog} />
+            ))
+          : "Loading"}
       </MainContent>
       <RightSideBar {...rightSideBarData} />
     </>

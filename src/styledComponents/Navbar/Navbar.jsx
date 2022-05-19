@@ -5,7 +5,6 @@ import {
   NavbarContainer,
   NavbarSearchContainer,
   NavLogo,
-  // NavNotification,
   UserDetails,
 } from "./Navbar.styles";
 import Search from "./Search";
@@ -15,6 +14,7 @@ import { DropdownButton, Dropdown } from "react-bootstrap";
 import getUserDetails from "../../requests/decode/decodeToken";
 import StyledModal from "../CustomModal/CustomModal";
 import ProfileForm from "../Form/Profile";
+import config from "../../config";
 
 const Navbar = () => {
   const user = getUserDetails();
@@ -30,26 +30,10 @@ const Navbar = () => {
         <Search width={"75%"} />
       </NavbarSearchContainer>
       <UserDetails>
-        {/* <NavNotification src="/images/navbar/notifications.svg" /> */}
-        {/* <CustomDropdown
-          Toggle={
-            <User name="Deepak Kumar" image="/images/navbar/defaultuser.svg" />
-          }
-          Menu={UserOptions}
-          float={"left"}
-          width={150}
-          showMenu={showMenu}
-          setShowMenu={setShowMenu} 
-        ></CustomDropdown>*/}
         <DropdownButton
           drop={"start"}
           variant="none"
-          title={
-            <User
-              name={user.name}
-              image={"http://localhost:3002" + user.profilePic}
-            />
-          }
+          title={<User name={user.name} image={config.url + user.profilePic} />}
         >
           <Dropdown.Item
             className="py-2"

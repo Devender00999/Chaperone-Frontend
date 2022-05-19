@@ -8,6 +8,7 @@ import {
   HeadingContainer,
   HeadingContent,
   MainContent,
+  PrimaryButton,
 } from "../../../styledComponents/common/Common/Common.styles";
 
 const EasyProducts = () => {
@@ -36,14 +37,10 @@ const EasyProducts = () => {
             />
             <Link
               className="primaryButton"
-              style={{
-                textDecoration: "none",
-                color: "White",
-                background: "#ff6600",
-              }}
+              style={{ textDecoration: "none", color: "White" }}
               to="/admin/easy-buy/new"
             >
-              Add New
+              <PrimaryButton className="primaryButton">Add New</PrimaryButton>
             </Link>
           </HeadingContent>
         </HeadingContainer>
