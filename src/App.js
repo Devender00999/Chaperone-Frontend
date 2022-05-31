@@ -121,7 +121,7 @@ const App = () => {
   if (!user) {
     return <Home setUser={setUser} />;
   } else {
-    const isAdmin = user.isAdmin && location.pathname.includes("admin");
+    const isAdmin = user.role === 2 && location.pathname.includes("admin");
     return (
       <StyledContainer>
         <Navbar />

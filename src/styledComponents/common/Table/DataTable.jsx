@@ -24,7 +24,7 @@ const header = (page) => {
 
 const DataTable = (props) => {
   const { data, onEdit, onDelete, page } = props;
-  return data != null ? (
+  return data.length > 0 ? (
     <TableContainer>
       <TableRow style={{ background: "#ff6600", color: "#FFF" }}>
         <TableColumnHeading style={{ flex: 4 }}>Title</TableColumnHeading>

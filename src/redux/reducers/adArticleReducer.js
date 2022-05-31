@@ -1,25 +1,51 @@
 import ActionTypes from "../constants/ActionTypes";
 
-export const adArticleReducer = (state = [], { type, payload }) => {
+export const adArticleReducer = (
+  state = { selectedArticle: null },
+  { type, payload }
+) => {
   switch (type) {
     case ActionTypes.SET_ALL_ADMISSION_ARTICLES:
-      return payload;
-      
-    case ActionTypes.ADD_ADMISSION_ARTICLE:
-      console.log(payload, state);
-      return [...state, payload];
+      return { articles: [...payload], filteredArticles: [...payload] };
 
+    case ActionTypes.SET_SELECTED_ARTICLE:
+      const selectedArticle = payload;
+      return {
+        ...state,
+        selectedArticle: { ...selectedArticle },
+      };
+
+    case ActionTypes.ADD_ADMISSION_ARTICLE:
+      let articles = [...state.articles, payload];
+      return {
+        ...state,
+        articles,
+        filteredArticles: [...articles],
+      };
     case ActionTypes.EDIT_ADMISSION_ARTICLE:
-      const articles = [...state];
+      articles = [...state.articles];
       const id = articles.findIndex((item) => item._id === payload.id);
       articles[id] = payload.article;
-      return articles;
+      return {
+        ...state,
+        articles,
+        filteredArticles: [...articles],
+      };
 
     case ActionTypes.DELETE_ADMISSION_ARTICLE:
-      const article = [...state];
-      const allArticles = article.filter((arti) => arti._id !== payload.id);
-      return allArticles;
+      articles = [...state.articles];
+      articles = articles.filter((arti) => arti._id !== payload.id);
+      return {
+        ...state,
+        articles,
+        filteredArticles: [...articles],
+      };
 
+    case ActionTypes.FILTER_ADMISSION_ARTICLES:
+      return {
+        ...state,
+        filteredArticles: payload.articles,
+      };
     default:
       return state;
   }

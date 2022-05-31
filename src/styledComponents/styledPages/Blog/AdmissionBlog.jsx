@@ -14,28 +14,42 @@ import { useDispatch, useSelector } from "react-redux";
 import http from "../../../services/httpService";
 import config from "../../../config";
 import { Dropdown, DropdownButton } from "react-bootstrap";
+import * as admissionActions from "../../../store/admissions";
 const AdmissionBlog = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [article, setArticle] = useState(null);
   const { id } = useParams();
-  const allAdmissionArticles = useSelector((state) => state.allAdArticles);
+  const allAdmissionArticles = useSelector(
+    (state) => state.admissions.selectedArticle
+  );
+  const selectedArticle = useSelector(
+    (state) => state.admissions.selectedArticle
+  );
+
+  const admissionLoading = useSelector((state) => state.admissions.loading);
   useEffect(() => {
-    async function getAllArticles() {
-      let item;
-      if (allAdmissionArticles.length === 0) {
-        const { data } = await http.get(config.apiUrl + "/admissions/");
-        dispatch(Actions.setAllAdArticles(data));
-        item = data.find((item) => item._id === id);
-      } else {
-        item = allAdmissionArticles.find((item) => item._id === id);
-      }
-      if (item) {
-        setArticle(item);
-        console.log(article);
-      } else navigate("/not-found");
+    if (id) {
+      if (!selectedArticle) dispatch(admissionActions.selectArticle(id));
     }
-    getAllArticles();
+
+    // async function getAllArticles() {
+    //   let item;
+    //   if (!allAdmissionArticles.filteredArticles) {
+    //     const { data } = await http.get(config.apiUrl + "/admissions/");
+    //     dispatch(Actions.setAllAdArticles(data));
+    //     console.log(allAdmissionArticles);
+    //     item = data.find((item) => item._id === id);
+    //   } else {
+    //     item = allAdmissionArticles.filteredArticles.find(
+    //       (item) => item._id === id
+    //     );
+    //   }
+    //   if (item) {
+    //     setArticle(item);
+    //   } else navigate("/not-found");
+    // }
+    // getAllArticles();
   }, []);
   //   const roadmap = roadmapsData.find((roadmap) => roadmap._id === params.id);
 
@@ -44,51 +58,56 @@ const AdmissionBlog = () => {
   //     (article) => article._id === params.articleId
   //   );
   //   if (!article) window.location.href = "/not-found";
-  return (
-    article && (
-      <>
-        <MainContent direction="column" flex={3}>
-          <BlogContainer>
-            <Carousel images={[config.url + article.image]} height="250px" />
-            <BlogContent>
-              <Heading style={{ fontSize: "1.25rem", fontWeight: 500 }}>
-                {article.heading}
-              </Heading>
-              <UserDetails>
-                <User
-                  className="secondary-color"
-                  image={config.url + article.author.profilePic}
-                  name={article.author.name}
-                />
-                <UserProps>
-                  <Like className="cursor-pointer" />
-                  <DropdownButton
-                    drop={"start"}
-                    variant="none"
-                    title={<ShareIcon className="cursor-pointer" />}
-                  >
-                    <Dropdown.Item
-                      className="text-center py-2"
-                      eventKey="1"
-                      onClick={() => console.log()}
+  return admissionLoading == true
+    ? "Loading"
+    : selectedArticle && (
+        <>
+          <MainContent direction="column" flex={3}>
+            <BlogContainer>
+              <Carousel
+                images={[config.url + selectedArticle.image]}
+                height="250px"
+              />
+              <BlogContent>
+                <Heading style={{ fontSize: "1.25rem", fontWeight: 500 }}>
+                  {selectedArticle.heading}
+                </Heading>
+                <UserDetails>
+                  <User
+                    className="secondary-color"
+                    image={config.url + selectedArticle.author.profilePic}
+                    name={selectedArticle.author.name}
+                  />
+                  <UserProps>
+                    <Like className="cursor-pointer" />
+                    <DropdownButton
+                      drop={"start"}
+                      variant="none"
+                      title={<ShareIcon className="cursor-pointer" />}
                     >
-                      Whatsapp
-                    </Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item className="text-center py-2" eventKey="1">
-                      Copy
-                    </Dropdown.Item>
-                  </DropdownButton>
-                </UserProps>
-              </UserDetails>
-              <BlogText dangerouslySetInnerHTML={{ __html: article.content }} />
-            </BlogContent>
-          </BlogContainer>
-        </MainContent>
-        <RightSideBar heading="" content={[]} />
-      </>
-    )
-  );
+                      <Dropdown.Item
+                        className="text-center py-2"
+                        eventKey="1"
+                        onClick={() => console.log()}
+                      >
+                        Whatsapp
+                      </Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item className="text-center py-2" eventKey="1">
+                        Copy
+                      </Dropdown.Item>
+                    </DropdownButton>
+                  </UserProps>
+                </UserDetails>
+                <BlogText
+                  dangerouslySetInnerHTML={{ __html: selectedArticle.content }}
+                />
+              </BlogContent>
+            </BlogContainer>
+          </MainContent>
+          <RightSideBar heading="" content={[]} />
+        </>
+      );
 };
 
 export default AdmissionBlog;

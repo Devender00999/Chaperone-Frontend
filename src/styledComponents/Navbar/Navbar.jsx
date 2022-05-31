@@ -20,7 +20,6 @@ const Navbar = () => {
   const user = getUserDetails();
 
   const [showModal, setShowModal] = useState(false);
-
   return (
     <NavbarContainer>
       <Link style={{ flex: 1, display: "flex" }} to="/">
@@ -44,13 +43,13 @@ const Navbar = () => {
             Edit Profile
           </Dropdown.Item>
           <Dropdown.Divider />
-          {user.isAdmin && (
+          {user.role === 2 && (
             <Dropdown.Item as={Link} to="/admin" className="py-2" eventKey="1">
               Admin Portal
             </Dropdown.Item>
           )}
 
-          {user.isAdmin && <Dropdown.Divider />}
+          {user.role === 2 && <Dropdown.Divider />}
 
           <Dropdown.Item
             className="py-2"

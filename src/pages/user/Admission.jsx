@@ -3,11 +3,7 @@ import { MainContent } from "../../styledComponents/common/Common/Common.styles"
 import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
 import BlogsCard from "../../styledComponents/BlogsCard/BlogsCard";
 import { useDispatch, useSelector } from "react-redux";
-import Actions from "../../redux/actions/Action";
-import http from "../../services/httpService";
-import config from "../../config";
-import { addAdmisArticle } from "../../redux/actions/admissionActions";
-
+import * as admissionActions from "../../store/admissions";
 const Admission = (props) => {
   const dispatch = useDispatch();
 
@@ -20,21 +16,17 @@ const Admission = (props) => {
       "Scholarship Program",
     ],
   };
-  const allAdArticles = useSelector((state) => state.allAdArticles);
+  const allAdArticles = useSelector((state) => state.admissions.articles);
+  const loading = useSelector((state) => state.admissions.loading);
 
   useEffect(() => {
-    async function AdArticleSetup() {
-      // if (addAdmisArticle.length === 0) {
-      const { data } = await http.get(config.apiUrl + "/admissions/");
-      dispatch(Actions.setAllAdArticles(data));
-      // }
-    }
-    AdArticleSetup();
+    if (allAdArticles && allAdArticles.length < 1)
+      dispatch(admissionActions.loadArticles());
   }, [dispatch]);
   return (
     <>
       <MainContent direction="column" flex={3}>
-        {allAdArticles.length > 0
+        {loading === false
           ? allAdArticles.map((blog, id) => (
               <BlogsCard type="admission" key={id} {...blog} />
             ))

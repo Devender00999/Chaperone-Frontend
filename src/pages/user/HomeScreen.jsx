@@ -15,6 +15,8 @@ import { pgData } from "../../data/pgFinder";
 import http from "../../services/httpService";
 import Actions from "../../redux/actions/Action";
 import config from "../../config";
+import * as admissionActions from "../../store/admissions";
+
 const HomeScreen = (props) => {
   const dispatch = useDispatch();
 
@@ -45,23 +47,28 @@ const HomeScreen = (props) => {
     ],
   };
 
-  const allAdArticles = useSelector((state) => state.allAdArticles);
-
+  const allAdArticles = useSelector(admissionActions.filteredArticles(""));
+  const admissionLoading = useSelector((state) => state.admissions.loading);
+  // async function AdArticleSetup() {
+  //   if (
+  //     allAdArticles.filteredArticles &&
+  //     allAdArticles.filteredArticles.length === 0
+  //   ) {
+  //     const { data } = await http.get(config.apiUrl + "/admissions/");
+  //     dispatch(Actions.setAllAdArticles(data));
+  //     console.log(allAdArticles);
+  //   }
+  // }
   useEffect(() => {
-    async function AdArticleSetup() {
-      if (allAdArticles.length === 0) {
-        const { data } = await http.get(config.apiUrl + "/admissions/");
-        dispatch(Actions.setAllAdArticles(data));
-      }
-    }
-    AdArticleSetup();
-  }, [dispatch]);
+    if (allAdArticles && allAdArticles.length < 1)
+      dispatch(admissionActions.loadArticles());
+  }, []);
 
   return (
     <>
       <MainContent direction="column" flex={3}>
         {/* <Tags tags={tags} /> */}
-        {Object.keys(allAdArticles).length === 0
+        {admissionLoading
           ? "Loading..."
           : allAdArticles.map((blog, id) => (
               <BlogsCard type="admission" key={id} {...blog} />

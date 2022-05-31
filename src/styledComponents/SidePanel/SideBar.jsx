@@ -10,7 +10,6 @@ import {
 
 const SideBar = (props) => {
   const getTitle = (item) => {
-    console.log(item.title);
     if (
       (pathname === "/dashboard" || pathname === "/admin") &&
       (item.title === "Home" || item.title === "Dashboard")

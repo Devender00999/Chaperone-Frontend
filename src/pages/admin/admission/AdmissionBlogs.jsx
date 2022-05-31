@@ -10,49 +10,36 @@ import {
   MainContent,
   PrimaryButton,
 } from "../../../styledComponents/common/Common/Common.styles";
-import http from "../../../services/httpService";
-import config from "../../../config";
-import Actions from "../../../redux/actions/Action";
 import { toast } from "react-toastify";
+
 // import Actions from "../../../redux/actions/Action";
+import * as admissionActions from "../../../store/admissions";
 // import { useDispatch } from "react-redux";
 
 const AdmissionBlogs = () => {
+  const [query, setQuery] = useState("");
+  const admissions = useSelector(admissionActions.filteredArticles(query));
   const dispatch = useDispatch();
   const navigator = useNavigate();
+
   const handleEdit = (id) => {
-    navigator(`${id}`);
+    const article = admissions.find((article) => article._id === id);
+    console.log(article._id);
+    dispatch(admissionActions.selectArticle(article._id));
+    navigator(id);
   };
-  const handleSearch = (e) => {
-    const query = e.target.value;
-    if (query.length > 0) {
-      // console.log(admissionBlogs);
-      let newBlogs = admissionBlogs.filter((blog) =>
-        blog.heading.includes(query)
-      );
-      setAdmissionBlogs(newBlogs);
-    } else {
-      setAdmissionBlogs(admissions);
-    }
-  };
-  const admissions = useSelector((state) => state.allAdArticles);
-  let [admissionBlogs, setAdmissionBlogs] = useState(admissions);
+  // let [admissionBlogs, setAdmissionBlogs] = useState(admissions);
+
   useEffect(() => {
-    async function getAdmissionArticals() {
-      const { data } = await http.get(config.apiUrl + "/admissions");
-      dispatch(Actions.setAllAdArticles(data));
-    }
-    getAdmissionArticals();
-  }, [dispatch]);
+    if (admissions && admissions.length < 1)
+      dispatch(admissionActions.loadArticles());
+  }, [dispatch, admissions]);
 
   const handleDelete = async (id) => {
     try {
-      const { data } = await http.delete(config.apiUrl + "/admissions/" + id);
-      console.log(data);
-      dispatch(Actions.deleteAdmisArticle(id));
+      dispatch(admissionActions.removeArticle(id));
       toast.success("Admission article deleted.");
     } catch (ex) {
-      console.log(ex.message);
       toast.error(ex.response.message);
     }
   };
@@ -66,7 +53,8 @@ const AdmissionBlogs = () => {
               style={{ width: "200px", outline: "none" }}
               type="search"
               placeholder="Search"
-              onChange={handleSearch}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
             />
             <Link
               style={{ textDecoration: "none", color: "White" }}
@@ -77,7 +65,7 @@ const AdmissionBlogs = () => {
           </HeadingContent>
         </HeadingContainer>
         <DataTable
-          data={admissionBlogs}
+          data={admissions}
           onEdit={handleEdit}
           onDelete={handleDelete}
           page="Admission"

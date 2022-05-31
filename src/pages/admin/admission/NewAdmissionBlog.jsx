@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useEffect, useState } from "react";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { ContentState, convertToRaw } from "draft-js";
@@ -18,30 +16,35 @@ import {
 import StyledEditor from "../../../styledComponents/common/Common/StyledEditor";
 import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
 import { useNavigate, useParams } from "react-router-dom";
-// import { admissionData as data } from "../../../data/admissionData";
 import htmlToDraft from "html-to-draftjs";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Actions from "../../../redux/actions/Action";
 import getUserDetails from "../../../requests/decode/decodeToken";
 import config from "../../../config";
 import http from "../../../services/httpService";
+import * as admissionActions from "../../../store/admissions";
 
 const NewAdmissionBlog = () => {
+  let selectedArticle = useSelector(
+    (state) => state.admissions.selectedArticle
+  );
+  let isLoading = useSelector((state) => state.admissions.loading);
+
   const user = getUserDetails();
   if (user === null) window.location.href = "/";
-  const params = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const admissionData = useSelector((state) => state.allAdArticles);
-  const [formData, setFormData] = useState({
+
+  const init = {
     heading: "",
     image: "",
     content: "",
     description: "",
-  });
+  };
+  const [formData, setFormData] = useState(init);
   const [editorState, setEditorState] = useState();
-  const { id } = params;
 
   const convertHTMLToDraft = (content) => {
     const blocksFromHtml = htmlToDraft(content);
@@ -51,33 +54,23 @@ const NewAdmissionBlog = () => {
     return EditorState.createWithContent(contentState);
   };
 
-  //Setting editor state if blog is being edited
   useEffect(() => {
-    let article;
-    if (id) {
-      article = admissionData.find((blog) => blog._id === id);
-      if (article) {
-        setFormData(article);
-        const newEditor = convertHTMLToDraft(formData.content);
+    if (id != "new") {
+      if (!selectedArticle) dispatch(admissionActions.selectArticle(id));
+      if (selectedArticle) {
+        const newEditor = convertHTMLToDraft(selectedArticle.content);
         setEditorState(newEditor);
-      } else if (id === "new") {
-        let initialState = {
-          heading: "",
-          image: "",
-          content: "",
-          desc: "",
-        };
-        setFormData(initialState);
-      } else {
-        navigate("/not-found");
+        console.log(selectedArticle, newEditor);
+        setFormData(selectedArticle);
       }
     }
-  }, [navigate, formData.content, admissionData, id]);
+  }, [selectedArticle]);
 
   // Handle Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     const content = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+    console.log(content);
     if (id === "new") {
       const newAdmissionData = {
         ...formData,
@@ -87,49 +80,36 @@ const NewAdmissionBlog = () => {
       const form = new FormData();
       form.append("authorId", newAdmissionData.authorId);
       form.append("content", newAdmissionData.content);
-      console.log(newAdmissionData.content);
       form.append("description", newAdmissionData.description);
       form.append("heading", newAdmissionData.heading);
       form.append("image", newAdmissionData.image);
       try {
-        const { data } = await http.post(config.apiUrl + "/admissions/", form);
-        if (data) {
-          toast.success("Article Created Successfully!");
-          newAdmissionData.author = {
-            name: user.name,
-            _id: user._id,
-            profilePic: user.profilePic,
-          };
-          dispatch(Actions.addAdmisArticle(newAdmissionData));
-        }
+        toast.success("Article Created Successfully!");
+        newAdmissionData.author = {
+          name: user.name,
+          _id: user._id,
+          profilePic: user.profilePic,
+        };
+        dispatch(admissionActions.addArticle(form));
+        // }
       } catch (ex) {
         toast.error(ex.response.data.message);
         console.log(ex.response.data.message);
       }
     } else {
       setFormData((prev) => ({ ...prev, content: content }));
-      const index = admissionData.findIndex(
-        (blog) => blog._id === formData._id
-      );
-      formData.content = content;
-      const nAdmissionData = [...admissionData];
-      nAdmissionData[index] = { ...formData, content: content };
+      console.log(content);
+      selectedArticle = { ...selectedArticle, content };
       const form = new FormData();
-      form.append("heading", nAdmissionData[index].heading);
-      form.append("description", nAdmissionData[index].description);
-      form.append("content", nAdmissionData[index].content);
-      form.append("image", nAdmissionData[index].image);
+      form.append("heading", formData.heading);
+      form.append("description", formData.description);
+      form.append("content", content);
+      form.append("image", formData.image);
       try {
-        const { data } = await http.patch(
-          config.apiUrl + "/admissions/" + formData._id,
-          form
-        );
-        console.log(data);
-        dispatch(Actions.editAdmisArticle(index, data));
+        dispatch(admissionActions.editArticle(selectedArticle._id, form));
         toast.success("Article modified successfully!!");
       } catch (ex) {
-        toast.error(ex.response.data);
-        console.log(ex.response.data.message);
+        console.log(ex.message);
       }
     }
     navigate("/admin/admissions");
@@ -150,7 +130,9 @@ const NewAdmissionBlog = () => {
     setEditorState(editorState);
   };
 
-  return (
+  return isLoading == true ? (
+    "Loading..."
+  ) : (
     <>
       <MainContent direction={"column"} flex={4}>
         <PageHeading style={{ marginBottom: "10px" }}>

@@ -232,3 +232,9 @@ input[type="file"] {
 input[type="file"] {
   color: #6c757d;
 }
+
+/* to hide input bluiesh color */
+.form-control:focus {
+  border-color: #ced4da !important;
+  box-shadow: unset !important;
+}
