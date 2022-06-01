@@ -5,36 +5,36 @@ import BlogsCard from "../../styledComponents/BlogsCard/BlogsCard";
 import { useDispatch, useSelector } from "react-redux";
 import * as admissionActions from "../../store/admissions";
 const Admission = (props) => {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const rightSideBarData = {
-    heading: "Quick Links",
-    content: [
-      "Choice filling Round 1 for B Tech...",
-      "Final Datesheet for Reappear exam",
-      "Datesheet Mid Term exams",
-      "Scholarship Program",
-    ],
-  };
-  const allAdArticles = useSelector((state) => state.admissions.articles);
-  const loading = useSelector((state) => state.admissions.loading);
+    const rightSideBarData = {
+        heading: "Quick Links",
+        content: [
+            "Choice filling Round 1 for B Tech...",
+            "Final Datesheet for Reappear exam",
+            "Datesheet Mid Term exams",
+            "Scholarship Program",
+        ],
+    };
+    const admissionArticles = useSelector((state) => state.admissions.articles);
+    const loading = useSelector((state) => state.admissions.loading);
 
-  useEffect(() => {
-    if (allAdArticles && allAdArticles.length < 1)
-      dispatch(admissionActions.loadArticles());
-  }, [dispatch]);
-  return (
-    <>
-      <MainContent direction="column" flex={3}>
-        {loading === false
-          ? allAdArticles.map((blog, id) => (
-              <BlogsCard type="admission" key={id} {...blog} />
-            ))
-          : "Loading"}
-      </MainContent>
-      <RightSideBar {...rightSideBarData} />
-    </>
-  );
+    useEffect(() => {
+        if (admissionArticles && admissionArticles.length < 1)
+            dispatch(admissionActions.loadArticles());
+    }, [admissionArticles, dispatch]);
+    return (
+        <>
+            <MainContent direction="column" flex={3}>
+                {loading === false
+                    ? admissionArticles.map((blog, id) => (
+                          <BlogsCard type="admission" key={id} {...blog} />
+                      ))
+                    : "Loading"}
+            </MainContent>
+            <RightSideBar {...rightSideBarData} />
+        </>
+    );
 };
 
 export default Admission;
