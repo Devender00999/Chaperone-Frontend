@@ -14,6 +14,7 @@ import {
 } from "../../../styledComponents/common/Common/Common.styles";
 
 // import Actions from "../../../redux/actions/Action";
+// eslint-disable-next-line
 import { useSelector } from "react-redux";
 import { admissionData } from "../../../data/admissionData";
 
