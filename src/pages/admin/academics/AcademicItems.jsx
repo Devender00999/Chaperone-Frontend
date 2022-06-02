@@ -15,9 +15,11 @@ import {
 
 // import Actions from "../../../redux/actions/Action";
 import { useSelector } from "react-redux";
+import { admissionData } from "../../../data/admissionData";
 
 const AcademicItems = () => {
-  const academicBlogs = useSelector((state) => state.allAcaArticles);
+  // const academicBlogs = useSelector((state) => state.allAcaArticles);
+  const academicBlogs = admissionData;
 
   // const dispatch = useDispatch();
   const navigator = useNavigate();
