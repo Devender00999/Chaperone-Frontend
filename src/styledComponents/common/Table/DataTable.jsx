@@ -59,7 +59,7 @@ const DataTable = (props) => {
         const chil2 = (page) => {
           switch (page) {
             case "Admission":
-              return blog.author;
+              return blog.author.name;
             case "Academics":
               return blog.author;
             case "Career":
