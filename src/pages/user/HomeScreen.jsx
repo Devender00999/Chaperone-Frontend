@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import BlogsCard from "../../styledComponents/BlogsCard/BlogsCard";
@@ -49,12 +49,13 @@ const HomeScreen = (props) => {
   console.log(allAdArticles);
   const admissionLoading = useSelector((state) => state.admissions.loading);
 
-  const loadArticles = () => {
+  const loadArticles = useCallback(() => {
     dispatch(admissionActions.loadArticles());
-  };
+  }, [dispatch]);
+  
   useEffect(() => {
     loadArticles();
-  }, []);
+  },[loadArticles]);
 
   return (
     <>
@@ -63,8 +64,8 @@ const HomeScreen = (props) => {
         {admissionLoading
           ? "Loading..."
           : allAdArticles.map((blog, id) => (
-              <BlogsCard type="admission" key={id} {...blog} />
-            ))}
+            <BlogsCard type="admission" key={id} {...blog} />
+          ))}
         {careerData.map((data, id) => (
           <CareerCard key={id} data={data} />
         ))}

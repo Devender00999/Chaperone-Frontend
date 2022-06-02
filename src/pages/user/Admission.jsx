@@ -20,9 +20,10 @@ const Admission = (props) => {
   const loading = useSelector((state) => state.admissions.loading);
 
   useEffect(() => {
-    if (!admissionArticles && admissionArticles.length < 0)
+    if (admissionArticles.length === 0)
       dispatch(admissionActions.loadArticles());
-  }, []);
+  },[admissionArticles, dispatch]);
+
   return (
     <>
       <MainContent direction="column" flex={3}>
