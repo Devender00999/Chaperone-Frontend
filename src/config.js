@@ -1,6 +1,8 @@
 const config = {
   // apiUrl: "http://192.168.1.122:3002/api",
   // url: "http://192.168.1.122:3002",
+  // apiUrl: "https://chaperone-backend.herokuapp.com/api",
+  // url: "https://chaperone-backend.herokuapp.com/",
   apiUrl: "http://localhost:3002/api",
   url: "http://localhost:3002",
   token:
