@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import FileBase64 from "react-file-base64";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { ContentState, convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
@@ -9,231 +8,231 @@ import { Form, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import {
-  HeaderPreview,
-  MainContent,
-  PageHeading,
-  PrimaryButton,
+   MainContent,
+   PageHeading,
+   PrimaryButton,
 } from "../../../styledComponents/common/Common/Common.styles";
 import StyledEditor from "../../../styledComponents/common/Common/StyledEditor";
 import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
 import { useNavigate, useParams } from "react-router-dom";
-import { roadmapsData as data } from "../../../data/roadmapsData";
 import htmlToDraft from "html-to-draftjs";
+import { useDispatch, useSelector } from "react-redux";
+import * as roadmapActions from "../../../store/roadmaps";
+import getUserDetails from "../../../requests/decode/decodeToken";
 
 const NewAdmissionBlog = () => {
-  const params = useParams();
-  const navigate = useNavigate();
-  const [roadmapsData, setAdmissionData] = useState(data);
+   const params = useParams();
+   const navigate = useNavigate();
+   const selectedArticle = useSelector(
+      (state) => state.roadmaps.selectedArticle
+   );
+   const roadmaps = useSelector((state) => state.roadmaps.allRoadmaps);
+   const loading = useSelector((state) => state.roadmaps.loading);
 
-  const [formData, setFormData] = useState({
-    heading: "",
-    image: "",
-    content: "",
-  });
-  const [editorState, setEditorState] = useState();
-  const { id, roadmapId } = params;
+   const [isApiCalled, setIsApiCalled] = useState(false);
 
-  useEffect(() => {
-    document.querySelectorAll("input[type=file]").forEach((item) => {
-      item.setAttribute("accept", "image/x-png,image/jpeg");
-      item.classList.add("form-control");
-    });
-  }, []);
+   const [formData, setFormData] = useState({
+      categoryId: "",
+      heading: "",
+      image: "",
+      content: "",
+      description: "",
+   });
+   const [editorState, setEditorState] = useState();
+   const { id, roadmapId, new: newArticle } = params;
+   const dispatch = useDispatch();
 
-  const convertHTMLToDraft = (content) => {
-    const blocksFromHtml = htmlToDraft(content);
-    const contentState = ContentState.createFromBlockArray(
-      blocksFromHtml.contentBlocks
-    );
-    return EditorState.createWithContent(contentState);
-  };
-
-  //Setting editor state if blog is being edited
-  useEffect(() => {
-    if (id && roadmapId) {
-      const roadmap = roadmapsData.find((roadmap) => roadmap._id === roadmapId);
-
-      if (roadmap) {
-        const article = roadmap.articles.find((article) => article._id === id);
-
-        if (article) {
-          setFormData(article);
-          // console.log(formData);
-          const newEditor = convertHTMLToDraft(formData.content);
-          setEditorState(newEditor);
-        } else {
-          // navigate("/not-found");
-        }
-      } else if (roadmapId === "new") {
-        let initialState = {
-          heading: "",
-          image: "",
-          content: "",
-          desc: "",
-        };
-
-        setFormData(initialState);
-      } else {
-        // navigate("/not-found");
-      }
-    }
-  }, [params, navigate, formData, roadmapsData, roadmapId, id]);
-
-  // Handle Submit
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (id === "new") {
-      // console.log(formData);
-    } else {
-      const content = draftToHtml(
-        convertToRaw(editorState.getCurrentContent())
+   const convertHTMLToDraft = (content) => {
+      const blocksFromHtml = htmlToDraft(content || "");
+      const contentState = ContentState.createFromBlockArray(
+         blocksFromHtml.contentBlocks
       );
+      return EditorState.createWithContent(contentState);
+   };
 
-      setFormData((prev) => ({ ...prev, content: content }));
-      const index = roadmapsData.findIndex((blog) => blog._id === formData._id);
-      const newRoadmapsData = [...roadmapsData];
-      newRoadmapsData[index] = { ...formData, content: content };
-      setAdmissionData(newRoadmapsData);
+   //Setting editor state if blog is being edited
+   useEffect(() => {
+      if (newArticle !== "new") {
+         if (!selectedArticle)
+            dispatch(roadmapActions.selectArticle(roadmapId, id));
+         if (selectedArticle) {
+            const newEditor = convertHTMLToDraft(selectedArticle.content);
+            setEditorState(newEditor);
+            setFormData(selectedArticle);
+         }
+      }
+   }, [dispatch, id, selectedArticle, newArticle, roadmapId]);
+
+   useEffect(() => {
+      if (roadmaps.length === 0 && !isApiCalled) {
+         dispatch(roadmapActions.loadRoadmaps());
+         setIsApiCalled(true);
+      }
+   }, [roadmaps, isApiCalled, dispatch]);
+
+   // Handle Submit
+   const handleSubmit = (e) => {
+      e.preventDefault();
+      const user = getUserDetails();
+      const content = draftToHtml(
+         convertToRaw(editorState.getCurrentContent())
+      );
+      const form = new FormData();
+      form.append("authorId", user._id);
+      form.append("heading", formData.heading);
+      form.append("content", content);
+      form.append("image", formData.image);
+      form.append("description", formData.description);
+      console.log(id);
+      console.log(formData);
+      if (newArticle === "new") {
+         dispatch(roadmapActions.addArticle(formData.categoryId, form));
+      } else {
+         dispatch(roadmapActions.editArticle(roadmapId, id, form));
+      }
       navigate("/admin/roadmaps");
-    }
-  };
+   };
 
-  const handleChange = (e) => {
-    let { type, value, name } = e.target;
+   const handleChange = (e) => {
+      let { type, value, name } = e.target;
+      console.log(name, value);
+      setFormData((prevValue) => {
+         if (type === "file") {
+            let image = e.target.files[0];
+            return { ...prevValue, [name]: image };
+         } else return { ...prevValue, [name]: value };
+      });
+   };
 
-    if (type === "file") {
-      value = URL.createObjectURL(e.target.files[0]);
-      console.log(value);
-    }
+   const onEditorStateChange = (editorState) => {
+      setEditorState(editorState);
+   };
 
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-  const handleFileChange = (e) => {
-    const file = e.base64;
-    setFormData((prev) => ({ ...prev, image: file }));
-  };
-  const onEditorStateChange = (editorState) => {
-    setEditorState(editorState);
-  };
+   return loading ? (
+      "Loading..."
+   ) : (
+      <>
+         <MainContent direction={"column"} flex={4}>
+            <PageHeading style={{ marginBottom: "10px" }}>Roadmaps</PageHeading>
+            <Form onSubmit={handleSubmit}>
+               <Row
+                  style={{
+                     marginRight: 0,
+                     padding: 0,
+                     flexDirection: "column",
+                     columnGap: "20px",
+                  }}
+                  className="removeGutter"
+               >
+                  <Col md style={{ paddingRight: 0 }}>
+                     <Form.Group className="mb-2">
+                        <Form.Label>Technology</Form.Label>
+                        <br />
+                        <Form.Select
+                           name="categoryId"
+                           type="text"
+                           placeholder="Enter Heading"
+                           onChange={handleChange}
+                           disabled={roadmapId}
+                           value={roadmapId}
+                           required
+                        >
+                           {roadmaps.map((category) => {
+                              return (
+                                 <option
+                                    key={category._id}
+                                    value={category._id}
+                                 >
+                                    {category.title}
+                                 </option>
+                              );
+                           })}
+                        </Form.Select>
+                     </Form.Group>
+                  </Col>
 
-  return (
-    <>
-      <MainContent direction={"column"} flex={4}>
-        <PageHeading style={{ marginBottom: "10px" }}>Roadmaps</PageHeading>
-        <Form onSubmit={handleSubmit}>
-          <Row
-            style={{
-              marginRight: 0,
-              padding: 0,
-              flexDirection: "column",
-              columnGap: "20px",
-            }}
-            className="removeGutter"
-          >
-            <Col md style={{ paddingRight: 0 }}>
-              <Form.Group className="mb-2">
-                <Form.Label>Technology</Form.Label>
-                <br />
-                <Form.Select
-                  name="categories"
-                  type="text"
-                  placeholder="Enter Heading"
-                  onChange={handleChange}
-                >
-                  {roadmapsData.map((cat) => {
-                    return (
-                      <option
-                        key={cat._id}
-                        selected={cat._id === roadmapId}
-                        value={cat._id}
-                      >
-                        {cat.title}
-                      </option>
-                    );
-                  })}
-                </Form.Select>
-              </Form.Group>
-            </Col>
+                  <Col md style={{ paddingRight: 0 }}>
+                     <Form.Group className="mb-2">
+                        <Form.Label>Description</Form.Label>
+                        <br />
+                        <Form.Control
+                           as="textarea"
+                           rows={3}
+                           name="description"
+                           style={{ resize: "none" }}
+                           value={formData.description}
+                           type="text"
+                           placeholder="what did you created?"
+                           onChange={handleChange}
+                        />
+                     </Form.Group>
+                  </Col>
 
-            <Col md style={{ paddingRight: 0 }}>
-              <Form.Group className="mb-2">
-                <Form.Label>Description</Form.Label>
-                <br />
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  name="description"
-                  style={{ resize: "none" }}
-                  value={formData.desc}
-                  type="text"
-                  placeholder="what did you created?"
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
+                  <Col md style={{ paddingRight: 0 }}>
+                     <Form.Group className="mb-2">
+                        <Form.Label>Heading</Form.Label>
+                        <br />
+                        <Form.Control
+                           name="heading"
+                           value={formData.heading}
+                           type="text"
+                           placeholder="Enter Heading"
+                           onChange={handleChange}
+                        />
+                     </Form.Group>
+                  </Col>
+                  <Col md style={{ paddingRight: 0 }}>
+                     <Form.Group className="mb-3">
+                        <Form.Label>Upload Header Image</Form.Label>
+                        <Form.Control
+                           className="form-control"
+                           type="file"
+                           name="image"
+                           accept="image/x-png,image/jpg,image/jpeg"
+                           onChange={handleChange}
+                        />
+                     </Form.Group>
+                  </Col>
+               </Row>
+               {/* <Row>
+                  <Col>
+                     <HeaderPreview
+                        image={formData.image}
+                        className="mb-3 mt-3"
+                        alt=""
+                        style={{
+                           display: formData.image ? "block" : "none",
+                        }}
+                     />
+                  </Col>
+               </Row> */}
+               <Form.Label>Body</Form.Label>
 
-            <Col md style={{ paddingRight: 0 }}>
-              <Form.Group className="mb-2">
-                <Form.Label>Heading</Form.Label>
-                <br />
-                <Form.Control
-                  name="heading"
-                  value={formData.heading}
-                  type="text"
-                  placeholder="Enter Heading"
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-            <Col md style={{ paddingRight: 0 }}>
-              <Form.Group className="mb-3">
-                <Form.Label>Upload Header Image</Form.Label>
-                <FileBase64
-                  className="form-control"
-                  type="file"
-                  name="image"
-                  accept="image/x-png,image/gif,image/jpeg"
-                  onDone={handleFileChange}
-                  placeholder="Enter Title"
-                />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <HeaderPreview
-                image={formData.image}
-                className="mb-3 mt-3"
-                alt=""
-                style={{
-                  display: formData.image ? "block" : "none",
-                }}
-              />
-            </Col>
-          </Row>
-          <Form.Label>Body</Form.Label>
-
-          <div
-            style={{
-              border: "1px solid #D2D2D2",
-              marginBottom: "20px",
-              borderRadius: "5px",
-            }}
-          >
-            <StyledEditor
-              editorState={editorState}
-              onEditorStateChange={onEditorStateChange}
-            />
-          </div>
-          <PrimaryButton onClick={handleSubmit} className="btn" type="submit">
-            {id !== "new" ? "Save" : "Submit"}
-          </PrimaryButton>
-        </Form>
-        {/* <div dangerouslySetInnerHTML={{ __html: markup }} /> */}
-      </MainContent>
-      <RightSideBar heading="" content={[]} />
-    </>
-  );
+               <div
+                  style={{
+                     border: "1px solid #D2D2D2",
+                     marginBottom: "20px",
+                     borderRadius: "5px",
+                  }}
+               >
+                  <StyledEditor
+                     editorState={editorState}
+                     onEditorStateChange={onEditorStateChange}
+                  />
+               </div>
+               <PrimaryButton
+                  onClick={handleSubmit}
+                  className="btn"
+                  type="submit"
+               >
+                  {id !== "new" ? "Save" : "Submit"}
+               </PrimaryButton>
+            </Form>
+            {/* <div dangerouslySetInnerHTML={{ __html: markup }} /> */}
+         </MainContent>
+         <RightSideBar heading="" content={[]} />
+      </>
+   );
 };
 
 export default NewAdmissionBlog;

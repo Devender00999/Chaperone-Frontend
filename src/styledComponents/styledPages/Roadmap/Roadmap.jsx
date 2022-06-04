@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
    DescText,
@@ -18,16 +18,27 @@ import {
    HeadingContainer,
    ProjectContainer,
 } from "./Roadmap.styles";
-
 import ProjectCard from "../../ProjectCard/ProjectCard";
-import { roadmapsData } from "../../../data/roadmapsData";
-import { useParams } from "react-router-dom";
+import * as roadmapActions from "../../../store/roadmaps";
+import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Alert } from "@mui/material";
 
 const Roadmap = () => {
-   const params = useParams();
-   const roadmaps = roadmapsData.find((item) => item._id === params.id);
+   const roadmap = useSelector((state) => state.roadmaps.selectedRoadmap);
+   const loading = useSelector((state) => state.roadmaps.loading);
+   const error = useSelector((state) => state.roadmaps.error);
+   const [isApiCalled, setIsApiCalled] = useState(false);
+   const dispatch = useDispatch();
 
-   if (!roadmaps) window.location.href = "/not-found";
+   const { id } = useParams();
+   const [showArticles, setShowArticles] = useState(false);
+   const articleLimit = showArticles ? roadmap.articles.length : 2;
+   const navigate = useNavigate();
+   const [showProjects, setShowProjects] = useState(false);
+   const projectLimit = showProjects ? roadmap.projects.length : 2;
+
+   // if (!roadmaps) window.location.href = "/not-found";
 
    const rightSideBarData = {
       heading: "Your Recents",
@@ -39,64 +50,98 @@ const Roadmap = () => {
       ],
    };
 
-   const [showArticles, setShowArticles] = useState(false);
-   const articleLimit = showArticles ? roadmaps.articles.length : 4;
+   useEffect(() => {
+      if (error !== null) {
+         dispatch(roadmapActions.cleanError());
+         navigate("/dashboard/roadmaps");
+      }
 
-   const [showProjects, setShowProjects] = useState(false);
-   const projectLimit = showProjects ? roadmaps.projects.length : 2;
-   return (
+      if (!roadmap && !isApiCalled) {
+         dispatch(roadmapActions.selectRoadmap(id));
+         setIsApiCalled(true);
+      }
+   }, [id, isApiCalled, roadmap, error, dispatch, navigate]);
+
+   const handleArticleSelect = (roadmapId, articleId) => {
+      console.log(roadmapId, articleId);
+      dispatch(roadmapActions.selectArticle(roadmapId, articleId));
+   };
+
+   return loading ? (
+      "Loading..."
+   ) : roadmap ? (
       <>
          <MainContent direction="column" flex={3}>
             <HeadingContainer>
-               <PageHeading>{roadmaps.title}</PageHeading>
-               <GoBack title="" link="/roadmaps" />
+               <PageHeading>{roadmap.title}</PageHeading>
+               <GoBack title="" link="/dashboard/roadmaps" />
             </HeadingContainer>
+            {roadmap.articles &&
+               roadmap.articles.length === 0 &&
+               roadmap.projects &&
+               roadmap.projects.length === 0 && (
+                  <Alert style={{ marginTop: "20px" }} severity="warning">
+                     Nothing to see here. We will add content soon.
+                  </Alert>
+               )}
+            {roadmap.articles && roadmap.articles.length > 0 && (
+               <ArticlesContainer>
+                  <HeadingContainer style={{ padding: "0.5rem 0" }}>
+                     <SecondaryHeading>Featured Articles</SecondaryHeading>
+                     <StyledLink
+                        title="View All"
+                        onClick={() => setShowArticles((prev) => !prev)}
+                        link=""
+                     />
+                  </HeadingContainer>
 
-            <ArticlesContainer>
-               <HeadingContainer style={{ padding: "0.5rem 0" }}>
-                  <SecondaryHeading>Featured Articles</SecondaryHeading>
-                  <StyledLink
-                     title="View All"
-                     onClick={() => setShowArticles((prev) => !prev)}
-                     link=""
-                  />
-               </HeadingContainer>
+                  {roadmap.articles
+                     .slice(0, articleLimit)
+                     .map((article, index) => (
+                        <Article
+                           key={article._id}
+                           to={`/dashboard/roadmaps/${roadmap._id}/${article._id}`}
+                           onClick={() =>
+                              handleArticleSelect(roadmap._id, article._id)
+                           }
+                        >
+                           <ArticleNumber>
+                              {index < 10 - 1 ? "0" + (index + 1) : index + 1}
+                           </ArticleNumber>
+                           <ArticleTextCon>
+                              <Heading>{article.heading}</Heading>
+                              <DescText>
+                                 {article.description.substring(0, 150)}
+                              </DescText>
+                           </ArticleTextCon>
+                        </Article>
+                     ))}
+               </ArticlesContainer>
+            )}
+            <br />
 
-               {roadmaps.articles
-                  .slice(0, articleLimit)
-                  .map((article, index) => (
-                     <Article
-                        key={article._id}
-                        to={`/dashboard/roadmaps/${roadmaps._id}/${article._id}`}
-                     >
-                        <ArticleNumber>
-                           {index < 10 - 1 ? "0" + (index + 1) : index + 1}
-                        </ArticleNumber>
-                        <ArticleTextCon>
-                           <Heading>{article.heading}</Heading>
-                           <DescText>{article.desc.substring(0, 150)}</DescText>
-                        </ArticleTextCon>
-                     </Article>
-                  ))}
-            </ArticlesContainer>
+            {roadmap.projects && roadmap.projects.length > 0 && (
+               <>
+                  <HeadingContainer>
+                     <SecondaryHeading>PROJECT IDEAS</SecondaryHeading>
+                     <StyledLink
+                        title="View All"
+                        link=""
+                        onClick={() => setShowProjects((prev) => !prev)}
+                     />
+                  </HeadingContainer>
 
-            <HeadingContainer>
-               <SecondaryHeading>PROJECT IDEAS</SecondaryHeading>
-               <StyledLink
-                  title="View All"
-                  link=""
-                  onClick={() => setShowProjects((prev) => !prev)}
-               />
-            </HeadingContainer>
-            <ProjectContainer>
-               {roadmaps.projects.slice(0, projectLimit).map((project) => (
-                  <ProjectCard small key={project._id} {...project} />
-               ))}
-            </ProjectContainer>
+                  <ProjectContainer>
+                     {roadmap.projects.slice(0, projectLimit).map((project) => (
+                        <ProjectCard small key={project._id} {...project} />
+                     ))}
+                  </ProjectContainer>
+               </>
+            )}
          </MainContent>
          <RightSideBar {...rightSideBarData} />
       </>
-   );
+   ) : null;
 };
 
 export default Roadmap;
