@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { MainContent } from "../../styledComponents/common/Common/Common.styles";
-import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
-import BlogsCard from "../../styledComponents/BlogsCard/BlogsCard";
 import { useDispatch, useSelector } from "react-redux";
-import * as admissionActions from "../../store/admissions";
 import { Alert } from "@mui/material";
+
+import * as admissionActions from "../../store/admissions";
+import BlogsCard from "../../styledComponents/BlogsCard/BlogsCard";
+import { MainContent } from "../../styledComponents/common/Common/Common.styles";
+import Loader from "../../components/Loader/Loader";
+import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
 
 const rightSideBarData = {
    heading: "Quick Links",
@@ -33,19 +35,16 @@ const Admission = () => {
    return (
       <>
          <MainContent direction="column" flex={3}>
-            {loading === false ? (
-               admissionArticles.length > 0 ? (
-                  admissionArticles.map((blog, id) => (
-                     <BlogsCard type="admission" key={id} {...blog} />
-                  ))
-               ) : (
-                  <Alert severity="warning">
-                     Currently we don't have any articles. we will add them
-                     soon.
-                  </Alert>
-               )
+            {loading ? (
+               <Loader />
+            ) : admissionArticles.length > 0 ? (
+               admissionArticles.map((blog, id) => (
+                  <BlogsCard type="admission" key={id} {...blog} />
+               ))
             ) : (
-               "Loading"
+               <Alert severity="warning">
+                  Currently we don't have any articles. we will add them soon.
+               </Alert>
             )}
          </MainContent>
          <RightSideBar {...rightSideBarData} />

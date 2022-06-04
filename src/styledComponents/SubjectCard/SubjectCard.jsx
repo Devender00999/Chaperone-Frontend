@@ -1,29 +1,72 @@
 import React from "react";
-import { StyledLink } from "../common/Common/Common";
+import config, { colors } from "../../config";
+import { StyledAnchorLink } from "../common/Common/Common";
 import { DescText, Heading } from "../common/Common/Common.styles";
+
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+
 import {
-  SubjectContainer,
-  SubjectTopic,
-  SubjectTopics,
+   SubjectContainer,
+   SubjectOptions,
+   SubjectTopic,
+   SubjectTopics,
 } from "./SubjectCard.styles";
+import { Alert } from "@mui/material";
 
 const SubjectCard = (props) => {
-  const { subject } = props;
-  return (
-    <SubjectContainer>
-      <Heading>{subject.title}</Heading>
-      <SubjectTopics>
-        {subject.topics.map((topic, i) => (
-          <SubjectTopic key={i}>
-            <DescText style={{ margin: "0 0 0.5rem" }}>
-              {topic.topicName}
-            </DescText>
-            <StyledLink link={topic.topicLink} title="View" />
-          </SubjectTopic>
-        ))}
-      </SubjectTopics>
-    </SubjectContainer>
-  );
+   const { subject, onEdit, onDelete } = props;
+   return (
+      <SubjectContainer>
+         <SubjectOptions>
+            <Heading>{subject.subName}</Heading>
+            <div
+               style={{
+                  display: onEdit ? "flex" : "none",
+                  columnGap: "0.5rem",
+               }}
+            >
+               <EditRoundedIcon
+                  className="cursor-pointer"
+                  onClick={() => onEdit(subject._id)}
+                  color="red"
+                  style={{ color: colors.primary }}
+               />
+               <DeleteForeverRoundedIcon
+                  className="cursor-pointer"
+                  onClick={() => onDelete(subject._id)}
+                  style={{ color: colors.primary }}
+               />
+            </div>
+         </SubjectOptions>
+         <SubjectTopics
+            style={{ paddingLeft: "0.5rem", paddingRight: "0.5rem" }}
+         >
+            {subject.topics.length > 0 ? (
+               subject.topics.map((topic, i) => {
+                  const url = { link: config.url + topic.topicLink };
+                  return (
+                     <SubjectTopic key={topic._id}>
+                        <div style={{ display: "flex" }}>
+                           <DescText style={{ padding: 0 }}>
+                              {i + 1}.{"  "} {topic.topicName}
+                           </DescText>
+                        </div>
+                        <StyledAnchorLink
+                           rel={"external"}
+                           target="_blank"
+                           link={url.link}
+                           title="View"
+                        />
+                     </SubjectTopic>
+                  );
+               })
+            ) : (
+               <Alert severity="info">No Topic Added</Alert>
+            )}
+         </SubjectTopics>
+      </SubjectContainer>
+   );
 };
 
 export default SubjectCard;

@@ -13,6 +13,7 @@ import EasyBuyCard from "../../styledComponents/EasyBuyCard/EasyBuyCard";
 import { careerData } from "../../data/career";
 import { pgData } from "../../data/pgFinder";
 import * as admissionActions from "../../store/admissions";
+import Loader from "../../components/Loader/Loader";
 
 const HomeScreen = (props) => {
    const dispatch = useDispatch();
@@ -60,11 +61,13 @@ const HomeScreen = (props) => {
       <>
          <MainContent direction="column" flex={3}>
             {/* <Tags tags={tags} /> */}
-            {admissionLoading
-               ? "Loading..."
-               : admissionArticles.map((blog, id) => (
-                    <BlogsCard type="admission" key={id} {...blog} />
-                 ))}
+            {admissionLoading ? (
+               <Loader />
+            ) : (
+               admissionArticles.map((blog, id) => (
+                  <BlogsCard type="admission" key={id} {...blog} />
+               ))
+            )}
             {careerData.map((data, id) => (
                <CareerCard key={id} data={data} />
             ))}

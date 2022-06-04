@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import colors from "../../../config";
 
 export const StyledContainer = styled.div`
    display: flex;
@@ -71,6 +73,19 @@ export const Heading = styled.h3`
 `;
 
 export const ViewLink = styled(Link)`
+   color: #ff6600;
+   cursor: pointer;
+   font-size: 0.875rem;
+   text-decoration: none;
+   height: max-content;
+
+   &:hover {
+      color: #ff6600;
+      opacity: 0.8;
+   }
+`;
+
+export const AnchorLink = styled.a`
    color: #ff6600;
    cursor: pointer;
    font-size: 0.875rem;
@@ -190,6 +205,10 @@ export const SecondaryButtonAnchor = styled.a`
    &:hover {
       color: #ff6600;
    }
+`;
+export const OutlinedButton = styled(Button)`
+   color: ${colors.primary};
+   border-color: ${colors.primary};
 `;
 
 export const StyledTagContainer = styled.div`

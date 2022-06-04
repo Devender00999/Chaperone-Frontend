@@ -20,6 +20,7 @@
     "joi": "^17.5.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
+    "lottie-react": "^2.2.1",
     "lru-cache": "^7.10.1",
     "package.json": "^2.0.1",
     "react": "^17.0.2",
@@ -62,5 +63,7 @@
       "last 1 safari version"
     ]
   },
-  "overrides": { "autoprefixer": "10.4.5" }
+  "overrides": {
+    "autoprefixer": "10.4.5"
+  }
 }

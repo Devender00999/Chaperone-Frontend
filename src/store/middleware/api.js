@@ -21,11 +21,18 @@ const api =
 
          // if sucess is defined
          if (onSuccess) dispatch({ type: onSuccess, payload: response.data });
-         console.log(response.data);
+         return response;
       } catch (error) {
          dispatch(actions.apiCallFailed(error.message));
-
-         if (onError) dispatch({ type: onError, payload: error.message });
+         if (onError)
+            dispatch({
+               type: onError,
+               payload: {
+                  message: error.response.data,
+                  statusMessage: error.message,
+               },
+            });
+         return error.response;
       }
    };
 
