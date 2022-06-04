@@ -48,7 +48,7 @@ const DataTable = (props) => {
             case "Admission":
               return blog.heading;
             case "Academics":
-              return blog.topname;
+              return blog.heading;
             case "Career":
               return blog.position;
 
@@ -61,11 +61,11 @@ const DataTable = (props) => {
             case "Admission":
               return blog.author.name;
             case "Academics":
-              return blog.subName;
+              return blog.author;
             case "Career":
               return blog.companyName;
             default:
-              return blog.author.name;
+              return blog.author;
           }
         };
 

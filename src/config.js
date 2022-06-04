@@ -6,7 +6,7 @@ const config = {
 };
 
 export const colors = {
-   primary: "#ff6600"
-}
+   primary: "#ff6600",
+};
 
 export default config;
