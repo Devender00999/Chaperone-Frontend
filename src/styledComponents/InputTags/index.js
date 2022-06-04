@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
    InputTag,
    InputTagsContainer,
@@ -7,36 +6,27 @@ import {
 } from "./InputTags.styles";
 
 function InputTags({ tags, setTags }) {
-   const [inputTags, setInputTags] = useState([...tags]);
-
-   useEffect(() => {
-      setTags(inputTags);
-   }, [inputTags, setTags]);
-
    const handleAdd = (e) => {
       if (e.keyCode === 13) {
          const data = e.target.value;
-         if (inputTags.includes(data) === false) {
-            setInputTags([...inputTags, data]);
-            setTags(inputTags);
+         if (tags.includes(data) === false) {
+            setTags([...tags, data]);
          }
          e.target.value = "";
       }
    };
    const handleBack = (e) => {
       if (e.keyCode === 8 && e.target.value === "") {
-         setInputTags(inputTags.slice(0, inputTags.length - 1));
+         setTags(tags.slice(0, tags.length - 1));
          e.target.value = "";
-         setTags(inputTags);
       }
    };
    const handleDelete = (item) => {
-      setInputTags(inputTags.filter((element) => element !== item));
-      setTags(inputTags);
+      setTags(tags.filter((element) => element !== item));
    };
    return (
       <InputTagsContainer>
-         {inputTags.map((item, key) => (
+         {tags.map((item, key) => (
             <InputTagStyle key={key}>
                {item}
                <InputTagDelete

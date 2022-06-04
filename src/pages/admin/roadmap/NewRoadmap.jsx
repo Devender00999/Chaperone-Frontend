@@ -62,7 +62,8 @@ const NewAdmissionBlog = () => {
          if (selectedArticle) {
             const newEditor = convertHTMLToDraft(selectedArticle.content);
             setEditorState(newEditor);
-            setFormData(selectedArticle);
+
+            setFormData({ ...selectedArticle, categoryId: roadmapId });
          }
       }
    }, [dispatch, id, selectedArticle, newArticle, roadmapId]);

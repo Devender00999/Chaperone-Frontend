@@ -45,9 +45,13 @@ const AdminRoutes = user && (
 
       {/* Admin Project Routes */}
       <Route path="/admin/projects" exact element={<ProjectBlogs />} />
-      <Route path="/admin/projects/new" exact element={<NewProject />} />
       <Route
-         path="/admin/projects/:category/:id"
+         path="/admin/projects/:newProject"
+         exact
+         element={<NewProject />}
+      />
+      <Route
+         path="/admin/projects/:roadmapId/:projectId"
          exact
          element={<NewProject />}
       />

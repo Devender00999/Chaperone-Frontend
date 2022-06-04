@@ -1,4 +1,5 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import { apiCallBegan } from "./api";
 
 const slice = createSlice({
@@ -7,6 +8,7 @@ const slice = createSlice({
       articles: [],
       selectedArticle: null,
       loading: false,
+      error: null,
    },
    reducers: {
       articleRequested: (state, action) => {
@@ -14,24 +16,31 @@ const slice = createSlice({
       },
       articleRequestFailed: (state, action) => {
          state.loading = false;
+         state.error = action.payload.message;
       },
       articlesReceived: (state, action) => {
          state.articles = action.payload;
          state.loading = false;
+         state.error = null;
       },
       articleSelected: (state, action) => {
          state.selectedArticle = action.payload;
          state.loading = false;
+         state.error = null;
       },
       articleAdded: (state, action) => {
          state.articles.push(action.payload);
          state.loading = false;
+         state.error = null;
+         toast.success("Admission article added successfully.");
       },
       articleRemoved: (state, action) => {
          state.loading = false;
+         state.error = null;
          state.articles = state.articles.filter(
             (article) => article._id !== action.payload.article._id
          );
+         toast.success("Admission article removed successfully.");
       },
       articleUpdated: (state, action) => {
          const index = state.articles.findIndex(
@@ -40,6 +49,8 @@ const slice = createSlice({
          state.selectedArticle = action.payload;
          state.articles[index] = action.payload;
          state.loading = false;
+         state.error = null;
+         toast.success("Admission article updated successfully.");
       },
    },
 });

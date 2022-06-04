@@ -37,7 +37,7 @@ const DataTable = (props) => {
             <TableColumnHeading
                style={{
                   flex: 1,
-                  display: props.likes === false ? "none" : "block",
+                  display: props.likes ? "none" : "none",
                }}
             >
                Likes
@@ -76,13 +76,15 @@ const DataTable = (props) => {
                <TableRow key={id}>
                   <TableColumn style={{ flex: 4 }}>{chil1(page)} </TableColumn>
                   <TableColumn style={{ flex: 3 }}>{chil2(page)}</TableColumn>
-                  <TableColumn
-                     style={{
-                        flex: 1,
-                     }}
-                  >
-                     {blog.likes ? blog.likes : 0}
-                  </TableColumn>
+                  {props.likes && (
+                     <TableColumn
+                        style={{
+                           flex: 1,
+                        }}
+                     >
+                        {blog.likes ? blog.likes : 0}
+                     </TableColumn>
+                  )}
                   <TableColumn
                      style={{
                         flex: 1,
