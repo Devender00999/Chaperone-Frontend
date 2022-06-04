@@ -4,13 +4,13 @@ import reducer from "./reducer";
 import api from "./middleware/api";
 
 export default configureStore({
-  reducer,
-  middleware: [
-    ...getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: ["api/apiCallBegan"],
-      },
-    }),
-    api,
-  ],
+   reducer,
+   middleware: [
+      ...getDefaultMiddleware({
+         serializableCheck: {
+            ignoredActions: ["api/apiCallBegan"],
+         },
+      }),
+      api,
+   ],
 });

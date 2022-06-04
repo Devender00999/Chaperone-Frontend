@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import admissionReducer from "./admissions";
+import admissionReducers from "./admissions";
+import academicsReducer from "./academics";
 
 export default combineReducers({
-  admissions: admissionReducer,
+    admissions: admissionReducers,
+    academics: academicsReducer,
 });
