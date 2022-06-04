@@ -8,6 +8,7 @@ const config = {
 
 export const colors = {
    primary: "#ff6600",
+   primaryLight: "#ff751a",
 };
 
 export default config;

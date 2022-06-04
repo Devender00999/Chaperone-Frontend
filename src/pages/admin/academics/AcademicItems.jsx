@@ -1,16 +1,16 @@
 /** @format */
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import DataTable from "../../../styledComponents/common/Table/DataTable2";
 
 import {
    PageHeading,
    HeadingContainer,
    HeadingContent,
    MainContent,
-   PrimaryButton,
+   OutlinedButton,
+   SearchInput,
 } from "../../../styledComponents/common/Common/Common.styles";
 
 // import Actions from "../../../redux/actions/Action";
@@ -23,7 +23,8 @@ import { Alert } from "@mui/material";
 
 const AcademicItems = () => {
    const dispatch = useDispatch();
-   const allSubjects = useSelector((state) => state.academics.allSubjects);
+   const [query, setQuery] = useState("");
+   const allSubjects = useSelector(academicsActions.filterSubjects(query));
    const error = useSelector((state) => state.academics.error);
    const loading = useSelector((state) => state.academics.loading);
 
@@ -53,22 +54,21 @@ const AcademicItems = () => {
                <HeadingContainer>
                   <PageHeading>Edit Your Uploaded Notes</PageHeading>
                   <HeadingContent>
-                     <Form.Control
-                        style={{
-                           width: "200px",
-                           padding: "0 20px",
-                           outline: "none",
-                        }}
+                     <SearchInput
+                        className="form-control"
                         type="search"
                         placeholder="Search"
+                        onChange={(e) => setQuery(e.target.value)}
+                        value={query}
                      />
+
                      <Link
                         style={{ textDecoration: "none", color: "White" }}
                         to="/admin/academics/new"
                      >
-                        <PrimaryButton className="primaryButton">
+                        <OutlinedButton variant="outlined">
                            Add New
-                        </PrimaryButton>
+                        </OutlinedButton>
                      </Link>
                   </HeadingContent>
                </HeadingContainer>

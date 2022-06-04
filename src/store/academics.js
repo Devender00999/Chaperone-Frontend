@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { apiCallBegan } from "./api";
 
@@ -73,7 +73,39 @@ const slice = createSlice({
          state.error = null;
       },
 
-      topicAdded: (state, action) => {},
+      topicAdded: (state, action) => {
+         state.selectedSubject.topics.push(action.payload);
+
+         // Adding new topic to subject list
+         state.allSubjects = state.allSubjects.map((sub) =>
+            sub._id === action.payload.subjectId
+               ? sub.topics.push(action.payload)
+               : sub
+         );
+
+         state.loading = false;
+         state.error = null;
+      },
+      topicRemoved: (state, action) => {
+         // Removing topic from selected subjects
+         console.log(action.payload);
+         state.selectedSubject.topics = state.selectedSubject.topics.filter(
+            (topic) => topic._id !== action.payload._id
+         );
+
+         const index = state.allSubjects.findIndex(
+            (sub) => sub._id === action.payload.subjectId
+         );
+
+         // Removed deleted item from All Subjects
+         if (index >= 0)
+            state.allSubjects[index] = state.allSubjects[index].topics.filter(
+               (topic) => topic._id !== action.payload._id
+            );
+
+         state.loading = false;
+         state.error = null;
+      },
    },
 });
 
@@ -87,10 +119,44 @@ const {
    subjectsReceived,
    subjectRemoved,
    subjectUpdated,
+   topicAdded,
+   topicRemoved,
 } = slice.actions;
 
 // url
 const academics = "/academics";
+
+// action creator for creating a topic in a subject
+export const addTopic = (subjectId, topic) =>
+   apiCallBegan({
+      url: academics + "/" + subjectId + "/topics",
+      method: "post",
+      data: topic,
+      onStart: subjectRequested.type,
+      onSuccess: topicAdded.type,
+      onError: subjectRequestFailed.type,
+   });
+
+// action creator to get filtered articles
+export const filterSubjects = (query) =>
+   createSelector(
+      (state) => state.academics.allSubjects,
+      (allSubjects) =>
+         allSubjects.filter((subject) => {
+            console.log(query);
+            return subject.subName.toLowerCase().includes(query.toLowerCase());
+         })
+   );
+
+// action create to delete a topic
+export const removeTopic = (subjectId, id) =>
+   apiCallBegan({
+      url: academics + "/" + subjectId + "/topics/" + id,
+      method: "delete",
+      onStart: subjectRequested.type,
+      onSuccess: topicRemoved.type,
+      onError: subjectRequestFailed.type,
+   });
 
 // action creator for getting branches
 export const loadBranches = () =>
