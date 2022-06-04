@@ -13,7 +13,7 @@ import {
 
 import { roadmapsData } from "../../../data/roadmapsData";
 
-const RoadmapBlogs = () => {
+const Projects = () => {
    const [roadmaps, setRoadmaps] = useState(roadmapsData);
 
    const navigator = useNavigate();
@@ -89,4 +89,4 @@ const RoadmapBlogs = () => {
    );
 };
 
-export default RoadmapBlogs;
+export default Projects;

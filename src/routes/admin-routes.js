@@ -5,7 +5,7 @@ import React from "react";
 import NewAdmissionBlog from "../pages/admin/admission/NewAdmissionBlog";
 import RoadmapBlogs from "../pages/admin/roadmap/RoadmapBlogs";
 import NewRoadmapBlog from "../pages/admin/roadmap/NewRoadmap";
-import ProjectBlogs from "../pages/admin/project/ProjectBlogs";
+import ProjectBlogs from "../pages/admin/project/Projects";
 import NewProject from "../pages/admin/project/NewProject";
 import AcademicItems from "../pages/admin/academics/AcademicItems";
 import NewAcademicsItem from "../pages/admin/academics/NewAcademicsItem";

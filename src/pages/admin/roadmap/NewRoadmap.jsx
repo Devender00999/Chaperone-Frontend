@@ -19,6 +19,7 @@ import htmlToDraft from "html-to-draftjs";
 import { useDispatch, useSelector } from "react-redux";
 import * as roadmapActions from "../../../store/roadmaps";
 import getUserDetails from "../../../requests/decode/decodeToken";
+import { Alert } from "@mui/material";
 
 const NewAdmissionBlog = () => {
    const params = useParams();
@@ -27,7 +28,11 @@ const NewAdmissionBlog = () => {
       (state) => state.roadmaps.selectedArticle
    );
    const roadmaps = useSelector((state) => state.roadmaps.allRoadmaps);
+   const [errorMessage, setErrorMessage] = useState();
+   const error = useSelector((state) => state.roadmaps.error);
    const loading = useSelector((state) => state.roadmaps.loading);
+
+   const { id, roadmapId, new: newArticle } = params;
 
    const [isApiCalled, setIsApiCalled] = useState(false);
 
@@ -38,8 +43,7 @@ const NewAdmissionBlog = () => {
       content: "",
       description: "",
    });
-   const [editorState, setEditorState] = useState();
-   const { id, roadmapId, new: newArticle } = params;
+   const [editorState, setEditorState] = useState(null);
    const dispatch = useDispatch();
 
    const convertHTMLToDraft = (content) => {
@@ -68,11 +72,23 @@ const NewAdmissionBlog = () => {
          dispatch(roadmapActions.loadRoadmaps());
          setIsApiCalled(true);
       }
-   }, [roadmaps, isApiCalled, dispatch]);
+      if (!loading && error) {
+         setErrorMessage(error);
+      }
+   }, [roadmaps, isApiCalled, dispatch, error, loading]);
 
    // Handle Submit
-   const handleSubmit = (e) => {
+   const handleSubmit = async (e) => {
       e.preventDefault();
+      console.log(editorState);
+      if (!formData.categoryId) {
+         setErrorMessage("Please select a category");
+         return;
+      }
+      if (editorState === null) {
+         setErrorMessage("Body can't be empty");
+         return;
+      }
       const user = getUserDetails();
       const content = draftToHtml(
          convertToRaw(editorState.getCurrentContent())
@@ -85,12 +101,19 @@ const NewAdmissionBlog = () => {
       form.append("description", formData.description);
       console.log(id);
       console.log(formData);
+      let result;
       if (newArticle === "new") {
-         dispatch(roadmapActions.addArticle(formData.categoryId, form));
+         result = await dispatch(
+            roadmapActions.addArticle(formData.categoryId, form)
+         );
       } else {
-         dispatch(roadmapActions.editArticle(roadmapId, id, form));
+         result = await dispatch(
+            roadmapActions.editArticle(roadmapId, id, form)
+         );
       }
-      navigate("/admin/roadmaps");
+      if (result.status === 200) {
+         navigate("/admin/roadmaps");
+      }
    };
 
    const handleChange = (e) => {
@@ -115,6 +138,11 @@ const NewAdmissionBlog = () => {
          <MainContent direction={"column"} flex={4}>
             <PageHeading style={{ marginBottom: "10px" }}>Roadmaps</PageHeading>
             <Form onSubmit={handleSubmit}>
+               {errorMessage && (
+                  <Alert severity="error">
+                     {errorMessage.message || errorMessage}
+                  </Alert>
+               )}
                <Row
                   style={{
                      marginRight: 0,
@@ -127,7 +155,6 @@ const NewAdmissionBlog = () => {
                   <Col md style={{ paddingRight: 0 }}>
                      <Form.Group className="mb-2">
                         <Form.Label>Technology</Form.Label>
-                        <br />
                         <Form.Select
                            name="categoryId"
                            type="text"
@@ -137,6 +164,7 @@ const NewAdmissionBlog = () => {
                            value={roadmapId}
                            required
                         >
+                           <option value={null}>Select a category</option>
                            {roadmaps.map((category) => {
                               return (
                                  <option
@@ -188,7 +216,7 @@ const NewAdmissionBlog = () => {
                            className="form-control"
                            type="file"
                            name="image"
-                           accept="image/x-png,image/jpg,image/jpeg"
+                           accept="image/x-png,image/jpg,image/jpeg, image/svg"
                            onChange={handleChange}
                         />
                      </Form.Group>

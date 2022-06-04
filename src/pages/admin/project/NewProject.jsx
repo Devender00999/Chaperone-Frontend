@@ -17,7 +17,7 @@ import {
    DoubtInputTag,
    DoubtInputTags,
    InputDelete,
-   InputTags,
+   InputTagStyle,
 } from "../../../styledComponents/styledPages/DoubtDeskPage/DoubtDeskPage.styles";
 
 const NewProject = () => {
@@ -197,13 +197,13 @@ const NewProject = () => {
                         <br />
                         <DoubtInputTags style={{ minHeight: "50px" }}>
                            {questionData.techUsed.map((item, key) => (
-                              <InputTags key={key}>
+                              <InputTagStyle key={key}>
                                  {item}
                                  <InputDelete
                                     src="/images/common/delete-cross.svg"
                                     onClick={() => handleDelete(item)}
                                  />
-                              </InputTags>
+                              </InputTagStyle>
                            ))}
 
                            <DoubtInputTag

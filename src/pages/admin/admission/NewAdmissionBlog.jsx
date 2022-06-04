@@ -69,7 +69,6 @@ const NewAdmissionBlog = () => {
       const content = draftToHtml(
          convertToRaw(editorState.getCurrentContent())
       );
-      console.log(content);
       if (id === "new") {
          const newAdmissionData = {
             ...formData,
@@ -128,7 +127,7 @@ const NewAdmissionBlog = () => {
             <PageHeading style={{ marginBottom: "10px" }}>
                Admission Blogs
             </PageHeading>
-            <Form onSubmit={handleSubmit}>
+            <div>
                <Row
                   style={{
                      marginRight: 0,
@@ -174,7 +173,7 @@ const NewAdmissionBlog = () => {
                            className="form-control"
                            type="file"
                            name="image"
-                           accept="image/x-png,image/jpg,image/jpeg"
+                           accept="image/x-png,image/jpg,image/jpeg, image/svg"
                            onChange={handleChange}
                         />
                      </Form.Group>
@@ -213,7 +212,7 @@ const NewAdmissionBlog = () => {
                >
                   {id !== "new" ? "Save" : "Submit"}
                </PrimaryButton>
-            </Form>
+            </div>
             {/* <div dangerouslySetInnerHTML={{ __html: markup }} /> */}
          </MainContent>
          <RightSideBar heading="" content={[]} />

@@ -21,7 +21,7 @@ const slice = createSlice({
       },
       roadmapRequestFailed: (state, action) => {
          state.loading = false;
-         state.error = action.payload;
+         state.error = action.payload.message;
       },
       roadmapsReceived: (state, action) => {
          state.allRoadmaps = action.payload;
@@ -34,12 +34,10 @@ const slice = createSlice({
       },
       roadmapRemoved: (state, action) => {
          state.loading = false;
-         return {
-            ...state,
-            roadmaps: state.allRoadmaps.filter(
-               (roadmap) => roadmap._id !== action.payload.roadmap._id
-            ),
-         };
+         console.log(action.payload.roadmap);
+         state.allRoadmaps = state.allRoadmaps.filter(
+            (roadmap) => roadmap._id !== action.payload._id
+         );
       },
       roadmapUpdated: (state, action) => {
          const index = state.allRoadmaps.findIndex(
@@ -171,7 +169,7 @@ export const addRoadmap = (roadmap) =>
       data: roadmap,
       onStart: roadmapRequested.type,
       onError: roadmapRequestFailed.type,
-      onSucess: roadmapAdded.type,
+      onSuccess: roadmapAdded.type,
    });
 
 // action creator for adding a roadmap
@@ -181,7 +179,7 @@ export const removeRoadmap = (id) =>
       method: "delete",
       onStart: roadmapRequested.type,
       onError: roadmapRequestFailed.type,
-      onSucess: roadmapRemoved.type,
+      onSuccess: roadmapRemoved.type,
    });
 
 // action creator to edit roadmap
