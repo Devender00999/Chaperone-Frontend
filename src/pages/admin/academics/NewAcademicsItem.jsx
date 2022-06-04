@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { toast } from "react-toastify";
@@ -7,24 +7,17 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { Alert, Button } from "@mui/material";
+import { Alert } from "@mui/material";
 import {
    MainContent,
    PageHeading,
+   OutlinedButton,
 } from "../../../styledComponents/common/Common/Common.styles";
 
 import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
 import getUserDetails from "../../../requests/decode/decodeToken";
-import http from "../../../services/httpService";
 import * as academicsActions from "../../../store/academics";
-import config, { colors } from "../../../config";
 import Loader from "../../../components/Loader/Loader";
-
-const outlinedStyle = {
-   color: colors.primary,
-   borderColor: colors.primary,
-   width: "max-content",
-};
 
 const NewAcademicsItem = () => {
    const params = useParams();
@@ -94,7 +87,7 @@ const NewAcademicsItem = () => {
       let { type, value, name } = e.target;
 
       if (type === "file") {
-         value = URL.createObjectURL(e.target.files[0]);
+         value = e.target.files[0];
          console.log(e);
       }
 
@@ -105,8 +98,7 @@ const NewAcademicsItem = () => {
       let { type, value, name } = e.target;
 
       if (type === "file") {
-         value = URL.createObjectURL(e.target.files[0]);
-         console.log(e);
+         value = e.target.files[0];
       }
 
       setTopicData((prev) => ({ ...prev, [name]: value }));
@@ -114,28 +106,42 @@ const NewAcademicsItem = () => {
 
    const handleSubmit = async (e) => {
       e.preventDefault();
+
+      let result = "";
       if (id === "new") {
          formData.teacherId = user._id;
-         const { status } = await dispatch(
-            academicsActions.addSubject(formData)
-         );
-         console.log(status);
-         if (status === 200) {
-            navigate("/admin/academics");
-         }
+         delete formData.topics;
+         result = await dispatch(academicsActions.addSubject(formData));
       } else {
          // delete formData["topics"];
-         const { status } = await dispatch(
-            academicsActions.updateSubject(id, formData)
-         );
-
-         if (status === 200) {
-            navigate("/admin/academics");
-         }
+         console.log(formData);
+         result = await dispatch(academicsActions.updateSubject(id, formData));
+      }
+      if (result.status === 200) {
+         navigate("/admin/academics");
       }
    };
 
-   const handleTopicSubmit = () => {};
+   const handleTopicSubmit = async (topic) => {
+      const form = new FormData();
+      form.append("topicName", topic.topicName);
+      form.append("topicFile", topic.topicFile);
+
+      const { status } = await dispatch(academicsActions.addTopic(id, form));
+      if (status === 200) {
+         toast.success("Topic Saved Successfully.");
+      }
+   };
+
+   const handleTopicDelete = async (topicId) => {
+      const { status } = await dispatch(
+         academicsActions.removeTopic(id, topicId)
+      );
+      console.log(status);
+      if (status === 200) {
+         toast.success("Topic Deleted Successfully");
+      }
+   };
 
    return loading ? (
       <Loader />
@@ -149,7 +155,7 @@ const NewAcademicsItem = () => {
             <PageHeading style={{ marginBottom: "10px" }}>
                {id === "new" ? "Create a Subject" : "Update a Subject"}
             </PageHeading>
-            <Form>
+            <div>
                {error && <Alert severity="error">{error.message}</Alert>}
                <Row>
                   <Col md style={{ paddingRight: 0 }}>
@@ -187,8 +193,11 @@ const NewAcademicsItem = () => {
                               name="semId"
                               type="text"
                               placeholder="Enter Heading"
+                              value={formData.semId}
                               onChange={handlechange}
+                              disabled={id !== "new"}
                            >
+                              <option value="">Select a Semester</option>
                               {semesters &&
                                  semesters.map((sem) => (
                                     <option value={sem._id} key={sem._id}>
@@ -206,7 +215,9 @@ const NewAcademicsItem = () => {
                               type="text"
                               placeholder="Enter Heading"
                               onChange={handlechange}
+                              disabled={id !== "new"}
                            >
+                              <option>Select a branch</option>
                               {branches.map((branch) => (
                                  <option value={branch._id} key={branch._id}>
                                     {branch.name}
@@ -223,6 +234,7 @@ const NewAcademicsItem = () => {
                            <Form.Group className="mb-3">
                               <Form.Label>Topics</Form.Label>
                               {selectedSubject &&
+                              selectedSubject.topics.length > 0 ? (
                                  selectedSubject.topics.map((topic) => (
                                     <div
                                        style={{
@@ -231,19 +243,27 @@ const NewAcademicsItem = () => {
                                           alignItems: "center",
                                           marginTop: "0.5rem",
                                        }}
+                                       key={topic._id}
                                     >
                                        <p style={{ margin: 0 }}>
                                           {topic.topicName}
                                        </p>
-                                       <Button
+                                       <OutlinedButton
                                           variant="outlined"
-                                          sx={outlinedStyle}
                                           startIcon={<DeleteIcon />}
+                                          onClick={() =>
+                                             handleTopicDelete(topic._id)
+                                          }
                                        >
                                           Delete
-                                       </Button>
+                                       </OutlinedButton>
                                     </div>
-                                 ))}
+                                 ))
+                              ) : (
+                                 <Alert severity="warning">
+                                    No Topics Found
+                                 </Alert>
+                              )}
                            </Form.Group>
                         </Col>
                         <Col md style={{ paddingRight: 0 }}>
@@ -285,26 +305,25 @@ const NewAcademicsItem = () => {
                   className="justify-content-between"
                   style={{ padding: "0 12px" }}
                >
-                  <Button
+                  <OutlinedButton
                      variant="outlined"
                      onClick={handleSubmit}
                      className="btn"
-                     type="submit"
-                     sx={outlinedStyle}
+                     sx={{ width: "max-content" }}                     type="submit"
                   >
                      {id !== "new" ? "Save" : "Upload"} Subject
-                  </Button>
+                  </OutlinedButton>
                   {id !== "new" && (
-                     <Button
+                     <OutlinedButton
                         variant="outlined"
-                        sx={outlinedStyle}
-                        onClick={() => console.log(topicData)}
+                        sx={{ width: "max-content" }}
+                        onClick={() => handleTopicSubmit(topicData)}
                      >
                         Save Topic
-                     </Button>
+                     </OutlinedButton>
                   )}
                </Row>
-            </Form>
+            </div>
             {/* <div dangerouslySetInnerHTML={{ __html: markup }} /> */}
          </MainContent>
          <RightSideBar heading="" content={[]} />

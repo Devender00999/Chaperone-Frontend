@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
-import colors from "../../../config";
+import { styled as styledMui } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+
+import { colors } from "../../../config";
 
 export const StyledContainer = styled.div`
    display: flex;
@@ -107,6 +109,13 @@ export const BackButton = styled(ViewLink)`
    transform: rotate(180deg);
 `;
 
+export const SearchInput = styled.input`
+   width: 200px;
+   padding: 0 1rem;
+   outline: none;
+   height: 35px;
+`;
+
 export const SecondaryHeading = styled.h3`
    font-family: Poppins;
    font-size: 1.25rem;
@@ -206,9 +215,15 @@ export const SecondaryButtonAnchor = styled.a`
       color: #ff6600;
    }
 `;
-export const OutlinedButton = styled(Button)`
+export const OutlinedButton = styledMui(Button)`
    color: ${colors.primary};
    border-color: ${colors.primary};
+
+   &:hover{
+      color: ${colors.primaryLight};
+      border-color: ${colors.primaryLight};
+   
+   }
 `;
 
 export const StyledTagContainer = styled.div`

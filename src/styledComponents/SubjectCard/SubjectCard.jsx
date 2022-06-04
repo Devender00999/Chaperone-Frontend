@@ -4,7 +4,7 @@ import { StyledAnchorLink } from "../common/Common/Common";
 import { DescText, Heading } from "../common/Common/Common.styles";
 
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import ClearIcon from "@mui/icons-material/Clear";
 
 import {
    SubjectContainer,
@@ -32,7 +32,7 @@ const SubjectCard = (props) => {
                   color="red"
                   style={{ color: colors.primary }}
                />
-               <DeleteForeverRoundedIcon
+               <ClearIcon
                   className="cursor-pointer"
                   onClick={() => onDelete(subject._id)}
                   style={{ color: colors.primary }}
@@ -62,7 +62,7 @@ const SubjectCard = (props) => {
                   );
                })
             ) : (
-               <Alert severity="info">No Topic Added</Alert>
+               <Alert severity="warning">No Topic Added</Alert>
             )}
          </SubjectTopics>
       </SubjectContainer>
