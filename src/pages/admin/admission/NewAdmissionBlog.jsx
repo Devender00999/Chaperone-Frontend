@@ -6,7 +6,6 @@ import draftToHtml from "draftjs-to-html";
 import { EditorState } from "draft-js";
 import { Form, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { toast } from "react-toastify";
 import {
    MainContent,
    PageHeading,
@@ -22,27 +21,29 @@ import { useDispatch } from "react-redux";
 import getUserDetails from "../../../requests/decode/decodeToken";
 import config from "../../../config";
 import * as admissionActions from "../../../store/admissions";
+import { Alert } from "@mui/material";
+import Loader from "../../../components/Loader/Loader";
 
 const NewAdmissionBlog = () => {
    let selectedArticle = useSelector(
       (state) => state.admissions.selectedArticle
    );
-   let isLoading = useSelector((state) => state.admissions.loading);
-
+   let loading = useSelector((state) => state.admissions.loading);
+   const [errorMessage, setErrorMessage] = useState();
+   const error = useSelector((state) => state.admissions.error);
    const user = getUserDetails();
    if (user === null) window.location.href = "/";
    const { id } = useParams();
    const navigate = useNavigate();
    const dispatch = useDispatch();
 
-   const init = {
+   const [formData, setFormData] = useState({
       heading: "",
       image: "",
       content: "",
       description: "",
-   };
-   const [formData, setFormData] = useState(init);
-   const [editorState, setEditorState] = useState();
+   });
+   const [editorState, setEditorState] = useState(null);
 
    const convertHTMLToDraft = (content) => {
       const blocksFromHtml = htmlToDraft(content);
@@ -63,45 +64,41 @@ const NewAdmissionBlog = () => {
       }
    }, [dispatch, id, selectedArticle]);
 
+   // if error
+   useEffect(() => {
+      if (error && !loading) {
+         setErrorMessage(error);
+         console.log(error);
+      }
+   }, [error, loading]);
+
    // Handle Submit
    const handleSubmit = async (e) => {
       e.preventDefault();
+      if (editorState === null) {
+         setErrorMessage("Article body can't be empty.");
+         return;
+      }
       const content = draftToHtml(
          convertToRaw(editorState.getCurrentContent())
       );
+      const form = new FormData();
+      form.append("authorId", user._id);
+      form.append("content", content);
+      form.append("description", formData.description);
+      form.append("heading", formData.heading);
+      form.append("image", formData.image);
+      let result;
       if (id === "new") {
-         const newAdmissionData = {
-            ...formData,
-            content: content,
-            authorId: user._id,
-         };
-         const form = new FormData();
-         form.append("authorId", newAdmissionData.authorId);
-         form.append("content", newAdmissionData.content);
-         form.append("description", newAdmissionData.description);
-         form.append("heading", newAdmissionData.heading);
-         form.append("image", newAdmissionData.image);
-         toast.success("Article Created Successfully!");
-         newAdmissionData.author = {
-            name: user.name,
-            _id: user._id,
-            profilePic: user.profilePic,
-         };
-         dispatch(admissionActions.addArticle(form));
-         // }
+         result = await dispatch(admissionActions.addArticle(form));
       } else {
-         setFormData((prev) => ({ ...prev, content: content }));
-         console.log(content);
-         selectedArticle = { ...selectedArticle, content };
-         const form = new FormData();
-         form.append("heading", formData.heading);
-         form.append("description", formData.description);
-         form.append("content", content);
-         form.append("image", formData.image);
-         dispatch(admissionActions.editArticle(selectedArticle._id, form));
-         toast.success("Article modified successfully!!");
+         result = await dispatch(
+            admissionActions.editArticle(selectedArticle._id, form)
+         );
       }
-      navigate("/admin/admissions");
+      if (result.status === 200) {
+         navigate("/admin/admissions");
+      }
    };
 
    const handleChange = (e) => {
@@ -119,8 +116,8 @@ const NewAdmissionBlog = () => {
       setEditorState(editorState);
    };
 
-   return isLoading === true ? (
-      "Loading..."
+   return loading ? (
+      <Loader />
    ) : (
       <>
          <MainContent direction={"column"} flex={4}>
@@ -137,6 +134,11 @@ const NewAdmissionBlog = () => {
                   }}
                   className="removeGutter"
                >
+                  {errorMessage && (
+                     <Alert severity="error">
+                        {errorMessage.message || errorMessage}
+                     </Alert>
+                  )}
                   <Col md style={{ paddingRight: 0 }}>
                      <Form.Group className="mb-2">
                         <Form.Label>Heading</Form.Label>

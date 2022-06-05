@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import { apiCallBegan } from "./api";
 
 const slice = createSlice({
@@ -10,7 +11,6 @@ const slice = createSlice({
       selectedProject: null,
       loading: false,
       error: null,
-      sucess: false,
    },
    reducers: {
       errorCleaned: (state, action) => {
@@ -18,6 +18,7 @@ const slice = createSlice({
       },
       roadmapRequested: (state, action) => {
          state.loading = true;
+         state.error = null;
       },
       roadmapRequestFailed: (state, action) => {
          state.loading = false;
@@ -31,13 +32,16 @@ const slice = createSlice({
       roadmapAdded: (state, action) => {
          state.allRoadmaps.push(action.payload);
          state.loading = false;
+         state.error = null;
+         toast.success("Roadmap category added successfully.");
       },
       roadmapRemoved: (state, action) => {
          state.loading = false;
-         console.log(action.payload.roadmap);
+         state.error = null;
          state.allRoadmaps = state.allRoadmaps.filter(
             (roadmap) => roadmap._id !== action.payload._id
          );
+         toast.success("Roadmap category deleted successfully.");
       },
       roadmapUpdated: (state, action) => {
          const index = state.allRoadmaps.findIndex(
@@ -46,15 +50,19 @@ const slice = createSlice({
          state.selectedRoadmap = action.payload;
          state.allRoadmaps[index] = action.payload;
          state.loading = false;
+         state.error = null;
+         toast.success("Roadmap category updated successfully.");
       },
       roadmapSelected: (state, action) => {
          state.selectedRoadmap = action.payload;
          state.loading = false;
+         state.error = null;
       },
 
       articleSelected: (state, action) => {
          state.selectedArticle = action.payload.article;
          state.loading = false;
+         state.error = null;
       },
       articleAdded: (state, action) => {
          const index = state.allRoadmaps.findIndex(
@@ -62,6 +70,8 @@ const slice = createSlice({
          );
          state.allRoadmaps[index].articles.push(action.payload.article);
          state.loading = false;
+         state.error = null;
+         toast.success("Roadmap added successfully.");
       },
       articleRemoved: (state, action) => {
          const index = state.allRoadmaps.findIndex(
@@ -73,48 +83,68 @@ const slice = createSlice({
             (article) => article._id !== action.payload.article._id
          );
          state.loading = false;
+         state.error = null;
+         toast.success("Roadmap deleted successfully.");
       },
       articleEdited: (state, action) => {
          const index = state.allRoadmaps.findIndex(
             (roadmap) => roadmap._id === action.payload.roadmapId
          );
-         const idx = state.allRoadmaps[index].articles.findIndex(
-            (article) => article._id === action.payload.article._id
-         );
-         state.allRoadmaps[index].articles[idx] = action.payload.article;
+         if (index !== -1) {
+            const idx = state.allRoadmaps[index].articles.findIndex(
+               (article) => article._id === action.payload.article._id
+            );
+            state.allRoadmaps[index].articles[idx] = action.payload.article;
+         }
+
          state.loading = false;
+         state.error = null;
+         toast.success("Roadmap updated successfully.");
       },
 
       projectSelected: (state, action) => {
-         state.selectedProject = action.payload;
+         state.selectedProject = action.payload.project;
          state.loading = false;
+         state.error = null;
       },
       projectAdded: (state, action) => {
          const index = state.allRoadmaps.findIndex(
             (roadmap) => roadmap._id === action.payload.roadmapId
          );
-         state.allRoadmaps[index].projects.push(action.payload);
+         state.allRoadmaps[index].projects.push(action.payload.project);
          state.loading = false;
+         state.error = null;
+         toast.success("Project added successfully.");
       },
 
       projectEdited: (state, action) => {
          const index = state.allRoadmaps.findIndex(
             (roadmap) => roadmap._id === action.payload.roadmapId
          );
-         const idx = state.allRoadmaps[index].articles.findIndex(
-            (article) => article._id === action.payload._id
-         );
-         state.allRoadmaps[index].articles[idx] = action.payload;
+         if (index !== -1) {
+            const idx = state.allRoadmaps[index].projects.findIndex(
+               (project) => project._id === action.payload.project._id
+            );
+            state.allRoadmaps[index].projects[idx] = action.payload.project;
+         }
+         state.selectedProject = action.payload.project;
          state.loading = false;
+         state.error = null;
+         toast.success("Roadmap updated successfully.");
       },
 
-      projectDeleted: (state, action) => {
+      projectRemoved: (state, action) => {
          const index = state.allRoadmaps.findIndex(
             (roadmap) => roadmap._id === action.payload.roadmapId
          );
          state.allRoadmaps[index].projects = state.allRoadmaps[
             index
-         ].projects.filter((project) => project._id !== action.payload._id);
+         ].projects.filter(
+            (project) => project._id !== action.payload.project._id
+         );
+         state.loading = false;
+         state.error = null;
+         toast.success("Roadmap deleted successfully.");
       },
    },
 });
@@ -270,18 +300,18 @@ export const editArticle = (roadmapId, articleId, data) =>
 
 // action creator for selecting article
 export const selectProject = (roadmapId, projectId) => (dispatch, getState) => {
-   if (!projectId || !roadmapId) return dispatch(projectSelected({}));
+   if (!projectId || !roadmapId) return dispatch(projectSelected(null));
    const { allRoadmaps } = getState().roadmaps;
    const roadmap = allRoadmaps.find((roadmap) => roadmap._id === roadmapId);
    if (roadmap) {
       const project = roadmap.projects.find(
          (project) => project._id === projectId
       );
-      if (project) return dispatch(projectSelected(project));
+      if (project) return dispatch(projectSelected({ project, roadmapId }));
    }
    dispatch(
       apiCallBegan({
-         url: url + "/" + roadmapId + "/articles/" + projectId,
+         url: url + "/" + roadmapId + "/projects/" + projectId,
          onStart: roadmapRequested.type,
          onError: roadmapRequestFailed.type,
          onSuccess: projectSelected.type,

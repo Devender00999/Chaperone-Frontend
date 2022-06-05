@@ -179,6 +179,7 @@ const RoadmapBlogs = () => {
                         fontWeight: "bold",
                         fontSize: "1.25rem",
                         margin: "2rem 0 0",
+                        marginTop: "1rem",
                         display: "flex",
                         justifyContent: "space-between",
                         color: "#f60",

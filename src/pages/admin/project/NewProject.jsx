@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import FileBase64 from "react-file-base64";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Form, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,57 +11,25 @@ import {
 } from "../../../styledComponents/common/Common/Common.styles";
 import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
 import { useParams } from "react-router-dom";
-import { roadmapsData } from "../../../data/roadmapsData";
-import {
-   DoubtInputTag,
-   DoubtInputTags,
-   InputDelete,
-   InputTagStyle,
-} from "../../../styledComponents/styledPages/DoubtDeskPage/DoubtDeskPage.styles";
+
+import { useDispatch, useSelector } from "react-redux";
+import * as roadmapActions from "../../../store/roadmaps";
+import InputTags from "../../../styledComponents/InputTags";
+import Loader from "../../../components/Loader/Loader";
+import { Alert } from "@mui/material";
+import getUserDetails from "../../../requests/decode/decodeToken";
 
 const NewProject = () => {
+   const selectedProject = useSelector(
+      (state) => state.roadmaps.selectedProject
+   );
+   const roadmaps = useSelector((state) => state.roadmaps.allRoadmaps);
+   const loading = useSelector((state) => state.roadmaps.loading);
+   const error = useSelector((state) => state.roadmaps.error);
+   const dispatch = useDispatch();
    //List Tags Component
-   const [questionData, setQuestionData] = useState({
-      question: "",
-      techUsed: [],
-   });
-
-   const handleAdd = (e) => {
-      if (e.keyCode === 13) {
-         const data = e.target.value;
-         setQuestionData((prevState) => ({
-            ...prevState,
-            techUsed: [...prevState.techUsed, data],
-         }));
-         e.target.value = "";
-      }
-   };
-   const handleBack = (e) => {
-      if (e.keyCode === 8 && e.target.value === "") {
-         setQuestionData((prevState) => ({
-            ...prevState,
-            techUsed: [
-               ...prevState.techUsed.slice(0, prevState.techUsed.length - 1),
-            ],
-         }));
-         e.target.value = "";
-      }
-   };
-   const handleDelete = (item) => {
-      setQuestionData((prevState) => ({
-         ...prevState,
-         techUsed: prevState.techUsed.filter((element) => element !== item),
-      }));
-   };
-
-   useEffect(() => {
-      document
-         .querySelector('input[type="file"]')
-         .setAttribute("accept", "image/x-png,image/jpeg");
-      document
-         .querySelector('input[type="file"]')
-         .classList.add("form-control");
-   });
+   const [techUsed, setTechUsed] = useState([]);
+   const [errorMessage, setErrorMessage] = useState("");
 
    const navigate = useNavigate();
 
@@ -70,53 +37,76 @@ const NewProject = () => {
       heading: "",
       image: "",
       description: "",
-      github: "",
-      author: "",
+      githubLink: "",
       link: "",
+      categoryId: "",
    });
 
-   const { category, id } = useParams();
+   const { roadmapId, projectId, newProject } = useParams();
 
    useEffect(() => {
-      if (category) {
-         const roadmaps = roadmapsData.find(
-            (roadmap) => roadmap._id === category
-         );
-         if (!roadmaps) navigate("/not-found");
-
-         const project = roadmaps.projects.find(
-            (project) => project._id === id
-         );
-
-         if (!project) navigate("/not-found");
-
-         setFormData({ ...project });
-         setQuestionData((prev) => ({ ...prev, techUsed: project.techUsed }));
-      } else if (category === "new") {
-      } else {
+      if (newProject !== "newProject") {
+         if (!selectedProject) {
+            dispatch(roadmapActions.selectProject(roadmapId, projectId));
+         }
+         if (selectedProject) {
+            setFormData({ ...selectedProject, categoryId: roadmapId });
+            setTechUsed([...selectedProject.techUsed]);
+         }
       }
-   }, [navigate, id, category]);
+   }, [navigate, dispatch, roadmapId, projectId, selectedProject, newProject]);
 
-   const handleChange = (e) => {
-      let { type, value, name } = e.target;
-
-      if (type === "file") {
-         value = URL.createObjectURL(e.target.files[0]);
-         console.log(e);
+   useEffect(() => {
+      if (error != null && !loading) {
+         setErrorMessage(error);
       }
+      if (roadmaps.length === 0) {
+         dispatch(roadmapActions.loadRoadmaps());
+      }
+   }, [error, loading, dispatch, roadmaps]);
+   const handleChange = ({ target }) => {
+      let { type, value, name } = target;
 
-      setFormData((prev) => ({ ...prev, [name]: value }));
-   };
-   const handleFileChange = (e) => {
-      const file = e.base64;
-      setFormData((prev) => ({ ...prev, image: file }));
+      setFormData((prev) => {
+         if (type === "file") {
+            value = target.files[0];
+         }
+         return { ...prev, [name]: value };
+      });
    };
 
-   const handleSubmit = (e) => {
+   const handleSubmit = async (e) => {
+      const user = getUserDetails();
       e.preventDefault();
-      console.log(formData, questionData);
+      console.log(formData.categoryId);
+
+      const form = new FormData();
+      form.append("heading", formData.heading);
+      form.append("image", formData.image);
+      form.append("description", formData.description);
+      form.append("githubLink", formData.githubLink);
+      form.append("link", formData.link);
+      form.append("authorId", user._id);
+      form.append("techUsed", techUsed);
+      let result;
+      console.log(newProject);
+      if (newProject === "newProject") {
+         result = await dispatch(
+            roadmapActions.addProject(formData.categoryId, form)
+         );
+      } else {
+         result = await dispatch(
+            roadmapActions.editProject(roadmapId, projectId, form)
+         );
+      }
+
+      if (result.status === 200) {
+         navigate("/admin/projects");
+      }
    };
-   return (
+   return loading ? (
+      <Loader />
+   ) : (
       <>
          <MainContent
             direction={"column"}
@@ -126,7 +116,10 @@ const NewProject = () => {
             <PageHeading style={{ marginBottom: "10px" }}>
                Post Project
             </PageHeading>
-            <Form>
+            <div>
+               {errorMessage && (
+                  <Alert severity="error">{errorMessage.message}</Alert>
+               )}
                <Row
                   style={{
                      marginRight: 0,
@@ -136,6 +129,32 @@ const NewProject = () => {
                   }}
                   className="removeGutter"
                >
+                  <Col md style={{ paddingRight: 0 }}>
+                     <Form.Group className="mb-2">
+                        <Form.Label>Technology</Form.Label>
+                        <Form.Select
+                           name="categoryId"
+                           type="text"
+                           placeholder="Enter Heading"
+                           onChange={handleChange}
+                           disabled={roadmapId}
+                           value={roadmapId}
+                           required
+                        >
+                           <option value={null}>Select a category</option>
+                           {roadmaps.map((category) => {
+                              return (
+                                 <option
+                                    key={category._id}
+                                    value={category._id}
+                                 >
+                                    {category.title}
+                                 </option>
+                              );
+                           })}
+                        </Form.Select>
+                     </Form.Group>
+                  </Col>
                   <Col md style={{ paddingRight: 0 }}>
                      <Form.Group className="mb-2">
                         <Form.Label>Title</Form.Label>
@@ -153,28 +172,15 @@ const NewProject = () => {
                   <Col md style={{ paddingRight: 0 }}>
                      <Form.Group className="mb-3">
                         <Form.Label>Upload Header Image</Form.Label>
-                        <FileBase64
+                        <Form.Control
+                           className="form-control"
                            type="file"
                            name="image"
                            accept="image/x-png,image/gif,image/jpeg"
-                           onDone={handleFileChange}
+                           onChange={handleChange}
                         />
                      </Form.Group>
                   </Col>
-
-                  <Col>
-                     <img
-                        className="mb-3 mt-3"
-                        src={formData.image}
-                        alt=""
-                        style={{
-                           width: "100%",
-                           height: "300px",
-                           display: formData.image ? "block" : "none",
-                        }}
-                     />
-                  </Col>
-
                   <Col md style={{ paddingRight: 0 }}>
                      <Form.Group className="mb-2">
                         <Form.Label>Description</Form.Label>
@@ -184,7 +190,7 @@ const NewProject = () => {
                            rows={3}
                            name="description"
                            style={{ resize: "none" }}
-                           value={formData.desc}
+                           value={formData.description}
                            type="text"
                            placeholder="what did you created?"
                            onChange={handleChange}
@@ -194,25 +200,8 @@ const NewProject = () => {
                   <Col md style={{ paddingRight: 0 }}>
                      <Form.Group className="mb-2">
                         <Form.Label>Technology</Form.Label>
-                        <br />
-                        <DoubtInputTags style={{ minHeight: "50px" }}>
-                           {questionData.techUsed.map((item, key) => (
-                              <InputTagStyle key={key}>
-                                 {item}
-                                 <InputDelete
-                                    src="/images/common/delete-cross.svg"
-                                    onClick={() => handleDelete(item)}
-                                 />
-                              </InputTagStyle>
-                           ))}
 
-                           <DoubtInputTag
-                              onKeyUp={handleAdd}
-                              onKeyDown={handleBack}
-                              rows={1}
-                              type="text"
-                           />
-                        </DoubtInputTags>
+                        <InputTags tags={techUsed} setTags={setTechUsed} />
                      </Form.Group>
                   </Col>
                   <Col md style={{ paddingRight: 0 }}>
@@ -220,7 +209,7 @@ const NewProject = () => {
                         <Form.Label>Githup Link</Form.Label>
                         <br />
                         <Form.Control
-                           name="github"
+                           name="githubLink"
                            value={formData.githubLink}
                            type="text"
                            placeholder="Enter github link(optional)"
@@ -250,7 +239,7 @@ const NewProject = () => {
                >
                   Submit
                </PrimaryButton>
-            </Form>
+            </div>
          </MainContent>
          <RightSideBar heading="" content={[]} />
       </>

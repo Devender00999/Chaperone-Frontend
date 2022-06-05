@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Form } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import DataTable from "../../../styledComponents/common/Table/DataTable";
 import {
@@ -11,50 +10,49 @@ import {
    Heading,
 } from "../../../styledComponents/common/Common/Common.styles";
 
-import { roadmapsData } from "../../../data/roadmapsData";
+import { useDispatch, useSelector } from "react-redux";
+import * as roadmapActions from "../../../store/roadmaps";
+import Loader from "../../../components/Loader/Loader";
 
 const Projects = () => {
-   const [roadmaps, setRoadmaps] = useState(roadmapsData);
-
+   // const [roadmaps, setRoadmaps] = useState(roadmapsData);
    const navigator = useNavigate();
-   const handleEdit = (id, roadmapId) => {
-      navigator(`${roadmapId}/${id}`);
+   const dispatch = useDispatch();
+
+   const roadmaps = useSelector((state) => state.roadmaps.allRoadmaps);
+   const loading = useSelector((state) => state.roadmaps.loading);
+   const [isApiCalled, setIsApiCalled] = useState();
+
+   // handle edit project
+   const handleEdit = (articleId, roadmapId) => {
+      dispatch(roadmapActions.selectProject(roadmapId, articleId));
+      navigator(`${roadmapId}/${articleId}`);
    };
 
-   const handleDelete = (id, roadmapId) => {
-      //finding roadmap from which projects are being deleted
-      const index = roadmaps.findIndex((roadmap) => roadmap._id === roadmapId);
-
-      //deteting the project with id
-      const projects = roadmaps[index].projects.filter(
-         (project) => project._id !== id
-      );
-
-      const newRoadmaps = [...roadmaps];
-      newRoadmaps[index].projects = [...projects];
-
-      setRoadmaps(newRoadmaps);
+   // handle delete project
+   const handleDelete = (projectId, roadmapId) => {
+      dispatch(roadmapActions.removeProject(roadmapId, projectId));
    };
 
-   return (
+   useEffect(() => {
+      if (roadmaps.length === 0 && !isApiCalled) {
+         dispatch(roadmapActions.loadRoadmaps());
+         setIsApiCalled(true);
+      }
+   }, [dispatch, isApiCalled, roadmaps]);
+
+   return loading ? (
+      <Loader />
+   ) : (
       <>
          <MainContent direction={"column"} flex={"auto"}>
             <HeadingContainer>
                <PageHeading>Projects</PageHeading>
                <HeadingContent>
-                  <Form.Control
-                     style={{
-                        width: "200px",
-                        padding: "0 20px",
-                        outline: "none",
-                     }}
-                     type="search"
-                     placeholder="Search"
-                  />
                   <PrimaryButton className="primaryButton">
                      <Link
                         style={{ textDecoration: "none", color: "White" }}
-                        to="/admin/roadmaps/new"
+                        to="/admin/projects/newProject"
                      >
                         Add New
                      </Link>
@@ -65,11 +63,15 @@ const Projects = () => {
                <div key={roadmap._id}>
                   <Heading
                      style={{
-                        padding: "1rem 1rem",
+                        padding: 0,
+                        paddingBottom: "5px",
                         fontWeight: "bold",
                         fontSize: "1.25rem",
-                        margin: "1rem 0 0",
-                        boxShadow: "0 0 5px rgb(0 0 0 / 10%)",
+                        margin: "2rem 0 0",
+                        marginTop: "1rem",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        color: "#f60",
                      }}
                   >
                      {roadmap.title}
