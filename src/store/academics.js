@@ -77,11 +77,11 @@ const slice = createSlice({
          state.selectedSubject.topics.push(action.payload);
 
          // Adding new topic to subject list
-         state.allSubjects = state.allSubjects.map((sub) =>
-            sub._id === action.payload.subjectId
-               ? sub.topics.push(action.payload)
-               : sub
-         );
+         state.allSubjects = state.allSubjects.map((sub) => {
+            if (sub._id === action.payload.subjectId)
+               sub.topics.push(action.payload);
+            return sub;
+         });
 
          state.loading = false;
          state.error = null;
@@ -99,10 +99,11 @@ const slice = createSlice({
 
          // Removed deleted item from All Subjects
          if (index >= 0)
-            state.allSubjects[index] = state.allSubjects[index].topics.filter(
-               (topic) => topic._id !== action.payload._id
-            );
+            state.allSubjects[index].topics = state.allSubjects[
+               index
+            ].topics.filter((topic) => topic._id !== action.payload._id);
 
+         console.log(state.allSubjects);
          state.loading = false;
          state.error = null;
       },

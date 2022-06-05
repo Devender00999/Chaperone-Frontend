@@ -9,7 +9,7 @@ import ProjectBlogs from "../pages/admin/project/Projects";
 import NewProject from "../pages/admin/project/NewProject";
 import AcademicItems from "../pages/admin/academics/AcademicItems";
 import NewAcademicsItem from "../pages/admin/academics/NewAcademicsItem";
-import CareerBlogs from "../pages/admin/careeraware/CareerBlogs";
+import CareerAware from "../pages/admin/careeraware/CareerAware";
 import NewCareer from "../pages/admin/careeraware/NewCareer";
 import getUserDetails from "../requests/decode/decodeToken";
 import NewPG from "../pages/admin/findpg/NewPG";
@@ -57,7 +57,7 @@ const AdminRoutes = user && (
       <Route path="/admin/academics/:id" exact element={<NewAcademicsItem />} />
 
       {/* Admin Academics Routes  */}
-      <Route path="/admin/career-aware" exact element={<CareerBlogs />} />
+      <Route path="/admin/career-aware" exact element={<CareerAware />} />
       <Route path="/admin/career-aware/:id" exact element={<NewCareer />} />
 
       {/* Admin Academics Routes  */}

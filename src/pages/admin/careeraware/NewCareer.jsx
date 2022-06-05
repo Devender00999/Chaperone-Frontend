@@ -1,430 +1,358 @@
-/** @format */
-
 import React, { useEffect, useState } from "react";
-import FileBase64 from "react-file-base64";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-import { Form, Row, Col } from "react-bootstrap";
+import { Form, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import {
-  MainContent,
-  PageHeading,
-  PrimaryButton,
+   MainContent,
+   PageHeading,
+   OutlinedButton,
 } from "../../../styledComponents/common/Common/Common.styles";
+
 import RightSideBar from "../../../styledComponents/SidePanel/RightSideBar";
-import { toast } from "react-toastify";
-import http from "../../../requests/request";
-import port from "../../../port.js";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import Actions from "../../../redux/actions/Action";
-import { useNavigate, useParams } from "react-router-dom";
 import getUserDetails from "../../../requests/decode/decodeToken";
+import * as careerAwareActions from "../../../store/careeraware";
+import FormTextArea from "../../../components/FormInput/FormTextArea";
+import FormTextInput from "../../../components/FormInput/FormTextInput";
+import Loader from "../../../components/Loader/Loader";
+
+const initialData = {
+   aboutCompany: "",
+   companyName: "",
+   ctc: "",
+   duration: "",
+   eligibility: "",
+   jobStartDate: "",
+   jobType: "",
+   lastApplyDate: "",
+   link: "",
+   logo: "",
+   noOfOpenings: 0,
+   position: "",
+   responsibilities: "",
+   requirements: "",
+   recruitmentProcess: "",
+   skillRequired: "",
+   stipend: "",
+   workLocation: "",
+};
 
 const NewCareer = () => {
-  const user = getUserDetails();
-  if (user === null) window.location.href = "/";
-  const params = useParams();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const academicData = useSelector((state) => state.careerArticles);
-  useEffect(() => {
-    document.querySelectorAll("input[type=file]").forEach((item) => {
-      item.setAttribute("accept", "image/x-png,image/jpeg");
-      item.classList.add("form-control");
-    });
-  }, []);
+   const user = getUserDetails();
+   if (user === null) window.location.href = "/";
+   const params = useParams();
+   const navigate = useNavigate();
+   const dispatch = useDispatch();
 
-  const [formData, setFormData] = useState({
-    position: "",
-    companyName: "",
-    workLocation: "",
-    lastApplyDate: "",
-    jobType: "Internship",
-    logo: "",
-    stipend: "",
-    ctc: "",
-    jobStartDate: "",
-    aboutCompany: ``,
-    keyResponsibility: "",
-    requirement: "",
-    eligibility: "",
-    recruitmentProcess: "",
-    skillRequired: "",
-    numOfOpening: "",
-  });
-  const { id } = params;
+   const jobArticle = useSelector((state) => state.careerAware.selectedArticle);
+   const loading = useSelector((state) => state.careerAware.loading);
+   const error = useSelector((state) => state.careerAware.error);
 
-  const handleChange = (e) => {
-    let { type, value, name } = e.target;
+   const [formData, setFormData] = useState(initialData);
+   const { id } = params;
 
-    if (type === "file") {
-      value = URL.createObjectURL(e.target.files[0]);
-    }
-    console.log(typeof e.target.value);
+   useEffect(() => {
+      if (id && id !== "new") dispatch(careerAwareActions.loadArticle(id));
+   }, [dispatch, id]);
 
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+   useEffect(() => {
+      let article;
+      if (id) {
+         article = jobArticle;
 
-  useEffect(() => {
-    let article;
-    if (id) {
-      article = academicData.find((blog) => blog._id === id);
-      if (article) {
-        setFormData(article);
-      } else if (id === "new") {
-        let initialState = {
-          position: "",
-          companyName: "",
-          workLocation: "",
-          lastApplyDate: "",
-          jobType: "Internship",
-          logo: "",
-          stipend: "",
-          ctc: "",
-          jobStartDate: "",
-          aboutCompany: ``,
-          keyResponsibility: "",
-          requirement: "",
-          eligibility: "",
-          recruitmentProcess: "",
-          skillRequired: "",
-          numOfOpening: "",
-        };
-
-        setFormData(initialState);
-      } else {
-        navigate("/not-found");
+         console.log(article);
+         if (article) {
+            setFormData(article);
+         }
       }
-    }
-  }, [params, navigate, formData.content, academicData, id]);
-
-  const handleFileChange = (e) => {
-    const file = e.base64;
-    setFormData((prev) => ({ ...prev, logo: file }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (formData.keyResponsibility.includes("\n")) {
-      formData.keyResponsibility = formData.keyResponsibility.split("\n");
-    }
-    if (formData.requirement.includes("\n")) {
-      formData.requirement = formData.requirement.split("\n");
-    }
-    if (formData.skillRequired.includes("\n")) {
-      formData.skillRequired = formData.skillRequired.split("\n");
-    }
-    if (formData.recruitmentProcess.includes("\n")) {
-      formData.recruitmentProcess = formData.recruitmentProcess.split("\n");
-    }
-    if (id === "new") {
-      const newAcademicData = { ...formData, author: user.name };
-      console.log(newAcademicData);
-
-      const res = await http.post(
-        "http://localhost:" + port + "/api/career/",
-        newAcademicData
-      );
-      if (res.message === "Job Created Successfully") {
-        dispatch(Actions.addCareerArticle(newAcademicData));
-        toast.success(res.message);
-      } else {
-        toast.error(res.message);
+      if (id === "new") {
+         setFormData(initialData);
       }
-    } else {
-      const index = academicData.findIndex((blog) => blog._id === formData._id);
-      const nAcademicData = [...academicData];
-      nAcademicData[index] = { ...formData };
+   }, [params, navigate, jobArticle, id]);
 
-      const res = await http.put(
-        "http://localhost:" + port + "/api/career/" + formData._id,
-        nAcademicData[index]
-      );
-      if (res.message === "Job Modify Successfully") {
-        dispatch(Actions.editCareerArticle(index, nAcademicData[index]));
-        toast.success(res.message);
-      } else {
-        toast.error(res.message);
+   // Showing errors
+   useEffect(() => {
+      if (error && loading === false) {
+         if (error.message.message) {
+            toast.error(error.message.message);
+         } else {
+            toast.error(error.statusMessage);
+         }
       }
-    }
-    navigate("/admin/career-aware");
-  };
+   }, [error, loading]);
 
-  return (
-    <>
-      <MainContent
-        direction={"column"}
-        flex={4}
-        style={{ paddingBottom: "10px" }}
-      >
-        <PageHeading style={{ marginBottom: "10px" }}>Career Aware</PageHeading>
-        <Form>
-          <Row
-            style={{
-              marginRight: 0,
-              padding: 0,
-              flexDirection: "column",
-              columnGap: "20px",
-            }}
-            className="removeGutter"
-          >
-            <Form.Group
-              className="mb-2 d-flex pe-0"
-              style={{ columnGap: "20px" }}
-            >
-              <div style={{ flex: 1 }}>
-                <Form.Label>Company Name</Form.Label>
-                <br />
-                <Form.Control
-                  name="companyName"
-                  type="text"
-                  value={formData.companyName}
-                  placeholder="Enter Company Name"
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div style={{ flex: 1 }}>
-                <Form.Label>Position</Form.Label>
-                <br />
+   const convertToString = (list) => {
+      console.log(list);
+      if (list && typeof list !== "string") return list.join(", ");
+   };
 
-                <Form.Control
-                  name="position"
-                  type="text"
-                  placeholder="Enter role"
-                  onChange={handleChange}
-                  value={formData.position}
-                  required
-                ></Form.Control>
-              </div>
-            </Form.Group>
-            <Form.Group
-              className="mb-2 d-flex pe-0"
-              style={{ columnGap: "20px" }}
-            >
-              <div style={{ flex: 1 }}>
-                <Form.Label>Apply By</Form.Label>
-                <br />
-                <Form.Control
-                  name="lastApplyDate"
-                  type="date"
-                  placeholder="Enter last date"
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div style={{ flex: 1 }}>
-                <Form.Label>Stipend</Form.Label>
-                <br />
+   const handleChange = ({ target }) => {
+      let { type, value, name } = target;
 
-                <Form.Control
-                  name="stipend"
-                  type="text"
-                  value={formData.stipend}
-                  placeholder="Enter stipend/month"
-                  onChange={handleChange}
-                ></Form.Control>
-              </div>
-              <div style={{ flex: 1 }}>
-                <Form.Label>CTC</Form.Label>
-                <br />
-                <Form.Control
-                  name="ctc"
-                  type="text"
-                  value={formData.ctc}
-                  placeholder="Enter CTC"
-                  onChange={handleChange}
-                ></Form.Control>
-              </div>
-            </Form.Group>
-            <Col md style={{ paddingRight: 0 }}>
-              <Form.Group className="mb-3">
-                <Form.Label>Upload Logo</Form.Label>
-                <FileBase64
-                  className="form-control"
-                  type="file"
-                  name="logo"
-                  accept="image/x-png,image/gif,image/jpeg"
-                  onDone={handleFileChange}
-                />
-              </Form.Group>
-            </Col>
-            <Col md style={{ paddingRight: 0 }}>
-              <Form.Group className="mb-2 d-flex" style={{ columnGap: "20px" }}>
-                <div style={{ flex: 1 }}>
-                  <Form.Label>Number of Openings </Form.Label>
-                  <br />
+      setFormData((prev) => {
+         if (type === "file") {
+            value = target.files[0];
+         }
+         if (
+            name === "features" ||
+            name === "responsibilities" ||
+            name === "recruitmentProcess" ||
+            name === "requirements" ||
+            name === "eligibility" ||
+            name === "skillRequired"
+         ) {
+            value = value.split(", ");
+         }
+         return { ...prev, [name]: value };
+      });
+   };
 
-                  <Form.Control
-                    name="numOfOpening"
-                    type="number"
-                    value={formData.numOfOpening}
-                    placeholder="Enter No. of openings"
-                    onChange={handleChange}
-                    required
+   const handleSubmit = async (article) => {
+      const form = new FormData();
+
+      for (var key in article) {
+         form.append(key, article[key]);
+      }
+
+      let result;
+
+      if (id === "new") {
+         result = await dispatch(careerAwareActions.addArticle(form));
+         if (result.status === 200) {
+            toast.success("Data Added Successfully");
+         }
+      } else {
+         result = await dispatch(careerAwareActions.updateArticle(id, form));
+         if (result.status === 200) {
+            toast.success("Data Updated Successfully");
+         }
+      }
+
+      if (result.status === 200) {
+         navigate("/admin/career-aware");
+      }
+   };
+
+   return loading ? (
+      <Loader />
+   ) : (
+      <>
+         <MainContent
+            direction={"column"}
+            flex={4}
+            style={{ paddingBottom: "10px" }}
+         >
+            <PageHeading style={{ marginBottom: "10px" }}>
+               Career Aware
+            </PageHeading>
+            <div>
+               <Row
+                  style={{
+                     marginRight: 0,
+                     padding: 0,
+                     flexDirection: "column",
+                     columnGap: "20px",
+                  }}
+                  className="removeGutter"
+               >
+                  <div className="d-flex pe-0" style={{ columnGap: "20px" }}>
+                     <div style={{ flex: 1 }}>
+                        <FormTextInput
+                           label="Company Name"
+                           name="companyName"
+                           type="text"
+                           value={formData.companyName}
+                           placeholder="Enter Company Name"
+                           onChange={handleChange}
+                           required
+                        />
+                     </div>
+                     <div style={{ flex: 1 }}>
+                        <FormTextInput
+                           label="Position"
+                           name="position"
+                           type="text"
+                           onChange={handleChange}
+                           placeholder="Enter role"
+                           required
+                           value={formData.position}
+                        />
+                     </div>
+                  </div>
+                  <div className="d-flex pe-0" style={{ columnGap: "20px" }}>
+                     <FormTextInput
+                        label="Apply By"
+                        name="lastApplyDate"
+                        onChange={handleChange}
+                        required
+                        style={{ flex: 1 }}
+                        value={formData.lastApplyDate}
+                        type="date"
+                     />
+                     <FormTextInput
+                        label="Stipend"
+                        name="stipend"
+                        style={{ flex: 1 }}
+                        onChange={handleChange}
+                        placeholder="Enter stipend/month"
+                        type="text"
+                        value={formData.stipend}
+                     />
+                     <FormTextInput
+                        label="CTC"
+                        name="ctc"
+                        onChange={handleChange}
+                        placeholder="Enter CTC"
+                        style={{ flex: 1 }}
+                        type="text"
+                        value={formData.ctc}
+                     />
+                  </div>
+
+                  <FormTextInput
+                     label="Upload Logo"
+                     type="file"
+                     name="logo"
+                     onChange={handleChange}
+                     accept="image/x-png,image/gif,image/jpeg"
                   />
-                </div>
-                <div style={{ flex: 1 }}>
-                  <Form.Label>Starts From</Form.Label>
-                  <br />
 
-                  <Form.Control
-                    name="jobStartDate"
-                    type="date"
-                    placeholder="Enter Heading"
-                    onChange={handleChange}
-                    required
-                  ></Form.Control>
-                </div>
-                <div style={{ flex: 1 }}>
-                  <Form.Label>Oppotunity</Form.Label>
-                  <br />
-                  <Form.Select
-                    name="jobType"
-                    type="text"
-                    placeholder="Enter Heading"
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="Internship">Internship</option>
+                  <div className="d-flex" style={{ columnGap: "20px" }}>
+                     <FormTextInput
+                        label="Number of Openings"
+                        style={{ flex: 1 }}
+                        name="noOfOpenings"
+                        type="number"
+                        value={formData.noOfOpenings}
+                        placeholder="Enter No. of openings"
+                        onChange={handleChange}
+                        required
+                     />
+                     <FormTextInput
+                        label="Starts From"
+                        name="jobStartDate"
+                        type="date"
+                        value={formData.jobStartDate}
+                        onChange={handleChange}
+                        style={{ flex: 1 }}
+                        required
+                     />
+                     <div style={{ flex: 1, margin: "0.5rem 0" }}>
+                        <Form.Label>Opportunity</Form.Label>
+                        <Form.Select
+                           name="jobType"
+                           type="text"
+                           placeholder="Enter Heading"
+                           onChange={handleChange}
+                           required
+                           value={formData.jobType}
+                        >
+                           <option value="">Select Job Type</option>
+                           <option value="Internship">Internship</option>
+                           <option value="Full-Time">Full-Time</option>
+                        </Form.Select>
+                     </div>
+                  </div>
 
-                    <option value="Job">Job</option>
-                  </Form.Select>
-                </div>
-              </Form.Group>
-            </Col>
-            <Col md style={{ paddingRight: 0 }}>
-              <Form.Group>
-                <Form.Label> Address</Form.Label>
-                <br />
+                  <FormTextInput
+                     label="Internship Duration"
+                     name="duration"
+                     type="number"
+                     value={formData.duration}
+                     placeholder="What is the internship duration(in Months)"
+                     onChange={handleChange}
+                  />
+                  <FormTextArea
+                     label="Features"
+                     name="features"
+                     value={convertToString(formData.features)}
+                     placeholder="Exciting Perks"
+                     onChange={handleChange}
+                  />
 
-                <Form.Control
-                  className="mb-2 d-flex pe-0"
-                  name="workLocation"
-                  type="text"
-                  value={formData.workLocation}
-                  placeholder="Enter Company's address"
-                  onChange={handleChange}
-                ></Form.Control>
-              </Form.Group>
-            </Col>
+                  <FormTextInput
+                     label="Application Link"
+                     name="link"
+                     type="text"
+                     value={formData.link}
+                     placeholder="Please Enter Application Link"
+                     onChange={handleChange}
+                  />
+                  <FormTextInput
+                     label="Address"
+                     name="workLocation"
+                     type="text"
+                     value={formData.workLocation}
+                     placeholder="Enter Company's address"
+                     onChange={handleChange}
+                  />
 
-            <Col md style={{ paddingRight: 0 }}>
-              <Form.Group className="mb-2 pe-0">
-                <Form.Label> About Company</Form.Label>
-                <br />
-                <Form.Control
-                  as={"textarea"}
-                  name="aboutCompany"
-                  type="text"
-                  value={formData.aboutCompany}
-                  placeholder="About the company"
-                  onChange={handleChange}
-                ></Form.Control>
-              </Form.Group>
-            </Col>
-            <Col md style={{ paddingRight: 0 }}>
-              <Form.Group className="mb-2 pe-0">
-                <Form.Label> Key Responsibilities</Form.Label>
-                <br />
-                <Form.Control
-                  as={"textarea"}
-                  rows={6}
-                  name="keyResponsibility"
-                  type="text"
-                  value={formData.keyResponsibility}
-                  placeholder="Responsibilities of candidate"
-                  onChange={handleChange}
-                ></Form.Control>
-              </Form.Group>
-            </Col>
-            <Col md style={{ paddingRight: 0 }}>
-              <Form.Group className="mb-2 pe-0">
-                <Form.Label>Requirements</Form.Label>
-                <br />
-                <Form.Control
-                  as={"textarea"}
-                  rows={6}
-                  name="requirement"
-                  type="text"
-                  value={formData.requirement}
-                  placeholder="Requirements"
-                  onChange={handleChange}
-                ></Form.Control>
-              </Form.Group>
-            </Col>
-            <Col md style={{ paddingRight: 0 }}>
-              <Form.Group className="mb-2 pe-0">
-                <Form.Label>Eligibility</Form.Label>
-                <br />
-                <Form.Control
-                  as={"textarea"}
-                  rows={4}
-                  name="eligibility"
-                  type="text"
-                  value={formData.eligibility}
-                  placeholder="Eligibility"
-                  onChange={handleChange}
-                ></Form.Control>
-              </Form.Group>
-            </Col>
-            <Col md style={{ paddingRight: 0 }}>
-              <Form.Group className="mb-2 pe-0">
-                <Form.Label>Skills Required</Form.Label>
-                <br />
-                <Form.Control
-                  as={"textarea"}
-                  rows={4}
-                  name="skillRequired"
-                  type="text"
-                  value={formData.skillRequired}
-                  placeholder="Enter skills required for the job"
-                  onChange={handleChange}
-                ></Form.Control>
-              </Form.Group>
-            </Col>
-            <Col md style={{ paddingRight: 0 }}>
-              <Form.Group className="mb-2 pe-0">
-                <Form.Label>Recruitment Process</Form.Label>
-                <br />
-                <Form.Control
-                  as={"textarea"}
-                  rows={4}
-                  value={formData.recruitmentProcess}
-                  name="recruitmentProcess"
-                  type="text"
-                  placeholder="Enter recuitment process"
-                  onChange={handleChange}
-                ></Form.Control>
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <img
-                className="mb-3 mt-3"
-                src={formData.image}
-                alt=""
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  display: formData.image ? "block" : "none",
-                }}
-              />
-            </Col>
-          </Row>
+                  <FormTextArea
+                     label="About Company"
+                     name="aboutCompany"
+                     minRows={2}
+                     value={formData.aboutCompany}
+                     placeholder="Tell us about Company"
+                     onChange={handleChange}
+                  />
 
-          <PrimaryButton onClick={handleSubmit} className="btn" type="submit">
-            Upload Note
-          </PrimaryButton>
-        </Form>
-        {/* <div dangerouslySetInnerHTML={{ __html: markup }} /> */}
-      </MainContent>
-      <RightSideBar heading="" content={[]} />
-    </>
-  );
+                  <FormTextArea
+                     label="Key Responsibilities"
+                     name="responsibilities"
+                     minRows={2}
+                     value={convertToString(formData.responsibilities)}
+                     placeholder="Responsibilities of candidate(Separated by ,)"
+                     onChange={handleChange}
+                  />
+                  <FormTextArea
+                     label="Requirements"
+                     name="requirements"
+                     value={convertToString(formData.requirements)}
+                     placeholder="Requirements (Separated by ,)"
+                     onChange={handleChange}
+                  />
+                  <FormTextArea
+                     label="Eligibility"
+                     name="eligibility"
+                     onChange={handleChange}
+                     placeholder="Eligibility (Separated by ,)"
+                     type="text"
+                     value={convertToString(formData.eligibility)}
+                  />
+                  <FormTextArea
+                     label="Skills Required"
+                     name="skillRequired"
+                     type="text"
+                     value={convertToString(formData.skillRequired)}
+                     placeholder="Enter skills required for the job (Separated by ,)"
+                     onChange={handleChange}
+                  />
+                  <FormTextArea
+                     label="Recruitment Process"
+                     name="recruitmentProcess"
+                     type="text"
+                     placeholder="Enter recuitment process"
+                     onChange={handleChange}
+                     value={convertToString(formData.recruitmentProcess)}
+                  />
+               </Row>
+
+               <OutlinedButton
+                  variant="outlined"
+                  onClick={() => handleSubmit(formData)}
+                  className="btn"
+                  type="submit"
+               >
+                  {id === "new" ? "Publish" : "Update"} Article
+               </OutlinedButton>
+            </div>
+         </MainContent>
+         <RightSideBar heading="" content={[]} />
+      </>
+   );
 };
 
 export default NewCareer;

@@ -224,6 +224,10 @@ export const OutlinedButton = styledMui(Button)`
       border-color: ${colors.primaryLight};
    
    }
+
+   &:focus{
+      box-shadow: 0 0 0 .25remrgba(13,110,253,.25);
+   }
 `;
 
 export const StyledTagContainer = styled.div`

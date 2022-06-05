@@ -28,6 +28,17 @@ const AcademicItems = () => {
    const loading = useSelector((state) => state.academics.loading);
 
    const navigator = useNavigate();
+
+   // retreive all the subjects
+   useEffect(() => {
+      dispatch(academicsActions.loadAllSubjects());
+   }, [dispatch]);
+
+   // Showing Error
+   useEffect(() => {
+      if (error && loading === false) toast.error(error.message);
+   }, [error, loading]);
+
    const handleEdit = (id) => {
       navigator(`${id}`);
    };
@@ -35,14 +46,6 @@ const AcademicItems = () => {
    const handleDelete = async (id) => {
       dispatch(academicsActions.removeSubject(id));
    };
-
-   useEffect(() => {
-      dispatch(academicsActions.loadAllSubjects());
-   }, [dispatch]);
-
-   useEffect(() => {
-      if (error && loading === false) toast.error(error.message);
-   }, [error, loading]);
 
    return (
       <>

@@ -1,51 +1,88 @@
-import React from "react";
-import {
-  MainContent,
-  PageHeading,
-} from "../../styledComponents/common/Common/Common.styles";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
+import {
+   MainContent,
+   PageHeading,
+   SearchInput,
+} from "../../styledComponents/common/Common/Common.styles";
 import CareerCard from "../../styledComponents/CareerCard/CareerCard";
 import SelectTag from "../../styledComponents/SelectTag/SelectTag";
 import { SelectTags } from "../../styledComponents/SelectTag/SelectTag.styles";
 import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
-import { careerData } from "../../data/career";
+import Loader from "../../components/Loader/Loader";
+import * as careerAwareActions from "../../store/careeraware";
 
-const CareerAware = (props) => {
-  const profileTypes = ["Internship", "Job"];
-  const profiles = [
-    "Web Developer",
-    "Android Developer",
-    "Java Developer",
-    "Frontend Developer",
-    "Backend Developer",
-  ];
+const profileTypes = ["Internship", "Full-Time"];
+const profiles = [
+   "Web Developer",
+   "Android Developer",
+   "Java Developer",
+   "Frontend Developer",
+   "Backend Developer",
+   "Software Developer",
+   "Full Stack Developer",
+];
 
-  return (
-    <>
-      <MainContent direction="column" flex={3}>
-        <PageHeading>Career Aware</PageHeading>
+const CareerAware = () => {
+   const dispatch = useDispatch();
+   const [query, setQuery] = useState("");
+   const [apiCalled, setApiCalled] = useState(false);
 
-        <SelectTags>
-          <SelectTag
-            selected={true}
-            defaultValue="Select Profile Type"
-            options={profileTypes}
-          />
+   const allArticles = useSelector(careerAwareActions.filterArticles(query));
+   const loading = useSelector((state) => state.careerAware.loading);
 
-          <SelectTag
-            selected={false}
-            defaultValue="Select Profile"
-            options={profiles}
-          />
-        </SelectTags>
+   useEffect(() => {
+      if (!apiCalled && allArticles.length === 0) {
+         dispatch(careerAwareActions.loadAllArticles());
+         setApiCalled(true);
+      }
+   }, [allArticles, apiCalled, dispatch]);
 
-        {careerData.map((data, id) => (
-          <CareerCard key={id} data={data} />
-        ))}
-      </MainContent>
-      <RightSideBar heading="" content={[]} />
-    </>
-  );
+   return (
+      <>
+         <MainContent direction="column" flex={3}>
+            <PageHeading>Career Aware</PageHeading>
+            {loading ? (
+               <Loader />
+            ) : (
+               <>
+                  <SelectTags>
+                     <SelectTag
+                        selected={true}
+                        defaultValue="All Type"
+                        value={query}
+                        options={profileTypes}
+                        onChange={(e) => setQuery(e.target.value)}
+                     />
+
+                     <SelectTag
+                        selected={false}
+                        defaultValue="All Profile"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        options={profiles}
+                     />
+
+                     <SearchInput
+                        className="form-control"
+                        placeholder="Search"
+                        type="search"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        options={profiles}
+                     />
+                  </SelectTags>
+
+                  {allArticles.map((article, id) => (
+                     <CareerCard key={id} data={article} />
+                  ))}
+               </>
+            )}
+         </MainContent>
+         <RightSideBar heading="" content={[]} />
+      </>
+   );
 };
 
 export default CareerAware;
