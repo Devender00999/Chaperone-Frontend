@@ -3,15 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 
 import BlogsCard from "../../styledComponents/BlogsCard/BlogsCard";
 import { MainContent } from "../../styledComponents/common/Common/Common.styles";
-// import Tags from "../../styledComponents/Tags/Tags";
 import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
 import CareerCard from "../../styledComponents/CareerCard/CareerCard";
-// import ProjectCard from "../../styledComponents/ProjectCard/ProjectCard";
-import PGCard from "../../styledComponents/PGCard/PGCard";
 import EasyBuyCard from "../../styledComponents/EasyBuyCard/EasyBuyCard";
-// import { admissionData } from "../../data/admissionData";
 import { careerData } from "../../data/career";
-import { pgData } from "../../data/pgFinder";
 import * as admissionActions from "../../store/admissions";
 import Loader from "../../components/Loader/Loader";
 
@@ -79,9 +74,9 @@ const HomeScreen = (props) => {
                     link="/"
                     githubLink="/"
                 /> */}
-            {pgData.map((pg, id) => (
+            {/* {pgData.map((pg, id) => (
                <PGCard key={id} data={pg} />
-            ))}
+            ))} */}
 
             {easyBuyData.map((item, id) => (
                <EasyBuyCard key={id} data={item} />

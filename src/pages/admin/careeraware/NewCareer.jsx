@@ -71,7 +71,7 @@ const NewCareer = () => {
       if (id === "new") {
          setFormData(initialData);
       }
-   }, [params, navigate, jobArticle, id]);
+   }, [jobArticle, id]);
 
    // Showing errors
    useEffect(() => {

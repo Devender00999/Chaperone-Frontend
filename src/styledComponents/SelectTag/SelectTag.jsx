@@ -1,10 +1,15 @@
 import React from "react";
 import { Option, Select } from "./SelectTag.styles";
 
-const SelectTag = (props) => {
-   const { defaultValue, options, value } = props;
+const SelectTag = ({
+   defaultValue,
+   options,
+   onChange,
+   value,
+   ...otherProps
+}) => {
    return (
-      <Select {...props} value={value}>
+      <Select {...otherProps} onChange={onChange} value={value}>
          <Option value="">{defaultValue}</Option>
          {options.map((option) => (
             <Option key={option} value={option}>
