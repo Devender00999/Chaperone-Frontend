@@ -20,6 +20,9 @@ const header1 = (page) => {
          return "Company Name";
       case "EasyBuy":
          return "Posted By";
+
+      case "FindPG":
+         return "Posted By";
       default:
          return "Author";
    }
@@ -35,6 +38,9 @@ const header2 = (page) => {
          return "Company Name";
       case "EasyBuy":
          return "Products";
+
+      case "FindPG":
+         return "Location";
       default:
          return "Author";
    }
@@ -75,6 +81,8 @@ const DataTable = (props) => {
                      return blog.position;
                   case "EasyBuy":
                      return blog.name;
+                  case "FindPG":
+                     return blog.location;
                   default:
                      return blog.heading;
                }
@@ -88,6 +96,8 @@ const DataTable = (props) => {
                   case "Career":
                      return blog.companyName;
                   case "EasyBuy":
+                     return blog.ownerName;
+                  case "FindPG":
                      return blog.ownerName;
                   default:
                      return blog.author.name;

@@ -5,6 +5,7 @@ import academicsReducer from "./academics";
 import careerAwareReducer from "./careeraware";
 import easybuyReducer from "./easybuy";
 import doubtdeskReducer from "./doubtdesk";
+import findPGReducer from "./findPG";
 
 export default combineReducers({
    admissions: admissionReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
    careerAware: careerAwareReducer,
    easybuy: easybuyReducer,
    doubtdesk: doubtdeskReducer,
+   findPG: findPGReducer,
 });

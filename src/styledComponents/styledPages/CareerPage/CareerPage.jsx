@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import {
@@ -22,8 +23,6 @@ import {
 } from "./CareerPage.styles";
 
 import * as Card from "../../CareerCard/CareerCard.styles";
-import { careerData as career } from "../../../data/career";
-import { useDispatch, useSelector } from "react-redux";
 import * as careerAwareAction from "../../../store/careeraware";
 import Loader from "../../../components/Loader/Loader";
 

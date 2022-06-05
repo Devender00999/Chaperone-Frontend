@@ -35,7 +35,7 @@ const UserRoutes = (
          element={<CareerPage />}
       />
       <Route path="/dashboard/find-pg" exact element={<FindPG />} />
-      <Route path="/dashboard/find-pg/:pgId" element={<PGPage />} />
+      <Route path="/dashboard/find-pg/:id" element={<PGPage />} />
       <Route path="/dashboard/easy-buy" exact element={<EasyBuy />} />
       <Route path="/dashboard/doubt-desk" exact element={<DoubtDesk />} />
       <Route

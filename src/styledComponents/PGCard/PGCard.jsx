@@ -12,24 +12,25 @@ import SchoolIcon from "@mui/icons-material/School";
 import TrainIcon from "@mui/icons-material/Train";
 import { StyledLink } from "../common/Common/Common";
 import { useNavigate } from "react-router-dom";
+import config from "../../config";
 
-const PGCard = (props) => {
-   const { small } = props;
+const PGCard = ({ small, pgDetails }) => {
    const navigate = useNavigate();
+   console.log(pgDetails.gender.toLowerCase());
    return (
-      <CardContainer style={small && { width: "32%" }}>
+      <CardContainer style={small && { width: "30%" }}>
          <CardImage style={{ height: small ? "180px" : "250px" }}>
             <Carousel
-               images={props.data.images}
+               images={pgDetails.images.map((image) => config.url + image)}
                height={small ? "180px" : "250px"}
             />
          </CardImage>
          <CardData style={{ padding: small && "1rem" }}>
             <PGContainer>
                <Heading style={small && { width: "70%" }}>
-                  {props.data.name}
+                  {pgDetails.location}
                </Heading>
-               <Price>₹ {props.data.price}</Price>
+               <Price>₹ {pgDetails.ratePerMonth}</Price>
             </PGContainer>
             <PGContainer>
                <DescText
@@ -38,7 +39,7 @@ const PGCard = (props) => {
                      fontSize: small && "0.75rem",
                   }}
                >
-                  {props.data.address}
+                  {pgDetails.address}
                </DescText>
                <StyledLink
                   title="View on map"
@@ -64,7 +65,7 @@ const PGCard = (props) => {
                         marginRight: "0.5rem",
                      }}
                   />{" "}
-                  {props.data.distFromCollege}
+                  {pgDetails.distanceFromClg + "m from GTBIT"}
                </PGFeature>
 
                <PGFeature style={small && { fontSize: "0.625rem" }}>
@@ -75,11 +76,11 @@ const PGCard = (props) => {
                         marginRight: "0.5rem",
                      }}
                   />{" "}
-                  {props.data.distFromMetro}
+                  {pgDetails.distanceFromMetro + "m from Mayapuri"}
                </PGFeature>
             </PGContainer>
             <PrimaryButton
-               onClick={() => navigate(`/dashboard/find-pg/${props.data.id}`)}
+               onClick={() => navigate(`/dashboard/find-pg/${pgDetails._id}`)}
                style={{ alignSelf: "flex-end", fontSize: small && "0.625rem" }}
             >
                View PG Details
@@ -88,14 +89,14 @@ const PGCard = (props) => {
          <PGTag>
             <img
                src={
-                  props.data.for !== "girls"
+                  pgDetails.gender.toLowerCase() !== "girls"
                      ? "/images/pg-finder/girls.svg"
                      : "/images/pg-finder/girls.svg"
                }
-               alt={props.data.for}
+               alt={pgDetails.gender}
             />
             <PGTagText>
-               {props.data.for === "girls" ? "Girls" : "Boys"}
+               {pgDetails.gender.toLowerCase() === "girls" ? "Girls" : "Boys"}
             </PGTagText>
          </PGTag>
       </CardContainer>
