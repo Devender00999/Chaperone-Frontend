@@ -33,6 +33,7 @@ const HomeScreen = (props) => {
          about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis suscipit felis ac elit lacinia semper. Vestibulum vulputate lorem elementum vulputate consectetur.",
          images: ["/images/easy-buy/img.svg"],
          price: "250",
+         amenities: ["safasdf", "sdfasf"],
       },
    ];
    const rightSideBarData = {

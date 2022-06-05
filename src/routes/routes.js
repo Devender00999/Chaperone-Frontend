@@ -25,15 +25,16 @@ export const sideDataForUser = [
       icon: "/images/sidebar/careeraware.svg",
    },
    {
-      title: "Find PG",
-      link: "/dashboard/find-pg",
-      icon: "/images/sidebar/findpg.svg",
-   },
-   {
       title: "Easy Buy",
       link: "/dashboard/easy-buy",
       icon: "/images/sidebar/easybuy.svg",
    },
+   {
+      title: "Find PG",
+      link: "/dashboard/find-pg",
+      icon: "/images/sidebar/findpg.svg",
+   },
+
    {
       title: "Doubt Desk",
       link: "/dashboard/doubt-desk",

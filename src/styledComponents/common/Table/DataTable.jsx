@@ -10,7 +10,7 @@ import {
 } from "./DataTable.styles";
 import { Alert } from "@mui/material";
 
-const header = (page) => {
+const header1 = (page) => {
    switch (page) {
       case "Admission":
          return "Author";
@@ -18,6 +18,23 @@ const header = (page) => {
          return "Subject Name";
       case "Career":
          return "Company Name";
+      case "EasyBuy":
+         return "Posted By";
+      default:
+         return "Author";
+   }
+};
+
+const header2 = (page) => {
+   switch (page) {
+      case "Admission":
+         return "Author";
+      case "Academics":
+         return "Subject Name";
+      case "Career":
+         return "Company Name";
+      case "EasyBuy":
+         return "Products";
       default:
          return "Author";
    }
@@ -30,9 +47,11 @@ const DataTable = (props) => {
          <TableRow
             style={{ background: "#ff6600", color: "#FFF", border: "none" }}
          >
-            <TableColumnHeading style={{ flex: 4 }}>Title</TableColumnHeading>
+            <TableColumnHeading style={{ flex: 4 }}>
+               {header2(page)}
+            </TableColumnHeading>
             <TableColumnHeading style={{ flex: 3 }}>
-               {header(page)}
+               {header1(page)}
             </TableColumnHeading>
             <TableColumnHeading
                style={{
@@ -54,7 +73,8 @@ const DataTable = (props) => {
                      return blog.topname;
                   case "Career":
                      return blog.position;
-
+                  case "EasyBuy":
+                     return blog.name;
                   default:
                      return blog.heading;
                }
@@ -67,6 +87,8 @@ const DataTable = (props) => {
                      return blog.subName;
                   case "Career":
                      return blog.companyName;
+                  case "EasyBuy":
+                     return blog.ownerName;
                   default:
                      return blog.author.name;
                }
@@ -76,6 +98,15 @@ const DataTable = (props) => {
                <TableRow key={id}>
                   <TableColumn style={{ flex: 4 }}>{chil1(page)} </TableColumn>
                   <TableColumn style={{ flex: 3 }}>{chil2(page)}</TableColumn>
+                  {props.likes && (
+                     <TableColumn
+                        style={{
+                           flex: 1,
+                        }}
+                     >
+                        {blog.likes ? blog.likes : 0}
+                     </TableColumn>
+                  )}
                   {props.likes && (
                      <TableColumn
                         style={{

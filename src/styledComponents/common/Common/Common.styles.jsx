@@ -13,8 +13,8 @@ export const StyledContainer = styled.div`
 
 export const CommonContainer = styled.div`
    display: flex;
-   justify-content: space-evenly;
-   column-gap: 1rem;
+   justify-content: ${(props) => props.justify || "space-evenly"};
+   column-gap: 2rem;
    row-gap: 1rem;
    flex-wrap: wrap;
 `;
@@ -208,7 +208,7 @@ export const SecondaryButtonAnchor = styled.a`
    color: #ff6600;
    font-family: poppins;
    text-align: center;
-   padding: 0.5rem 1rem;
+   padding: 0.3rem 0.5rem;
    border-radius: 2px;
    border: 1px solid #cacaca;
    &:hover {
@@ -277,4 +277,11 @@ export const HeaderPreview = styled.div`
    background: ${(props) => `url(${props.image})`};
    background-repeat: no-repeat;
    background-size: "cover";
+`;
+
+export const ItemContainer = styled.div`
+   display: flex;
+   margin: 5px;
+   align-items: center;
+   justify-content: ${(props) => `${props.space}`};
 `;

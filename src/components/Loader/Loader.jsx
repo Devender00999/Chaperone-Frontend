@@ -17,7 +17,7 @@ const Loader = () => {
          <Lottie
             animationData={loader}
             loop
-            autoplay
+            autoplay={true}
             style={{ height: 50, width: 50 }}
             width={50}
          />
