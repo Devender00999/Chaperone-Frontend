@@ -8,12 +8,14 @@ import {
 import { RoadmapCard } from "../../styledComponents/RoadmapCard/RoadmapCard";
 import { RoadmapsCardContainer } from "../../styledComponents/RoadmapCard/RoadmapCard.styles";
 import * as roadmapActions from "../../store/roadmaps";
+import Loader from "../../components/Loader/Loader";
 
 const Roadmaps = (props) => {
    const [apiCalled, setApiCalled] = useState(false);
    const dispatch = useDispatch();
 
    const roadmaps = useSelector((state) => state.roadmaps.allRoadmaps);
+   const loading = useSelector((state) => state.roadmaps.loading);
 
    useEffect(() => {
       if (roadmaps && !apiCalled) {
@@ -21,7 +23,9 @@ const Roadmaps = (props) => {
          setApiCalled(true);
       }
    }, [roadmaps, dispatch, apiCalled]);
-   return (
+   return loading ? (
+      <Loader />
+   ) : (
       <>
          <MainContent direction="column" flex={3}>
             <PageHeading>Roadmaps</PageHeading>

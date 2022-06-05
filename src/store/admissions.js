@@ -93,7 +93,7 @@ export const selectArticle = (id) => (dispatch, getState) => {
    const { articles } = getState().admissions;
    const article = articles.find((article) => article._id === id);
    if (article) return dispatch(articleSelected(article));
-   dispatch(
+   return dispatch(
       apiCallBegan({
          url: admissions + "/" + id,
          onSuccess: articleSelected.type,

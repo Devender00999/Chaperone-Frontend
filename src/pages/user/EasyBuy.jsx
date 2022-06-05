@@ -1,74 +1,72 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
-  CommonContainer,
-  MainContent,
-  PageHeading,
+   CommonContainer,
+   MainContent,
+   PageHeading,
+   SearchInput,
 } from "../../styledComponents/common/Common/Common.styles";
 import { SelectTags } from "../../styledComponents/SelectTag/SelectTag.styles";
 import SelectTag from "../../styledComponents/SelectTag/SelectTag";
 import EasyBuyCard from "../../styledComponents/EasyBuyCard/EasyBuyCard";
+import { useDispatch, useSelector } from "react-redux";
+import * as easybuyActions from "../../store/easybuy";
+import Loader from "../../components/Loader/Loader";
 
 const EasyBuy = (props) => {
-  const items = ["Engg. Drawing Board", "Lab Coat", "Drafter", "Sheet Holder"];
+   const [category, setCategory] = useState("");
+   const [price, setPrice] = useState("");
+   const [apiCalled, setApiCalled] = useState(false);
 
-  const prices = [500, 1000, 2000];
-  const priceRange = prices.map((price) => "< ₹" + price);
+   const prices = [500, 1000, 2000];
+   const priceRange = prices.map((price) => "< ₹" + price);
 
-  const easyBuyData = [
-    {
-      name: "Engg. Drawing Board",
-      about:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis suscipit felis ac elit lacinia semper. Vestibulum vulputate lorem elementum vulputate consectetur.",
-      images: ["/images/easy-buy/img.svg"],
-      price: "250",
-    },
-    {
-      name: "Engg. Drawing Board",
-      about:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis suscipit felis ac elit lacinia semper. Vestibulum vulputate lorem elementum vulputate consectetur.",
-      images: ["/images/easy-buy/img.svg"],
-      price: "250",
-    },
-    {
-      name: "Engg. Drawing Board",
-      about:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis suscipit felis ac elit lacinia semper. Vestibulum vulputate lorem elementum vulputate consectetur.",
-      images: ["/images/easy-buy/img.svg"],
-      price: "250",
-    },
-    {
-      name: "Engg. Drawing Board",
-      about:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis suscipit felis ac elit lacinia semper. Vestibulum vulputate lorem elementum vulputate consectetur.",
-      images: ["/images/easy-buy/img.svg"],
-      price: "250",
-    },
-  ];
-  return (
-    <>
-      <MainContent direction="column" flex={3}>
-        <PageHeading>Easy Buy</PageHeading>
-        <SelectTags>
-          <SelectTag
-            defaultValue="Select Item"
-            options={items}
-            selected={true}
-          />
-          <SelectTag
-            defaultValue="Select Price Range"
-            options={priceRange}
-            selected={false}
-          />
-        </SelectTags>
+   const products = useSelector(
+      easybuyActions.filteredProducts(category, price)
+   );
 
-        <CommonContainer>
-          {easyBuyData.map((item, id) => (
-            <EasyBuyCard small key={id} data={item} />
-          ))}
-        </CommonContainer>
-      </MainContent>
-    </>
-  );
+   const loading = useSelector((state) => state.easybuy.loading);
+
+   const dispatch = useDispatch();
+   useEffect(() => {
+      if (products.length === 0 && !apiCalled) {
+         dispatch(easybuyActions.loadProducts());
+         setApiCalled(true);
+      }
+   }, [dispatch, products, apiCalled]);
+
+   return loading ? (
+      <Loader />
+   ) : (
+      <>
+         <MainContent direction="column" flex={3}>
+            <PageHeading style={{ marginBotton: "20px" }}>Easy Buy</PageHeading>
+            <SelectTags>
+               <SearchInput
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  type="search"
+                  disabled={price}
+                  className="form-control"
+                  placeholder="Search product"
+               />
+               or
+               <SelectTag
+                  disabled={category}
+                  defaultValue="Select Price Range"
+                  onChange={(e) => setPrice(e.target.value)}
+                  options={priceRange}
+                  selected={false}
+               />
+            </SelectTags>
+
+            <CommonContainer justify="flex-start">
+               {products.map((item, id) => (
+                  <EasyBuyCard small key={id} data={item} />
+               ))}
+            </CommonContainer>
+         </MainContent>
+      </>
+   );
 };
 
 export default EasyBuy;

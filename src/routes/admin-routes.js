@@ -14,7 +14,7 @@ import NewCareer from "../pages/admin/careeraware/NewCareer";
 import getUserDetails from "../requests/decode/decodeToken";
 import NewPG from "../pages/admin/findpg/NewPG";
 import Pgs from "../pages/admin/findpg/PGs";
-import EasyProducts from "../pages/admin/easybuy/EasyProducts";
+import EasyProducts from "../pages/admin/easybuy/Easybuy";
 import NewEasyProduct from "../pages/admin/easybuy/NewEasyProduct";
 
 const user = getUserDetails();

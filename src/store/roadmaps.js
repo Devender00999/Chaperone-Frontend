@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { apiCallBegan } from "./api";
 
 const slice = createSlice({
-   name: "roadmaps",
+   name: "easybuy",
    initialState: {
       allRoadmaps: [],
       selectedRoadmap: null,
