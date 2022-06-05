@@ -44,6 +44,11 @@ const UserRoutes = (
          element={<DoubtDeskPage />}
       />
       <Route
+         path="/dashboard/doubt-desk/ask-question/:id"
+         exact
+         element={<DoubtDeskPage />}
+      />
+      <Route
          path="/dashboard/doubt-desk/:id"
          exact
          element={<DoubtDeskAnswers />}

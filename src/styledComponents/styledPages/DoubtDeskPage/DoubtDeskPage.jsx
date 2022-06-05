@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
    Content,
    MainContent,
@@ -12,8 +12,13 @@ import {
    DoubtInputBox,
    DoubtInputLabel,
 } from "./DoubtDeskPage.styles";
+import Alert from "@mui/material/Alert";
 
 import InputTags from "../../InputTags";
+import * as doubtdeskActions from "../../../store/doubtdesk";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
+import getUserDetails from "../../../requests/decode/decodeToken";
 
 const rightSideBarData = {
    heading: "Other Section",
@@ -22,11 +27,43 @@ const rightSideBarData = {
 
 const DoubtDeskPage = (props) => {
    const [question, setQuestion] = useState("");
-
    const [questionTags, setQuestionTags] = useState([]);
+   const [error, setError] = useState(null);
+   const [apiCalled, setApiCalled] = useState(false);
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
+   const user = getUserDetails();
 
-   const handleSubmit = () => {
-      console.log(question, questionTags);
+   const selectedDoubt = useSelector((state) => state.doubtdesk.selectedDoubt);
+   console.log(selectedDoubt);
+   const { id } = useParams();
+   useEffect(() => {
+      if (id && !apiCalled) {
+         dispatch(doubtdeskActions.selectDoubt(id));
+         setApiCalled(true);
+      }
+      if (selectedDoubt) {
+         setQuestion(selectedDoubt.question);
+         setQuestionTags(selectedDoubt.tags);
+      }
+   }, [dispatch, selectedDoubt]);
+
+   const handleSubmit = async () => {
+      let result;
+      const data = {
+         authorId: user._id,
+         question,
+         tags: questionTags,
+      };
+      if (id) {
+         result = await dispatch(doubtdeskActions.editDoubt(id, data));
+      } else {
+         result = await dispatch(doubtdeskActions.addDoubt(data));
+      }
+      if (result.status === 200) {
+         navigate("/dashboard/doubt-desk");
+      }
+      setError(result.data);
    };
 
    return (
@@ -34,6 +71,11 @@ const DoubtDeskPage = (props) => {
          <MainContent direction="column" flex={3}>
             <PageHeading>Doubt Desk / Ask a Question</PageHeading>
             <DoubtForm>
+               {error && (
+                  <Alert style={{ marginBottom: "30px" }} severity="error">
+                     {error.message}
+                  </Alert>
+               )}
                <DoubtInputBox>
                   <DoubtInputLabel>Question</DoubtInputLabel>
                   <DoubtInput

@@ -52,7 +52,7 @@ const EasyBuy = (props) => {
                or
                <SelectTag
                   disabled={category}
-                  defaultValue="Select Price Range"
+                  defaultValue="All Prices"
                   onChange={(e) => setPrice(e.target.value)}
                   options={priceRange}
                   selected={false}

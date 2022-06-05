@@ -5,13 +5,13 @@ import {
    Heading,
    Price,
    ItemContainer,
-   OutlinedButton,
+   PrimaryButton,
 } from "../common/Common/Common.styles";
 import config from "../../config";
 import { StyledTags } from "../common/Common/Common";
 
 const EasyBuyCard = (props) => {
-   const { small } = props;
+   const { small, showTags = null } = props;
    return (
       <CardContainer style={small && { width: "32%" }}>
          <CardImage style={{ height: small ? "180px" : "250px" }}>
@@ -25,23 +25,32 @@ const EasyBuyCard = (props) => {
                <Heading>{props.data.name}</Heading>
                <Price>₹ {props.data.price}</Price>
             </ItemContainer>
-            <ItemContainer>
-               <StyledTags
-                  color={"#666666"}
-                  bColor={"#f6f6f6"}
-                  data={props.data.amenities}
-               />
-            </ItemContainer>
+            {showTags && (
+               <ItemContainer>
+                  <StyledTags
+                     color={"#666666"}
+                     bColor={"#f6f6f6"}
+                     data={props.data.amenities}
+                  />
+               </ItemContainer>
+            )}
             <ItemContainer space="space-between">
-               {props.data.ownerName}
-               <br />
-               {props.data.ownerNumber}
-               <OutlinedButton
-                  variant="outlined"
-                  href={"tel:" + props.data.ownerNumber}
+               <ItemContainer
+                  style={{ alignItems: "flex-start", flexDirection: "column" }}
                >
-                  Call
-               </OutlinedButton>
+                  <span>{props.data.ownerName}</span>
+                  <span style={{ fontSize: "12px" }}>
+                     {props.data.ownerNumber}
+                  </span>
+               </ItemContainer>
+               <a href={"tel:" + props.data.ownerNumber}>
+                  <PrimaryButton
+                     variant="outlined"
+                     href={"tel:" + props.data.ownerNumber}
+                  >
+                     Call
+                  </PrimaryButton>
+               </a>
             </ItemContainer>
          </CardData>
       </CardContainer>
