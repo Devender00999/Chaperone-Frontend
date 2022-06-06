@@ -15,18 +15,22 @@ import getUserDetails from "../../requests/decode/decodeToken";
 import StyledModal from "../CustomModal/CustomModal";
 import ProfileForm from "../Form/Profile";
 import config from "../../config";
+import { addQuery } from "../../store/homescreen";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
    const user = getUserDetails();
+   const query = useSelector((state) => state.homescreen.query);
 
    const [showModal, setShowModal] = useState(false);
+
    return (
       <NavbarContainer>
          <Link style={{ flex: 1, display: "flex" }} to="/">
             <NavLogo src="/images/navbar/logo.svg" />
          </Link>
          <NavbarSearchContainer>
-            <Search width={"75%"} />
+            <Search width={"75%"} query={query} setQuery={addQuery} />
          </NavbarSearchContainer>
          <UserDetails>
             <DropdownButton

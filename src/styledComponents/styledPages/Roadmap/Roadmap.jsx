@@ -40,15 +40,15 @@ const Roadmap = () => {
 
    // if (!roadmaps) window.location.href = "/not-found";
 
-   const rightSideBarData = {
-      heading: "Your Recents",
-      content: [
-         "Choice filling Round 1 for B Tech...",
-         "Final Datesheet for Reappear exam",
-         "Data Structures Notes",
-         "Roadmap to UX Designing",
-      ],
-   };
+   // const rightSideBarData = {
+   //    heading: "Your Recents",
+   //    content: [
+   //       "Choice filling Round 1 for B Tech...",
+   //       "Final Datesheet for Reappear exam",
+   //       "Data Structures Notes",
+   //       "Roadmap to UX Designing",
+   //    ],
+   // };
 
    useEffect(() => {
       if (error !== null) {
@@ -139,7 +139,7 @@ const Roadmap = () => {
                </>
             )}
          </MainContent>
-         <RightSideBar {...rightSideBarData} />
+         <RightSideBar />
       </>
    ) : null;
 };

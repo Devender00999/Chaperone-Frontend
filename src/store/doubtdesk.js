@@ -1,5 +1,4 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 import { apiCallBegan } from "./api";
 
 const slice = createSlice({
@@ -7,6 +6,7 @@ const slice = createSlice({
    initialState: {
       allDoubts: [],
       selectedDoubt: null,
+      query: "",
       loading: false,
       error: null,
    },
@@ -28,7 +28,6 @@ const slice = createSlice({
          state.allDoubts.push(action.payload);
          state.loading = false;
          state.error = null;
-         toast.success("doubt category added successfully.");
       },
       doubtRemoved: (state, action) => {
          state.loading = false;
@@ -36,7 +35,6 @@ const slice = createSlice({
          state.allDoubts = state.allDoubts.filter(
             (doubt) => doubt._id !== action.payload._id
          );
-         toast.success("doubt category deleted successfully.");
       },
       doubtUpdated: (state, action) => {
          const index = state.allDoubts.findIndex(
@@ -46,12 +44,14 @@ const slice = createSlice({
          state.allDoubts[index] = action.payload;
          state.loading = false;
          state.error = null;
-         toast.success("doubt category updated successfully.");
       },
       doubtSelected: (state, action) => {
          state.selectedDoubt = action.payload;
          state.loading = false;
          state.error = null;
+      },
+      queryAdded: (state, action) => {
+         state.query = action.payload;
       },
    },
 });
@@ -60,7 +60,7 @@ const {
    doubtsReceived,
    doubtRequestFailed,
    doubtRequested,
-
+   queryAdded,
    doubtAdded,
    doubtRemoved,
    doubtUpdated,
@@ -73,9 +73,9 @@ export default slice.reducer;
 const url = "/doubtdesk";
 
 // action creator for getting all doubts
-export const loadAllQuestions = () =>
+export const loadAllQuestions = (start = 0, limit = 0) =>
    apiCallBegan({
-      url,
+      url: url + `?start=${start}&limit=${limit}`,
       onStart: doubtRequested.type,
       onError: doubtRequestFailed.type,
       onSuccess: doubtsReceived.type,
@@ -91,6 +91,8 @@ export const addDoubt = (doubt) =>
       onError: doubtRequestFailed.type,
       onSuccess: doubtAdded.type,
    });
+
+export const addQuery = (query) => queryAdded(query);
 
 // action creator for adding a doubt
 export const removeDoubt = (id) =>
@@ -148,15 +150,12 @@ export const selectDoubt = (id) => (dispatch, getState) => {
    );
 };
 
-export const filteredDoubts = (query = "", price = "") => {
-   if (price) price = price.substring(3);
-   return createSelector(
+export const filteredDoubts = () =>
+   createSelector(
       (state) => state.doubtdesk.allDoubts,
-      (allDoubts) =>
-         allDoubts.filter((doubt) => {
-            if (!price)
-               return doubt.name.toLowerCase().includes(query.toLowerCase());
-            return parseInt(doubt.price) < parseInt(price);
-         })
+      (state) => state.doubtdesk.query,
+      (allDoubts, query) =>
+         allDoubts.filter((doubt) =>
+            doubt.question.toLowerCase().includes(query.toLowerCase())
+         )
    );
-};

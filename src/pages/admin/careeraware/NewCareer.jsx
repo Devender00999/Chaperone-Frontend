@@ -350,7 +350,7 @@ const NewCareer = () => {
                </OutlinedButton>
             </div>
          </MainContent>
-         <RightSideBar heading="" content={[]} />
+         <RightSideBar />
       </>
    );
 };

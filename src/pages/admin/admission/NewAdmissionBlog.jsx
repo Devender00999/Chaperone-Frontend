@@ -217,7 +217,7 @@ const NewAdmissionBlog = () => {
             </div>
             {/* <div dangerouslySetInnerHTML={{ __html: markup }} /> */}
          </MainContent>
-         <RightSideBar heading="" content={[]} />
+         <RightSideBar />
       </>
    );
 };

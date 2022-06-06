@@ -1,25 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-import Loader from "../../components/Loader/Loader";
 
 import * as academicsActions from "../../store/academics";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import Loader from "../../components/Loader/Loader";
 import {
    MainContent,
    PageHeading,
 } from "../../styledComponents/common/Common/Common.styles";
 import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
 import SubjectCard from "../../styledComponents/SubjectCard/SubjectCard";
-
-const rightSideBarData = {
-   heading: "Other Section",
-   content: [
-      "Industrial Traning Report Format",
-      "Industrial Traning Report Example",
-      "Minor/Major Project Synopsis Format",
-      "Minor/Major Project Report Format",
-   ],
-};
 
 const Academics = () => {
    const [isApiCalled, setIsApiCalled] = useState(false);
@@ -49,7 +39,7 @@ const Academics = () => {
                <ErrorMessage severity="warning" error="No Data Found" />
             )}
          </MainContent>
-         <RightSideBar {...rightSideBarData} />
+         <RightSideBar />
       </>
    );
 };

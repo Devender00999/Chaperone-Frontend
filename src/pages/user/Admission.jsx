@@ -3,20 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 
 import * as admissionActions from "../../store/admissions";
 import BlogsCard from "../../styledComponents/BlogsCard/BlogsCard";
-import { MainContent } from "../../styledComponents/common/Common/Common.styles";
+import {
+   MainContent,
+   PageHeading,
+} from "../../styledComponents/common/Common/Common.styles";
 import Loader from "../../components/Loader/Loader";
 import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
-const rightSideBarData = {
-   heading: "Quick Links",
-   content: [
-      "Choice filling Round 1 for B Tech...",
-      "Final Datesheet for Reappear exam",
-      "Datesheet Mid Term exams",
-      "Scholarship Program",
-   ],
-};
+// const rightSideBarData = {
+//    heading: "Quick Links",
+//    content: [
+//       "Choice filling Round 1 for B Tech...",
+//       "Final Datesheet for Reappear exam",
+//       "Datesheet Mid Term exams",
+//       "Scholarship Program",
+//    ],
+// };
 
 const Admission = () => {
    const dispatch = useDispatch();
@@ -35,6 +38,7 @@ const Admission = () => {
    return (
       <>
          <MainContent direction="column" flex={3}>
+            <PageHeading>Admissions</PageHeading>
             {loading ? (
                <Loader />
             ) : admissionArticles.length > 0 ? (
@@ -48,7 +52,7 @@ const Admission = () => {
                />
             )}
          </MainContent>
-         <RightSideBar {...rightSideBarData} />
+         <RightSideBar />
       </>
    );
 };

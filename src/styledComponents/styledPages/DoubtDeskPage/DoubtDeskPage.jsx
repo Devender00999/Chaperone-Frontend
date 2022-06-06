@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-   Content,
    MainContent,
    PageHeading,
    PrimaryButton,
@@ -19,11 +18,6 @@ import * as doubtdeskActions from "../../../store/doubtdesk";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import getUserDetails from "../../../requests/decode/decodeToken";
-
-const rightSideBarData = {
-   heading: "Other Section",
-   content: ["New Questions", "My Questions", "My Answers", "Ask a Question"],
-};
 
 const DoubtDeskPage = (props) => {
    const [question, setQuestion] = useState("");
@@ -46,7 +40,7 @@ const DoubtDeskPage = (props) => {
          setQuestion(selectedDoubt.question);
          setQuestionTags(selectedDoubt.tags);
       }
-   }, [dispatch, selectedDoubt]);
+   }, [apiCalled, dispatch, id, selectedDoubt]);
 
    const handleSubmit = async () => {
       let result;
@@ -67,7 +61,7 @@ const DoubtDeskPage = (props) => {
    };
 
    return (
-      <Content>
+      <>
          <MainContent direction="column" flex={3}>
             <PageHeading>Doubt Desk / Ask a Question</PageHeading>
             <DoubtForm>
@@ -99,8 +93,8 @@ const DoubtDeskPage = (props) => {
                </PrimaryButton>
             </DoubtForm>
          </MainContent>
-         <RightSideBar {...rightSideBarData} />
-      </Content>
+         <RightSideBar />
+      </>
    );
 };
 

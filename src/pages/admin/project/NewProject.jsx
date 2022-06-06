@@ -241,7 +241,7 @@ const NewProject = () => {
                </PrimaryButton>
             </div>
          </MainContent>
-         <RightSideBar heading="" content={[]} />
+         <RightSideBar />
       </>
    );
 };

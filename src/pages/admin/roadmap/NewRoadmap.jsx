@@ -259,7 +259,7 @@ const NewAdmissionBlog = () => {
             </Form>
             {/* <div dangerouslySetInnerHTML={{ __html: markup }} /> */}
          </MainContent>
-         <RightSideBar heading="" content={[]} />
+         <RightSideBar />
       </>
    );
 };

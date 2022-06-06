@@ -6,6 +6,8 @@ const slice = createSlice({
    name: "easybuy",
    initialState: {
       allRoadmaps: [],
+      allRoadmapArticles: [],
+      allRoadmapProjects: [],
       selectedRoadmap: null,
       selectedArticle: null,
       selectedProject: null,
@@ -23,6 +25,16 @@ const slice = createSlice({
       roadmapRequestFailed: (state, action) => {
          state.loading = false;
          state.error = action.payload.message;
+      },
+      rodmapArticlesReceived: (state, action) => {
+         state.allRoadmapArticles = action.payload;
+         state.loading = false;
+         state.error = null;
+      },
+      rodmapProjectsReceived: (state, action) => {
+         state.allRoadmapProjects = action.payload;
+         state.loading = false;
+         state.error = null;
       },
       roadmapsReceived: (state, action) => {
          state.allRoadmaps = action.payload;
@@ -160,7 +172,8 @@ const {
    roadmapRequestFailed,
    roadmapRequested,
    errorCleaned,
-
+   rodmapArticlesReceived,
+   rodmapProjectsReceived,
    roadmapAdded,
    roadmapRemoved,
    roadmapUpdated,
@@ -189,6 +202,24 @@ export const loadRoadmaps = () =>
       onStart: roadmapRequested.type,
       onError: roadmapRequestFailed.type,
       onSuccess: roadmapsReceived.type,
+   });
+
+// actor creator for agetting all articles
+export const loadRoadmapArticles = () =>
+   apiCallBegan({
+      url: url + "/articles",
+      onStart: roadmapRequested.type,
+      onError: roadmapRequestFailed.type,
+      onSuccess: rodmapArticlesReceived.type,
+   });
+
+// actor creator for agetting all articles
+export const loadRoadmapProjects = () =>
+   apiCallBegan({
+      url: url + "/projects",
+      onStart: roadmapRequested.type,
+      onError: roadmapRequestFailed.type,
+      onSuccess: rodmapProjectsReceived.type,
    });
 
 // action creator for adding a roadmap

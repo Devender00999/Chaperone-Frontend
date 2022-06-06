@@ -7,6 +7,7 @@ import easybuyReducer from "./easybuy";
 import doubtdeskReducer from "./doubtdesk";
 import findPGReducer from "./findPG";
 import userReducer from "./user";
+import homescreenReducer from "./homescreen";
 
 export default combineReducers({
    admissions: admissionReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
    doubtdesk: doubtdeskReducer,
    findPG: findPGReducer,
    users: userReducer,
+   homescreen: homescreenReducer,
 });

@@ -83,7 +83,7 @@ const CareerAware = () => {
                <ErrorMessage error="No job article found." severity="warning" />
             )}
          </MainContent>
-         <RightSideBar heading="" content={[]} />
+         <RightSideBar  />
       </>
    );
 };
