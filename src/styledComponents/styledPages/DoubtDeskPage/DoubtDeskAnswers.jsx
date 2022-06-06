@@ -13,7 +13,6 @@ import {
    DoubtAskBy,
    DoubtQuestion,
 } from "../../DoubtDeskCard/DoubtDeskCard.styles";
-import Search from "../../Navbar/Search";
 import RightSideBar from "../../SidePanel/RightSideBar";
 import {
    DoubtAnswerContainer,
@@ -26,11 +25,9 @@ import * as doubtdeskActions from "../../../store/doubtdesk";
 import getUserDetails from "../../../requests/decode/decodeToken";
 import { toast } from "react-toastify";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import Loader from "../../../components/Loader/Loader";
 
-const rightSideBarData = {
-   heading: "Other Section",
-   content: ["New Questions", "My Questions", "My Answers", "Ask a Question"],
-};
+
 
 const DoubtDeskAnswers = (props) => {
    // const [data, setData] = useState({
@@ -86,13 +83,13 @@ const DoubtDeskAnswers = (props) => {
       }
    }, [error, loading]);
 
-   const handleSubmit = async (e) => {
+   const handleSubmit = (e) => {
       e.preventDefault();
       const newAnswer = {
          answer,
          authorId: user._id,
       };
-      const result = await dispatch(doubtdeskActions.addAnswer(id, newAnswer));
+      dispatch(doubtdeskActions.addAnswer(id, newAnswer));
       setAnswer("");
    };
 
@@ -101,12 +98,12 @@ const DoubtDeskAnswers = (props) => {
    };
 
    return loading ? (
-      "<Loader />"
+      <Loader />
    ) : selectedDoubt ? (
       <>
          <MainContent direction="column" flex={3}>
             <PageHeading>Doubt Desk / Ask a Question</PageHeading>
-            <Search width="100%" query></Search>
+            {/* <Search width="100%" query></Search> */}
             <DoubtQuestion style={{ margin: "20px 0" }}>
                Q. {selectedDoubt.question}
             </DoubtQuestion>
@@ -118,12 +115,12 @@ const DoubtDeskAnswers = (props) => {
                   onMouseOut={() => setSelectedAnswer(null)}
                >
                   <DoubtAskBy style={{ fontSize: "15px", fontWeight: 400 }}>
-                     answered by {answer.name}
+                     answered by {answer.answeredBy.name}
                   </DoubtAskBy>
                   <DoubtAnswer
                      dangerouslySetInnerHTML={{ __html: answer.answer }}
                   ></DoubtAnswer>
-                  {user._id == answer.answeredBy._id && (
+                  {user._id === answer.answeredBy._id && (
                      <DeleteOutlineIcon
                         onClick={() => handleAnswerDelete(answer._id)}
                         style={{
@@ -166,7 +163,7 @@ const DoubtDeskAnswers = (props) => {
                </DoubtForm>
             </DoubtAnswerContainer>
          </MainContent>
-         <RightSideBar {...rightSideBarData} />
+         <RightSideBar  />
       </>
    ) : null;
 };

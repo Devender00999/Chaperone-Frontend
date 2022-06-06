@@ -70,9 +70,9 @@ export default slice.reducer;
 const admissions = "/admissions";
 
 // action creator to load all articles
-export const loadArticles = () =>
+export const loadArticles = (start = 0, limit = 0) =>
    apiCallBegan({
-      url: admissions,
+      url: admissions + `?start=${start}&limit=${limit}`,
       onSuccess: articlesReceived.type,
       onStart: articleRequested.type,
       onError: articleRequestFailed.type,

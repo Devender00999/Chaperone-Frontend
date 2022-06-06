@@ -157,7 +157,7 @@ const PGPage = () => {
                </BlogContent>
             </BlogContainer>
          </MainContent>
-         <RightSideBar heading="" content={[]} />
+         <RightSideBar />
       </>
    ) : null;
 };

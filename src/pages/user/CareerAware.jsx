@@ -80,7 +80,7 @@ const CareerAware = () => {
                </>
             )}
          </MainContent>
-         <RightSideBar heading="" content={[]} />
+         <RightSideBar  />
       </>
    );
 };

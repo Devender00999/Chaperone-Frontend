@@ -10,43 +10,47 @@ import {
 import User from "../common/User/User";
 import { UserDetails, UserProps } from "../common/User/User.styles";
 
-const ProjectCard = (props) => {
-   console.log(props);
+const ProjectCard = ({ projectDetails }) => {
    return (
-      <CardContainer style={props.small && { width: "48%" }}>
+      <CardContainer style={projectDetails.small && { width: "48%" }}>
          <CardImage
-            image={config.url + props.image}
-            style={props.small && { height: "180px" }}
+            image={config.url + projectDetails.image}
+            style={projectDetails.small && { height: "180px" }}
          />
-         <CardData style={props.small && { padding: "1rem" }}>
-            <Heading>{props.heading}</Heading>
-            {props.small && (
+         <CardData style={projectDetails.small && { padding: "1rem" }}>
+            <Heading>{projectDetails.heading}</Heading>
+            {projectDetails.small && (
                <User
                   className="secondary-color"
-                  image={config.url + props.author.profilePic}
-                  name={props.author.name}
-                  small={props.small}
+                  image={config.url + projectDetails.author.profilePic}
+                  name={projectDetails.author.name}
+                  small={projectDetails.small}
                   style={{ padding: "1rem 0 0.5rem" }}
                />
             )}
-            <DescText style={props.small ? { fontSize: "0.75rem" } : {}}>
-               {props.desc}
+            <DescText
+               style={projectDetails.small ? { fontSize: "0.75rem" } : {}}
+            >
+               {projectDetails.description}
             </DescText>
             <UserDetails style={{ padding: "0.5rem 0" }}>
-               {!props.small && (
+               {!projectDetails.small && (
                   <User
                      className={"secondary-color"}
-                     image={config.url + props.author.profilePic}
-                     name={props.author.name}
-                     small={props.small}
+                     image={config.url + projectDetails.author.profilePic}
+                     name={projectDetails.author.name}
+                     small={projectDetails.small}
                   />
                )}
                <UserProps>
-                  <SecondaryButtonAnchor href={props.link} target="_blank">
+                  <SecondaryButtonAnchor
+                     href={projectDetails.link}
+                     target="_blank"
+                  >
                      View Project
                   </SecondaryButtonAnchor>
                   <SecondaryButtonAnchor
-                     href={props.githubLink}
+                     href={projectDetails.githubLink}
                      target="_blank"
                   >
                      Github Link

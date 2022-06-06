@@ -19,7 +19,7 @@ const AdminDashboard = () => {
             <h3 style={{ padding: "1rem 0" }}>This is Admin Dashboard</h3>
          </MainContent>
 
-         <RightSideBar heading="" content={[]} />
+         <RightSideBar />
       </>
    );
 };

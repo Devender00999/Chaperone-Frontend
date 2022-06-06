@@ -58,15 +58,15 @@ import SubjectCard from "../../styledComponents/SubjectCard/SubjectCard";
 //    },
 // ];
 
-const rightSideBarData = {
-   heading: "Other Section",
-   content: [
-      "Industrial Traning Report Format",
-      "Industrial Traning Report Example",
-      "Minor/Major Project Synopsis Format",
-      "Minor/Major Project Report Format",
-   ],
-};
+// const rightSideBarData = {
+//    heading: "Other Section",
+//    content: [
+//       "Industrial Traning Report Format",
+//       "Industrial Traning Report Example",
+//       "Minor/Major Project Synopsis Format",
+//       "Minor/Major Project Report Format",
+//    ],
+// };
 
 const Academics = () => {
    const [isApiCalled, setIsApiCalled] = useState(false);
@@ -96,7 +96,7 @@ const Academics = () => {
                <Alert severity="warning">No Data Found</Alert>
             )}
          </MainContent>
-         <RightSideBar {...rightSideBarData} />
+         <RightSideBar />
       </>
    );
 };

@@ -94,7 +94,7 @@ const AdmissionBlog = () => {
                           </BlogContent>
                       </BlogContainer>
                   </MainContent>
-                  <RightSideBar heading="" content={[]} />
+                  <RightSideBar  />
               </>
           );
 };

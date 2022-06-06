@@ -4,7 +4,6 @@ import { StyledLink, StyledTags } from "../common/Common/Common";
 import * as Card from "./CareerCard.styles";
 
 const CareerCard = ({ data: article }) => {
-   console.log(article);
    return (
       <Card.CareerCardContainer>
          <Card.CareerHeader>

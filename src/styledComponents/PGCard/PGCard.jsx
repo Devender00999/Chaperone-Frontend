@@ -16,7 +16,6 @@ import config from "../../config";
 
 const PGCard = ({ small, pgDetails }) => {
    const navigate = useNavigate();
-   console.log(pgDetails.gender.toLowerCase());
    return (
       <CardContainer style={small && { width: "30%" }}>
          <CardImage style={{ height: small ? "180px" : "250px" }}>

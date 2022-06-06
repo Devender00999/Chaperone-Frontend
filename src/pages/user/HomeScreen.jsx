@@ -6,85 +6,71 @@ import { MainContent } from "../../styledComponents/common/Common/Common.styles"
 import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
 import CareerCard from "../../styledComponents/CareerCard/CareerCard";
 import EasyBuyCard from "../../styledComponents/EasyBuyCard/EasyBuyCard";
-import { careerData } from "../../data/career";
-import * as admissionActions from "../../store/admissions";
+import ProjectCard from "../../styledComponents/ProjectCard/ProjectCard";
+import PGCard from "../../styledComponents/PGCard/PGCard";
+import { filteredData, loadAllData } from "../../store/homescreen";
 import Loader from "../../components/Loader/Loader";
+// import Tags from "../../styledComponents/Tags/Tags";
 
 const HomeScreen = (props) => {
    const dispatch = useDispatch();
    const [apiCalled, setApiCalled] = useState(false);
 
    // const tags = [
-   //   { value: "All", selected: true },
-   //   { value: "Interest", selected: false },
-   //   { value: "Interest", selected: false },
-   //   { value: "Interest", selected: false },
-   //   { value: "Interest", selected: false },
+   //    { value: "All", selected: true },
+   //    { value: "Interest", selected: false },
+   //    { value: "Interest", selected: false },
+   //    { value: "Interest", selected: false },
+   //    { value: "Interest", selected: false },
    // ];
 
-   const easyBuyData = [
-      {
-         name: "Engg. Drawing Board",
-         about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis suscipit felis ac elit lacinia semper. Vestibulum vulputate lorem elementum vulputate consectetur.",
-         images: ["/images/easy-buy/img.svg"],
-         price: "250",
-         amenities: ["safasdf", "sdfasf"],
-      },
-   ];
-   const rightSideBarData = {
-      heading: "Your Recents",
-      content: [
-         "Choice filling Round 1 for B Tech...",
-         "Final Datesheet for Reappear exam",
-         "Data Structures Notes",
-         "Roadmap to UX Designing",
-      ],
-   };
+   // const rightSideBarData = {
+   //    heading: "Your Recents",
+   //    content: [
+   //       "Choice filling Round 1 for B Tech...",
+   //       "Final Datesheet for Reappear exam",
+   //       "Data Structures Notes",
+   //       "Roadmap to UX Designing",
+   //    ],
+   // };
 
-   const admissionArticles = useSelector(admissionActions.filteredArticles(""));
-
-   console.log(admissionArticles);
-   const admissionLoading = useSelector((state) => state.admissions.loading);
+   const allData = useSelector(filteredData());
+   const loading = useSelector((state) => state.homescreen.loading);
 
    useEffect(() => {
-      if (admissionArticles.length === 0 && !apiCalled) {
-         dispatch(admissionActions.loadArticles());
+      if (!apiCalled) {
+         dispatch(loadAllData());
          setApiCalled(true);
       }
-   }, [admissionArticles, apiCalled, dispatch]);
+   }, [apiCalled, dispatch]);
+   const chooseComponent = (type, id, data) => {
+      if (type === "roadmaps")
+         return (
+            <BlogsCard
+               type={"roadmaps/" + data.data.roadmapId}
+               key={id}
+               {...data.data}
+            />
+         );
+      if (type === "admission")
+         return <BlogsCard type={"admission"} key={id} {...data.data} />;
 
-   return (
+      if (type === "products") return <EasyBuyCard key={id} data={data.data} />;
+      if (type === "projects")
+         return <ProjectCard key={id} projectDetails={data.data} />;
+      if (type === "careers") return <CareerCard key={id} data={data.data} />;
+      if (type === "findpg") return <PGCard key={id} pgDetails={data.data} />;
+   };
+
+   return loading ? (
+      <Loader />
+   ) : (
       <>
          <MainContent direction="column" flex={3}>
             {/* <Tags tags={tags} /> */}
-            {admissionLoading ? (
-               <Loader />
-            ) : (
-               admissionArticles.map((blog, id) => (
-                  <BlogsCard type="admission" key={id} {...blog} />
-               ))
-            )}
-            {careerData.map((data, id) => (
-               <CareerCard key={id} data={data} />
-            ))}
-            {/* <ProjectCard
-                    image="/images/projects/Image.svg"
-                    heading="OurApp - a social media web app in NodeJS"
-                    desc="Build this full stack application where you will get to learn about building modern, fast and scalable server-side web applications with NodeJS, databases like MongoDB and more."
-                    link="/"
-                    githubLink="/"
-                /> */}
-            {/* {pgData.map((pg, id) => (
-               <PGCard key={id} data={pg} />
-            ))} */}
-
-            {easyBuyData.map((item, id) => (
-               <EasyBuyCard key={id} data={item} />
-            ))}
-
-            {/* <EasyBuyCard /> */}
+            {allData.map((blog, id) => chooseComponent(blog.type, id, blog))}
          </MainContent>
-         <RightSideBar {...rightSideBarData} />
+         <RightSideBar />
       </>
    );
 };
