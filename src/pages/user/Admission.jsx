@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert } from "@mui/material";
 
 import * as admissionActions from "../../store/admissions";
 import BlogsCard from "../../styledComponents/BlogsCard/BlogsCard";
 import { MainContent } from "../../styledComponents/common/Common/Common.styles";
 import Loader from "../../components/Loader/Loader";
 import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 const rightSideBarData = {
    heading: "Quick Links",
@@ -42,9 +42,10 @@ const Admission = () => {
                   <BlogsCard type="admission" key={id} {...blog} />
                ))
             ) : (
-               <Alert severity="warning">
-                  Currently we don't have any articles. we will add them soon.
-               </Alert>
+               <ErrorMessage
+                  severity="warning"
+                  error="Currently we don't have any articles. we will add them soon."
+               />
             )}
          </MainContent>
          <RightSideBar {...rightSideBarData} />

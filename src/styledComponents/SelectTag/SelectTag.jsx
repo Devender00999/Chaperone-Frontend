@@ -11,11 +11,19 @@ const SelectTag = ({
    return (
       <Select {...otherProps} onChange={onChange} value={value}>
          <Option value="">{defaultValue}</Option>
-         {options.map((option) => (
-            <Option key={option} value={option}>
-               {option}
-            </Option>
-         ))}
+         {options.map((option) => {
+            if (option._id)
+               return (
+                  <Option key={option._id} value={option._id}>
+                     {option.name}
+                  </Option>
+               );
+            return (
+               <Option key={option} value={option}>
+                  {option}
+               </Option>
+            );
+         })}
       </Select>
    );
 };

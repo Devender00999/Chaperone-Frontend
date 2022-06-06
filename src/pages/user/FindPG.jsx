@@ -11,17 +11,21 @@ import { useDispatch, useSelector } from "react-redux";
 import * as findPGActions from "../../store/findPG";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader/Loader";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 const forWhom = ["Girls", "Boys"];
-const prices = ["15000", 18000, 19000, 25000];
+const prices = ["5000", 10000, "15000", 18000, 19000, 25000];
 const priceRange = prices.map((price) => "< " + price);
 
 const FindPG = (props) => {
    const dispatch = useDispatch();
 
    const [query, setQuery] = useState("");
+   const [price, setPrice] = useState("");
    const [apiCalled, setApiCalled] = useState();
 
-   const allPGDetails = useSelector(findPGActions.filterPGDetails(query));
+   const allPGDetails = useSelector(
+      findPGActions.filterPGDetails(query, price)
+   );
    const loading = useSelector((state) => state.findPG.loading);
    const error = useSelector((state) => state.findPG.error);
 
@@ -49,20 +53,37 @@ const FindPG = (props) => {
             <PageHeading>Find PG</PageHeading>
 
             <SelectTags>
-               <SelectTag selected options={forWhom} defaultValue="For Whom" />
                <SelectTag
                   selected
-                  options={priceRange}
-                  value={query}
+                  disabled={price}
+                  options={forWhom}
+                  defaultValue="For Whom"
                   onChange={(e) => setQuery(e.target.value)}
+                  value={query}
+               />
+               or
+               <SelectTag
+                  selected
+                  disabled={query}
                   defaultValue="Select Price Range"
+                  options={priceRange}
+                  onChange={(e) => setPrice(e.target.value)}
+                  value={price}
                />
             </SelectTags>
 
             <CommonContainer justify="flex-start">
-               {allPGDetails.map((pg, id) => (
-                  <PGCard small key={id} pgDetails={pg} />
-               ))}
+               {allPGDetails.length > 0 ? (
+                  allPGDetails.map((pg, id) => (
+                     <PGCard small key={id} pgDetails={pg} />
+                  ))
+               ) : (
+                  <ErrorMessage
+                     severity="warning"
+                     error="No PG details Found"
+                     style={{ width: "100%" }}
+                  />
+               )}
             </CommonContainer>
          </MainContent>
       </>

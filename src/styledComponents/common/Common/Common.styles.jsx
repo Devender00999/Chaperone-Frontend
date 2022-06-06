@@ -157,7 +157,7 @@ export const Price = styled.div`
    color: #ff6600;
 `;
 
-export const StyledButtons = styled.button`
+export const StyledButtons = styledMui(Button)`
    height: 45px;
    width: 300px;
    font-size: 18px;
@@ -165,6 +165,7 @@ export const StyledButtons = styled.button`
    border-radius: 2px;
    cursor: pointer;
    font-family: Poppins;
+   text-transform:capitalize;
    font-style: normal;
    font-weight: normal;
    font-size: 18px;

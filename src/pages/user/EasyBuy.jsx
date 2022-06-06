@@ -11,6 +11,7 @@ import EasyBuyCard from "../../styledComponents/EasyBuyCard/EasyBuyCard";
 import { useDispatch, useSelector } from "react-redux";
 import * as easybuyActions from "../../store/easybuy";
 import Loader from "../../components/Loader/Loader";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 const EasyBuy = (props) => {
    const [category, setCategory] = useState("");
@@ -34,36 +35,48 @@ const EasyBuy = (props) => {
       }
    }, [dispatch, products, apiCalled]);
 
-   return loading ? (
-      <Loader />
-   ) : (
+   return (
       <>
          <MainContent direction="column" flex={3}>
             <PageHeading style={{ marginBotton: "20px" }}>Easy Buy</PageHeading>
-            <SelectTags>
-               <SearchInput
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  type="search"
-                  disabled={price}
-                  className="form-control"
-                  placeholder="Search product"
-               />
-               or
-               <SelectTag
-                  disabled={category}
-                  defaultValue="All Prices"
-                  onChange={(e) => setPrice(e.target.value)}
-                  options={priceRange}
-                  selected={false}
-               />
-            </SelectTags>
+            {loading ? (
+               <Loader />
+            ) : (
+               <>
+                  <SelectTags>
+                     <SearchInput
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                        type="search"
+                        disabled={price}
+                        className="form-control"
+                        placeholder="Search product"
+                     />
+                     or
+                     <SelectTag
+                        disabled={category}
+                        defaultValue="All Prices"
+                        onChange={(e) => setPrice(e.target.value)}
+                        options={priceRange}
+                        selected
+                     />
+                  </SelectTags>
 
-            <CommonContainer justify="flex-start">
-               {products.map((item, id) => (
-                  <EasyBuyCard small key={id} data={item} />
-               ))}
-            </CommonContainer>
+                  <CommonContainer justify="flex-start">
+                     {products.length > 0 ? (
+                        products.map((item, id) => (
+                           <EasyBuyCard small key={id} data={item} />
+                        ))
+                     ) : (
+                        <ErrorMessage
+                           severity="warning"
+                           error="No product found."
+                           style={{ width: "100%" }}
+                        />
+                     )}
+                  </CommonContainer>
+               </>
+            )}
          </MainContent>
       </>
    );

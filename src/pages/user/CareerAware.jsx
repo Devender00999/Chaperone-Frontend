@@ -12,6 +12,7 @@ import { SelectTags } from "../../styledComponents/SelectTag/SelectTag.styles";
 import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
 import Loader from "../../components/Loader/Loader";
 import * as careerAwareActions from "../../store/careeraware";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 const profileTypes = ["Internship", "Full-Time"];
 const profiles = [
@@ -45,7 +46,7 @@ const CareerAware = () => {
             <PageHeading>Career Aware</PageHeading>
             {loading ? (
                <Loader />
-            ) : (
+            ) : allArticles.length > 0 ? (
                <>
                   <SelectTags>
                      <SelectTag
@@ -78,6 +79,8 @@ const CareerAware = () => {
                      <CareerCard key={id} data={article} />
                   ))}
                </>
+            ) : (
+               <ErrorMessage error="No job article found." severity="warning" />
             )}
          </MainContent>
          <RightSideBar heading="" content={[]} />

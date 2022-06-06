@@ -15,13 +15,18 @@ const FormSelect = ({
 }) => {
    return (
       <Form.Group className="mb-2 mt-2" style={style}>
-         <Form.Label>{label} </Form.Label>
-         <br />
+         {label && <Form.Label>{label} </Form.Label>}
+         {label && <br />}
          <SelectTag
             defaultValue={defaultValue}
             options={options}
             value={value}
-            style={{ width: "100%" }}
+            style={{
+               width: "100%",
+               border: "1px solid #ced4da",
+               backgroundColor: "transparent",
+               borderRadius: "4px",
+            }}
             onChange={onChange}
             name={name}
             {...otherProps}

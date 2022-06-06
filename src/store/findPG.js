@@ -84,18 +84,25 @@ export const addPGDetails = (pgDetails) =>
    });
 
 // action creator to get filtered allPGDetails
-export const filterPGDetails = (query = "") =>
-   createSelector(
+export const filterPGDetails = (query = "", price = "") => {
+   if (price) price = price.substring(2);
+   console.log(price);
+
+   return createSelector(
       (state) => state.findPG.allPGDetails,
       (allPGDetails) =>
          allPGDetails.filter((pgDetails) => {
-            return (
-               pgDetails.address.toLowerCase().includes(query.toLowerCase()) ||
-               pgDetails.ownName.toLowerCase().includes(query.toLowerCase())
-            );
+            if (!price)
+               return (
+                  pgDetails.gender
+                     .toLowerCase()
+                     .includes(query.toLowerCase()) ||
+                  pgDetails.location.toLowerCase().includes(query.toLowerCase())
+               );
+            return parseInt(pgDetails.ratePerMonth) < parseInt(price);
          })
    );
-
+};
 // action creator to load a allPGDetails
 export const loadPGDetails = (id) => (dispatch, getState) => {
    const { allPGDetails } = getState().findPG;

@@ -9,9 +9,11 @@ import EasyBuyCard from "../../styledComponents/EasyBuyCard/EasyBuyCard";
 import { careerData } from "../../data/career";
 import * as admissionActions from "../../store/admissions";
 import Loader from "../../components/Loader/Loader";
+import { useLocation } from "react-router";
 
 const HomeScreen = (props) => {
    const dispatch = useDispatch();
+   const location = useLocation();
    const [apiCalled, setApiCalled] = useState(false);
 
    // const tags = [
@@ -21,6 +23,8 @@ const HomeScreen = (props) => {
    //   { value: "Interest", selected: false },
    //   { value: "Interest", selected: false },
    // ];
+
+   useEffect(() => {}, [location]);
 
    const easyBuyData = [
       {
@@ -43,7 +47,6 @@ const HomeScreen = (props) => {
 
    const admissionArticles = useSelector(admissionActions.filteredArticles(""));
 
-   console.log(admissionArticles);
    const admissionLoading = useSelector((state) => state.admissions.loading);
 
    useEffect(() => {

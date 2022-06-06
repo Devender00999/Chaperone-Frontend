@@ -1,6 +1,6 @@
-import { Alert } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Loader from "../../components/Loader/Loader";
 
 import * as academicsActions from "../../store/academics";
@@ -10,53 +10,6 @@ import {
 } from "../../styledComponents/common/Common/Common.styles";
 import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
 import SubjectCard from "../../styledComponents/SubjectCard/SubjectCard";
-
-// const subjects = [
-//    {
-//       title: "Software Testing & Quality assurance",
-//       topics: [
-//          {
-//             topicName: "Unit 1 - Software Testing & Quality",
-//             topicLink: "/some topic",
-//          },
-//          {
-//             topicName: "Unit 2 - White Box Testing & Black Box Testing",
-//             topicLink: "/some topic",
-//          },
-//          {
-//             topicName: "Unit 3 - Quality Assurance & Standards",
-//             topicLink: "/some topic",
-//          },
-//          {
-//             topicName:
-//                "Unit 4 - Test Selection & Minimization for Regression Testing ",
-//             topicLink: "/some topic",
-//          },
-//       ],
-//    },
-//    {
-//       title: "Software Testing & Quality assurance",
-//       topics: [
-//          {
-//             topicName: "Unit 1 - Software Testing & Quality",
-//             topicLink: "/some topic",
-//          },
-//          {
-//             topicName: "Unit 2 - White Box Testing & Black Box Testing",
-//             topicLink: "/some topic",
-//          },
-//          {
-//             topicName: "Unit 3 - Quality Assurance & Standards",
-//             topicLink: "/some topic",
-//          },
-//          {
-//             topicName:
-//                "Unit 4 - Test Selection & Minimization for Regression Testing ",
-//             topicLink: "/some topic",
-//          },
-//       ],
-//    },
-// ];
 
 const rightSideBarData = {
    heading: "Other Section",
@@ -93,7 +46,7 @@ const Academics = () => {
                   <SubjectCard key={subject._id} subject={subject} />
                ))
             ) : (
-               <Alert severity="warning">No Data Found</Alert>
+               <ErrorMessage severity="warning" error="No Data Found" />
             )}
          </MainContent>
          <RightSideBar {...rightSideBarData} />

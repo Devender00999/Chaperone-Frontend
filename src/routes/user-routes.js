@@ -12,7 +12,6 @@ import EasyBuy from "../pages/user/EasyBuy";
 import DoubtDesk from "../pages/user/DoubtDesk";
 import DoubtDeskPage from "../styledComponents/styledPages/DoubtDeskPage/DoubtDeskPage";
 import DoubtDeskAnswers from "../styledComponents/styledPages/DoubtDeskPage/DoubtDeskAnswers";
-import Blogs from "../pages/user/Blogs";
 import React from "react";
 import Blog from "../styledComponents/styledPages/Blog/Blog";
 import AdmissionBlog from "../styledComponents/styledPages/Blog/AdmissionBlog";
@@ -53,7 +52,6 @@ const UserRoutes = (
          exact
          element={<DoubtDeskAnswers />}
       />
-      <Route path="/dashboard/blogs" exact element={<Blogs />} />
    </React.Fragment>
 );
 
