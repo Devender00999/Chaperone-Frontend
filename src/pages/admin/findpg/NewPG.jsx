@@ -261,7 +261,7 @@ const NewPG = () => {
                   className="btn"
                   type="submit"
                >
-                  Upload Note
+                  Upload PG Details
                </OutlinedButton>
             </div>
             {/* <div dangerouslySetInnerHTML={{ __html: markup }} /> */}

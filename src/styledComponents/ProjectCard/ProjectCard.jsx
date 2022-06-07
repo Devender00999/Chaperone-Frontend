@@ -12,7 +12,7 @@ import { UserDetails, UserProps } from "../common/User/User.styles";
 
 const ProjectCard = ({ projectDetails }) => {
    return (
-      <CardContainer style={projectDetails.small && { width: "48%" }}>
+      <CardContainer style={projectDetails?.small && { width: "48%" }}>
          <CardImage
             image={config.url + projectDetails.image}
             style={projectDetails.small && { height: "180px" }}

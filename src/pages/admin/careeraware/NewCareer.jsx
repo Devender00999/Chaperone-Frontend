@@ -61,10 +61,26 @@ const NewCareer = () => {
    useEffect(() => {
       let article;
       if (id) {
-         article = jobArticle;
+         article = { ...jobArticle };
 
-         console.log(article);
+         // console.log(article);
          if (article) {
+            if (article.responsibilities)
+               article.responsibilities = article.responsibilities.join("\n");
+            if (article.requirements)
+               article.requirements = article.requirements.join("\n");
+
+            if (article.skillRequired)
+               article.skillRequired = article.skillRequired.join("\n");
+            if (article.eligibility)
+               article.eligibility = article.eligibility.join("\n");
+            if (article.features)
+               article.features = article.features.join("\n");
+
+            if (article.recruitmentProcess)
+               article.recruitmentProcess =
+                  article.recruitmentProcess.join("\n");
+
             setFormData(article);
          }
       }
@@ -85,8 +101,12 @@ const NewCareer = () => {
    }, [error, loading]);
 
    const convertToString = (list) => {
-      console.log(list);
-      if (list && typeof list !== "string") return list.join(", ");
+      if (list && typeof list === "object") {
+         const str = list.join("\n");
+         console.log(str, typeof list);
+         return str;
+      }
+      return list;
    };
 
    const handleChange = ({ target }) => {
@@ -96,16 +116,7 @@ const NewCareer = () => {
          if (type === "file") {
             value = target.files[0];
          }
-         if (
-            name === "features" ||
-            name === "responsibilities" ||
-            name === "recruitmentProcess" ||
-            name === "requirements" ||
-            name === "eligibility" ||
-            name === "skillRequired"
-         ) {
-            value = value.split(", ");
-         }
+
          return { ...prev, [name]: value };
       });
    };

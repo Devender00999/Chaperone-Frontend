@@ -17,7 +17,7 @@ const header1 = (page) => {
       case "Academics":
          return "Subject Name";
       case "Career":
-         return "Company Name";
+         return "Profile Name";
       case "EasyBuy":
          return "Posted By";
 

@@ -13,6 +13,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import * as roadmapActions from "../../../store/roadmaps";
 import Loader from "../../../components/Loader/Loader";
+import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage";
 
 const Projects = () => {
    // const [roadmaps, setRoadmaps] = useState(roadmapsData);
@@ -59,6 +60,15 @@ const Projects = () => {
                   </PrimaryButton>
                </HeadingContent>
             </HeadingContainer>
+            {roadmaps.length === 0 && (
+               <ErrorMessage
+                  style={{ height: 50, width: "100%" }}
+                  severity="warning"
+                  error="No Projects found. We will add some soon."
+               >
+                  No Projects found. We will add some soon.
+               </ErrorMessage>
+            )}
             {roadmaps.map((roadmap) => (
                <div key={roadmap._id}>
                   <Heading

@@ -9,6 +9,7 @@ import { RoadmapCard } from "../../styledComponents/RoadmapCard/RoadmapCard";
 import { RoadmapsCardContainer } from "../../styledComponents/RoadmapCard/RoadmapCard.styles";
 import * as roadmapActions from "../../store/roadmaps";
 import Loader from "../../components/Loader/Loader";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 const Roadmaps = (props) => {
    const [apiCalled, setApiCalled] = useState(false);
@@ -18,7 +19,7 @@ const Roadmaps = (props) => {
    const loading = useSelector((state) => state.roadmaps.loading);
 
    useEffect(() => {
-      if (roadmaps && !apiCalled) {
+      if (roadmaps.length === 0 && !apiCalled) {
          dispatch(roadmapActions.loadRoadmaps());
          setApiCalled(true);
       }
@@ -29,11 +30,19 @@ const Roadmaps = (props) => {
       <>
          <MainContent direction="column" flex={3}>
             <PageHeading>Roadmaps</PageHeading>
-            <RoadmapsCardContainer>
-               {roadmaps.map((data) => (
-                  <RoadmapCard key={data._id} {...data} />
-               ))}
-            </RoadmapsCardContainer>
+            {roadmaps.length === 0 ? (
+               <ErrorMessage
+                  style={{ marginTop: "20px" }}
+                  severity="warning"
+                  error="No Roadmaps available"
+               />
+            ) : (
+               <RoadmapsCardContainer>
+                  {roadmaps.map((data) => (
+                     <RoadmapCard key={data._id} {...data} />
+                  ))}
+               </RoadmapsCardContainer>
+            )}
          </MainContent>
       </>
    );
