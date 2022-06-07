@@ -45,8 +45,6 @@ const CareerAware = () => {
          <MainContent direction="column" flex={3}>
             <PageHeading>Career Aware</PageHeading>
             {loading ? (
-               <Loader />
-            ) : allArticles.length > 0 ? (
                <>
                   <SelectTags>
                      <SelectTag
@@ -75,15 +73,19 @@ const CareerAware = () => {
                      />
                   </SelectTags>
 
-                  {allArticles.map((article, id) => (
-                     <CareerCard key={id} data={article} />
-                  ))}
+                  {allArticles.length > 0 ? (
+                     allArticles.map((article, id) => (
+                        <CareerCard key={id} data={article} />
+                     ))
+                  ) : (
+                     <Loader />
+                  )}
                </>
             ) : (
                <ErrorMessage error="No job article found." severity="warning" />
             )}
          </MainContent>
-         <RightSideBar  />
+         <RightSideBar />
       </>
    );
 };
