@@ -45,6 +45,8 @@ const CareerAware = () => {
          <MainContent direction="column" flex={3}>
             <PageHeading>Career Aware</PageHeading>
             {loading ? (
+               <Loader />
+            ) : (
                <>
                   <SelectTags>
                      <SelectTag
@@ -78,11 +80,12 @@ const CareerAware = () => {
                         <CareerCard key={id} data={article} />
                      ))
                   ) : (
-                     <Loader />
+                     <ErrorMessage
+                        error="No job article found."
+                        severity="warning"
+                     />
                   )}
                </>
-            ) : (
-               <ErrorMessage error="No job article found." severity="warning" />
             )}
          </MainContent>
          <RightSideBar />
