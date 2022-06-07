@@ -86,7 +86,7 @@ const NewCareer = () => {
 
    const convertToString = (list) => {
       console.log(list);
-      if (list && typeof list !== "string") return list.join(", ");
+      if (list && typeof list !== "string") return list.join(";");
    };
 
    const handleChange = ({ target }) => {
@@ -104,7 +104,7 @@ const NewCareer = () => {
             name === "eligibility" ||
             name === "skillRequired"
          ) {
-            value = value.split(", ");
+            value = value.split(";");
          }
          return { ...prev, [name]: value };
       });

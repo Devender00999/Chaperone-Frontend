@@ -87,7 +87,7 @@ const Blog = () => {
                </BlogContent>
             </BlogContainer>
          </MainContent>
-         <RightSideBar heading="" content={[]} />
+         <RightSideBar />
       </>
    ) : null;
 };

@@ -17,6 +17,7 @@ import * as roadmapActions from "../../../store/roadmaps";
 import Loader from "../../../components/Loader/Loader";
 import { Col, Form, Row } from "react-bootstrap";
 import InputTags from "../../../styledComponents/InputTags";
+import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage";
 
 const RoadmapBlogs = () => {
    // const [roadmaps, setRoadmaps] = useState(roadmapsData);
@@ -167,7 +168,12 @@ const RoadmapBlogs = () => {
                   {"id" !== "new" ? "Save" : "Submit"}
                </PrimaryButton>
             </div>
-
+            {roadmaps.length === 0 && (
+               <ErrorMessage
+                  severity="warning"
+                  error="No Roadmaps available. We will add them soon."
+               />
+            )}
             {roadmaps.map((roadmap) => (
                <div key={roadmap._id}>
                   <Heading

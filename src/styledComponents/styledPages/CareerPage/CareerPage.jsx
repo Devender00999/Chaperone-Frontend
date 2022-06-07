@@ -26,16 +26,6 @@ import * as Card from "../../CareerCard/CareerCard.styles";
 import * as careerAwareAction from "../../../store/careeraware";
 import Loader from "../../../components/Loader/Loader";
 
-const rightSideBarData = {
-   heading: "Your Recents",
-   content: [
-      "Choice filling Round 1 for B Tech...",
-      "Final Datesheet for Reappear exam",
-      "Data Structures Notes",
-      "Roadmap to UX Designing",
-   ],
-};
-
 const CareerPage = () => {
    const dispatch = useDispatch();
    const { id } = useParams();
@@ -184,7 +174,7 @@ const CareerPage = () => {
                   </OutlinedButton>
                </CareerPageContainer>
             </MainContent>
-            <RightSideBar {...rightSideBarData} />
+            <RightSideBar />
          </>
       )
    );
