@@ -32,7 +32,7 @@ const BlogsCard = (props) => {
                <User
                   className="secondary-color"
                   image={config.url + props.author.profilePic}
-                  name="Deepak Kumar"
+                  name={props.author.name}
                   style={{ padding: "0.5rem 0" }}
                />
                <UserProps>
@@ -54,10 +54,10 @@ const BlogsCard = (props) => {
                         onClick={() =>
                            console.log(
                               window.location.origin +
-                                 "/dashboard/" +
-                                 props.type +
-                                 "/" +
-                                 props._id
+                              "/dashboard/" +
+                              props.type +
+                              "/" +
+                              props._id
                            )
                         }
                      >

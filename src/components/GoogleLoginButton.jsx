@@ -8,7 +8,7 @@ import { StyledButtons } from "../styledComponents/common/Common/Common.styles";
 import GoogleIcon from "@mui/icons-material/Google";
 
 if (!process.env["REACT_APP_CLIENT_ID"]) {
-   console.log("Cliet ID not found");
+   console.log("Client ID not found");
 }
 
 const GoogleLoginButton = () => {
@@ -34,7 +34,7 @@ const GoogleLoginButton = () => {
    const handleError = (res) => {
       toast.error(res);
    };
-   console.log("clientID:", process.env["REACT_APP_CLIENT_ID"]);
+
    return (
       <div>
          <GoogleLogin
