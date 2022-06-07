@@ -4,7 +4,7 @@ import http from "./httpService";
 import config from "../config";
 
 const apiEndPoint = config.apiUrl + "/users/auth";
-console.log(apiEndPoint, config.apiUrl);
+
 const tokenKey = "token";
 
 http.setJwt(getJwt());
