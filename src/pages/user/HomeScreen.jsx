@@ -19,11 +19,11 @@ const HomeScreen = (props) => {
    const loading = useSelector((state) => state.homescreen.loading);
 
    useEffect(() => {
-      if (!apiCalled) {
+      if (allData.length === 0 && !apiCalled) {
          dispatch(loadAllData());
          setApiCalled(true);
       }
-   }, [apiCalled, dispatch]);
+   }, [allData, apiCalled, dispatch]);
    const chooseComponent = (type, id, data) => {
       if (type === "roadmaps")
          return (

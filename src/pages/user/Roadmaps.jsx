@@ -18,7 +18,7 @@ const Roadmaps = (props) => {
    const loading = useSelector((state) => state.roadmaps.loading);
 
    useEffect(() => {
-      if (roadmaps && !apiCalled) {
+      if (roadmaps.length === 0 && !apiCalled) {
          dispatch(roadmapActions.loadRoadmaps());
          setApiCalled(true);
       }

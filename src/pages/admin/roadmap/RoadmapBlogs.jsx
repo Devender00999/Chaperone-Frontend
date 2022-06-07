@@ -12,7 +12,7 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "@mui/material";
-// import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
+import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import * as roadmapActions from "../../../store/roadmaps";
 import Loader from "../../../components/Loader/Loader";
 import { Col, Form, Row } from "react-bootstrap";
@@ -153,9 +153,7 @@ const RoadmapBlogs = () => {
                   </Col>
                   <Col md style={{ paddingRight: 0 }}>
                      <Form.Group className="mb-3">
-                        <Form.Label>
-                           Add Tags related to your questions
-                        </Form.Label>
+                        <Form.Label>Add Tags</Form.Label>
                         <InputTags tags={features} setTags={setFeatures} />
                      </Form.Group>
                   </Col>
@@ -186,13 +184,13 @@ const RoadmapBlogs = () => {
                      }}
                   >
                      {roadmap.title}
-                     {/* <ClearOutlinedIcon
+                     <ClearOutlinedIcon
                         onClick={() =>
                            dispatch(roadmapActions.removeRoadmap(roadmap._id))
                         }
                         style={{ cursor: "pointer" }}
                         color="#f60"
-                     /> */}
+                     />
                   </Heading>
                   <DataTable
                      key={roadmap._id}

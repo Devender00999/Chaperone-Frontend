@@ -133,7 +133,11 @@ const Roadmap = () => {
 
                   <ProjectContainer>
                      {roadmap.projects.slice(0, projectLimit).map((project) => (
-                        <ProjectCard small key={project._id} {...project} />
+                        <ProjectCard
+                           small
+                           key={project._id}
+                           projectDetails={project}
+                        />
                      ))}
                   </ProjectContainer>
                </>
