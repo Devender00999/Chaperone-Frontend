@@ -23,6 +23,7 @@ import * as roadmapActions from "../../../store/roadmaps";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "@mui/material";
+import Loader from "../../../components/Loader/Loader";
 
 const Roadmap = () => {
    const roadmap = useSelector((state) => state.roadmaps.selectedRoadmap);
@@ -68,7 +69,7 @@ const Roadmap = () => {
    };
 
    return loading ? (
-      "Loading..."
+      <Loader />
    ) : roadmap ? (
       <>
          <MainContent direction="column" flex={3}>

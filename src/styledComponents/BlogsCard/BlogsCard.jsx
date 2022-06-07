@@ -14,6 +14,16 @@ import { useDispatch } from "react-redux";
 const BlogsCard = (props) => {
    const dispatch = useDispatch();
    const rTo = "/dashboard/" + props.type + "/" + props._id;
+
+   const data = `${window.location.origin}/dashboard/${props.type}/${props._id}`;
+   const copyToClipboard = async () => {
+      try {
+         await navigator.clipboard.writeText(data);
+      } catch (ex) {
+         console.log(ex.message);
+      }
+   };
+
    return (
       <CardContainer>
          <CardImage image={config.url + props.image} />
@@ -51,20 +61,17 @@ const BlogsCard = (props) => {
                      <Dropdown.Item
                         className="text-center py-2"
                         eventKey="1"
-                        onClick={() =>
-                           console.log(
-                              window.location.origin +
-                              "/dashboard/" +
-                              props.type +
-                              "/" +
-                              props._id
-                           )
-                        }
+                        href={`http://wa.me/?text=${data}`}
+                        target="_blank"
                      >
                         Whatsapp
                      </Dropdown.Item>
                      <Dropdown.Divider />
-                     <Dropdown.Item className="text-center py-2" eventKey="1">
+                     <Dropdown.Item
+                        onClick={() => copyToClipboard()}
+                        className="text-center py-2"
+                        eventKey="1"
+                     >
                         Copy
                      </Dropdown.Item>
                   </DropdownButton>

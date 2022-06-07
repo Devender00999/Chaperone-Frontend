@@ -6,7 +6,7 @@ import draftToHtml from "draftjs-to-html";
 import { EditorState } from "draft-js";
 import { Form, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import Loader from "../../../components/Loader/Loader";
 import {
    MainContent,
    PageHeading,
@@ -133,7 +133,7 @@ const NewAdmissionBlog = () => {
    };
 
    return loading ? (
-      "Loading..."
+      <Loader />
    ) : (
       <>
          <MainContent direction={"column"} flex={4}>

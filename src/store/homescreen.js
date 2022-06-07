@@ -98,7 +98,9 @@ export const filteredData = () =>
          if (query.length === 0) {
             let arr = [...allData];
             return arr.sort((data1, data2) => {
-               return data1.createdAt > data2.createdAt ? 1 : -1;
+               const time2 = new Date(data2.createdAt);
+               const time1 = new Date(data1.createdAt);
+               return time2 - time1;
             });
          } else {
             return allData.filter((data) => {
