@@ -12,6 +12,8 @@ import RightSideBar from "../../SidePanel/RightSideBar";
 import * as roadmapActions from "../../../store/roadmaps";
 import User from "../../common/User/User";
 import { UserDetails, UserProps } from "../../common/User/User.styles";
+import { Dropdown, DropdownButton } from "react-bootstrap";
+import Loader from "../../../components/Loader/Loader";
 
 const Blog = () => {
    const dispatch = useDispatch();
@@ -27,6 +29,16 @@ const Blog = () => {
    const error = useSelector((state) => state.roadmaps.error);
 
    const { id: roadmapId, articleId } = useParams();
+
+   const data = `${window.location.origin}/dashboard/roadmaps/${roadmapId}/${articleId}`;
+
+   const copyToClipboard = async () => {
+      try {
+         await navigator.clipboard.writeText(data);
+      } catch (ex) {
+         console.log(ex.message);
+      }
+   };
 
    useEffect(() => {
       if (error != null) {
@@ -48,7 +60,7 @@ const Blog = () => {
    ]);
 
    return loading ? (
-      "Loading..."
+      <Loader />
    ) : selectedArticle ? (
       <>
          <MainContent direction="column" flex={3}>
@@ -72,10 +84,28 @@ const Blog = () => {
                         />
                         <UserProps>
                            <Like className="cursor-pointer" />
-                           <ShareIcon
-                              className="cursor-pointer"
-                              style={{ marginLeft: "0rem" }}
-                           />
+                           <DropdownButton
+                              drop={"start"}
+                              variant="none"
+                              title={<ShareIcon className="cursor-pointer" />}
+                           >
+                              <Dropdown.Item
+                                 className="text-center py-2"
+                                 eventKey="1"
+                                 href={`http://wa.me/?text=${data}`}
+                                 target="_blank"
+                              >
+                                 Whatsapp
+                              </Dropdown.Item>
+                              <Dropdown.Divider />
+                              <Dropdown.Item
+                                 className="text-center py-2"
+                                 eventKey="1"
+                                 onClick={() => copyToClipboard()}
+                              >
+                                 Copy
+                              </Dropdown.Item>
+                           </DropdownButton>
                         </UserProps>
                      </UserDetails>
                   )}
