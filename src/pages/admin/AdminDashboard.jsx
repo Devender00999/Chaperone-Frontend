@@ -1,7 +1,7 @@
 import React from "react";
 
 import RightSideBar from "../../styledComponents/SidePanel/RightSideBar";
-import Tags from "../../styledComponents/Tags/Tags";
+// import Tags from "../../styledComponents/Tags/Tags";
 import { MainContent } from "../../styledComponents/common/Common/Common.styles";
 import { Alert } from "@mui/material";
 
