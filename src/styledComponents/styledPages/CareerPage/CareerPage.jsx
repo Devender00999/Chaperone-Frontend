@@ -117,11 +117,14 @@ const CareerPage = () => {
                         <CareerAboutHeading>Requirements</CareerAboutHeading>
                         <CareerList>
                            {careerArticle.requirements.map(
-                              (requirement, key) => (
-                                 <CareerListItem key={key}>
-                                    {requirement}
-                                 </CareerListItem>
-                              )
+                              (requirement, key) => {
+                                 console.log(requirement + "adfasdfadsfadsf");
+                                 return (
+                                    <CareerListItem key={key}>
+                                       {requirement}
+                                    </CareerListItem>
+                                 );
+                              }
                            )}
                         </CareerList>
                      </CareerListContainer>

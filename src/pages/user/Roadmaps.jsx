@@ -30,7 +30,7 @@ const Roadmaps = (props) => {
       <>
          <MainContent direction="column" flex={3}>
             <PageHeading>Roadmaps</PageHeading>
-            {roadmaps.length !== 0 ? (
+            {roadmaps.length === 0 ? (
                <ErrorMessage
                   style={{ marginTop: "20px" }}
                   severity="warning"
