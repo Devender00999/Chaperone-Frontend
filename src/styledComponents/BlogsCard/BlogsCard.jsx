@@ -23,7 +23,7 @@ const BlogsCard = (props) => {
          console.log(ex.message);
       }
    };
-
+   console.log(props.author.profilePic.search("googleusercontent.com"));
    return (
       <CardContainer>
          <CardImage image={config.url + props.image} />
