@@ -41,7 +41,7 @@ const BlogsCard = (props) => {
             <UserDetails>
                <User
                   className="secondary-color"
-                  image={config.url + props.author.profilePic}
+                  image={props.author.profilePic.search("googleusercontent.com") ? props.author.profilePic : config.url + props.author.profilePic}
                   name={props.author.name}
                   style={{ padding: "0.5rem 0" }}
                />
