@@ -40,7 +40,7 @@ const ProjectCard = ({ projectDetails }) => {
                {!projectDetails.small && (
                   <User
                      className={"secondary-color"}
-                     image={config.url + projectDetails.author.profilePic}
+                     image={profilePic}
                      name={projectDetails.author.name}
                      small={projectDetails.small}
                   />
