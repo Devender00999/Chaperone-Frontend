@@ -25,7 +25,6 @@ const BlogsCard = (props) => {
    };
 
    const profilePic = props.author.profilePic.search("https://") !== -1 ? props.author.profilePic : config.url + props.author.profilePic;
-   console.log(profilePic);
 
    return (
       <CardContainer>

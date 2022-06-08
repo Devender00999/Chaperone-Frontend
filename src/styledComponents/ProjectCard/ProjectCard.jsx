@@ -11,10 +11,12 @@ import User from "../common/User/User";
 import { UserDetails, UserProps } from "../common/User/User.styles";
 
 const ProjectCard = ({ projectDetails }) => {
+   const profilePic = projectDetails.image.search("https://") !== -1 ? projectDetails.image : config.url + projectDetails.image;
+
    return (
       <CardContainer style={projectDetails?.small && { width: "48%" }}>
          <CardImage
-            image={config.url + projectDetails.image}
+            image={profilePic}
             style={projectDetails.small && { height: "180px" }}
          />
          <CardData style={projectDetails.small && { padding: "1rem" }}>
