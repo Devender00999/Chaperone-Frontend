@@ -12,6 +12,7 @@ import { UserDetails, UserProps } from "../common/User/User.styles";
 
 const ProjectCard = ({ projectDetails }) => {
    const profilePic = projectDetails.author.profilePic.search("https://") !== -1 ? projectDetails.author.profilePic : config.url + projectDetails.author.profilePic;
+   console.log(profilePic);
 
    return (
       <CardContainer style={projectDetails?.small && { width: "48%" }}>
