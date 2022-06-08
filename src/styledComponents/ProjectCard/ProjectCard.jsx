@@ -11,12 +11,12 @@ import User from "../common/User/User";
 import { UserDetails, UserProps } from "../common/User/User.styles";
 
 const ProjectCard = ({ projectDetails }) => {
-   const profilePic = projectDetails.image.search("https://") !== -1 ? projectDetails.image : config.url + projectDetails.image;
+   const profilePic = projectDetails.author.profilePic.search("https://") !== -1 ? projectDetails.author.profilePic : config.url + projectDetails.author.profilePic;
 
    return (
       <CardContainer style={projectDetails?.small && { width: "48%" }}>
          <CardImage
-            image={profilePic}
+            image={config.url + projectDetails.image}
             style={projectDetails.small && { height: "180px" }}
          />
          <CardData style={projectDetails.small && { padding: "1rem" }}>
@@ -24,7 +24,7 @@ const ProjectCard = ({ projectDetails }) => {
             {projectDetails.small && (
                <User
                   className="secondary-color"
-                  image={config.url + projectDetails.author.profilePic}
+                  image={profilePic}
                   name={projectDetails.author.name}
                   small={projectDetails.small}
                   style={{ padding: "1rem 0 0.5rem" }}
