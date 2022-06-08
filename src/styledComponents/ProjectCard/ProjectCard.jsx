@@ -11,7 +11,7 @@ import User from "../common/User/User";
 import { UserDetails, UserProps } from "../common/User/User.styles";
 
 const ProjectCard = ({ projectDetails }) => {
-   const profilePic = projectDetails.author.profilePic.search("https://") !== -1 ? projectDetails.author.profilePic : config.url + projectDetails.author.profilePic;
+   const profilePic = projectDetails.author.profilePic.includes("https://") ? projectDetails.author.profilePic : config.url + projectDetails.author.profilePic;
    console.log(profilePic);
 
    return (
