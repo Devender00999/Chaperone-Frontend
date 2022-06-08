@@ -23,9 +23,7 @@ const BlogsCard = (props) => {
          console.log(ex.message);
       }
    };
-   console.log(props.author.profilePic.search("googleusercontent.com"));
-   console.log(props.author.profilePic.search("https://"));
-   console.log(props.author.profilePic);
+
    return (
       <CardContainer>
          <CardImage image={config.url + props.image} />
@@ -43,7 +41,7 @@ const BlogsCard = (props) => {
             <UserDetails>
                <User
                   className="secondary-color"
-                  image={props.author.profilePic.search("googleusercontent.com") ? props.author.profilePic : config.url + props.author.profilePic}
+                  image={props.author.profilePic.search("googleusercontent.com") !== -1 ? props.author.profilePic : config.url + props.author.profilePic}
                   name={props.author.name}
                   style={{ padding: "0.5rem 0" }}
                />
